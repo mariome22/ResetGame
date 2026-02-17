@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Wall
+  - Portal
   layers:
   - Default
   - TransparentFX
@@ -46,6 +48,9 @@ TagManager:
     locked: 0
   - name: Muro
     uniqueID: 944689921
+    locked: 0
+  - name: Objetos
+    uniqueID: 3383491295
     locked: 0
   - name: Player
     uniqueID: 332852017
