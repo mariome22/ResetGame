@@ -23,4 +23,24 @@ public class PlayerController : MonoBehaviour
     {
         rb.linearVelocity = movimientoInput * velocidad;
     }
+    public void OnInteract(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            Debug.Log("TECLA RECIBIDA: He pulsado el botón de interactuar.");
+            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 2f);
+            Debug.Log("BUSCANDO: He encontrado " + hitColliders.Length + " objetos cerca.");
+
+            foreach (var hitCollider in hitColliders)
+            {
+                InteractableObject interactable = hitCollider.GetComponent<InteractableObject>();
+                if (interactable != null)
+                {
+                    Debug.Log("ÉXITO: ¡Encontré un objeto interactuable! Ejecutando...");
+                    interactable.Interact();
+                    break;
+                }
+            }
+        }
+    }
 }
