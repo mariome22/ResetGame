@@ -1439,6 +1439,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 684007592919031421, guid: b2fa7692916d72e4f8a5e17d16b6c965, type: 3}
+      propertyPath: dashCooldown
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 2321535561617637065, guid: b2fa7692916d72e4f8a5e17d16b6c965, type: 3}
       propertyPath: m_Name
       value: Player_Lvl1
