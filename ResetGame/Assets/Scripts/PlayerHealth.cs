@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro; // 1. OBLIGATORIO PARA USAR TEXTOS
+using TMPro;
+using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -8,33 +9,60 @@ public class PlayerHealth : MonoBehaviour
     public int vidaMaxima = 3;
     private int vidaActual;
 
-    [Header("UI")]
-    public TextMeshProUGUI textoVida; // 2. EL HUECO PARA EL TEXTO
+    [Header("Invulnerabilidad (I-Frames)")]
+    public float tiempoInvulnerable = 1f;
+    private bool esInvulnerable = false;
+
+    [Header("UI y Feedback")]
+    public TextMeshProUGUI textoVida;
+    private SpriteRenderer spriteRenderer;
+    private Color colorOriginal; // 1. Variable para memorizar tu color
 
     private void Start()
     {
         vidaActual = vidaMaxima;
-        ActualizarHUD(); // Llamamos a esto al empezar
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        // 2. Guardamos el color que le hayas puesto en el Inspector
+        if (spriteRenderer != null) colorOriginal = spriteRenderer.color;
+
+        ActualizarHUD();
     }
 
     public void RecibirDano(int cantidadDano)
     {
+        if (esInvulnerable) return;
+
         vidaActual -= cantidadDano;
-        ActualizarHUD(); // Actualizamos el texto al recibir daño
+        ActualizarHUD();
 
         if (vidaActual <= 0)
         {
             Morir();
         }
+        else
+        {
+            StartCoroutine(RutinaInvulnerabilidad());
+        }
     }
 
-    // 3. NUEVA FUNCIÓN PARA CAMBIAR EL TEXTO
+    private IEnumerator RutinaInvulnerabilidad()
+    {
+        esInvulnerable = true;
+
+        if (spriteRenderer != null) spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.15f);
+
+        // 3. Volvemos al color original en lugar de a Color.white
+        if (spriteRenderer != null) spriteRenderer.color = colorOriginal;
+
+        yield return new WaitForSeconds(tiempoInvulnerable - 0.15f);
+        esInvulnerable = false;
+    }
+
     private void ActualizarHUD()
     {
-        if (textoVida != null)
-        {
-            textoVida.text = "Vidas: " + vidaActual;
-        }
+        if (textoVida != null) textoVida.text = "Vidas: " + vidaActual;
     }
 
     private void Morir()

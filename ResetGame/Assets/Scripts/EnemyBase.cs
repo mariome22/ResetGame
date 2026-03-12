@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -6,15 +7,23 @@ public class EnemyBase : MonoBehaviour
     public int vidaMaxima = 3;
     private int vidaActual;
 
+    private SpriteRenderer spriteRenderer;
+    private Color colorOriginal; // 1. Variable para memorizar el color
+
     private void Start()
     {
         vidaActual = vidaMaxima;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        // 2. Guardamos el color
+        if (spriteRenderer != null) colorOriginal = spriteRenderer.color;
     }
 
     public void RecibirDano(int cantidadDano)
     {
         vidaActual -= cantidadDano;
-        Debug.Log("Dano recibido en " + gameObject.name + ". Vida: " + vidaActual);
+
+        StartCoroutine(EfectoDano());
 
         if (vidaActual <= 0)
         {
@@ -22,9 +31,20 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
+    private IEnumerator EfectoDano()
+    {
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = new Color(1f, 0.5f, 0.5f); // Un tono rojizo/blanco de impacto
+            yield return new WaitForSeconds(0.1f);
+
+            // 3. Restauramos su color original
+            spriteRenderer.color = colorOriginal;
+        }
+    }
+
     private void Morir()
     {
-        Debug.Log("Muere " + gameObject.name);
         Destroy(gameObject);
     }
 }
