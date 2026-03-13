@@ -5,33 +5,45 @@ public class EnemyMelee : MonoBehaviour
 {
     [Header("Movimiento Base (Slime)")]
     public float velocidadNormal = 2f;
-    public float rangoDeteccion = 10f; // Si estás más lejos que esto, se queda quieto esperando
+    public float rangoDeteccion = 10f;
 
     [Header("Ajustes de Embestida")]
     public bool haceEmbestidas = false;
-    public float rangoEmbestida = 4f; // A qué distancia decide lanzarse
+    public float rangoEmbestida = 4f;
     public float velocidadEmbestida = 8f;
-    public float tiempoPreparacion = 0.5f; // Pausa dramática antes de volar hacia ti
+    public float tiempoPreparacion = 0.5f;
     public float tiempoRecargaEmbestida = 2f;
+    [Tooltip("Color que tomará para avisar del ataque")]
+    public Color colorAvisoEmbestida = Color.red; // <-- NUEVO
 
     [Header("Ajustes de Explosión")]
     public bool explota = false;
-    public float rangoActivacionExplosion = 1.5f; // Cuando estés a esta distancia, inicia la cuenta atrás
-    public float tiempoParaExplotar = 1f; // Tiempo que parpadea antes de hacer BOOM
-    public int danoExplosion = 2; // Cuánto duele la explosión
+    public float rangoActivacionExplosion = 1.5f;
+    public float tiempoParaExplotar = 1f;
+    public int danoExplosion = 2;
+    [Tooltip("Fuerza con la que vibra antes de explotar")]
+    public float intensidadTemblor = 0.05f; // <-- NUEVO
 
     [Header("Daño de Contacto")]
     public int danoPorContacto = 1;
 
     private Transform jugador;
-    private bool estaOcupado = false; // Bloquea el movimiento normal si está embistiendo o explotando
+    private bool estaOcupado = false;
     private bool puedeEmbestir = true;
-    private bool estaEmbistiendo = false; // Para saber si el murciélago está en pleno vuelo
+    private bool estaEmbistiendo = false;
+
+    // Referencias visuales
+    private SpriteRenderer spriteRenderer;
+    private Color colorOriginal;
 
     private void Start()
     {
         GameObject objJugador = GameObject.FindGameObjectWithTag("Player");
         if (objJugador != null) jugador = objJugador.transform;
+
+        // Guardamos su color inicial por si es un cubo verde, azul, etc.
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null) colorOriginal = spriteRenderer.color;
     }
 
     private void Update()
@@ -40,20 +52,16 @@ public class EnemyMelee : MonoBehaviour
 
         float distancia = Vector2.Distance(transform.position, jugador.position);
 
-        // Solo se mueve si el jugador está dentro de su radar
         if (distancia <= rangoDeteccion)
         {
-            // Prioridad 1: Explotar (Kamikaze)
             if (explota && distancia <= rangoActivacionExplosion)
             {
                 StartCoroutine(RutinaExplosion());
             }
-            // Prioridad 2: Embestir (Murciélago)
             else if (haceEmbestidas && distancia <= rangoEmbestida && puedeEmbestir)
             {
                 StartCoroutine(RutinaEmbestida());
             }
-            // Prioridad 3: Perseguir normal (Slime)
             else
             {
                 transform.position = Vector2.MoveTowards(transform.position, jugador.position, velocidadNormal * Time.deltaTime);
@@ -66,46 +74,50 @@ public class EnemyMelee : MonoBehaviour
         estaOcupado = true;
         puedeEmbestir = false;
 
-        // 1. Telegrafiado (se para, avisa de que va a atacar)
-        Debug.Log(gameObject.name + " se prepara para embestir...");
+        // 1. TELEGRAFIADO VISUAL: Se pinta del color de aviso (Ej: Rojo)
+        if (spriteRenderer != null) spriteRenderer.color = colorAvisoEmbestida;
         yield return new WaitForSeconds(tiempoPreparacion);
 
-        // 2. Guarda la posición a la que va a volar
+        // 2. Vuelo: Recupera su color justo cuando sale disparado
+        if (spriteRenderer != null) spriteRenderer.color = colorOriginal;
         Vector2 posicionObjetivo = jugador.position;
-
-        // 3. El vuelo rápido
         estaEmbistiendo = true;
+
         while (Vector2.Distance(transform.position, posicionObjetivo) > 0.1f)
         {
             transform.position = Vector2.MoveTowards(transform.position, posicionObjetivo, velocidadEmbestida * Time.deltaTime);
             yield return null;
         }
         estaEmbistiendo = false;
-
         estaOcupado = false;
 
-        // 4. Recarga de la habilidad
         yield return new WaitForSeconds(tiempoRecargaEmbestida);
         puedeEmbestir = true;
     }
 
     private IEnumerator RutinaExplosion()
     {
-        estaOcupado = true; // Frena en seco al activar la bomba
+        estaOcupado = true;
 
-        // 1. Telegrafiado (Aviso visual para el jugador)
-        Debug.Log(gameObject.name + " va a EXPLOTAR en " + tiempoParaExplotar + " segundos!");
-        yield return new WaitForSeconds(tiempoParaExplotar);
+        // 1. TELEGRAFIADO VISUAL: Temblor caótico
+        float tiempoPasado = 0f;
+        Vector3 posicionBase = transform.position; // Guardamos dónde se paró
 
-        // 2. Comprueba si el jugador no escapó a tiempo del área
+        // Mientras la cuenta atrás avanza, lo hacemos vibrar alrededor de su punto
+        while (tiempoPasado < tiempoParaExplotar)
+        {
+            transform.position = posicionBase + (Vector3)Random.insideUnitCircle * intensidadTemblor;
+            tiempoPasado += 0.05f;
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        // 2. Comprobación de daño
         if (jugador != null)
         {
             float distanciaFinal = Vector2.Distance(transform.position, jugador.position);
             if (distanciaFinal <= rangoActivacionExplosion)
             {
-                Debug.Log("¡BOOM! Null recibe daño por explosión.");
-                // Descomenta la siguiente línea y pon tu script de vida:
-                jugador.GetComponent<PlayerHealth>().RecibirDano(danoExplosion); 
+                jugador.GetComponent<PlayerHealth>().RecibirDano(danoExplosion);
             }
         }
 
@@ -115,19 +127,10 @@ public class EnemyMelee : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Si chocamos contra Null
         if (collision.gameObject.CompareTag("Player"))
         {
-            // Regla 1: Si es un Kamikaze, el contacto físico normal no hace daño
             if (explota) return;
-
-            // Regla 2: Si es un Murciélago y NO está embistiendo, no hace daño al rozarlo
             if (haceEmbestidas && !estaEmbistiendo) return;
-
-            // Si llegamos aquí, es un Slime normal o un Murciélago en plena embestida
-            Debug.Log("¡Impacto físico! " + gameObject.name + " le hace " + danoPorContacto + " de daño a Null.");
-
-            // Descomenta la siguiente línea y pon tu script de vida:
             collision.gameObject.GetComponent<PlayerHealth>().RecibirDano(danoPorContacto);
         }
     }
