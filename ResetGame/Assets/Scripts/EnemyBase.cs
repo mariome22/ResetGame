@@ -7,15 +7,25 @@ public class EnemyBase : MonoBehaviour
     public int vidaMaxima = 3;
     private int vidaActual;
 
+    [Header("Knockback")]
+    [Tooltip("Fuerza bruta para vencer el Linear Drag")]
+    public float fuerzaKnockback = 15f;
+    public float tiempoAturdido = 0.2f;
+
     private SpriteRenderer spriteRenderer;
-    private Color colorOriginal; // 1. Variable para memorizar el color
+    private Color colorOriginal;
+    private Rigidbody2D rb;
+    private MonoBehaviour scriptMovimiento;
 
     private void Start()
     {
         vidaActual = vidaMaxima;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
 
-        // 2. Guardamos el color
+        // Detecta qué script controla al enemigo
+        if (GetComponent<EnemyMelee>() != null) scriptMovimiento = GetComponent<EnemyMelee>();
+
         if (spriteRenderer != null) colorOriginal = spriteRenderer.color;
     }
 
@@ -24,6 +34,7 @@ public class EnemyBase : MonoBehaviour
         vidaActual -= cantidadDano;
 
         StartCoroutine(EfectoDano());
+        StartCoroutine(AplicarKnockback());
 
         if (vidaActual <= 0)
         {
@@ -31,14 +42,42 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
+    private IEnumerator AplicarKnockback()
+    {
+        // 1. Detenemos cualquier ataque en curso de forma segura
+        if (scriptMovimiento != null)
+        {
+            EnemyMelee melee = scriptMovimiento as EnemyMelee;
+            if (melee != null) melee.ResetearAtaque();
+
+            scriptMovimiento.enabled = false;
+        }
+
+        // 2. Aplicamos el empujón físico
+        GameObject jugador = GameObject.FindGameObjectWithTag("Player");
+        if (jugador != null && rb != null)
+        {
+            Vector2 direccionRebote = (transform.position - jugador.transform.position).normalized;
+            rb.linearVelocity = Vector2.zero;
+            rb.AddForce(direccionRebote * fuerzaKnockback, ForceMode2D.Impulse);
+        }
+
+        // 3. Dejamos que el Linear Drag de Unity lo frene suavemente
+        yield return new WaitForSeconds(tiempoAturdido);
+
+        // 4. Reactivamos el cerebro
+        if (this != null && scriptMovimiento != null)
+        {
+            scriptMovimiento.enabled = true;
+        }
+    }
+
     private IEnumerator EfectoDano()
     {
         if (spriteRenderer != null)
         {
-            spriteRenderer.color = new Color(1f, 0.5f, 0.5f); // Un tono rojizo/blanco de impacto
+            spriteRenderer.color = new Color(1f, 0.5f, 0.5f);
             yield return new WaitForSeconds(0.1f);
-
-            // 3. Restauramos su color original
             spriteRenderer.color = colorOriginal;
         }
     }

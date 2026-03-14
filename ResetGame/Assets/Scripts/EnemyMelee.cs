@@ -14,7 +14,7 @@ public class EnemyMelee : MonoBehaviour
     public float tiempoPreparacion = 0.5f;
     public float tiempoRecargaEmbestida = 2f;
     [Tooltip("Color que tomará para avisar del ataque")]
-    public Color colorAvisoEmbestida = Color.red; // <-- NUEVO
+    public Color colorAvisoEmbestida = Color.red;
 
     [Header("Ajustes de Explosión")]
     public bool explota = false;
@@ -22,7 +22,7 @@ public class EnemyMelee : MonoBehaviour
     public float tiempoParaExplotar = 1f;
     public int danoExplosion = 2;
     [Tooltip("Fuerza con la que vibra antes de explotar")]
-    public float intensidadTemblor = 0.05f; // <-- NUEVO
+    public float intensidadTemblor = 0.05f;
 
     [Header("Daño de Contacto")]
     public int danoPorContacto = 1;
@@ -32,7 +32,6 @@ public class EnemyMelee : MonoBehaviour
     private bool puedeEmbestir = true;
     private bool estaEmbistiendo = false;
 
-    // Referencias visuales
     private SpriteRenderer spriteRenderer;
     private Color colorOriginal;
 
@@ -41,7 +40,6 @@ public class EnemyMelee : MonoBehaviour
         GameObject objJugador = GameObject.FindGameObjectWithTag("Player");
         if (objJugador != null) jugador = objJugador.transform;
 
-        // Guardamos su color inicial por si es un cubo verde, azul, etc.
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null) colorOriginal = spriteRenderer.color;
     }
@@ -74,11 +72,9 @@ public class EnemyMelee : MonoBehaviour
         estaOcupado = true;
         puedeEmbestir = false;
 
-        // 1. TELEGRAFIADO VISUAL: Se pinta del color de aviso (Ej: Rojo)
         if (spriteRenderer != null) spriteRenderer.color = colorAvisoEmbestida;
         yield return new WaitForSeconds(tiempoPreparacion);
 
-        // 2. Vuelo: Recupera su color justo cuando sale disparado
         if (spriteRenderer != null) spriteRenderer.color = colorOriginal;
         Vector2 posicionObjetivo = jugador.position;
         estaEmbistiendo = true;
@@ -98,12 +94,9 @@ public class EnemyMelee : MonoBehaviour
     private IEnumerator RutinaExplosion()
     {
         estaOcupado = true;
-
-        // 1. TELEGRAFIADO VISUAL: Temblor caótico
         float tiempoPasado = 0f;
-        Vector3 posicionBase = transform.position; // Guardamos dónde se paró
+        Vector3 posicionBase = transform.position;
 
-        // Mientras la cuenta atrás avanza, lo hacemos vibrar alrededor de su punto
         while (tiempoPasado < tiempoParaExplotar)
         {
             transform.position = posicionBase + (Vector3)Random.insideUnitCircle * intensidadTemblor;
@@ -111,17 +104,15 @@ public class EnemyMelee : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
 
-        // 2. Comprobación de daño
         if (jugador != null)
         {
+            if (CameraShake.Instance != null) CameraShake.Instance.Shake(2.5f);
             float distanciaFinal = Vector2.Distance(transform.position, jugador.position);
             if (distanciaFinal <= rangoActivacionExplosion)
             {
                 jugador.GetComponent<PlayerHealth>().RecibirDano(danoExplosion);
             }
         }
-
-        // 3. Autodestrucción
         Destroy(gameObject);
     }
 
@@ -151,5 +142,16 @@ public class EnemyMelee : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, rangoActivacionExplosion);
         }
+    }
+
+    // --- FUNCIÓN DE RESETEO (Llamada desde EnemyBase) ---
+    public void ResetearAtaque()
+    {
+        StopAllCoroutines();
+        estaOcupado = false;
+        estaEmbistiendo = false;
+        puedeEmbestir = true;
+
+        if (spriteRenderer != null) spriteRenderer.color = colorOriginal;
     }
 }

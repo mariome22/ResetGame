@@ -49,6 +49,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBase
   vidaMaxima: 3
+  fuerzaKnockback: 8
+  tiempoAturdido: 0.2
 --- !u!114 &14556912793906660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,10 +70,12 @@ MonoBehaviour:
   velocidadEmbestida: 8
   tiempoPreparacion: 0.5
   tiempoRecargaEmbestida: 2
+  colorAvisoEmbestida: {r: 1, g: 0, b: 0, a: 1}
   explota: 0
   rangoActivacionExplosion: 1.5
   tiempoParaExplotar: 1
   danoExplosion: 2
+  intensidadTemblor: 0.05
   danoPorContacto: 1
 --- !u!212 &2270927018979762771
 SpriteRenderer:
