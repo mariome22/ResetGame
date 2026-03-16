@@ -16,14 +16,13 @@ public class PlayerHealth : MonoBehaviour
     [Header("UI y Feedback")]
     public TextMeshProUGUI textoVida;
     private SpriteRenderer spriteRenderer;
-    private Color colorOriginal; // 1. Variable para memorizar tu color
+    private Color colorOriginal;
 
     private void Start()
     {
         vidaActual = vidaMaxima;
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        // 2. Guardamos el color que le hayas puesto en el Inspector
         if (spriteRenderer != null) colorOriginal = spriteRenderer.color;
 
         ActualizarHUD();
@@ -36,6 +35,9 @@ public class PlayerHealth : MonoBehaviour
         vidaActual -= cantidadDano;
         ActualizarHUD();
 
+        // Temblor de cámara al recibir daño
+        if (CameraShake.Instance != null) CameraShake.Instance.Shake(1f);
+
         if (vidaActual <= 0)
         {
             Morir();
@@ -46,6 +48,39 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    // --- NUEVO: FUNCIÓN DE CURACIÓN ---
+    public void Curar(int cantidadCuracion)
+    {
+        // 1. Cláusula de guardia (Early Exit)
+        if (vidaActual >= vidaMaxima)
+        {
+            Debug.Log("Vida al máximo. No se puede curar más.");
+            return;
+        }
+
+        // 2. Aplicamos la cura
+        vidaActual += cantidadCuracion;
+
+        // 3. Clampeo (Tope de seguridad)
+        if (vidaActual > vidaMaxima)
+        {
+            vidaActual = vidaMaxima;
+        }
+
+        // 4. Feedback
+        ActualizarHUD();
+        StartCoroutine(RutinaCuracionVisual());
+    }
+
+    // --- NUEVO: FEEDBACK VISUAL ---
+    private IEnumerator RutinaCuracionVisual()
+    {
+        if (spriteRenderer != null) spriteRenderer.color = Color.green;
+        yield return new WaitForSeconds(0.15f);
+        if (spriteRenderer != null) spriteRenderer.color = colorOriginal;
+    }
+    // ----------------------------------
+
     private IEnumerator RutinaInvulnerabilidad()
     {
         esInvulnerable = true;
@@ -53,7 +88,6 @@ public class PlayerHealth : MonoBehaviour
         if (spriteRenderer != null) spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.15f);
 
-        // 3. Volvemos al color original en lugar de a Color.white
         if (spriteRenderer != null) spriteRenderer.color = colorOriginal;
 
         yield return new WaitForSeconds(tiempoInvulnerable - 0.15f);

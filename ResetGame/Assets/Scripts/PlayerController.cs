@@ -23,19 +23,19 @@ public class PlayerController : MonoBehaviour
     [Header("Ajustes de Ataque")]
     [SerializeField] private float distanciaAtaque = 1f;
     [SerializeField] private float rangoAtaque = 0.8f;
+    public GameObject prefabEfectoAtaque;
+    public float distanciaVisualTajo = 1.2f;
 
-    // Referencia a la cámara para calcular la posición del ratón
     private Camera cam;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        cam = Camera.main; // Guardamos la cámara principal
+        cam = Camera.main;
     }
 
     private void Update()
     {
-        // Calculamos a dónde mira el ratón constantemente
         CalcularDireccionMirada();
     }
 
@@ -45,20 +45,15 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = movimientoInput * velocidad;
     }
 
-    // --- CÁLCULO DEL RATÓN ---
     private void CalcularDireccionMirada()
     {
-        // Si tienes el New Input System, leemos la posición del ratón en la pantalla
         Vector2 posicionRatonPantalla = Mouse.current.position.ReadValue();
-
-        // Convertimos esa posición de la pantalla al mundo real del juego
         Vector3 posicionRatonMundo = cam.ScreenToWorldPoint(posicionRatonPantalla);
 
-        // La dirección es: Destino (Ratón) - Origen (Null)
+        posicionRatonMundo.z = transform.position.z;
         direccionMirada = (posicionRatonMundo - transform.position).normalized;
     }
 
-    // --- SECCIÓN DE INPUTS ---
     public void OnMove(InputValue value)
     {
         movimientoInput = value.Get<Vector2>();
@@ -103,15 +98,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // --- SECCIÓN DE HABILIDADES ---
     private IEnumerator DashRoutine()
     {
         canDash = false;
         isDashing = true;
 
-        // El Dash usa el TECLADO (movimientoInput). Si estás quieto, usa la última tecla que pulsaste.
         Vector2 direccionDash = (movimientoInput != Vector2.zero) ? movimientoInput.normalized : ultimaDireccionTeclado;
-
         rb.linearVelocity = direccionDash * dashVelocidad;
 
         yield return new WaitForSeconds(dashDuracion);
@@ -123,9 +115,20 @@ public class PlayerController : MonoBehaviour
 
     private void RealizarAtaque()
     {
-        Debug.Log("Ataque hacia el raton.");
-
         Vector2 centroDelAtaque = (Vector2)transform.position + (direccionMirada * distanciaAtaque);
+
+        // --- SOLUCIÓN AL MOVIMIENTO DEL TAJO ---
+        if (prefabEfectoAtaque != null)
+        {
+            // Instanciamos el tajo en el jugador
+            GameObject efecto = Instantiate(prefabEfectoAtaque, transform.position, Quaternion.identity);
+
+            // Calculamos el ángulo hacia el ratón
+            float anguloCentral = Mathf.Atan2(direccionMirada.y, direccionMirada.x) * Mathf.Rad2Deg;
+
+            // Iniciamos la animación que lo hará moverse
+            StartCoroutine(AnimarTajoVisual(efecto, anguloCentral));
+        }
 
         Collider2D[] objetosGolpeados = Physics2D.OverlapCircleAll(centroDelAtaque, rangoAtaque);
 
@@ -133,8 +136,6 @@ public class PlayerController : MonoBehaviour
         {
             if (objeto.CompareTag("Enemy"))
             {
-                Debug.Log("Le dimos a " + objeto.name);
-
                 EnemyBase scriptEnemigo = objeto.GetComponent<EnemyBase>();
                 if (scriptEnemigo != null)
                 {
@@ -144,9 +145,41 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
+    // --- RUTINA QUE CREA EL BARRIDO VISUAL Y SIGUE AL JUGADOR ---
+    private IEnumerator AnimarTajoVisual(GameObject tajo, float anguloCentral)
     {
-        // Dibujamos el círculo rojo apuntando siempre hacia el ratón (si el juego está en marcha)
+        float tiempo = 0f;
+        float duracion = 0.15f;
+
+        // El tajo hará un recorrido en arco de 80 grados
+        float anguloInicio = anguloCentral - 30;
+        float anguloFin = anguloCentral + 30;
+
+        while (tiempo < duracion)
+        {
+            if (tajo == null) break; // Por si se destruye por error
+
+            tiempo += Time.deltaTime;
+            float progreso = tiempo / duracion;
+
+            // 1. Calculamos el ángulo actual del barrido
+            float anguloActual = Mathf.Lerp(anguloInicio, anguloFin, progreso);
+            tajo.transform.rotation = Quaternion.Euler(0, 0, anguloActual);
+
+            // 2. Calculamos las coordenadas de ese ángulo en el espacio
+            Vector2 direccionActual = new Vector2(Mathf.Cos(anguloActual * Mathf.Deg2Rad), Mathf.Sin(anguloActual * Mathf.Deg2Rad));
+
+            // 3. Posicionamos el tajo pegado al jugador EN TODO MOMENTO (Si caminas, viaja contigo)
+            tajo.transform.position = (Vector2)transform.position + (direccionActual * distanciaVisualTajo);
+
+            yield return null;
+        }
+
+        if (tajo != null) Destroy(tajo);
+    }
+
+    private void OnDrawGizmos()
+    {
         Vector2 direccionVisual = (Application.isPlaying) ? direccionMirada : Vector2.right;
         Vector2 centroDelAtaque = (Vector2)transform.position + (direccionVisual * distanciaAtaque);
 
