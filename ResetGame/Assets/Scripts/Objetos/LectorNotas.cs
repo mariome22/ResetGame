@@ -121,4 +121,21 @@ public class LectorNotas : MonoBehaviour
         AbrirNota();
     }
 
+    // --- NUEVO: SISTEMA DE NOTIFICACIONES RÁPIDAS ---
+    public void MostrarMensajeRapido(string mensaje)
+    {
+        textoAviso.text = mensaje;
+        esperandoLectura = false; // Bloqueamos lo de mantener la 'E'
+
+        if (rutinaAviso != null) StopCoroutine(rutinaAviso);
+        rutinaAviso = StartCoroutine(RutinaMensajeRapidoTimer());
+    }
+
+    private IEnumerator RutinaMensajeRapidoTimer()
+    {
+        panelAviso.SetActive(true);
+        // 3 segundos es perfecto para leer una notificación corta sin agobiar
+        yield return new WaitForSeconds(3f);
+        panelAviso.SetActive(false);
+    }
 }
