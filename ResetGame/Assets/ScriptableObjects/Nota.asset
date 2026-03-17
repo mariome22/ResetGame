@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58dff55e032366d46876b9985e2c8d86, type: 3}
+  m_Name: Nota
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  nombreObjeto: Nota
+  descripcion: Nota sucia
+  iconoObjeto: {fileID: 0}
+  tipo: 5
+  esAcumulable: 0
+  cantidadMaxima: 99
+  valorEfecto: 0
+  contenidoDocumento: "WASD para moverte\nE para interactura\nEspacio para dash\nQ
+    para curarte r\xE1pido"
