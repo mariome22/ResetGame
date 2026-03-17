@@ -124,4 +124,20 @@ public class InventarioManager : MonoBehaviour
             textoObjetoEquipado.text = "Cura: " + objetosGuardados[indiceSeleccionado].nombreObjeto;
         }
     }
+
+    // 1. El inventario comprueba si tienes la tarjeta roja
+    public bool TieneObjeto(ItemData objetoRequerido)
+    {
+        return objetosGuardados.Contains(objetoRequerido);
+    }
+
+    // 2. El inventario borra la tarjeta roja de tu mochila al usarla en la puerta
+    public void GastarObjeto(ItemData objetoAGastar)
+    {
+        if (objetosGuardados.Contains(objetoAGastar))
+        {
+            objetosGuardados.Remove(objetoAGastar);
+            ActualizarUI(); // Actualiza el texto de la pantalla para que no se quede "Equipado: Tarjeta Roja" si ya no la tienes
+        }
+    }
 }
