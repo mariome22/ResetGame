@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58dff55e032366d46876b9985e2c8d86, type: 3}
-  m_Name: Nota
+  m_Name: TarjetaRoja
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  nombreObjeto: Nota
-  descripcion: Nota sucia
+  nombreObjeto: Tarjeta Roja
+  descripcion: Tarjeta que abre una puerta
   iconoObjeto: {fileID: 0}
-  tipo: 5
+  tipo: 4
   esAcumulable: 0
   cantidadMaxima: 99
   valorEfecto: 0
-  contenidoDocumento: "WASD para moverte\nE para interactuar\nEspacio para dash\nQ
-    para curarte r\xE1pido"
+  contenidoDocumento: 
