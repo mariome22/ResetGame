@@ -1,6 +1,5 @@
 using UnityEngine;
 
-// Esto añade una opción al menú de clic derecho de Unity para crear tus objetos
 [CreateAssetMenu(fileName = "NuevoObjeto", menuName = "Inventario/Objeto")]
 public class ItemData : ScriptableObject
 {
@@ -8,24 +7,28 @@ public class ItemData : ScriptableObject
     public string nombreObjeto;
     [TextArea]
     public string descripcion;
-    public Sprite iconoObjeto; // La fotito que saldrá en el inventario
+    public Sprite iconoObjeto;
 
     [Header("Clasificación")]
     public TipoObjeto tipo;
-    public bool esAcumulable; // Si puedes tener 5 vendas en un solo hueco
-    public int cantidadMaxima = 99; // Límite si es acumulable
+    public bool esAcumulable;
+    public int cantidadMaxima = 99;
 
     [Header("Efectos (Según el Tipo)")]
-    [Tooltip("Cantidad de vida que cura, munición que da, etc.")]
     public int valorEfecto;
 
-    // Enum es una lista desplegable que te aparecerá en el Inspector
+    // --- NUEVO: EL TEXTO DE LA NOTA ---
+    [TextArea(5, 10)]
+    [Tooltip("Solo rellena esto si el objeto es de tipo Documento")]
+    public string contenidoDocumento;
+
     public enum TipoObjeto
     {
-        Curacion,       // Vendas, Botiquines
-        RecursoCrafteo, // Alcohol, Trapos, Cinta
-        Municion,       // Balas para el arma de fuego
-        ArmaCuerpoCuerpo, // Palos, Tuberías rompibles
-        Clave           // Llaves, Tarjetas
+        Curacion,
+        RecursoCrafteo,
+        Municion,
+        ArmaCuerpoCuerpo,
+        Clave,
+        Documento
     }
 }

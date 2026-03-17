@@ -49,27 +49,26 @@ public class PlayerHealth : MonoBehaviour
     }
 
     // --- NUEVO: FUNCIÓN DE CURACIÓN ---
-    public void Curar(int cantidadCuracion)
+    // AHORA DEVUELVE UN BOOL (Verdadero o Falso)
+    public bool Curar(int cantidadCuracion)
     {
-        // 1. Cláusula de guardia (Early Exit)
         if (vidaActual >= vidaMaxima)
         {
             Debug.Log("Vida al máximo. No se puede curar más.");
-            return;
+            return false; // <-- Avisamos de que NO nos hemos curado
         }
 
-        // 2. Aplicamos la cura
         vidaActual += cantidadCuracion;
 
-        // 3. Clampeo (Tope de seguridad)
         if (vidaActual > vidaMaxima)
         {
             vidaActual = vidaMaxima;
         }
 
-        // 4. Feedback
         ActualizarHUD();
         StartCoroutine(RutinaCuracionVisual());
+
+        return true;
     }
 
     // --- NUEVO: FEEDBACK VISUAL ---

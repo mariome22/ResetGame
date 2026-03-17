@@ -9,18 +9,23 @@ public class ItemRecogible : MonoBehaviour
     // Esta función es la que llamaremos desde el Inspector
     public void RecogerObjeto()
     {
-        if (datosDelObjeto == null)
+        if (datosDelObjeto == null) return;
+
+        if (InventarioManager.Instance != null)
         {
-            Debug.LogWarning("¡A este objeto le falta su ItemData en el Inspector!");
-            return;
+            InventarioManager.Instance.AnadirObjeto(datosDelObjeto);
         }
 
-        // Aquí en el futuro llamaremos a tu inventario:
-        // InventarioManager.Instance.AnadirObjeto(datosDelObjeto);
+        if (datosDelObjeto.tipo == ItemData.TipoObjeto.Documento)
+        {
+            if (LectorNotas.Instance != null)
+            {
+                // Disparamos el cartel de 5 segundos
+                LectorNotas.Instance.ActivarAviso(datosDelObjeto.nombreObjeto, datosDelObjeto.contenidoDocumento);
+            }
+        }
+        // ------------------------------------------
 
-        Debug.Log("Has recogido del suelo: " + datosDelObjeto.nombreObjeto);
-
-        // Destruimos el objeto del suelo
         Destroy(gameObject);
     }
 }

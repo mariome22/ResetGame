@@ -145,7 +145,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // --- RUTINA QUE CREA EL BARRIDO VISUAL Y SIGUE AL JUGADOR ---
     private IEnumerator AnimarTajoVisual(GameObject tajo, float anguloCentral)
     {
         float tiempo = 0f;
@@ -178,6 +177,28 @@ public class PlayerController : MonoBehaviour
         if (tajo != null) Destroy(tajo);
     }
 
+    public void OnSwitchItem(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            if (InventarioManager.Instance != null)
+            {
+                InventarioManager.Instance.CambiarSeleccion();
+            }
+        }
+    }
+
+    // Y asegúrate de que tu OnHeal ahora llama a la nueva función:
+    public void OnHeal(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            if (InventarioManager.Instance != null)
+            {
+                InventarioManager.Instance.UsarObjetoSeleccionado();
+            }
+        }
+    }
     private void OnDrawGizmos()
     {
         Vector2 direccionVisual = (Application.isPlaying) ? direccionMirada : Vector2.right;
