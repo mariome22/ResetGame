@@ -6,7 +6,6 @@ public class ItemRecogible : MonoBehaviour
     [Tooltip("Arrastra aquí el DNI (Scriptable Object) que creaste en la carpeta")]
     public ItemData datosDelObjeto;
 
-    // Esta función es la que llamaremos desde el Inspector
     public void RecogerObjeto()
     {
         if (datosDelObjeto == null) return;
@@ -20,11 +19,9 @@ public class ItemRecogible : MonoBehaviour
         {
             if (LectorNotas.Instance != null)
             {
-                // Disparamos el cartel de 5 segundos
                 LectorNotas.Instance.ActivarAviso(datosDelObjeto.nombreObjeto, datosDelObjeto.contenidoDocumento);
             }
         }
-        // ------------------------------------------
 
         Destroy(gameObject);
     }

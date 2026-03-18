@@ -13,7 +13,7 @@ public class EnemyShooter : MonoBehaviour
     public float anguloDeDispersion = 0f;
 
     [Tooltip("Si se marca, lanza todas las balas a la vez en abanico. Si no, las lanza en ráfaga (metralleta).")]
-    public bool disparoSimultaneo = false; // LA MAGIA ESTÁ AQUÍ
+    public bool disparoSimultaneo = false;
     public float tiempoEntreBalas = 0.1f;
 
     [Header("Ajustes de Carga (Francotirador)")]
@@ -58,11 +58,10 @@ public class EnemyShooter : MonoBehaviour
 
             if (disparoSimultaneo)
             {
-                // MODO ESCOPETA: Dispara todo a la vez en un abanico perfecto
+                //ESCOPETA
                 float anguloInicial = -anguloDeDispersion;
                 float pasoAngulo = 0f;
 
-                // Evitamos dividir por cero si solo hay 1 bala
                 if (proyectilesPorAtaque > 1)
                 {
                     pasoAngulo = (anguloDeDispersion * 2f) / (proyectilesPorAtaque - 1);
@@ -79,7 +78,7 @@ public class EnemyShooter : MonoBehaviour
             }
             else
             {
-                // MODO METRALLETA: Dispara una detrás de otra
+                //FUSIL / FRANCOTIRADOR
                 for (int i = 0; i < proyectilesPorAtaque; i++)
                 {
                     float anguloRandom = Random.Range(-anguloDeDispersion, anguloDeDispersion);

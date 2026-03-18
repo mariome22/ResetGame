@@ -117,16 +117,15 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 centroDelAtaque = (Vector2)transform.position + (direccionMirada * distanciaAtaque);
 
-        // --- SOLUCIÓN AL MOVIMIENTO DEL TAJO ---
         if (prefabEfectoAtaque != null)
         {
-            // Instanciamos el tajo en el jugador
+            //Instanciamos el sprite del slash
             GameObject efecto = Instantiate(prefabEfectoAtaque, transform.position, Quaternion.identity);
 
-            // Calculamos el ángulo hacia el ratón
+            //Calculamos el ángulo hacia el ratón
             float anguloCentral = Mathf.Atan2(direccionMirada.y, direccionMirada.x) * Mathf.Rad2Deg;
 
-            // Iniciamos la animación que lo hará moverse
+            //Iniciamos la animación
             StartCoroutine(AnimarTajoVisual(efecto, anguloCentral));
         }
 
@@ -142,6 +141,14 @@ public class PlayerController : MonoBehaviour
                     scriptEnemigo.RecibirDano(1);
                 }
             }
+            else
+            {
+                ObjetoRompible caja = objeto.GetComponent<ObjetoRompible>();
+                if (caja != null)
+                {
+                    caja.RecibirDano(1);
+                }
+            }
         }
     }
 
@@ -150,25 +157,23 @@ public class PlayerController : MonoBehaviour
         float tiempo = 0f;
         float duracion = 0.15f;
 
-        // El tajo hará un recorrido en arco de 80 grados
+        //El slash hará un recorrido en arco de 60 grados
         float anguloInicio = anguloCentral - 30;
         float anguloFin = anguloCentral + 30;
 
         while (tiempo < duracion)
         {
-            if (tajo == null) break; // Por si se destruye por error
+            if (tajo == null) break;
 
             tiempo += Time.deltaTime;
             float progreso = tiempo / duracion;
 
-            // 1. Calculamos el ángulo actual del barrido
             float anguloActual = Mathf.Lerp(anguloInicio, anguloFin, progreso);
             tajo.transform.rotation = Quaternion.Euler(0, 0, anguloActual);
 
-            // 2. Calculamos las coordenadas de ese ángulo en el espacio
             Vector2 direccionActual = new Vector2(Mathf.Cos(anguloActual * Mathf.Deg2Rad), Mathf.Sin(anguloActual * Mathf.Deg2Rad));
 
-            // 3. Posicionamos el tajo pegado al jugador EN TODO MOMENTO (Si caminas, viaja contigo)
+            //Para que el slash se mueva con el jugador y no se quede atras
             tajo.transform.position = (Vector2)transform.position + (direccionActual * distanciaVisualTajo);
 
             yield return null;
@@ -188,7 +193,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Y asegúrate de que tu OnHeal ahora llama a la nueva función:
     public void OnHeal(InputValue value)
     {
         if (value.isPressed)

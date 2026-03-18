@@ -1,5 +1,5 @@
 using UnityEngine;
-using TMPro; // Para el texto de la UI
+using TMPro;
 
 public class CoreManager : MonoBehaviour
 {
@@ -9,11 +9,11 @@ public class CoreManager : MonoBehaviour
 
     private void Start()
     {
-        // Cargamos los núcleos guardados (si existen)
+        //Cargamos los núcleos guardados (si existen)
         totalCores = PlayerPrefs.GetInt("PlayerCores", 0);
     }
 
-    // Llama a esto cuando ganes un nivel
+    //Cuando se gana un nivel
     public void AddCore()
     {
         totalCores++;
@@ -21,7 +21,7 @@ public class CoreManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    // Llama a esto desde el Interactable de la Caja
+    //Abre el cofre de nucleos del hub
     public void ToggleChestUI()
     {
         bool isActive = chestPanel.activeSelf;

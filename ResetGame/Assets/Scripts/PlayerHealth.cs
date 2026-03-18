@@ -35,7 +35,7 @@ public class PlayerHealth : MonoBehaviour
         vidaActual -= cantidadDano;
         ActualizarHUD();
 
-        // Temblor de cámara al recibir daño
+        //Temblor de cámara al recibir daño
         if (CameraShake.Instance != null) CameraShake.Instance.Shake(1f);
 
         if (vidaActual <= 0)
@@ -48,14 +48,12 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    // --- NUEVO: FUNCIÓN DE CURACIÓN ---
-    // AHORA DEVUELVE UN BOOL (Verdadero o Falso)
     public bool Curar(int cantidadCuracion)
     {
         if (vidaActual >= vidaMaxima)
         {
             Debug.Log("Vida al máximo. No se puede curar más.");
-            return false; // <-- Avisamos de que NO nos hemos curado
+            return false;
         }
 
         vidaActual += cantidadCuracion;
@@ -71,14 +69,12 @@ public class PlayerHealth : MonoBehaviour
         return true;
     }
 
-    // --- NUEVO: FEEDBACK VISUAL ---
     private IEnumerator RutinaCuracionVisual()
     {
         if (spriteRenderer != null) spriteRenderer.color = Color.green;
         yield return new WaitForSeconds(0.15f);
         if (spriteRenderer != null) spriteRenderer.color = colorOriginal;
     }
-    // ----------------------------------
 
     private IEnumerator RutinaInvulnerabilidad()
     {

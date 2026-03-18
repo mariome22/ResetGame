@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro; // Necesario para el texto del Canvas
+using TMPro;
 
 public class InventarioManager : MonoBehaviour
 {
@@ -12,7 +12,6 @@ public class InventarioManager : MonoBehaviour
     [Tooltip("Arrastra aquí el texto del Canvas que mostrará el objeto equipado")]
     public TextMeshProUGUI textoObjetoEquipado;
 
-    // Este es el "dedo" que apunta al objeto seleccionado
     private int indiceSeleccionado = 0;
 
     private void Awake()
@@ -30,16 +29,14 @@ public class InventarioManager : MonoBehaviour
     {
         objetosGuardados.Add(nuevoObjeto);
         Debug.Log("Guardado en la mochila: " + nuevoObjeto.nombreObjeto);
-        ActualizarUI(); // Actualizamos la pantalla al recoger algo
+        ActualizarUI();
     }
 
-    // --- NUEVO: FUNCIÓN PARA CAMBIAR DE OBJETO ---
     public void CambiarSeleccion()
     {
         if (objetosGuardados.Count == 0) return;
 
         int intentos = 0;
-        // Movemos el dedo en bucle HASTA encontrar un objeto curativo (o dar la vuelta entera a la mochila)
         do
         {
             indiceSeleccionado++;
@@ -54,7 +51,6 @@ public class InventarioManager : MonoBehaviour
         ActualizarUI();
     }
 
-    // --- MODIFICADO: AHORA SOLO USA EL SELECCIONADO ---
     public void UsarObjetoSeleccionado()
     {
         if (objetosGuardados.Count == 0)
@@ -65,7 +61,7 @@ public class InventarioManager : MonoBehaviour
 
         ItemData objetoAConsumir = objetosGuardados[indiceSeleccionado];
 
-        // Verificamos si es curativo antes de intentar curar
+        //Verificamos si es curativo antes de intentar curar
         if (objetoAConsumir.tipo == ItemData.TipoObjeto.Curacion)
         {
             GameObject jugador = GameObject.FindGameObjectWithTag("Player");
@@ -76,11 +72,11 @@ public class InventarioManager : MonoBehaviour
                 {
                     if (vidaJugador.Curar(objetoAConsumir.valorEfecto))
                     {
-                        // Si se curó con éxito, lo borramos de la mochila
+                        //Si se curó con éxito, lo borramos de la mochila
                         objetosGuardados.RemoveAt(indiceSeleccionado);
                         Debug.Log("Has consumido: " + objetoAConsumir.nombreObjeto);
 
-                        // Ajustamos el índice por si borramos el último objeto de la lista
+                        //Ajustamos el índice por si borramos el último objeto de la lista
                         if (indiceSeleccionado >= objetosGuardados.Count)
                         {
                             indiceSeleccionado = 0;
@@ -101,7 +97,6 @@ public class InventarioManager : MonoBehaviour
     {
         if (textoObjetoEquipado == null) return;
 
-        // Primero, comprobamos si llevamos AL MENOS una cura en toda la mochila
         bool tenemosCuras = false;
         foreach (var item in objetosGuardados)
         {
@@ -114,7 +109,7 @@ public class InventarioManager : MonoBehaviour
             return;
         }
 
-        // Si acabamos de recoger una nota y el dedo se ha quedado apuntando a ella, lo forzamos a cambiar
+        //Cambio forzado por si apunta a una nota al recoger
         if (objetosGuardados[indiceSeleccionado].tipo != ItemData.TipoObjeto.Curacion)
         {
             CambiarSeleccion();
@@ -125,19 +120,19 @@ public class InventarioManager : MonoBehaviour
         }
     }
 
-    // 1. El inventario comprueba si tienes la tarjeta roja
+    //El inventario comprueba si esta el objeto clave
     public bool TieneObjeto(ItemData objetoRequerido)
     {
         return objetosGuardados.Contains(objetoRequerido);
     }
 
-    // 2. El inventario borra la tarjeta roja de tu mochila al usarla en la puerta
+    //El inventario borra el objeto clave tras usarla
     public void GastarObjeto(ItemData objetoAGastar)
     {
         if (objetosGuardados.Contains(objetoAGastar))
         {
             objetosGuardados.Remove(objetoAGastar);
-            ActualizarUI(); // Actualiza el texto de la pantalla para que no se quede "Equipado: Tarjeta Roja" si ya no la tienes
+            ActualizarUI();
         }
     }
 }

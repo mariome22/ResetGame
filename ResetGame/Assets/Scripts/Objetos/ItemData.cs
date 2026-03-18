@@ -17,7 +17,6 @@ public class ItemData : ScriptableObject
     [Header("Efectos (Según el Tipo)")]
     public int valorEfecto;
 
-    // --- NUEVO: EL TEXTO DE LA NOTA ---
     [TextArea(5, 10)]
     [Tooltip("Solo rellena esto si el objeto es de tipo Documento")]
     public string contenidoDocumento;

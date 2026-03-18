@@ -11,7 +11,7 @@ public class EnemyProjectile : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        Destroy(gameObject, tiempoDeVida); // Se destruye solo tras 3 segundos
+        Destroy(gameObject, tiempoDeVida);
     }
 
     public void Disparar(Vector2 direccion)
@@ -25,7 +25,7 @@ public class EnemyProjectile : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             Debug.Log("Impacto contra el jugador. Pierde " + dano + " vida.");
-            collision.GetComponent<PlayerHealth>().RecibirDano(dano); // Descomenta esto cuando tengas el script de vida del jugador
+            collision.GetComponent<PlayerHealth>().RecibirDano(dano);
             Destroy(gameObject);
         }
         else if (collision.CompareTag("Wall"))

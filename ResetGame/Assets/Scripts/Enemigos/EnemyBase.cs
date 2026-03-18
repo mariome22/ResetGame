@@ -23,7 +23,6 @@ public class EnemyBase : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
 
-        // Detecta qué script controla al enemigo
         if (GetComponent<EnemyMelee>() != null) scriptMovimiento = GetComponent<EnemyMelee>();
 
         if (spriteRenderer != null) colorOriginal = spriteRenderer.color;
@@ -44,7 +43,7 @@ public class EnemyBase : MonoBehaviour
 
     private IEnumerator AplicarKnockback()
     {
-        // 1. Detenemos cualquier ataque en curso de forma segura
+        //Para detener el movimiento
         if (scriptMovimiento != null)
         {
             EnemyMelee melee = scriptMovimiento as EnemyMelee;
@@ -53,7 +52,7 @@ public class EnemyBase : MonoBehaviour
             scriptMovimiento.enabled = false;
         }
 
-        // 2. Aplicamos el empujón físico
+        //Empujón
         GameObject jugador = GameObject.FindGameObjectWithTag("Player");
         if (jugador != null && rb != null)
         {
@@ -62,10 +61,10 @@ public class EnemyBase : MonoBehaviour
             rb.AddForce(direccionRebote * fuerzaKnockback, ForceMode2D.Impulse);
         }
 
-        // 3. Dejamos que el Linear Drag de Unity lo frene suavemente
+        //Hasta que se frena el retroceso
         yield return new WaitForSeconds(tiempoAturdido);
 
-        // 4. Reactivamos el cerebro
+        //Activamos de nuevo
         if (this != null && scriptMovimiento != null)
         {
             scriptMovimiento.enabled = true;

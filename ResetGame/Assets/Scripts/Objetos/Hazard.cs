@@ -9,10 +9,8 @@ public class Hazard : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // Buscamos el componente de vida en el jugador
             PlayerHealth saludJugador = other.GetComponent<PlayerHealth>();
 
-            // Si lo encontramos, le hacemos daño
             if (saludJugador != null)
             {
                 saludJugador.RecibirDano(cantidadDano);

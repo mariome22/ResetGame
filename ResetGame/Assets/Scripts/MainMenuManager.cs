@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI; // Para poder acceder a los botones
+using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -11,11 +11,10 @@ public class MainMenuManager : MonoBehaviour
     public GameObject collectionsPanel;
 
     [Header("Botones Especiales")]
-    public Button continueButton; // Referencia al botón para desactivarlo si no hay partida
+    public Button continueButton;
 
     private void Start()
     {
-        // Al arrancar, volvemos al panel principal por si acaso
         ShowMainPanel();
 
         /*if (PlayerPrefs.HasKey("SavedLevel"))
@@ -28,7 +27,6 @@ public class MainMenuManager : MonoBehaviour
         }*/
     }
 
-    // --- FUNCIONES DE NAVEGACIÓN (Para los botones) ---
     public void ShowMainPanel()
     {
         mainPanel.SetActive(true);
@@ -58,11 +56,11 @@ public class MainMenuManager : MonoBehaviour
 
     public void NewGame()
     {
-        // Borramos el progreso anterior para empezar de 0 (Opcional)
+        //Borramos el progreso anterior para empezar de 0
         PlayerPrefs.DeleteAll();
 
-        // Cargamos el Nivel 1 (Asegúrate de que está en Build Settings)
-        SceneManager.LoadScene("Level1_Dungeon"); // O el nombre de tu primera escena real
+        //Cargamos el Hub
+        SceneManager.LoadScene("01_Hub");
     }
 
     public void ContinueGame()

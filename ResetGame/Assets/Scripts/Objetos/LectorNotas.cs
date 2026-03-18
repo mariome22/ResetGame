@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-using UnityEngine.InputSystem; // Usamos el nuevo sistema para leer el teclado directamente aquí
+using UnityEngine.InputSystem;
 
 public class LectorNotas : MonoBehaviour
 {
@@ -54,22 +54,19 @@ public class LectorNotas : MonoBehaviour
 
     private void Update()
     {
-        // 1. Si ya estamos leyendo la nota grande, pulsar Escape la cierra
         if (leyendo)
         {
             if (Keyboard.current.escapeKey.wasPressedThisFrame) CerrarNota();
-            return; // Cortamos el Update aquí para no hacer nada más
+            return;
         }
 
-        // 2. Si el aviso de 5 segundos está en pantalla...
+        //Interaccion de mantener la E para leer
         if (esperandoLectura)
         {
-            // Comprobamos si el jugador está manteniendo pulsada la 'E'
             if (Keyboard.current.eKey.isPressed)
             {
                 tiempoMantenido += Time.deltaTime;
 
-                // Si la mantiene más de 0.4 segundos (para evitar que se abra sola al recogerla con un toque rápido)
                 if (tiempoMantenido > 1.0f)
                 {
                     AbrirNota();
@@ -77,14 +74,14 @@ public class LectorNotas : MonoBehaviour
             }
             else
             {
-                tiempoMantenido = 0f; // Si suelta la tecla antes de tiempo, el contador vuelve a 0
+                tiempoMantenido = 0f; //Si suelta la tecla antes de tiempo, el contador vuelve a 0
             }
         }
     }
 
     private void AbrirNota()
     {
-        if (rutinaAviso != null) StopCoroutine(rutinaAviso); // Cancelamos la cuenta atrás de 5s
+        if (rutinaAviso != null) StopCoroutine(rutinaAviso);
         panelAviso.SetActive(false);
         esperandoLectura = false;
         tiempoMantenido = 0f;
@@ -93,7 +90,7 @@ public class LectorNotas : MonoBehaviour
 
         panelNotaGrande.SetActive(true);
         textoNotaGrande.text = notaPendiente;
-        Time.timeScale = 0f; // Pausamos el juego
+        Time.timeScale = 0f;
         leyendo = true;
     }
 
@@ -102,30 +99,25 @@ public class LectorNotas : MonoBehaviour
         panelNotaGrande.SetActive(false);
         leyendo = false;
 
-        // --- NUEVO: RESTAURAMOS EL TIEMPO CORRECTO ---
         if (juegoPausado)
         {
-            // Si venías del inventario, el tiempo SE QUEDA en 0 (pausado)
             Time.timeScale = 0f;
         }
         else
         {
-            // Si recogiste la nota del suelo en mitad del combate, el tiempo VUELVE a 1 (normal)
             Time.timeScale = 1f;
         }
     }
-    // Esta función la llamará tu Menú de Inventario cuando hagas clic en una carta
     public void LeerNotaDesdeInventario(string textoDeLaNota)
     {
         notaPendiente = textoDeLaNota;
         AbrirNota();
     }
 
-    // --- NUEVO: SISTEMA DE NOTIFICACIONES RÁPIDAS ---
     public void MostrarMensajeRapido(string mensaje)
     {
         textoAviso.text = mensaje;
-        esperandoLectura = false; // Bloqueamos lo de mantener la 'E'
+        esperandoLectura = false;
 
         if (rutinaAviso != null) StopCoroutine(rutinaAviso);
         rutinaAviso = StartCoroutine(RutinaMensajeRapidoTimer());
@@ -134,7 +126,6 @@ public class LectorNotas : MonoBehaviour
     private IEnumerator RutinaMensajeRapidoTimer()
     {
         panelAviso.SetActive(true);
-        // 3 segundos es perfecto para leer una notificación corta sin agobiar
         yield return new WaitForSeconds(3f);
         panelAviso.SetActive(false);
     }

@@ -144,7 +144,6 @@ public class EnemyMelee : MonoBehaviour
         }
     }
 
-    // --- FUNCIÓN DE RESETEO (Llamada desde EnemyBase) ---
     public void ResetearAtaque()
     {
         StopAllCoroutines();
