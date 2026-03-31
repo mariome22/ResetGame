@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float velocidad = 5f;
 
     private Rigidbody2D rb;
+    private Animator anim; // <-- AÑADIDO: Referencia al cerebro de las animaciones
     private Vector2 movimientoInput;
 
     private Vector2 direccionMirada = Vector2.right;
@@ -32,11 +33,18 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         cam = Camera.main;
+        anim = GetComponent<Animator>(); // <-- AÑADIDO: Buscamos el Animator al arrancar
     }
 
     private void Update()
     {
         CalcularDireccionMirada();
+
+        // <-- AÑADIDO: Le pasamos al Animator cuánto nos estamos moviendo (0 = quieto, >0 = corriendo)
+        if (anim != null)
+        {
+            anim.SetFloat("Velocidad", movimientoInput.sqrMagnitude);
+        }
     }
 
     private void FixedUpdate()
