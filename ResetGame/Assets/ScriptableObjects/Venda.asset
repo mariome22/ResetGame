@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   nombreObjeto: Venda
   descripcion: "Trozo de venda sucia, restaura 1 de vida. M\xE1ximo 5 en el inventario."
-  iconoObjeto: {fileID: 0}
+  iconoObjeto: {fileID: 1462799768519014029, guid: 2d42f048cbdfb3346b35e6db89191c6b, type: 3}
   tipo: 0
   esAcumulable: 1
   cantidadMaxima: 5
   valorEfecto: 1
+  contenidoDocumento: 
