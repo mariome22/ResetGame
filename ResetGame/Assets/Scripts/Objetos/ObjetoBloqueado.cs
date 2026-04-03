@@ -5,18 +5,18 @@ public class ObjetoBloqueado : MonoBehaviour
     [Header("Requisitos")]
     public ItemData llaveNecesaria;
 
-    [Tooltip("¿La llave desaparece de la mochila al usarla?")]
+    [Tooltip("ï¿½La llave desaparece de la mochila al usarla?")]
     public bool gastarLlaveAlAbrir = true;
 
     [Header("Textos Inmersivos")]
     [Tooltip("Lo que dice si intentas abrir sin la llave")]
-    public string textoFaltaLlave = "Está bloqueado. Necesito algo para abrirlo.";
+    public string textoFaltaLlave = "Estï¿½ bloqueado. Necesito algo para abrirlo.";
 
     [Tooltip("Lo que dice justo cuando se abre")]
-    public string textoExito = "¡Abierto!";
+    public string textoExito = "ï¿½Abierto!";
 
     [Header("Recompensa")]
-    [Tooltip("El Prefab del núcleo (o el objeto que haya dentro)")]
+    [Tooltip("El Prefab del nï¿½cleo (o el objeto que haya dentro)")]
     public GameObject prefabNucleo;
 
     public Transform puntoDeDrop;
@@ -47,7 +47,7 @@ public class ObjetoBloqueado : MonoBehaviour
             InteractableObject interaccion = GetComponent<InteractableObject>();
             if (interaccion != null)
             {
-                if (interaccion.visualCue != null) interaccion.visualCue.SetActive(false);
+                //if (interaccion.visualCue != null) interaccion.visualCue.SetActive(false);
                 interaccion.enabled = false;
             }
 

@@ -82,7 +82,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -911476001
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -7576640703778371719, guid: b32137dee2e5b594094c801b73c18a2a, type: 3}
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObject
   visualCue: {fileID: 8561453225242015345}
+  outlineMaterial: {fileID: 2100000, guid: cd60185da97148348afc92eef6d93dd1, type: 2}
   onInteract:
     m_PersistentCalls:
       m_Calls:
@@ -260,7 +261,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 699253723
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7443623262413015634, guid: dee2353d956b0264b9592b839249628a, type: 3}
