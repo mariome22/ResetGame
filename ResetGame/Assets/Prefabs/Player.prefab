@@ -131,7 +131,7 @@ MonoBehaviour:
   distanciaAtaque: 0.3
   rangoAtaque: 0.6
   prefabEfectoAtaque: {fileID: 2413080805686541986, guid: f4d4d534e146c4f47a59b2e96fda740a, type: 3}
-  distanciaVisualTajo: 1.6
+  distanciaVisualTajo: 1
 --- !u!50 &3909957077091530005
 Rigidbody2D:
   serializedVersion: 5
