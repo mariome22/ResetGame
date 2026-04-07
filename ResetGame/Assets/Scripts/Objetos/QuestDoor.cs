@@ -5,9 +5,10 @@ public class QuestDoor : MonoBehaviour
     [Header("Configuración de la Misión")]
     [Tooltip("Los objetos que el jugador debe recoger para abrir la puerta")]
     public GameObject[] questItems;
-    
+
     [Tooltip("Sprite que se mostrará cuando la puerta esté abierta")]
     public Sprite openSprite;
+    public GameObject bloqueo;
 
     private SpriteRenderer spriteRenderer;
     private bool questActive = false;
@@ -55,7 +56,7 @@ public class QuestDoor : MonoBehaviour
     private void IniciarMision()
     {
         questActive = true;
-        
+
         // AQUÍ IRÁ EL CÓDIGO DEL DIÁLOGO EN EL FUTURO
         Debug.Log("NPC (Detrás de la puerta): '¡Hola! Para abrir esta puerta necesito que encuentres " + questItems.Length + " objetos que he perdido por este escenario.'");
 
@@ -104,6 +105,13 @@ public class QuestDoor : MonoBehaviour
         if (doorCollider != null)
         {
             doorCollider.enabled = false;
+        }
+
+        // NO re-delcaramos bloqueo para usar el público
+
+        if (bloqueo != null)
+        {
+            bloqueo.SetActive(false);
         }
 
         // También desactivamos el InteractableObject para que no pueda volver a interactuar si se quiere
