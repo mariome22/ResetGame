@@ -12,20 +12,46 @@ public class EnemyBase : MonoBehaviour
     public float fuerzaKnockback = 15f;
     public float tiempoAturdido = 0.2f;
 
+    [Header("Animaciones")]
+    [Tooltip("Nombre del parámetro booleano en el Animator que indica si camina")]
+    public string parametroCaminar = "isWalking";
+
     private SpriteRenderer spriteRenderer;
     private Color colorOriginal;
     private Rigidbody2D rb;
     private MonoBehaviour scriptMovimiento;
+    private Animator animator;
+    private Vector3 ultimaPosicion;
 
     private void Start()
     {
         vidaActual = vidaMaxima;
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        ultimaPosicion = transform.position;
 
         if (GetComponent<EnemyMelee>() != null) scriptMovimiento = GetComponent<EnemyMelee>();
 
         if (spriteRenderer != null) colorOriginal = spriteRenderer.color;
+    }
+
+    private void LateUpdate()
+    {
+        if (animator != null)
+        {
+            // Calculamos la distancia movida desde el último frame
+            float distanciaMoviendose = Vector3.Distance(transform.position, ultimaPosicion);
+            
+            // Si supera un mínimo para evitar vibraciones, asumimos que intenta andar
+            bool seEstaMoviendo = distanciaMoviendose > 0.001f;
+            
+            // Enviamos el booleano al Animator
+            animator.SetBool(parametroCaminar, seEstaMoviendo);
+
+            // Actualizamos la posición para el siguiente frame
+            ultimaPosicion = transform.position;
+        }
     }
 
     public void RecibirDano(int cantidadDano)
@@ -52,7 +78,7 @@ public class EnemyBase : MonoBehaviour
             scriptMovimiento.enabled = false;
         }
 
-        //Empuj�n
+        //Empujón
         GameObject jugador = GameObject.FindGameObjectWithTag("Player");
         if (jugador != null && rb != null)
         {
