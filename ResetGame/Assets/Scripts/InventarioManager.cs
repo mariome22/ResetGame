@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -22,6 +22,10 @@ public class InventarioManager : MonoBehaviour
     public Transform panelColeccionables;
     [Tooltip("Opcional: Prefab del hueco para Coleccionables (para crear más si superan la capacidad inicial de la UI)")]
     public GameObject prefabHuecoColeccionable;
+
+    [Header("Detalles de Objeto (Menú Pausa)")]
+    public TextMeshProUGUI textoNombreDetalle;
+    public TextMeshProUGUI textoDescripcionDetalle;
 
     private int indiceSeleccionado = 0;
 
@@ -165,6 +169,8 @@ public class InventarioManager : MonoBehaviour
 
     public void ActualizarMenuPausa()
     {
+        MostrarDetallesObjeto(null); // Limpiar detalles al actualizar
+
         // 1. Actualizar panel de objetos normales
         if (panelObjetos != null)
         {
@@ -227,6 +233,20 @@ public class InventarioManager : MonoBehaviour
             coleccionablesGuardados.Remove(objetoAGastar);
             ActualizarUI();
             ActualizarMenuPausa();
+        }
+    }
+
+    public void MostrarDetallesObjeto(ItemData objeto)
+    {
+        if (objeto != null)
+        {
+            if (textoNombreDetalle != null) textoNombreDetalle.text = objeto.nombreObjeto;
+            if (textoDescripcionDetalle != null) textoDescripcionDetalle.text = objeto.descripcion;
+        }
+        else
+        {
+            if (textoNombreDetalle != null) textoNombreDetalle.text = "";
+            if (textoDescripcionDetalle != null) textoDescripcionDetalle.text = "";
         }
     }
 }

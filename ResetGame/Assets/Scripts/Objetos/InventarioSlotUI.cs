@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class InventarioSlotUI : MonoBehaviour
+public class InventarioSlotUI : MonoBehaviour, IPointerClickHandler
 {
     [Header("Componentes Visuales")]
     [Tooltip("La imagen donde se pondrá el icono del objeto")]
@@ -11,8 +12,11 @@ public class InventarioSlotUI : MonoBehaviour
     [Tooltip("El texto donde aparecerá el título (Principalmente para Coleccionables)")]
     public TextMeshProUGUI textoTitulo;
 
+    private ItemData currentItem;
+
     public void ActualizarSlot(ItemData item)
     {
+        currentItem = item;
         // Si no hay item para este hueco, lo vaciamos
         if (item == null)
         {
@@ -39,6 +43,14 @@ public class InventarioSlotUI : MonoBehaviour
                 // Mostramos el nombre configurado en su Scriptable Object
                 textoTitulo.text = item.nombreObjeto;
             }
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (currentItem != null && InventarioManager.Instance != null)
+        {
+            InventarioManager.Instance.MostrarDetallesObjeto(currentItem);
         }
     }
 }
