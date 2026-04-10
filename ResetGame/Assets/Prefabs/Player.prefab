@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   velocidad: 4
-  dashVelocidad: 10
+  dashVelocidad: 7
   dashDuracion: 0.2
   dashCooldown: 0.3
   distanciaAtaque: 0.3

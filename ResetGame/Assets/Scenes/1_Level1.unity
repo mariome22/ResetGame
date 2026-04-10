@@ -43069,6 +43069,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 684007592919031421, guid: 5a4791bca046c6248a5c264a7bae2323, type: 3}
+      propertyPath: dashVelocidad
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 684007592919031421, guid: 5a4791bca046c6248a5c264a7bae2323, type: 3}
       propertyPath: distanciaVisualTajo
       value: 1
       objectReference: {fileID: 0}
