@@ -49,6 +49,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBase
   vidaMaxima: 3
+  fuerzaKnockback: 15
+  tiempoAturdido: 0.2
+  parametroCaminar: isWalking
 --- !u!114 &9181703464428648306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,7 +66,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter
   prefabProyectil: {fileID: 3979685118916425157, guid: 72666a1055edd0c44a96ba7791e758b4, type: 3}
   ritmoDeDisparo: 1.5
-  rangoDeVision: 7
+  rangoDeVision: 3
   proyectilesPorAtaque: 3
   anguloDeDispersion: 5
   disparoSimultaneo: 1

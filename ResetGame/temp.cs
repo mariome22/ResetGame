@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 
@@ -26,12 +26,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float rangoAtaque = 0.8f;
     public GameObject prefabEfectoAtaque;
     public float distanciaVisualTajo = 1.2f;
-
-    [Header("Ajustes de Ataque a Distancia")]
-    public GameObject prefabProyectil;
-    [SerializeField] private float velocidadProyectil = 15f;
-    private bool usandoArmaADistancia = false;
-    private bool armaDesbloqueada = false;
 
     private Camera cam;
 
@@ -108,54 +102,7 @@ public class PlayerController : MonoBehaviour
     {
         if (value.isPressed && !isDashing)
         {
-            if (usandoArmaADistancia)
-            {
-                RealizarDisparo();
-            }
-            else
-            {
-                RealizarAtaque();
-            }
-        }
-    }
-
-    public void OnSwitchWeapon(InputValue value)
-    {
-        if (value.isPressed && armaDesbloqueada)
-        {
-            usandoArmaADistancia = !usandoArmaADistancia;
-            Debug.Log("Arma cambiada. Arma a distancia equipada: " + usandoArmaADistancia);
-        }
-        else if (value.isPressed && !armaDesbloqueada)
-        {
-            Debug.Log("Todavía no tienes el arma a distancia.");
-        }
-    }
-
-    public void DesbloquearArmaADistancia()
-    {
-        armaDesbloqueada = true;
-        usandoArmaADistancia = true; // El jugador prefiere que se equipe automáticamente
-        Debug.Log("Arma a distancia desbloqueada y equipada: " + usandoArmaADistancia);
-    }
-
-    private void RealizarDisparo()
-    {
-        if (prefabProyectil != null)
-        {
-            // Instanciamos el proyectil en la posición actual del jugador
-            GameObject proyectilObj = Instantiate(prefabProyectil, transform.position, Quaternion.identity);
-            PlayerProjectile proyectil = proyectilObj.GetComponent<PlayerProjectile>();
-            
-            if (proyectil != null)
-            {
-                // Inicializamos el proyectil para que se mueva en la dirección que mira el jugador
-                proyectil.Inicializar(direccionMirada, velocidadProyectil);
-            }
-        }
-        else
-        {
-            Debug.LogWarning("No hay prefab de proyectil asignado en el PlayerController.");
+            RealizarAtaque();
         }
     }
 

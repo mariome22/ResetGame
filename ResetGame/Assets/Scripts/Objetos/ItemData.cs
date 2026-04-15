@@ -3,18 +3,18 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NuevoObjeto", menuName = "Inventario/Objeto")]
 public class ItemData : ScriptableObject
 {
-    [Header("Datos Básicos")]
+    [Header("Datos BÃ¡sicos")]
     public string nombreObjeto;
     [TextArea]
     public string descripcion;
     public Sprite iconoObjeto;
 
-    [Header("Clasificación")]
+    [Header("ClasificaciÃ³n")]
     public TipoObjeto tipo;
     public bool esAcumulable;
     public int cantidadMaxima = 99;
 
-    [Header("Efectos (Según el Tipo)")]
+    [Header("Efectos (SegÃºn el Tipo)")]
     public int valorEfecto;
 
     [TextArea(5, 10)]
@@ -28,6 +28,7 @@ public class ItemData : ScriptableObject
         Municion,
         ArmaCuerpoCuerpo,
         Clave,
-        Documento
+        Documento,
+        ArmaADistancia
     }
 }
