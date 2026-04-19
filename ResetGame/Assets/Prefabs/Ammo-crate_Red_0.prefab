@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3979685118916425157
+--- !u!1 &9154580679765953407
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 713661701323170930}
-  - component: {fileID: 933022799992618515}
-  - component: {fileID: -7737463653990809062}
-  - component: {fileID: 603369158035380768}
-  - component: {fileID: 8598044954107284043}
+  - component: {fileID: 3583869383206434764}
+  - component: {fileID: 6924209227465463189}
+  - component: {fileID: 7768798819219677052}
+  - component: {fileID: 2487878594137727646}
   m_Layer: 0
-  m_Name: BulletPlayer
+  m_Name: Ammo-crate_Red_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &713661701323170930
+--- !u!4 &3583869383206434764
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3979685118916425157}
+  m_GameObject: {fileID: 9154580679765953407}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.815, y: 1.702, z: 0}
-  m_LocalScale: {x: 0.1913, y: 0.1913, z: 0.1913}
+  m_LocalPosition: {x: 42.666, y: -7.519, z: 0}
+  m_LocalScale: {x: 0.543851, y: 0.543851, z: 0.543851}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &933022799992618515
+--- !u!212 &6924209227465463189
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3979685118916425157}
+  m_GameObject: {fileID: 9154580679765953407}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -80,40 +79,41 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: -297019341
-  m_SortingLayer: 5
+  m_SortingLayerID: -911476001
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 6436406215003468650, guid: 771160dee4bd4ea4ea3c2b52067fd5cb, type: 3}
+  m_Sprite: {fileID: -1654697517976419279, guid: 553e4a555b15f274caa28587a71fab61, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5625, y: 0.4375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &-7737463653990809062
+--- !u!114 &7768798819219677052
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3979685118916425157}
+  m_GameObject: {fileID: 9154580679765953407}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f1c4153fd702dc4a8541b3ffcd91673, type: 3}
+  m_Script: {fileID: 11500000, guid: 95fe6cbf603f30544b676d28a904c268, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerProjectile
-  tiempoDeVida: 2
---- !u!61 &603369158035380768
+  m_EditorClassIdentifier: Assembly-CSharp::ItemRecogible
+  datosDelObjeto: {fileID: 11400000, guid: 2ce3944e148b05f4ca2d567ecc9df159, type: 2}
+  cantidadOtorga: 5
+--- !u!61 &2487878594137727646
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3979685118916425157}
+  m_GameObject: {fileID: 9154580679765953407}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -137,7 +137,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -145,38 +145,11 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.375, y: 0.25}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 0.5625, y: 0.4375}
+    newSize: {x: 0.5625, y: 0.4375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5625, y: 0.4375}
   m_EdgeRadius: 0
---- !u!50 &8598044954107284043
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3979685118916425157}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 
@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float velocidad = 5f;
 
     private Rigidbody2D rb;
-    private Animator anim; // <-- AÑADIDO: Referencia al cerebro de las animaciones
+    private Animator anim; // <-- AÃ‘ADIDO: Referencia al cerebro de las animaciones
     private Vector2 movimientoInput;
 
     private Vector2 direccionMirada = Vector2.right;
@@ -33,20 +33,27 @@ public class PlayerController : MonoBehaviour
     private bool usandoArmaADistancia = false;
     private bool armaDesbloqueada = false;
 
+        [Header("Ajustes del Cargador")]
+    public int balasMaximasCargador = 10;
+    public int balasActualesCargador;
+    public float cadenciaDisparo = 0.5f;
+    private float tiempoSiguienteDisparo = 0f;
+
     private Camera cam;
 
     private void Awake()
     {
+        balasActualesCargador = balasMaximasCargador;
         rb = GetComponent<Rigidbody2D>();
         cam = Camera.main;
-        anim = GetComponent<Animator>(); // <-- AÑADIDO: Buscamos el Animator al arrancar
+        anim = GetComponent<Animator>(); // <-- AÃ‘ADIDO: Buscamos el Animator al arrancar
     }
 
     private void Update()
     {
         CalcularDireccionMirada();
 
-        // <-- AÑADIDO: Le pasamos al Animator cuánto nos estamos moviendo (0 = quieto, >0 = corriendo)
+        // <-- AÃ‘ADIDO: Le pasamos al Animator cuÃ¡nto nos estamos moviendo (0 = quieto, >0 = corriendo)
         if (anim != null)
         {
             anim.SetFloat("Velocidad", movimientoInput.sqrMagnitude);
@@ -104,13 +111,50 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    
+    public void OnReload(InputValue value)
+    {
+        if (value.isPressed && usandoArmaADistancia)
+        {
+            if (balasActualesCargador < balasMaximasCargador)
+            {
+                int balasFaltantes = balasMaximasCargador - balasActualesCargador;
+                int recargadas;
+                if (InventarioManager.Instance != null && InventarioManager.Instance.ExtraerMunicion(balasFaltantes, out recargadas))
+                {
+                    balasActualesCargador += recargadas;
+                    Debug.Log("Recargado. Balas actuales: " + balasActualesCargador);
+                }
+                else
+                {
+                    Debug.Log("No tienes municion en el Inventario para recargar.");
+                }
+            }
+            else
+            {
+                Debug.Log("El cargador ya esta lleno.");
+            }
+        }
+    }
+
     public void OnAttack(InputValue value)
     {
         if (value.isPressed && !isDashing)
         {
             if (usandoArmaADistancia)
             {
-                RealizarDisparo();
+                if (Time.time >= tiempoSiguienteDisparo)
+                {
+                    if (balasActualesCargador > 0)
+                    {
+                        tiempoSiguienteDisparo = Time.time + cadenciaDisparo;
+                        RealizarDisparo();
+                    }
+                    else
+                    {
+                        Debug.Log("Sin balas. Pulsa R para recargar.");
+                    }
+                }
             }
             else
             {
@@ -128,28 +172,29 @@ public class PlayerController : MonoBehaviour
         }
         else if (value.isPressed && !armaDesbloqueada)
         {
-            Debug.Log("Todavía no tienes el arma a distancia.");
+            Debug.Log("TodavÃ­a no tienes el arma a distancia.");
         }
     }
 
     public void DesbloquearArmaADistancia()
     {
         armaDesbloqueada = true;
-        usandoArmaADistancia = true; // El jugador prefiere que se equipe automáticamente
+        usandoArmaADistancia = true; // El jugador prefiere que se equipe automÃ¡ticamente
         Debug.Log("Arma a distancia desbloqueada y equipada: " + usandoArmaADistancia);
     }
 
     private void RealizarDisparo()
     {
+        balasActualesCargador--;
         if (prefabProyectil != null)
         {
-            // Instanciamos el proyectil en la posición actual del jugador
+            // Instanciamos el proyectil en la posiciÃ³n actual del jugador
             GameObject proyectilObj = Instantiate(prefabProyectil, transform.position, Quaternion.identity);
             PlayerProjectile proyectil = proyectilObj.GetComponent<PlayerProjectile>();
             
             if (proyectil != null)
             {
-                // Inicializamos el proyectil para que se mueva en la dirección que mira el jugador
+                // Inicializamos el proyectil para que se mueva en la direcciÃ³n que mira el jugador
                 proyectil.Inicializar(direccionMirada, velocidadProyectil);
             }
         }
@@ -183,10 +228,10 @@ public class PlayerController : MonoBehaviour
             //Instanciamos el sprite del slash
             GameObject efecto = Instantiate(prefabEfectoAtaque, transform.position, Quaternion.identity);
 
-            //Calculamos el ángulo hacia el ratón
+            //Calculamos el Ã¡ngulo hacia el ratÃ³n
             float anguloCentral = Mathf.Atan2(direccionMirada.y, direccionMirada.x) * Mathf.Rad2Deg;
 
-            //Iniciamos la animación
+            //Iniciamos la animaciÃ³n
             StartCoroutine(AnimarTajoVisual(efecto, anguloCentral));
         }
 
@@ -218,7 +263,7 @@ public class PlayerController : MonoBehaviour
         float tiempo = 0f;
         float duracion = 0.15f;
 
-        //El slash hará un recorrido en arco de 60 grados
+        //El slash harÃ¡ un recorrido en arco de 60 grados
         float anguloInicio = anguloCentral - 30;
         float anguloFin = anguloCentral + 30;
 
@@ -273,3 +318,4 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(centroDelAtaque, rangoAtaque);
     }
 }
+

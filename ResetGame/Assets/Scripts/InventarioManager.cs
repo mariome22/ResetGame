@@ -2,28 +2,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+[System.Serializable]
+public class InventarioSlot
+{
+    public ItemData objeto;
+    public int cantidad;
+
+    public InventarioSlot(ItemData obj, int cant)
+    {
+        objeto = obj;
+        cantidad = cant;
+    }
+}
+
 public class InventarioManager : MonoBehaviour
 {
     public static InventarioManager Instance;
 
     [Header("Almacenamiento")]
-    public List<ItemData> objetosGuardados = new List<ItemData>();
-    public List<ItemData> coleccionablesGuardados = new List<ItemData>();
+    public List<InventarioSlot> objetosGuardados = new List<InventarioSlot>();
+    public List<InventarioSlot> coleccionablesGuardados = new List<InventarioSlot>();
     public int capacidadObjetos = 15;
 
     [Header("Interfaz HUD")]
-    [Tooltip("Arrastra aquí el texto del Canvas que mostrará el objeto equipado")]
+    [Tooltip("Arrastra aqui el texto del Canvas que mostrara el objeto equipado")]
     public TextMeshProUGUI textoObjetoEquipado;
 
-    [Header("Interfaz Menú Pausa")]
+    [Header("Interfaz Menu Pausa")]
     [Tooltip("Panel que contiene los 15 huecos de objetos (los huecos deben tener InventarioSlotUI)")]
     public Transform panelObjetos;
     [Tooltip("Panel que contiene los huecos de coleccionables (los huecos deben tener InventarioSlotUI)")]
     public Transform panelColeccionables;
-    [Tooltip("Opcional: Prefab del hueco para Coleccionables (para crear más si superan la capacidad inicial de la UI)")]
+    [Tooltip("Opcional: Prefab del hueco para Coleccionables (para crear mas si superan la capacidad inicial de la UI)")]
     public GameObject prefabHuecoColeccionable;
 
-    [Header("Detalles de Objeto (Menú Pausa)")]
+    [Header("Detalles de Objeto (Menu Pausa)")]
     public TextMeshProUGUI textoNombreDetalle;
     public TextMeshProUGUI textoDescripcionDetalle;
 
@@ -41,27 +54,53 @@ public class InventarioManager : MonoBehaviour
         ActualizarMenuPausa();
     }
 
-    public void AnadirObjeto(ItemData nuevoObjeto)
+    public void AnadirObjeto(ItemData nuevoObjeto, int cantidad = 1)
     {
         if (nuevoObjeto.tipo == ItemData.TipoObjeto.Documento)
         {
-            coleccionablesGuardados.Add(nuevoObjeto);
+            coleccionablesGuardados.Add(new InventarioSlot(nuevoObjeto, cantidad));
             Debug.Log("Coleccionable guardado: " + nuevoObjeto.nombreObjeto);
             ActualizarUI();
             ActualizarMenuPausa();
         }
         else
         {
-            if (objetosGuardados.Count < capacidadObjetos)
+            if (nuevoObjeto.esAcumulable)
             {
-                objetosGuardados.Add(nuevoObjeto);
+                foreach (InventarioSlot slot in objetosGuardados)
+                {
+                    if (slot.objeto == nuevoObjeto)
+                    {
+                        if (slot.cantidad < nuevoObjeto.cantidadMaxima)
+                        {
+                            int espacioLibre = nuevoObjeto.cantidadMaxima - slot.cantidad;
+                            if (cantidad <= espacioLibre)
+                            {
+                                slot.cantidad += cantidad;
+                                ActualizarUI();
+                                ActualizarMenuPausa();
+                                return;
+                            }
+                            else
+                            {
+                                slot.cantidad += espacioLibre;
+                                cantidad -= espacioLibre;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (objetosGuardados.Count < capacidadObjetos && cantidad > 0)
+            {
+                objetosGuardados.Add(new InventarioSlot(nuevoObjeto, cantidad));
                 Debug.Log("Guardado en la mochila: " + nuevoObjeto.nombreObjeto);
                 ActualizarUI();
                 ActualizarMenuPausa();
             }
-            else
+            else if (cantidad > 0)
             {
-                Debug.Log("¡El inventario está lleno!");
+                Debug.Log("Equipamiento lleno, no caben mas objetos.");
             }
         }
     }
@@ -80,7 +119,7 @@ public class InventarioManager : MonoBehaviour
             }
             intentos++;
         }
-        while (objetosGuardados[indiceSeleccionado].tipo != ItemData.TipoObjeto.Curacion && intentos < objetosGuardados.Count);
+        while (objetosGuardados[indiceSeleccionado].objeto.tipo != ItemData.TipoObjeto.Curacion && intentos < objetosGuardados.Count);
 
         ActualizarUI();
     }
@@ -93,15 +132,13 @@ public class InventarioManager : MonoBehaviour
             return;
         }
 
-        // Clip de seguridad si el indiceSeleccionado quedó desfasado
         if (indiceSeleccionado >= objetosGuardados.Count) {
              indiceSeleccionado = 0;
         }
 
-        ItemData objetoAConsumir = objetosGuardados[indiceSeleccionado];
+        InventarioSlot slot = objetosGuardados[indiceSeleccionado];
 
-        //Verificamos si es curativo antes de intentar curar
-        if (objetoAConsumir.tipo == ItemData.TipoObjeto.Curacion)
+        if (slot.objeto.tipo == ItemData.TipoObjeto.Curacion)
         {
             GameObject jugador = GameObject.FindGameObjectWithTag("Player");
             if (jugador != null)
@@ -109,18 +146,20 @@ public class InventarioManager : MonoBehaviour
                 PlayerHealth vidaJugador = jugador.GetComponent<PlayerHealth>();
                 if (vidaJugador != null)
                 {
-                    if (vidaJugador.Curar(objetoAConsumir.valorEfecto))
+                    if (vidaJugador.Curar(slot.objeto.valorEfecto))
                     {
-                        //Si se curó con éxito, lo borramos de la mochila
-                        objetosGuardados.RemoveAt(indiceSeleccionado);
-                        Debug.Log("Has consumido: " + objetoAConsumir.nombreObjeto);
+                        slot.cantidad--;
+                        if (slot.cantidad <= 0)
+                        {
+                            objetosGuardados.RemoveAt(indiceSeleccionado);
+                        }
 
-                        //Ajustamos el índice por si borramos el último objeto de la lista
                         if (indiceSeleccionado >= objetosGuardados.Count)
                         {
                             indiceSeleccionado = 0;
                         }
 
+                        Debug.Log("Has consumido: " + slot.objeto.nombreObjeto);
                         ActualizarUI();
                         ActualizarMenuPausa();
                     }
@@ -129,8 +168,43 @@ public class InventarioManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("No puedes usar " + objetoAConsumir.nombreObjeto + " de esta forma.");
+            Debug.Log("No puedes usar " + slot.objeto.nombreObjeto + " de esta forma.");
         }
+    }
+
+    public bool ExtraerMunicion(int cantidadNecesaria, out int cantidadExtraida)
+    {
+        cantidadExtraida = 0;
+        for (int i = 0; i < objetosGuardados.Count; i++)
+        {
+            if (objetosGuardados[i].objeto.tipo == ItemData.TipoObjeto.Municion)
+            {
+                InventarioSlot municionSlot = objetosGuardados[i];
+                if (municionSlot.cantidad >= cantidadNecesaria)
+                {
+                    municionSlot.cantidad -= cantidadNecesaria;
+                    cantidadExtraida += cantidadNecesaria;
+                    
+                    if (municionSlot.cantidad <= 0) objetosGuardados.RemoveAt(i);
+                    
+                    ActualizarUI();
+                    ActualizarMenuPausa();
+                    return true;
+                }
+                else
+                {
+                    cantidadExtraida += municionSlot.cantidad;
+                    cantidadNecesaria -= municionSlot.cantidad;
+                    objetosGuardados.RemoveAt(i);
+                    i--; // Ajustar indice despues de borrar
+                }
+            }
+            if (cantidadNecesaria <= 0) break;
+        }
+        
+        ActualizarUI();
+        ActualizarMenuPausa();
+        return cantidadExtraida > 0;
     }
 
     private void ActualizarUI()
@@ -138,9 +212,9 @@ public class InventarioManager : MonoBehaviour
         if (textoObjetoEquipado == null) return;
 
         bool tenemosCuras = false;
-        foreach (var item in objetosGuardados)
+        foreach (var slot in objetosGuardados)
         {
-            if (item.tipo == ItemData.TipoObjeto.Curacion) tenemosCuras = true;
+            if (slot.objeto.tipo == ItemData.TipoObjeto.Curacion) tenemosCuras = true;
         }
 
         if (!tenemosCuras)
@@ -149,29 +223,26 @@ public class InventarioManager : MonoBehaviour
             return;
         }
 
-        // Protección extra
         if (indiceSeleccionado >= objetosGuardados.Count) 
         {
             indiceSeleccionado = 0;
             if (objetosGuardados.Count == 0) return;
         }
 
-        //Cambio forzado por si apunta a un item distinto a cura en el HUD
-        if (objetosGuardados[indiceSeleccionado].tipo != ItemData.TipoObjeto.Curacion)
+        if (objetosGuardados[indiceSeleccionado].objeto.tipo != ItemData.TipoObjeto.Curacion)
         {
             CambiarSeleccion();
         }
         else
         {
-            textoObjetoEquipado.text = "Cura: " + objetosGuardados[indiceSeleccionado].nombreObjeto;
+            textoObjetoEquipado.text = "Cura: " + objetosGuardados[indiceSeleccionado].objeto.nombreObjeto + " (x" + objetosGuardados[indiceSeleccionado].cantidad + ")";
         }
     }
 
     public void ActualizarMenuPausa()
     {
-        MostrarDetallesObjeto(null); // Limpiar detalles al actualizar
+        MostrarDetallesObjeto(null);
 
-        // 1. Actualizar panel de objetos normales
         if (panelObjetos != null)
         {
             InventarioSlotUI[] slotsObjetos = panelObjetos.GetComponentsInChildren<InventarioSlotUI>();
@@ -188,16 +259,13 @@ public class InventarioManager : MonoBehaviour
             }
         }
 
-        // 2. Actualizar panel de coleccionables
         if (panelColeccionables != null)
         {
             InventarioSlotUI[] slotsCol = panelColeccionables.GetComponentsInChildren<InventarioSlotUI>();
             
-            // Si hay más coleccionables que huecos, instanciamos más automáticamente
             while (slotsCol.Length < coleccionablesGuardados.Count && prefabHuecoColeccionable != null)
             {
                 Instantiate(prefabHuecoColeccionable, panelColeccionables);
-                // Refrescamos la lista después de instanciar uno nuevo
                 slotsCol = panelColeccionables.GetComponentsInChildren<InventarioSlotUI>(); 
             }
 
@@ -209,7 +277,7 @@ public class InventarioManager : MonoBehaviour
                 }
                 else
                 {
-                    slotsCol[i].ActualizarSlot(null); // Ocultar info pero mantener recuadro visible si queremos
+                    slotsCol[i].ActualizarSlot(null);
                 }
             }
         }
@@ -217,22 +285,29 @@ public class InventarioManager : MonoBehaviour
 
     public bool TieneObjeto(ItemData objetoRequerido)
     {
-        return objetosGuardados.Contains(objetoRequerido) || coleccionablesGuardados.Contains(objetoRequerido);
+        foreach(var slot in objetosGuardados) { if (slot.objeto == objetoRequerido) return true; }
+        foreach(var slot in coleccionablesGuardados) { if (slot.objeto == objetoRequerido) return true; }
+        return false;
     }
 
     public void GastarObjeto(ItemData objetoAGastar)
     {
-        if (objetosGuardados.Contains(objetoAGastar))
-        {
-            objetosGuardados.Remove(objetoAGastar);
-            ActualizarUI();
-            ActualizarMenuPausa();
+        for(int i = 0; i < objetosGuardados.Count; i++) {
+            if (objetosGuardados[i].objeto == objetoAGastar) {
+                objetosGuardados[i].cantidad--;
+                if(objetosGuardados[i].cantidad <= 0) objetosGuardados.RemoveAt(i);
+                ActualizarUI();
+                ActualizarMenuPausa();
+                return;
+            }
         }
-        else if (coleccionablesGuardados.Contains(objetoAGastar))
-        {
-            coleccionablesGuardados.Remove(objetoAGastar);
-            ActualizarUI();
-            ActualizarMenuPausa();
+        for(int i = 0; i < coleccionablesGuardados.Count; i++) {
+            if (coleccionablesGuardados[i].objeto == objetoAGastar) {
+                coleccionablesGuardados.RemoveAt(i);
+                ActualizarUI();
+                ActualizarMenuPausa();
+                return;
+            }
         }
     }
 
