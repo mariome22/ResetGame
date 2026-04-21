@@ -82,10 +82,10 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -911476001
-  m_SortingLayer: 4
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -7576640703778371719, guid: b32137dee2e5b594094c801b73c18a2a, type: 3}
+  m_Sprite: {fileID: 4490814870101440558, guid: bd6d2310f77e1e049b31e2e79579433c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemRecogible
   datosDelObjeto: {fileID: 11400000, guid: d694ca619e6711845acfbfcb018a17fa, type: 2}
+  cantidadOtorga: 1
 --- !u!114 &6498917432441621236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,8 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3636df42d9fef0344b66b417494a5e92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableObject
-  visualCue: {fileID: 8561453225242015345}
-  outlineMaterial: {fileID: 2100000, guid: cd60185da97148348afc92eef6d93dd1, type: 2}
+  highlightColor: {r: 1.5, g: 1.5, b: 1.5, a: 1}
   onInteract:
     m_PersistentCalls:
       m_Calls:
@@ -175,7 +175,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.4375, y: 0.4375}
+    oldSize: {x: 1.125, y: 0.9375}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -261,7 +261,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 699253723
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7443623262413015634, guid: dee2353d956b0264b9592b839249628a, type: 3}

@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -3.501, y: 16.496, z: 0}
-  m_LocalScale: {x: 0.81376314, y: 0.81376314, z: 0.81376314}
+  m_LocalScale: {x: 1.0266436, y: 1.0266436, z: 1.0266436}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -52,6 +52,7 @@ MonoBehaviour:
   vidaMaxima: 3
   fuerzaKnockback: 8
   tiempoAturdido: 0.2
+  parametroCaminar: isWalking
 --- !u!114 &8062616196193701542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +125,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -297019341
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7188940616404631829, guid: 4dad612548b680a41a4233d42b9b2cf6, type: 3}
