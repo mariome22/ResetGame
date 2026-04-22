@@ -52,6 +52,7 @@ MonoBehaviour:
   vidaMaxima: 3
   fuerzaKnockback: 8
   tiempoAturdido: 0.2
+  parametroCaminar: isWalking
 --- !u!114 &5739339999262429083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,9 +75,9 @@ MonoBehaviour:
   colorAvisoEmbestida: {r: 1, g: 0, b: 0, a: 1}
   explota: 1
   rangoActivacionExplosion: 2
-  tiempoParaExplotar: 1
+  tiempoParaExplotar: 0.5
   danoExplosion: 2
-  intensidadTemblor: 0.05
+  intensidadTemblor: 0.02
   danoPorContacto: 0
 --- !u!212 &2878084706116038341
 SpriteRenderer:
@@ -124,7 +125,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -297019341
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -6248629114275449574, guid: 8b71adaefd798554c94634423e107edc, type: 3}

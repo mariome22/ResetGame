@@ -126,8 +126,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   velocidad: 4
   dashVelocidad: 7
-  dashDuracion: 0.2
-  dashCooldown: 0.3
+  dashDuracion: 0.5
+  dashCooldown: 0.5
   distanciaAtaque: 0.3
   rangoAtaque: 0.6
   prefabEfectoAtaque: {fileID: 2413080805686541986, guid: f4d4d534e146c4f47a59b2e96fda740a, type: 3}
@@ -136,7 +136,7 @@ MonoBehaviour:
   velocidadProyectil: 10
   balasMaximasCargador: 10
   balasActualesCargador: 0
-  cadenciaDisparo: 0.5
+  cadenciaDisparo: 0.75
 --- !u!50 &3909957077091530005
 Rigidbody2D:
   serializedVersion: 5
