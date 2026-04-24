@@ -241,6 +241,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CocheRoto
       objectReference: {fileID: 0}
+    - target: {fileID: 9176894424306608503, guid: 6310669e49bab1b42af4490b8bc33da8, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -319,6 +323,10 @@ PrefabInstance:
     - target: {fileID: 2186782969217577498, guid: 4e7fe475bd72860499bd617104f89cd3, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_39 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2186782969217577498, guid: 4e7fe475bd72860499bd617104f89cd3, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5763668989960554287, guid: 4e7fe475bd72860499bd617104f89cd3, type: 3}
       propertyPath: m_SortingLayer
@@ -623,6 +631,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car_3_Overgrown_Bleak-Yellow_Blue_Van_0
       objectReference: {fileID: 0}
+    - target: {fileID: 165435012426565895, guid: bb97ec014cc4dd749a0f88fa11f8b3ea, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3055503520595211607, guid: bb97ec014cc4dd749a0f88fa11f8b3ea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.597668
@@ -850,6 +862,10 @@ PrefabInstance:
     - target: {fileID: 4823151536477027797, guid: c6832f4611cf4d643beb62d45fc93571, type: 3}
       propertyPath: m_Name
       value: Caja2 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4823151536477027797, guid: c6832f4611cf4d643beb62d45fc93571, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1226,6 +1242,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Caja2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4823151536477027797, guid: c6832f4611cf4d643beb62d45fc93571, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1252,6 +1272,10 @@ PrefabInstance:
     - target: {fileID: 4715044181263889254, guid: 737f5c2e8a9b3c14c8d0855bc14c8b3f, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_27
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715044181263889254, guid: 737f5c2e8a9b3c14c8d0855bc14c8b3f, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6871302048862197440, guid: 737f5c2e8a9b3c14c8d0855bc14c8b3f, type: 3}
       propertyPath: m_SortingLayer
@@ -1320,6 +1344,10 @@ PrefabInstance:
     - target: {fileID: 1882804316031687392, guid: 4312f48abfb6a0848b6bdb75feb49e14, type: 3}
       propertyPath: m_Name
       value: PostApoc_Workshop_WithShadow_8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882804316031687392, guid: 4312f48abfb6a0848b6bdb75feb49e14, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2004531927864110506, guid: 4312f48abfb6a0848b6bdb75feb49e14, type: 3}
       propertyPath: m_SortingLayer
@@ -1692,6 +1720,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_64 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 37232931787814407, guid: b1d98921358943c42817375e268c391c, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3201632203894482064, guid: b1d98921358943c42817375e268c391c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.09
@@ -1824,6 +1856,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grass_5_Dark-Green_0
       objectReference: {fileID: 0}
+    - target: {fileID: 3448934352158549517, guid: cd2d3c235a272a54db0635ec6ecfccb5, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6064031459115761537, guid: cd2d3c235a272a54db0635ec6ecfccb5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.3518372
@@ -1885,6 +1921,10 @@ PrefabInstance:
     - target: {fileID: 1898306092661408021, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
       propertyPath: m_Name
       value: Caja1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898306092661408021, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8733105116007833163, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2307,6 +2347,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_7 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4642370292033094787, guid: bbf359c935ca8df4aaec3e050701bc5d, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2375,6 +2419,10 @@ PrefabInstance:
     - target: {fileID: 7760600046979144358, guid: a1b09558ffe6d074291b5396b62f1223, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_41 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7760600046979144358, guid: a1b09558ffe6d074291b5396b62f1223, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8576113223785634469, guid: a1b09558ffe6d074291b5396b62f1223, type: 3}
       propertyPath: m_SortingLayer
@@ -2484,6 +2532,10 @@ PrefabInstance:
     - target: {fileID: 5944750818836910562, guid: d5e6b8a323f86d543881f8e6c9b3cfd7, type: 3}
       propertyPath: m_Name
       value: Vending-machine_Blue_Overgrown_Dark-Green_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5944750818836910562, guid: d5e6b8a323f86d543881f8e6c9b3cfd7, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8811036402083143337, guid: d5e6b8a323f86d543881f8e6c9b3cfd7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2598,6 +2650,10 @@ PrefabInstance:
     - target: {fileID: 2402298268111160185, guid: 3784ac11624054a4eada86886ccfd2bc, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_70
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402298268111160185, guid: 3784ac11624054a4eada86886ccfd2bc, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3009769071873556940, guid: 3784ac11624054a4eada86886ccfd2bc, type: 3}
       propertyPath: m_SortingLayer
@@ -2832,6 +2888,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Garbage-Bin_1_0
       objectReference: {fileID: 0}
+    - target: {fileID: 4477301764755888647, guid: c8b344659966d8f4590a679a895a05d9, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8768711951510482704, guid: c8b344659966d8f4590a679a895a05d9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.795433
@@ -2893,6 +2953,10 @@ PrefabInstance:
     - target: {fileID: 37232931787814407, guid: b1d98921358943c42817375e268c391c, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_64 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 37232931787814407, guid: b1d98921358943c42817375e268c391c, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3201632203894482064, guid: b1d98921358943c42817375e268c391c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3026,6 +3090,10 @@ PrefabInstance:
     - target: {fileID: 5994845444579155882, guid: ab7ffe7749ef1f44db08f4c80a9c43df, type: 3}
       propertyPath: m_Name
       value: Tree_3_Normal_Dark-Green_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5994845444579155882, guid: ab7ffe7749ef1f44db08f4c80a9c43df, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6153720365390566932, guid: ab7ffe7749ef1f44db08f4c80a9c43df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3467,6 +3535,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Caja2
       objectReference: {fileID: 0}
+    - target: {fileID: 4823151536477027797, guid: c6832f4611cf4d643beb62d45fc93571, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3539,6 +3611,10 @@ PrefabInstance:
     - target: {fileID: 2186782969217577498, guid: 4e7fe475bd72860499bd617104f89cd3, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_39
+      objectReference: {fileID: 0}
+    - target: {fileID: 2186782969217577498, guid: 4e7fe475bd72860499bd617104f89cd3, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5763668989960554287, guid: 4e7fe475bd72860499bd617104f89cd3, type: 3}
       propertyPath: m_SortingLayer
@@ -3736,6 +3812,10 @@ PrefabInstance:
     - target: {fileID: 5945307845040852903, guid: 281aeb0a9df36c6419c53ee5650cfa64, type: 3}
       propertyPath: m_Name
       value: Car_6_Rust_Blue_Scrap_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5945307845040852903, guid: 281aeb0a9df36c6419c53ee5650cfa64, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4240,6 +4320,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_41
       objectReference: {fileID: 0}
+    - target: {fileID: 7760600046979144358, guid: a1b09558ffe6d074291b5396b62f1223, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8576113223785634469, guid: a1b09558ffe6d074291b5396b62f1223, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -4392,6 +4476,10 @@ PrefabInstance:
     - target: {fileID: 708619582077279849, guid: 23d913ff1bbce3d4990542268201b0d3, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_45 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 708619582077279849, guid: 23d913ff1bbce3d4990542268201b0d3, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2288390500490597326, guid: 23d913ff1bbce3d4990542268201b0d3, type: 3}
       propertyPath: m_SortingLayer
@@ -4556,6 +4644,10 @@ PrefabInstance:
     - target: {fileID: 4596838804941515198, guid: 08ae3b40ed20d714da32d60eabca0946, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_12 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596838804941515198, guid: 08ae3b40ed20d714da32d60eabca0946, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5025599734096944516, guid: 08ae3b40ed20d714da32d60eabca0946, type: 3}
       propertyPath: m_SortingLayer
@@ -4756,6 +4848,10 @@ PrefabInstance:
     - target: {fileID: 1898306092661408021, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
       propertyPath: m_Name
       value: Caja1 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898306092661408021, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8733105116007833163, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
       propertyPath: m_LocalScale.x
@@ -4963,6 +5059,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_75
       objectReference: {fileID: 0}
+    - target: {fileID: 4875248214758000972, guid: 32f599ec5ce84734a87ead86a706ae02, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8425832566193798571, guid: 32f599ec5ce84734a87ead86a706ae02, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -5073,6 +5173,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bench_2_down_Overgrown_Dark-Green_0
       objectReference: {fileID: 0}
+    - target: {fileID: 5862828182824794583, guid: 3ac3944fb80fc9e4481d0a06b13abc39, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5094,6 +5198,10 @@ PrefabInstance:
     - target: {fileID: 2629348022350021236, guid: 883d8339b2038c947a21fde2c2bc6d4f, type: 3}
       propertyPath: m_Name
       value: PostApoc_Workshop_WithShadow_68 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2629348022350021236, guid: 883d8339b2038c947a21fde2c2bc6d4f, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3900291717806775051, guid: 883d8339b2038c947a21fde2c2bc6d4f, type: 3}
       propertyPath: m_LocalScale.x
@@ -5230,6 +5338,10 @@ PrefabInstance:
     - target: {fileID: 5678279946564411666, guid: 0ae17fc41dacf1f49b8d5ed91dd500b7, type: 3}
       propertyPath: m_Name
       value: Car_4_Rust_Red_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5678279946564411666, guid: 0ae17fc41dacf1f49b8d5ed91dd500b7, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7563120980411331174, guid: 0ae17fc41dacf1f49b8d5ed91dd500b7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5683,6 +5795,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Street-Light_4_Side_Overgrown_Dark-Green_0
       objectReference: {fileID: 0}
+    - target: {fileID: 9203880889437438014, guid: e08bc81ff6d940e44a92bc325d803ca2, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6097,6 +6213,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Street-Light_4_Side_Overgrown_Dark-Green_0 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9203880889437438014, guid: e08bc81ff6d940e44a92bc325d803ca2, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6130,6 +6250,10 @@ PrefabInstance:
     - target: {fileID: 323119616946861032, guid: 21e4d400cddbc234886ffbad08906e05, type: 3}
       propertyPath: m_Name
       value: PostApoc_Workshop_WithShadow_114 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 323119616946861032, guid: 21e4d400cddbc234886ffbad08906e05, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6774664415277585814, guid: 21e4d400cddbc234886ffbad08906e05, type: 3}
       propertyPath: m_LocalScale.x
@@ -6482,6 +6606,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Caja2 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4823151536477027797, guid: c6832f4611cf4d643beb62d45fc93571, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6556,6 +6684,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_45 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 708619582077279849, guid: 23d913ff1bbce3d4990542268201b0d3, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2288390500490597326, guid: 23d913ff1bbce3d4990542268201b0d3, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -6629,6 +6761,10 @@ PrefabInstance:
     - target: {fileID: 1885639418945773598, guid: 71c6c65c791887748aa1cc86550e0f36, type: 3}
       propertyPath: m_Name
       value: ContenedorAbierto
+      objectReference: {fileID: 0}
+    - target: {fileID: 1885639418945773598, guid: 71c6c65c791887748aa1cc86550e0f36, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7801,6 +7937,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_2_Spruce-Sparse_Dark-Green_0
       objectReference: {fileID: 0}
+    - target: {fileID: 3595050037646512981, guid: 0d8adfaf0c5303141b7b16b558deb58f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6081337872642855645, guid: 0d8adfaf0c5303141b7b16b558deb58f, type: 3}
       propertyPath: m_Size.y
       value: 0.30576515
@@ -7882,6 +8022,10 @@ PrefabInstance:
     - target: {fileID: 708619582077279849, guid: 23d913ff1bbce3d4990542268201b0d3, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_45
+      objectReference: {fileID: 0}
+    - target: {fileID: 708619582077279849, guid: 23d913ff1bbce3d4990542268201b0d3, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2288390500490597326, guid: 23d913ff1bbce3d4990542268201b0d3, type: 3}
       propertyPath: m_SortingLayer
@@ -8046,6 +8190,10 @@ PrefabInstance:
     - target: {fileID: 4823151536477027797, guid: c6832f4611cf4d643beb62d45fc93571, type: 3}
       propertyPath: m_Name
       value: Caja2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4823151536477027797, guid: c6832f4611cf4d643beb62d45fc93571, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8642,6 +8790,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CajaDrop
       objectReference: {fileID: 0}
+    - target: {fileID: 449281771499980379, guid: 731abbd44573e8241aeec481cbf6e7f2, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3834159653369222914, guid: 731abbd44573e8241aeec481cbf6e7f2, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.53331
@@ -8825,6 +8977,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bush_2_Dark-Green_0
       objectReference: {fileID: 0}
+    - target: {fileID: 7939045982352775990, guid: 0e657b7e860c0b84a99b5d4c061732d0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8962,6 +9118,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vending-machine_Red_Overgrown_Green_0
       objectReference: {fileID: 0}
+    - target: {fileID: 8643597881998146117, guid: ea1f7ff726f922e4da53e450e509107c, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9085,6 +9245,10 @@ PrefabInstance:
     - target: {fileID: 6602867451149823447, guid: af4b53fc1be672b46801b605b226f308, type: 3}
       propertyPath: m_Name
       value: Barrel_red_2_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6602867451149823447, guid: af4b53fc1be672b46801b605b226f308, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9262,6 +9426,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_13 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3475144414409491344, guid: 64a3caee27512234c968800d61210fd7, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3830894387597521862, guid: 64a3caee27512234c968800d61210fd7, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.73837
@@ -9343,6 +9511,10 @@ PrefabInstance:
     - target: {fileID: 244743882248241900, guid: 82fac4853da2f8f4ca9d28f46865fb65, type: 3}
       propertyPath: m_Name
       value: Container_8_Red_Horizontal_Overgrown_Green_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 244743882248241900, guid: 82fac4853da2f8f4ca9d28f46865fb65, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2457784301587630698, guid: 82fac4853da2f8f4ca9d28f46865fb65, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9488,6 +9660,10 @@ PrefabInstance:
     - target: {fileID: 323119616946861032, guid: 21e4d400cddbc234886ffbad08906e05, type: 3}
       propertyPath: m_Name
       value: PostApoc_Workshop_WithShadow_114 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 323119616946861032, guid: 21e4d400cddbc234886ffbad08906e05, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6774664415277585814, guid: 21e4d400cddbc234886ffbad08906e05, type: 3}
       propertyPath: m_LocalScale.x
@@ -9890,6 +10066,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ContenedorAbierto (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1885639418945773598, guid: 71c6c65c791887748aa1cc86550e0f36, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9911,7 +10091,7 @@ GameObject:
   - component: {fileID: 915108759}
   - component: {fileID: 915108758}
   - component: {fileID: 915108757}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: post apoc shelter furniture set updated_61
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10190,6 +10370,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_34 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4241575755790522742, guid: 734f10468743f7a4a8fc99a735be62a2, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5894178619374014521, guid: 734f10468743f7a4a8fc99a735be62a2, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.63938004
@@ -10413,6 +10597,10 @@ PrefabInstance:
     - target: {fileID: 449281771499980379, guid: 731abbd44573e8241aeec481cbf6e7f2, type: 3}
       propertyPath: m_Name
       value: CajaDrop
+      objectReference: {fileID: 0}
+    - target: {fileID: 449281771499980379, guid: 731abbd44573e8241aeec481cbf6e7f2, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1203980125722991512, guid: 731abbd44573e8241aeec481cbf6e7f2, type: 3}
       propertyPath: m_SortingLayer
@@ -10949,6 +11137,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barril1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6394927014797575165, guid: 16251c171fee8fa46962d48c285860fb, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7136588500993261629, guid: 16251c171fee8fa46962d48c285860fb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.070492
@@ -11010,6 +11202,10 @@ PrefabInstance:
     - target: {fileID: 5469899584356987067, guid: fcddf27938231ca459e77c7949cf5b7b, type: 3}
       propertyPath: m_Name
       value: Street-Light_4_Side_Overgrown_Green_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5469899584356987067, guid: fcddf27938231ca459e77c7949cf5b7b, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5562203531801925282, guid: fcddf27938231ca459e77c7949cf5b7b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11407,6 +11603,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car_8_Rust_Orange_Bus_0
       objectReference: {fileID: 0}
+    - target: {fileID: 521704409386925535, guid: 0401cc27ecbea5446841c449e741cf9b, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1925164760355723326, guid: 0401cc27ecbea5446841c449e741cf9b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.172974
@@ -11469,6 +11669,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Caja1
       objectReference: {fileID: 0}
+    - target: {fileID: 1898306092661408021, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8733105116007833163, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.515148
@@ -11530,6 +11734,10 @@ PrefabInstance:
     - target: {fileID: 3475144414409491344, guid: 64a3caee27512234c968800d61210fd7, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3475144414409491344, guid: 64a3caee27512234c968800d61210fd7, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3830894387597521862, guid: 64a3caee27512234c968800d61210fd7, type: 3}
       propertyPath: m_LocalScale.x
@@ -11674,6 +11882,10 @@ PrefabInstance:
     - target: {fileID: 449281771499980379, guid: 731abbd44573e8241aeec481cbf6e7f2, type: 3}
       propertyPath: m_Name
       value: CajaDrop (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 449281771499980379, guid: 731abbd44573e8241aeec481cbf6e7f2, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1203980125722991512, guid: 731abbd44573e8241aeec481cbf6e7f2, type: 3}
       propertyPath: m_SortingLayer
@@ -12244,6 +12456,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_41 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7760600046979144358, guid: a1b09558ffe6d074291b5396b62f1223, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8576113223785634469, guid: a1b09558ffe6d074291b5396b62f1223, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -12455,6 +12671,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_39 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2186782969217577498, guid: 4e7fe475bd72860499bd617104f89cd3, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5763668989960554287, guid: 4e7fe475bd72860499bd617104f89cd3, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -12606,6 +12826,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_11
       objectReference: {fileID: 0}
+    - target: {fileID: 1099362475420481100, guid: 14c4467ef08415b429ca1c54bc1c1000, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5997770900328392294, guid: 14c4467ef08415b429ca1c54bc1c1000, type: 3}
       propertyPath: m_SortingLayer
       value: 5
@@ -12740,6 +12964,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_12 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4596838804941515198, guid: 08ae3b40ed20d714da32d60eabca0946, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5025599734096944516, guid: 08ae3b40ed20d714da32d60eabca0946, type: 3}
       propertyPath: m_SortingLayer
       value: 5
@@ -12839,6 +13067,10 @@ PrefabInstance:
     - target: {fileID: 2629348022350021236, guid: 883d8339b2038c947a21fde2c2bc6d4f, type: 3}
       propertyPath: m_Name
       value: PostApoc_Workshop_WithShadow_68
+      objectReference: {fileID: 0}
+    - target: {fileID: 2629348022350021236, guid: 883d8339b2038c947a21fde2c2bc6d4f, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3900291717806775051, guid: 883d8339b2038c947a21fde2c2bc6d4f, type: 3}
       propertyPath: m_LocalScale.x
@@ -12975,6 +13207,10 @@ PrefabInstance:
     - target: {fileID: 4596838804941515198, guid: 08ae3b40ed20d714da32d60eabca0946, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596838804941515198, guid: 08ae3b40ed20d714da32d60eabca0946, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5025599734096944516, guid: 08ae3b40ed20d714da32d60eabca0946, type: 3}
       propertyPath: m_SortingLayer
@@ -13138,6 +13374,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Neumaticos1
       objectReference: {fileID: 0}
+    - target: {fileID: 9130730551576021709, guid: dd5015c7bdc11fa41b1413745e68d272, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13159,6 +13399,10 @@ PrefabInstance:
     - target: {fileID: 1898306092661408021, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
       propertyPath: m_Name
       value: Caja1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898306092661408021, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8733105116007833163, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13586,6 +13830,10 @@ PrefabInstance:
     - target: {fileID: 4823151536477027797, guid: c6832f4611cf4d643beb62d45fc93571, type: 3}
       propertyPath: m_Name
       value: Caja2 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4823151536477027797, guid: c6832f4611cf4d643beb62d45fc93571, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14140,6 +14388,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car_6_Rust_Green_Scrap_0
       objectReference: {fileID: 0}
+    - target: {fileID: 7579951622855396036, guid: 750bfca0608f00842a7f89efde1ddc09, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14358,6 +14610,10 @@ PrefabInstance:
     - target: {fileID: 3337947908118688285, guid: 6f4b6a48d85033149a69df9202e725f1, type: 3}
       propertyPath: m_Name
       value: Container_2_Gray_Vertical_Overgrown_Bleak-Yellow_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3337947908118688285, guid: 6f4b6a48d85033149a69df9202e725f1, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14786,6 +15042,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_34 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4241575755790522742, guid: 734f10468743f7a4a8fc99a735be62a2, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5894178619374014521, guid: 734f10468743f7a4a8fc99a735be62a2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.8199997
@@ -14844,9 +15104,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 123303256}
     m_Modifications:
+    - target: {fileID: 871121347409112291, guid: 3cb48e04bc69a9a43959000ade482830, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4233174142723575915, guid: 3cb48e04bc69a9a43959000ade482830, type: 3}
       propertyPath: m_Name
       value: Street-Light_1_Side_0 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4233174142723575915, guid: 3cb48e04bc69a9a43959000ade482830, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443282057030273882, guid: 3cb48e04bc69a9a43959000ade482830, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5977044353879951709, guid: 3cb48e04bc69a9a43959000ade482830, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15149,6 +15421,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Container_10_Green_Vertical_Overgrown_Green_0
       objectReference: {fileID: 0}
+    - target: {fileID: 7646147579780103845, guid: 773b4b408dabafe469c93b6e2bcea086, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15173,7 +15449,7 @@ GameObject:
   - component: {fileID: 1367846213}
   - component: {fileID: 1367846212}
   - component: {fileID: 1367846211}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tilemap_Edificios
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28879,6 +29155,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_64 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 37232931787814407, guid: b1d98921358943c42817375e268c391c, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3201632203894482064, guid: b1d98921358943c42817375e268c391c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.2399979
@@ -29070,6 +29350,10 @@ PrefabInstance:
     - target: {fileID: 1099362475420481100, guid: 14c4467ef08415b429ca1c54bc1c1000, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_11 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099362475420481100, guid: 14c4467ef08415b429ca1c54bc1c1000, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5997770900328392294, guid: 14c4467ef08415b429ca1c54bc1c1000, type: 3}
       propertyPath: m_SortingLayer
@@ -29271,6 +29555,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_11 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1099362475420481100, guid: 14c4467ef08415b429ca1c54bc1c1000, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5997770900328392294, guid: 14c4467ef08415b429ca1c54bc1c1000, type: 3}
       propertyPath: m_SortingLayer
       value: 5
@@ -29392,6 +29680,10 @@ PrefabInstance:
     - target: {fileID: 4823151536477027797, guid: c6832f4611cf4d643beb62d45fc93571, type: 3}
       propertyPath: m_Name
       value: Caja2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4823151536477027797, guid: c6832f4611cf4d643beb62d45fc93571, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -29560,6 +29852,10 @@ PrefabInstance:
     - target: {fileID: 6510883065170020722, guid: 6bbed03c832065e4ba6b2417b44ff1b4, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_17 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510883065170020722, guid: 6bbed03c832065e4ba6b2417b44ff1b4, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -30077,6 +30373,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Caja2
       objectReference: {fileID: 0}
+    - target: {fileID: 4823151536477027797, guid: c6832f4611cf4d643beb62d45fc93571, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -30138,6 +30438,10 @@ PrefabInstance:
     - target: {fileID: 4263014439589045662, guid: 459a4b234f57697458fcf6938238261a, type: 3}
       propertyPath: m_Name
       value: Trash-can_2_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4263014439589045662, guid: 459a4b234f57697458fcf6938238261a, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -30257,6 +30561,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trash-can_1_0 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6916006389866184465, guid: 518bef524391f2e488b8c7f99770d6c8, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7934990205847876451, guid: 518bef524391f2e488b8c7f99770d6c8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.764851
@@ -30318,6 +30626,10 @@ PrefabInstance:
     - target: {fileID: 1898306092661408021, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
       propertyPath: m_Name
       value: Caja1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898306092661408021, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8733105116007833163, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
       propertyPath: m_LocalScale.x
@@ -30635,9 +30947,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 123303256}
     m_Modifications:
+    - target: {fileID: 871121347409112291, guid: 3cb48e04bc69a9a43959000ade482830, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4233174142723575915, guid: 3cb48e04bc69a9a43959000ade482830, type: 3}
       propertyPath: m_Name
       value: Street-Light_1_Side_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4233174142723575915, guid: 3cb48e04bc69a9a43959000ade482830, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4443282057030273882, guid: 3cb48e04bc69a9a43959000ade482830, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5977044353879951709, guid: 3cb48e04bc69a9a43959000ade482830, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52250,6 +52574,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree-trunk_2_grass_Dark-Green_0
       objectReference: {fileID: 0}
+    - target: {fileID: 8201353708552564404, guid: 844146eae5cf71449ab2a768f03bddaa, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -52530,6 +52858,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CajaDrop
       objectReference: {fileID: 0}
+    - target: {fileID: 449281771499980379, guid: 731abbd44573e8241aeec481cbf6e7f2, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1203980125722991512, guid: 731abbd44573e8241aeec481cbf6e7f2, type: 3}
       propertyPath: m_SortingOrder
       value: 0
@@ -52772,6 +53104,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barrel_rust_blue_2_0
       objectReference: {fileID: 0}
+    - target: {fileID: 5526712448291807954, guid: a1157861bc1dce54885b3c41df5f8e8e, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -52867,6 +53203,10 @@ PrefabInstance:
     - target: {fileID: 323119616946861032, guid: 21e4d400cddbc234886ffbad08906e05, type: 3}
       propertyPath: m_Name
       value: PostApoc_Workshop_WithShadow_114 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 323119616946861032, guid: 21e4d400cddbc234886ffbad08906e05, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6774664415277585814, guid: 21e4d400cddbc234886ffbad08906e05, type: 3}
       propertyPath: m_LocalScale.x
@@ -53325,6 +53665,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_46
       objectReference: {fileID: 0}
+    - target: {fileID: 3457453112435715127, guid: 600ad7d2a93173a44a6964054b0ccbdc, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9130218293412204871, guid: 600ad7d2a93173a44a6964054b0ccbdc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -111.06
@@ -53386,6 +53730,10 @@ PrefabInstance:
     - target: {fileID: 6916006389866184465, guid: 518bef524391f2e488b8c7f99770d6c8, type: 3}
       propertyPath: m_Name
       value: Trash-can_1_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6916006389866184465, guid: 518bef524391f2e488b8c7f99770d6c8, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7934990205847876451, guid: 518bef524391f2e488b8c7f99770d6c8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -53530,6 +53878,10 @@ PrefabInstance:
     - target: {fileID: 6394927014797575165, guid: 16251c171fee8fa46962d48c285860fb, type: 3}
       propertyPath: m_Name
       value: Barril1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6394927014797575165, guid: 16251c171fee8fa46962d48c285860fb, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7136588500993261629, guid: 16251c171fee8fa46962d48c285860fb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -53889,6 +54241,10 @@ PrefabInstance:
     - target: {fileID: 37232931787814407, guid: b1d98921358943c42817375e268c391c, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_64 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 37232931787814407, guid: b1d98921358943c42817375e268c391c, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3201632203894482064, guid: b1d98921358943c42817375e268c391c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55541,6 +55897,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car_8_Rust_Blue_Bus_0
       objectReference: {fileID: 0}
+    - target: {fileID: 8258499120353898085, guid: 4fa6b679d4f8c3e478646ccc00ba8c83, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -55693,6 +56053,10 @@ PrefabInstance:
     - target: {fileID: 37232931787814407, guid: b1d98921358943c42817375e268c391c, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_64 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 37232931787814407, guid: b1d98921358943c42817375e268c391c, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3201632203894482064, guid: b1d98921358943c42817375e268c391c, type: 3}
       propertyPath: m_LocalScale.x
@@ -56012,6 +56376,10 @@ PrefabInstance:
     - target: {fileID: 1898306092661408021, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
       propertyPath: m_Name
       value: Caja1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898306092661408021, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8733105116007833163, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
       propertyPath: m_LocalScale.x
@@ -56554,6 +56922,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_64 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 37232931787814407, guid: b1d98921358943c42817375e268c391c, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3201632203894482064, guid: b1d98921358943c42817375e268c391c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.91999817
@@ -56905,6 +57277,10 @@ PrefabInstance:
     - target: {fileID: 1898306092661408021, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
       propertyPath: m_Name
       value: Caja1 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1898306092661408021, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8733105116007833163, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
       propertyPath: m_LocalScale.x
@@ -57350,6 +57726,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coche2
       objectReference: {fileID: 0}
+    - target: {fileID: 7402814679363881441, guid: c4e98c75de266304590b0a84d280ff44, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -57475,6 +57855,10 @@ PrefabInstance:
     - target: {fileID: 3053944879087768851, guid: 498af6097f53b9749b688ed1c9d62b6a, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3053944879087768851, guid: 498af6097f53b9749b688ed1c9d62b6a, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7648161265211842300, guid: 498af6097f53b9749b688ed1c9d62b6a, type: 3}
       propertyPath: m_LocalScale.x
@@ -57772,6 +58156,10 @@ PrefabInstance:
     - target: {fileID: 449281771499980379, guid: 731abbd44573e8241aeec481cbf6e7f2, type: 3}
       propertyPath: m_Name
       value: CajaDrop (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 449281771499980379, guid: 731abbd44573e8241aeec481cbf6e7f2, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1203980125722991512, guid: 731abbd44573e8241aeec481cbf6e7f2, type: 3}
       propertyPath: m_SortingLayer
@@ -58537,6 +58925,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Barrel_rust_blue_2_0 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5526712448291807954, guid: a1157861bc1dce54885b3c41df5f8e8e, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -58646,6 +59038,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_46 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3457453112435715127, guid: 600ad7d2a93173a44a6964054b0ccbdc, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9130218293412204871, guid: 600ad7d2a93173a44a6964054b0ccbdc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.98
@@ -58707,6 +59103,10 @@ PrefabInstance:
     - target: {fileID: 4833847969111520458, guid: a9796523099b0284c8449720b4692cc3, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_68 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4833847969111520458, guid: a9796523099b0284c8449720b4692cc3, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5990541787621151822, guid: a9796523099b0284c8449720b4692cc3, type: 3}
       propertyPath: m_SortingLayer
@@ -59426,6 +59826,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_17 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6510883065170020722, guid: 6bbed03c832065e4ba6b2417b44ff1b4, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -59705,6 +60109,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PostApoc_Workshop_WithShadow_152
       objectReference: {fileID: 0}
+    - target: {fileID: 3154216795421513379, guid: 7dc769a0369fc614983d6c2f1f0e080a, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -59821,6 +60229,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CocheVolcado
       objectReference: {fileID: 0}
+    - target: {fileID: 6158934928420032291, guid: f9292a18dfd34664e8ae9a339bb9683a, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -59855,6 +60267,10 @@ PrefabInstance:
     - target: {fileID: 323119616946861032, guid: 21e4d400cddbc234886ffbad08906e05, type: 3}
       propertyPath: m_Name
       value: PostApoc_Workshop_WithShadow_114 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 323119616946861032, guid: 21e4d400cddbc234886ffbad08906e05, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6774664415277585814, guid: 21e4d400cddbc234886ffbad08906e05, type: 3}
       propertyPath: m_LocalPosition.x
@@ -59966,6 +60382,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_1_Spruce_Dark-Green_0
       objectReference: {fileID: 0}
+    - target: {fileID: 5244480706154635930, guid: 674ac5ea371e4cc42bf5c7b3a5ba61ba, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -59987,6 +60407,10 @@ PrefabInstance:
     - target: {fileID: 2186782969217577498, guid: 4e7fe475bd72860499bd617104f89cd3, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_39 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2186782969217577498, guid: 4e7fe475bd72860499bd617104f89cd3, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5763668989960554287, guid: 4e7fe475bd72860499bd617104f89cd3, type: 3}
       propertyPath: m_SortingLayer
@@ -60201,6 +60625,10 @@ PrefabInstance:
     - target: {fileID: 37232931787814407, guid: b1d98921358943c42817375e268c391c, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_64 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 37232931787814407, guid: b1d98921358943c42817375e268c391c, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3201632203894482064, guid: b1d98921358943c42817375e268c391c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -60518,6 +60946,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car_1_Overgrown_Dark-Green_Yellow_0
       objectReference: {fileID: 0}
+    - target: {fileID: 7343631963011809169, guid: 9c04a74b1332fc54390cde52ce6e29a6, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -60724,6 +61156,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Caja1
       objectReference: {fileID: 0}
+    - target: {fileID: 1898306092661408021, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8733105116007833163, guid: f21755d5f1ef8ca4dbafa9013664f6ca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.6283417
@@ -60785,6 +61221,10 @@ PrefabInstance:
     - target: {fileID: 1099362475420481100, guid: 14c4467ef08415b429ca1c54bc1c1000, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_11 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1099362475420481100, guid: 14c4467ef08415b429ca1c54bc1c1000, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5997770900328392294, guid: 14c4467ef08415b429ca1c54bc1c1000, type: 3}
       propertyPath: m_SortingLayer
@@ -60945,6 +61385,10 @@ PrefabInstance:
     - target: {fileID: 9203880889437438014, guid: e08bc81ff6d940e44a92bc325d803ca2, type: 3}
       propertyPath: m_Name
       value: Street-Light_4_Side_Overgrown_Dark-Green_0 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9203880889437438014, guid: e08bc81ff6d940e44a92bc325d803ca2, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -61145,6 +61589,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PostApoc_Workshop_WithShadow_151
       objectReference: {fileID: 0}
+    - target: {fileID: 4174721787153353182, guid: f82d4545145ae784cb8058b6e4ecc82d, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4644405065445969355, guid: f82d4545145ae784cb8058b6e4ecc82d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 19.590004
@@ -61245,6 +61693,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PostApoc_Workshop_WithShadow_112
       objectReference: {fileID: 0}
+    - target: {fileID: 3831268337895270599, guid: ac6bcd79e7c963d499f6a1be28bc45dc, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4023730687015897936, guid: ac6bcd79e7c963d499f6a1be28bc45dc, type: 3}
       propertyPath: m_SortingLayer
       value: 5
@@ -61282,6 +61734,10 @@ PrefabInstance:
     - target: {fileID: 4241575755790522742, guid: 734f10468743f7a4a8fc99a735be62a2, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_34
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241575755790522742, guid: 734f10468743f7a4a8fc99a735be62a2, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5894178619374014521, guid: 734f10468743f7a4a8fc99a735be62a2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -61352,6 +61808,10 @@ PrefabInstance:
     - target: {fileID: 6457406423965001904, guid: 8532d4d56077ad04fbcb39c65c140dc7, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_22
+      objectReference: {fileID: 0}
+    - target: {fileID: 6457406423965001904, guid: 8532d4d56077ad04fbcb39c65c140dc7, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6991054652479755035, guid: 8532d4d56077ad04fbcb39c65c140dc7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -61545,6 +62005,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_14
       objectReference: {fileID: 0}
+    - target: {fileID: 2129923469196377984, guid: 69c84e4906e6ee64fb786a4780846798, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6464672323103440422, guid: 69c84e4906e6ee64fb786a4780846798, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.0999985
@@ -61655,6 +62119,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PostApoc_Workshop_WithShadow_10
       objectReference: {fileID: 0}
+    - target: {fileID: 7387575767800262975, guid: 8b990ac9f7a4e7a4aa49d6c2702a9051, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -61674,6 +62142,10 @@ PrefabInstance:
     - target: {fileID: 420870442431973752, guid: 7ffdcf1fc9162784c93518da2556d593, type: 3}
       propertyPath: m_Name
       value: PostApoc_Workshop_WithShadow_165
+      objectReference: {fileID: 0}
+    - target: {fileID: 420870442431973752, guid: 7ffdcf1fc9162784c93518da2556d593, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2550616005768713187, guid: 7ffdcf1fc9162784c93518da2556d593, type: 3}
       propertyPath: m_SortingLayer
@@ -61872,6 +62344,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_64
       objectReference: {fileID: 0}
+    - target: {fileID: 37232931787814407, guid: b1d98921358943c42817375e268c391c, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3201632203894482064, guid: b1d98921358943c42817375e268c391c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.1699982
@@ -61939,6 +62415,10 @@ PrefabInstance:
     - target: {fileID: 4715044181263889254, guid: 737f5c2e8a9b3c14c8d0855bc14c8b3f, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_27
+      objectReference: {fileID: 0}
+    - target: {fileID: 4715044181263889254, guid: 737f5c2e8a9b3c14c8d0855bc14c8b3f, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6871302048862197440, guid: 737f5c2e8a9b3c14c8d0855bc14c8b3f, type: 3}
       propertyPath: m_SortingLayer
@@ -62110,6 +62590,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PostApoc_Workshop_WithShadow_174
       objectReference: {fileID: 0}
+    - target: {fileID: 76804885809732712, guid: 7fae6fbc2f363654e99f9e97d7f72d6f, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3555158642097285356, guid: 7fae6fbc2f363654e99f9e97d7f72d6f, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -62201,6 +62685,10 @@ PrefabInstance:
     - target: {fileID: 323119616946861032, guid: 21e4d400cddbc234886ffbad08906e05, type: 3}
       propertyPath: m_Name
       value: PostApoc_Workshop_WithShadow_114
+      objectReference: {fileID: 0}
+    - target: {fileID: 323119616946861032, guid: 21e4d400cddbc234886ffbad08906e05, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6774664415277585814, guid: 21e4d400cddbc234886ffbad08906e05, type: 3}
       propertyPath: m_LocalPosition.x
@@ -62319,6 +62807,10 @@ PrefabInstance:
     - target: {fileID: 6510883065170020722, guid: 6bbed03c832065e4ba6b2417b44ff1b4, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_17
+      objectReference: {fileID: 0}
+    - target: {fileID: 6510883065170020722, guid: 6bbed03c832065e4ba6b2417b44ff1b4, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -62580,6 +63072,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_43
       objectReference: {fileID: 0}
+    - target: {fileID: 7643210108702403148, guid: 4ed9caa4b3c68dd4285ac185451b25ba, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -62596,6 +63092,10 @@ PrefabInstance:
     - target: {fileID: 1872991428987996899, guid: bcc75d02f56d10b4b86336d8a9e1829e, type: 3}
       propertyPath: m_Name
       value: PostApoc_Workshop_WithShadow_113
+      objectReference: {fileID: 0}
+    - target: {fileID: 1872991428987996899, guid: bcc75d02f56d10b4b86336d8a9e1829e, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5829539180402366191, guid: bcc75d02f56d10b4b86336d8a9e1829e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -62777,6 +63277,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_16
       objectReference: {fileID: 0}
+    - target: {fileID: 6405651841006289052, guid: 0aac4166e3af5b243bd9d601af50b18d, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -62808,6 +63312,10 @@ PrefabInstance:
     - target: {fileID: 3457453112435715127, guid: 600ad7d2a93173a44a6964054b0ccbdc, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_46
+      objectReference: {fileID: 0}
+    - target: {fileID: 3457453112435715127, guid: 600ad7d2a93173a44a6964054b0ccbdc, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9130218293412204871, guid: 600ad7d2a93173a44a6964054b0ccbdc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -62991,6 +63499,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_41
       objectReference: {fileID: 0}
+    - target: {fileID: 7760600046979144358, guid: a1b09558ffe6d074291b5396b62f1223, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8576113223785634469, guid: a1b09558ffe6d074291b5396b62f1223, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -63019,6 +63531,10 @@ PrefabInstance:
     - target: {fileID: 1882804316031687392, guid: 4312f48abfb6a0848b6bdb75feb49e14, type: 3}
       propertyPath: m_Name
       value: PostApoc_Workshop_WithShadow_8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1882804316031687392, guid: 4312f48abfb6a0848b6bdb75feb49e14, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2004531927864110506, guid: 4312f48abfb6a0848b6bdb75feb49e14, type: 3}
       propertyPath: m_SortingLayer
@@ -63185,6 +63701,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_68
       objectReference: {fileID: 0}
+    - target: {fileID: 4833847969111520458, guid: a9796523099b0284c8449720b4692cc3, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5990541787621151822, guid: a9796523099b0284c8449720b4692cc3, type: 3}
       propertyPath: m_SortingLayer
       value: 5
@@ -63339,6 +63859,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: post apoc office furniture set updated_4
       objectReference: {fileID: 0}
+    - target: {fileID: 6439248748562767252, guid: 13903888a8f1e024e9d95d93e4eaa5a3, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7115437732550485635, guid: 13903888a8f1e024e9d95d93e4eaa5a3, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.41921118
@@ -63407,6 +63931,10 @@ PrefabInstance:
     - target: {fileID: 275592782836915323, guid: ca41d9e3197de35409a8418bf3b23250, type: 3}
       propertyPath: m_Name
       value: post apoc office furniture set updated_8
+      objectReference: {fileID: 0}
+    - target: {fileID: 275592782836915323, guid: ca41d9e3197de35409a8418bf3b23250, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5920031364015552274, guid: ca41d9e3197de35409a8418bf3b23250, type: 3}
       propertyPath: m_SortingLayer

@@ -52,6 +52,7 @@ MonoBehaviour:
   vidaMaxima: 3
   fuerzaKnockback: 8
   tiempoAturdido: 0.2
+  parametroCaminar: isWalking
 --- !u!114 &14556912793906660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,6 +79,10 @@ MonoBehaviour:
   danoExplosion: 2
   intensidadTemblor: 0.05
   danoPorContacto: 1
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  distanciaRaycast: 1
 --- !u!212 &2270927018979762771
 SpriteRenderer:
   serializedVersion: 2
@@ -124,7 +129,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -297019341
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2718042585114440658, guid: 4e6a5406db87a224086b4498f13eda62, type: 3}

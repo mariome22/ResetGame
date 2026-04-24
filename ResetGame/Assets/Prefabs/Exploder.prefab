@@ -79,6 +79,10 @@ MonoBehaviour:
   danoExplosion: 2
   intensidadTemblor: 0.02
   danoPorContacto: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  distanciaRaycast: 1
 --- !u!212 &2878084706116038341
 SpriteRenderer:
   serializedVersion: 2
