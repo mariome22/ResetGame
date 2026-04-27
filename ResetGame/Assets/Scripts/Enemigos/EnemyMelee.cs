@@ -24,6 +24,22 @@ public class EnemyMelee : MonoBehaviour
     [Tooltip("Fuerza con la que vibra antes de explotar")]
     public float intensidadTemblor = 0.05f;
 
+    public enum EstadoEnemigo { Patrullando, Persiguiendo, Regresando }
+
+    [Header("Sistema de Patrulla")]
+    public Transform[] puntosPatrulla;
+    public float tiempoEsperaPatrulla = 1f;
+    public float velocidadPatrulla = 1.5f;
+    [Tooltip("Distancia a la que deja de perseguir al jugador (debe ser mayor que el rango de detección)")]
+    public float rangoPerdida = 15f;
+
+    private EstadoEnemigo estadoActual = EstadoEnemigo.Patrullando;
+    private int indicePatrullaActual = 0;
+    private float tiempoEsperaRestante = 0f;
+    private float tiempoAtascado = 0f;
+    private Vector2 ultimaPosicionAtasco;
+    private Vector2 posicionInicial;
+
     [Header("Dano de Contacto")]
     public int danoPorContacto = 1;
 
@@ -80,6 +96,8 @@ public class EnemyMelee : MonoBehaviour
         if (spriteRenderer != null) colorOriginal = spriteRenderer.color;
 
         rb = GetComponent<Rigidbody2D>();
+        posicionInicial = transform.position;
+        ultimaPosicionAtasco = transform.position;
     }
 
     private void FixedUpdate()
@@ -92,35 +110,139 @@ public class EnemyMelee : MonoBehaviour
 
         float distancia = Vector2.Distance(transform.position, jugador.position);
 
-        if (distancia <= rangoDeteccion)
+        switch (estadoActual)
         {
-            if (explota && distancia <= rangoActivacionExplosion && !explosionIniciada)
-            {
-                explosionIniciada = true;
-                StartCoroutine(RutinaExplosion());
-            }
-            
-            if (haceEmbestidas && distancia <= rangoEmbestida && puedeEmbestir && !explosionIniciada)
-            {
-                if (rb != null) rb.linearVelocity = Vector2.zero;
-                StartCoroutine(RutinaEmbestida());
-            }
-            else
-            {
-                MoverConContextSteering();
-            }
-        }
-        else
-        {
-            if (rb != null) rb.linearVelocity = Vector2.zero;
+            case EstadoEnemigo.Patrullando:
+                if (distancia <= rangoDeteccion)
+                {
+                    estadoActual = EstadoEnemigo.Persiguiendo;
+                }
+                else
+                {
+                    EjecutarPatrulla();
+                }
+                break;
+
+            case EstadoEnemigo.Persiguiendo:
+                if (distancia > rangoPerdida)
+                {
+                    estadoActual = EstadoEnemigo.Regresando;
+                    tiempoAtascado = 0f;
+                    ultimaPosicionAtasco = transform.position;
+                }
+                else
+                {
+                    EjecutarPersecucion(distancia);
+                }
+                break;
+
+            case EstadoEnemigo.Regresando:
+                if (distancia <= rangoDeteccion)
+                {
+                    estadoActual = EstadoEnemigo.Persiguiendo;
+                }
+                else
+                {
+                    EjecutarRegreso();
+                }
+                break;
         }
     }
 
-    private void MoverConContextSteering()
+    private void EjecutarPersecucion(float distancia)
+    {
+        if (explota && distancia <= rangoActivacionExplosion && !explosionIniciada)
+        {
+            explosionIniciada = true;
+            StartCoroutine(RutinaExplosion());
+        }
+        
+        if (haceEmbestidas && distancia <= rangoEmbestida && puedeEmbestir && !explosionIniciada)
+        {
+            if (rb != null) rb.linearVelocity = Vector2.zero;
+            StartCoroutine(RutinaEmbestida());
+        }
+        
+        if (!estaOcupado || explosionIniciada) 
+        {
+            MoverConContextSteering(jugador.position, velocidadNormal, true);
+        }
+    }
+
+    private void EjecutarPatrulla()
+    {
+        if (puntosPatrulla == null || puntosPatrulla.Length == 0)
+        {
+            // Sin puntos, intenta volver a donde nació o se queda quieto si ya está allí
+            if (Vector2.Distance(transform.position, posicionInicial) > 0.5f)
+                MoverConContextSteering(posicionInicial, velocidadPatrulla, false);
+            else
+                if (rb != null) rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        if (tiempoEsperaRestante > 0)
+        {
+            tiempoEsperaRestante -= Time.fixedDeltaTime;
+            if (rb != null) rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        Transform objetivoActual = puntosPatrulla[indicePatrullaActual];
+        if (objetivoActual == null) return;
+
+        if (Vector2.Distance(transform.position, objetivoActual.position) < 0.5f)
+        {
+            if (rb != null) rb.linearVelocity = Vector2.zero;
+            tiempoEsperaRestante = tiempoEsperaPatrulla;
+            indicePatrullaActual++;
+            if (indicePatrullaActual >= puntosPatrulla.Length) indicePatrullaActual = 0;
+        }
+        else
+        {
+            MoverConContextSteering(objetivoActual.position, velocidadPatrulla, false);
+        }
+    }
+
+    private void EjecutarRegreso()
+    {
+        Vector2 objetivoRegreso = posicionInicial;
+        if (puntosPatrulla != null && puntosPatrulla.Length > 0 && puntosPatrulla[indicePatrullaActual] != null)
+        {
+            objetivoRegreso = puntosPatrulla[indicePatrullaActual].position;
+        }
+
+        if (Vector2.Distance(transform.position, objetivoRegreso) < 0.5f)
+        {
+            estadoActual = EstadoEnemigo.Patrullando;
+            return;
+        }
+
+        MoverConContextSteering(objetivoRegreso, velocidadPatrulla, false);
+
+        // Sistema Anti-atasco
+        if (Vector2.Distance(transform.position, ultimaPosicionAtasco) > 0.5f)
+        {
+            ultimaPosicionAtasco = transform.position;
+            tiempoAtascado = 0f;
+        }
+        else
+        {
+            tiempoAtascado += Time.fixedDeltaTime;
+            if (tiempoAtascado >= 3f)
+            {
+                transform.position = objetivoRegreso;
+                estadoActual = EstadoEnemigo.Patrullando;
+                tiempoAtascado = 0f;
+            }
+        }
+    }
+
+    private void MoverConContextSteering(Vector2 objetivo, float velocidadBase, bool esPersecucion)
     {
         if (rb == null) return;
 
-        Vector2 direccionAlObjetivo = (jugador.position - transform.position).normalized;
+        Vector2 direccionAlObjetivo = (objetivo - (Vector2)transform.position).normalized;
         Vector2 mejorDireccion = Vector2.zero;
         float mejorDot = -Mathf.Infinity;
 
@@ -148,10 +270,10 @@ public class EnemyMelee : MonoBehaviour
 
         if (mejorDireccion != Vector2.zero)
         {
-            float velocidadActual = velocidadNormal;
+            float velocidadActual = velocidadBase;
             Vector2 direccionFinal = mejorDireccion;
 
-            if (esZombie)
+            if (esZombie && esPersecucion)
             {
                 // Fase 3: Frenesí
                 float distanciaAlJugador = Vector2.Distance(transform.position, jugador.position);
