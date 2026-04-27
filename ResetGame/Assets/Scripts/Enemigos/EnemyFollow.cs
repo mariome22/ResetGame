@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class EnemyFollow : MonoBehaviour
 {
@@ -10,6 +10,27 @@ public class EnemyFollow : MonoBehaviour
 
     [Header("Movimiento")]
     public float velocidad = 2f;
+
+    [Header("Comportamiento Zombie")]
+    public bool esZombie = false;
+    
+    [Header("Fase 1: Tambaleo")]
+    [Tooltip("Magnitud del tambaleo lateral")]
+    public float amplitudTambaleo = 0.5f;
+    [Tooltip("Velocidad a la que oscila el tambaleo")]
+    public float velocidadTambaleo = 2f;
+
+    [Header("Fase 2: Pasos Rápidos")]
+    [Tooltip("Probabilidad por segundo de dar un paso rápido")]
+    public float probabilidadPasoRapido = 0.2f;
+    public float multiplicadorPasoRapido = 2f;
+    public float duracionPasoRapido = 0.5f;
+
+    [Header("Fase 3: Frenesí")]
+    public float distanciaFrenesi = 3f;
+    public float multiplicadorFrenesi = 1.5f;
+
+    private float tiempoPasoRapidoRestante = 0f;
 
     private Transform jugador;
     private Rigidbody2D rb;
@@ -76,8 +97,40 @@ public class EnemyFollow : MonoBehaviour
 
         if (mejorDireccion != Vector2.zero)
         {
-            Debug.DrawRay(transform.position, mejorDireccion * distanciaRaycast, Color.green);
-            rb.linearVelocity = mejorDireccion * velocidad;
+            float velocidadActual = velocidad;
+            Vector2 direccionFinal = mejorDireccion;
+
+            if (esZombie)
+            {
+                // Fase 3: Frenesí
+                float distanciaAlJugador = Vector2.Distance(transform.position, jugador.position);
+                if (distanciaAlJugador <= distanciaFrenesi)
+                {
+                    velocidadActual *= multiplicadorFrenesi;
+                }
+                else
+                {
+                    // Fase 2: Pasos Rápidos
+                    if (tiempoPasoRapidoRestante > 0)
+                    {
+                        tiempoPasoRapidoRestante -= Time.fixedDeltaTime;
+                        velocidadActual *= multiplicadorPasoRapido;
+                    }
+                    else if (Random.value < probabilidadPasoRapido * Time.fixedDeltaTime)
+                    {
+                        tiempoPasoRapidoRestante = duracionPasoRapido;
+                    }
+                }
+
+                // Fase 1: Tambaleo
+                Vector2 perpendicular = new Vector2(-mejorDireccion.y, mejorDireccion.x);
+                float factorTambaleo = Mathf.Sin(Time.time * velocidadTambaleo) * amplitudTambaleo;
+                
+                direccionFinal = (mejorDireccion + perpendicular * factorTambaleo).normalized;
+            }
+
+            Debug.DrawRay(transform.position, direccionFinal * distanciaRaycast, Color.green);
+            rb.linearVelocity = direccionFinal * velocidadActual;
         }
         else
         {

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class EnemyMelee : MonoBehaviour
@@ -27,6 +27,27 @@ public class EnemyMelee : MonoBehaviour
     [Header("Dano de Contacto")]
     public int danoPorContacto = 1;
 
+    [Header("Comportamiento Zombie")]
+    public bool esZombie = false;
+    
+    [Header("Fase 1: Tambaleo")]
+    [Tooltip("Magnitud del tambaleo lateral")]
+    public float amplitudTambaleo = 0.5f;
+    [Tooltip("Velocidad a la que oscila el tambaleo")]
+    public float velocidadTambaleo = 10f;
+
+    [Header("Fase 2: Pasos Rápidos")]
+    [Tooltip("Probabilidad por segundo de dar un paso rápido")]
+    public float probabilidadPasoRapido = 0.2f;
+    public float multiplicadorPasoRapido = 2f;
+    public float duracionPasoRapido = 0.5f;
+
+    [Header("Fase 3: Frenesí")]
+    public float distanciaFrenesi = 3f;
+    public float multiplicadorFrenesi = 1.5f;
+
+    private float tiempoPasoRapidoRestante = 0f;
+
     [Header("Context Steering")]
     public LayerMask obstacleLayer;
     public float distanciaRaycast = 1f;
@@ -37,6 +58,7 @@ public class EnemyMelee : MonoBehaviour
     private bool estaOcupado = false;
     private bool puedeEmbestir = true;
     private bool estaEmbistiendo = false;
+    private bool explosionIniciada = false;
 
     private SpriteRenderer spriteRenderer;
     private Color colorOriginal;
@@ -72,12 +94,13 @@ public class EnemyMelee : MonoBehaviour
 
         if (distancia <= rangoDeteccion)
         {
-            if (explota && distancia <= rangoActivacionExplosion)
+            if (explota && distancia <= rangoActivacionExplosion && !explosionIniciada)
             {
-                if (rb != null) rb.linearVelocity = Vector2.zero;
+                explosionIniciada = true;
                 StartCoroutine(RutinaExplosion());
             }
-            else if (haceEmbestidas && distancia <= rangoEmbestida && puedeEmbestir)
+            
+            if (haceEmbestidas && distancia <= rangoEmbestida && puedeEmbestir && !explosionIniciada)
             {
                 if (rb != null) rb.linearVelocity = Vector2.zero;
                 StartCoroutine(RutinaEmbestida());
@@ -125,8 +148,40 @@ public class EnemyMelee : MonoBehaviour
 
         if (mejorDireccion != Vector2.zero)
         {
-            Debug.DrawRay(transform.position, mejorDireccion * distanciaRaycast, Color.green);
-            rb.linearVelocity = mejorDireccion * velocidadNormal;
+            float velocidadActual = velocidadNormal;
+            Vector2 direccionFinal = mejorDireccion;
+
+            if (esZombie)
+            {
+                // Fase 3: Frenesí
+                float distanciaAlJugador = Vector2.Distance(transform.position, jugador.position);
+                if (distanciaAlJugador <= distanciaFrenesi)
+                {
+                    velocidadActual *= multiplicadorFrenesi;
+                }
+                else
+                {
+                    // Fase 2: Pasos Rápidos
+                    if (tiempoPasoRapidoRestante > 0)
+                    {
+                        tiempoPasoRapidoRestante -= Time.fixedDeltaTime;
+                        velocidadActual *= multiplicadorPasoRapido;
+                    }
+                    else if (Random.value < probabilidadPasoRapido * Time.fixedDeltaTime)
+                    {
+                        tiempoPasoRapidoRestante = duracionPasoRapido;
+                    }
+                }
+
+                // Fase 1: Tambaleo
+                Vector2 perpendicular = new Vector2(-mejorDireccion.y, mejorDireccion.x);
+                float factorTambaleo = Mathf.Sin(Time.time * velocidadTambaleo) * amplitudTambaleo;
+                
+                direccionFinal = (mejorDireccion + perpendicular * factorTambaleo).normalized;
+            }
+
+            Debug.DrawRay(transform.position, direccionFinal * distanciaRaycast, Color.green);
+            rb.linearVelocity = direccionFinal * velocidadActual;
         }
         else
         {
@@ -161,22 +216,25 @@ public class EnemyMelee : MonoBehaviour
 
     private IEnumerator RutinaExplosion()
     {
-        estaOcupado = true;
+        // Ya no ponemos estaOcupado = true, para que MoverConContextSteering se siga llamando
         float tiempoPasado = 0f;
-        Vector3 posicionBase = transform.position;
 
+        // Parpadeo rojo en lugar de temblor físico para no interrumpir el movimiento
         while (tiempoPasado < tiempoParaExplotar)
         {
-            transform.position = posicionBase + (Vector3)Random.insideUnitCircle * intensidadTemblor;
-            tiempoPasado += 0.05f;
-            yield return new WaitForSeconds(0.05f);
+            if (spriteRenderer != null) spriteRenderer.color = Color.red;
+            yield return new WaitForSeconds(0.1f);
+            if (spriteRenderer != null) spriteRenderer.color = Color.white;
+            yield return new WaitForSeconds(0.1f);
+            tiempoPasado += 0.2f;
         }
 
         if (jugador != null)
         {
             if (CameraShake.Instance != null) CameraShake.Instance.Shake(2.5f);
             float distanciaFinal = Vector2.Distance(transform.position, jugador.position);
-            if (distanciaFinal <= rangoActivacionExplosion)
+            // Ampliamos un poco el rango real de explosión para ser justos si el enemigo sigue andando
+            if (distanciaFinal <= rangoActivacionExplosion * 1.5f)
             {
                 jugador.GetComponent<PlayerHealth>().RecibirDano(danoExplosion);
             }
@@ -210,6 +268,12 @@ public class EnemyMelee : MonoBehaviour
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, rangoActivacionExplosion);
         }
+
+        if (esZombie)
+        {
+            Gizmos.color = new Color(1f, 0.5f, 0f); // Naranja
+            Gizmos.DrawWireSphere(transform.position, distanciaFrenesi);
+        }
     }
 
     public void ResetearAtaque()
@@ -218,6 +282,7 @@ public class EnemyMelee : MonoBehaviour
         estaOcupado = false;
         estaEmbistiendo = false;
         puedeEmbestir = true;
+        explosionIniciada = false;
 
         if (spriteRenderer != null) spriteRenderer.color = colorOriginal;
     }

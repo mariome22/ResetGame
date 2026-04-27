@@ -38,19 +38,13 @@ public class EnemyBase : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (animator != null)
+        if (animator != null && rb != null)
         {
-            // Calculamos la distancia movida desde el último frame
-            float distanciaMoviendose = Vector3.Distance(transform.position, ultimaPosicion);
-            
-            // Si supera un mínimo para evitar vibraciones, asumimos que intenta andar
-            bool seEstaMoviendo = distanciaMoviendose > 0.001f;
+            // Usamos la velocidad del RigidBody en lugar de la posición para evitar problemas de sincronía con las físicas
+            bool seEstaMoviendo = rb.linearVelocity.sqrMagnitude > 0.01f;
             
             // Enviamos el booleano al Animator
             animator.SetBool(parametroCaminar, seEstaMoviendo);
-
-            // Actualizamos la posición para el siguiente frame
-            ultimaPosicion = transform.position;
         }
     }
 

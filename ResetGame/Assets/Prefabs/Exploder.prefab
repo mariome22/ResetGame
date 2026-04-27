@@ -79,10 +79,19 @@ MonoBehaviour:
   danoExplosion: 2
   intensidadTemblor: 0.02
   danoPorContacto: 0
+  esZombie: 1
+  amplitudTambaleo: 0.5
+  velocidadTambaleo: 2
+  probabilidadPasoRapido: 0.2
+  multiplicadorPasoRapido: 2
+  duracionPasoRapido: 0.5
+  distanciaFrenesi: 3
+  multiplicadorFrenesi: 1.5
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 8
   distanciaRaycast: 1
+  radioObstaculos: 0.4
 --- !u!212 &2878084706116038341
 SpriteRenderer:
   serializedVersion: 2

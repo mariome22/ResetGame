@@ -124,8 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb297986df24684db1f1051ac7f993e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  velocidad: 4
-  dashVelocidad: 7
+  velocidad: 3
+  dashVelocidad: 4
   dashDuracion: 0.5
   dashCooldown: 0.5
   distanciaAtaque: 0.3

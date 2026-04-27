@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMelee
   velocidadNormal: 2
-  rangoDeteccion: 3
+  rangoDeteccion: 4
   haceEmbestidas: 0
   rangoEmbestida: 4
   velocidadEmbestida: 8
@@ -79,6 +79,14 @@ MonoBehaviour:
   danoExplosion: 2
   intensidadTemblor: 0.05
   danoPorContacto: 1
+  esZombie: 1
+  amplitudTambaleo: 0.4
+  velocidadTambaleo: 10
+  probabilidadPasoRapido: 0.3
+  multiplicadorPasoRapido: 1.5
+  duracionPasoRapido: 0.4
+  distanciaFrenesi: 2
+  multiplicadorFrenesi: 1.5
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 8
