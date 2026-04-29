@@ -39,6 +39,7 @@ public class EnemyMelee : MonoBehaviour
     private float tiempoAtascado = 0f;
     private Vector2 ultimaPosicionAtasco;
     private Vector2 posicionInicial;
+    private float offsetTambaleo;
 
     [Header("Dano de Contacto")]
     public int danoPorContacto = 1;
@@ -98,6 +99,7 @@ public class EnemyMelee : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         posicionInicial = transform.position;
         ultimaPosicionAtasco = transform.position;
+        offsetTambaleo = Random.Range(0f, 1000f);
     }
 
     private void FixedUpdate()
@@ -250,10 +252,24 @@ public class EnemyMelee : MonoBehaviour
         {
             Vector2 dir = direcciones[i];
             
-            // Usamos CircleCast en lugar de Raycast para tener en cuenta el ancho del enemigo
-            RaycastHit2D hit = Physics2D.CircleCast(transform.position, radioObstaculos, dir, distanciaRaycast, obstacleLayer);
+            // Usamos CircleCastAll para poder filtrar al propio enemigo y al jugador si están en obstacleLayer por error
+            RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, radioObstaculos, dir, distanciaRaycast, obstacleLayer);
+            bool obstaculoEncontrado = false;
 
-            if (hit.collider != null)
+            foreach (RaycastHit2D hit in hits)
+            {
+                if (hit.collider != null && hit.collider.gameObject != this.gameObject)
+                {
+                    // Si el obstáculo es el jugador, lo ignoramos (queremos perseguirlo, no evitarlo)
+                    if (jugador != null && hit.collider.transform == jugador)
+                        continue;
+
+                    obstaculoEncontrado = true;
+                    break;
+                }
+            }
+
+            if (obstaculoEncontrado)
             {
                 Debug.DrawRay(transform.position, dir * distanciaRaycast, Color.red);
             }
@@ -268,36 +284,47 @@ public class EnemyMelee : MonoBehaviour
             }
         }
 
+        // Si todas las direcciones están bloqueadas, por defecto intentamos ir directo al objetivo
+        // para que no se queden completamente paralizados.
+        if (mejorDireccion == Vector2.zero)
+        {
+            mejorDireccion = direccionAlObjetivo;
+        }
+
         if (mejorDireccion != Vector2.zero)
         {
             float velocidadActual = velocidadBase;
             Vector2 direccionFinal = mejorDireccion;
 
-            if (esZombie && esPersecucion)
+            if (esZombie)
             {
-                // Fase 3: Frenesí
-                float distanciaAlJugador = Vector2.Distance(transform.position, jugador.position);
-                if (distanciaAlJugador <= distanciaFrenesi)
+                if (esPersecucion)
                 {
-                    velocidadActual *= multiplicadorFrenesi;
-                }
-                else
-                {
-                    // Fase 2: Pasos Rápidos
-                    if (tiempoPasoRapidoRestante > 0)
+                    // Fase 3: Frenesí
+                    float distanciaAlJugador = Vector2.Distance(transform.position, jugador.position);
+                    if (distanciaAlJugador <= distanciaFrenesi)
                     {
-                        tiempoPasoRapidoRestante -= Time.fixedDeltaTime;
-                        velocidadActual *= multiplicadorPasoRapido;
+                        velocidadActual *= multiplicadorFrenesi;
                     }
-                    else if (Random.value < probabilidadPasoRapido * Time.fixedDeltaTime)
+                    else
                     {
-                        tiempoPasoRapidoRestante = duracionPasoRapido;
+                        // Fase 2: Pasos Rápidos
+                        if (tiempoPasoRapidoRestante > 0)
+                        {
+                            tiempoPasoRapidoRestante -= Time.fixedDeltaTime;
+                            velocidadActual *= multiplicadorPasoRapido;
+                        }
+                        else if (Random.value < probabilidadPasoRapido * Time.fixedDeltaTime)
+                        {
+                            tiempoPasoRapidoRestante = duracionPasoRapido;
+                        }
                     }
                 }
 
-                // Fase 1: Tambaleo
+                // Fase 1: Tambaleo (Se aplica siempre si es zombie, en patrulla o persecución)
+                // Usamos offsetTambaleo para que no bailen todos sincronizados
                 Vector2 perpendicular = new Vector2(-mejorDireccion.y, mejorDireccion.x);
-                float factorTambaleo = Mathf.Sin(Time.time * velocidadTambaleo) * amplitudTambaleo;
+                float factorTambaleo = Mathf.Sin((Time.time + offsetTambaleo) * velocidadTambaleo) * amplitudTambaleo;
                 
                 direccionFinal = (mejorDireccion + perpendicular * factorTambaleo).normalized;
             }
@@ -395,6 +422,26 @@ public class EnemyMelee : MonoBehaviour
         {
             Gizmos.color = new Color(1f, 0.5f, 0f); // Naranja
             Gizmos.DrawWireSphere(transform.position, distanciaFrenesi);
+        }
+
+        if (puntosPatrulla != null && puntosPatrulla.Length > 0)
+        {
+            Gizmos.color = Color.cyan;
+            for (int i = 0; i < puntosPatrulla.Length; i++)
+            {
+                if (puntosPatrulla[i] != null)
+                {
+                    Gizmos.DrawSphere(puntosPatrulla[i].position, 0.2f);
+                    if (i < puntosPatrulla.Length - 1 && puntosPatrulla[i + 1] != null)
+                    {
+                        Gizmos.DrawLine(puntosPatrulla[i].position, puntosPatrulla[i + 1].position);
+                    }
+                    else if (puntosPatrulla.Length > 1 && puntosPatrulla[0] != null)
+                    {
+                        Gizmos.DrawLine(puntosPatrulla[i].position, puntosPatrulla[0].position);
+                    }
+                }
+            }
         }
     }
 

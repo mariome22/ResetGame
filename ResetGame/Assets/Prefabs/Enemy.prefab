@@ -78,10 +78,14 @@ MonoBehaviour:
   tiempoParaExplotar: 1
   danoExplosion: 2
   intensidadTemblor: 0.05
+  puntosPatrulla: []
+  tiempoEsperaPatrulla: 1
+  velocidadPatrulla: 0.75
+  rangoPerdida: 6
   danoPorContacto: 1
   esZombie: 1
-  amplitudTambaleo: 0.4
-  velocidadTambaleo: 10
+  amplitudTambaleo: 0.5
+  velocidadTambaleo: 6
   probabilidadPasoRapido: 0.3
   multiplicadorPasoRapido: 1.5
   duracionPasoRapido: 0.4
@@ -91,7 +95,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   distanciaRaycast: 1
-  radioObstaculos: 0.5
+  radioObstaculos: 0.2
 --- !u!212 &5525596752182374451
 SpriteRenderer:
   serializedVersion: 2

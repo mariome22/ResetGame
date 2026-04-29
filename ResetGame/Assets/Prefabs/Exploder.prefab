@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac2a4041771bc84f89b7e43d62e9fe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMelee
-  velocidadNormal: 2
+  velocidadNormal: 1.5
   rangoDeteccion: 4
   haceEmbestidas: 0
   rangoEmbestida: 3
@@ -78,6 +78,10 @@ MonoBehaviour:
   tiempoParaExplotar: 0.5
   danoExplosion: 2
   intensidadTemblor: 0.02
+  puntosPatrulla: []
+  tiempoEsperaPatrulla: 1
+  velocidadPatrulla: 0.5
+  rangoPerdida: 6
   danoPorContacto: 0
   esZombie: 1
   amplitudTambaleo: 0.5
@@ -85,7 +89,7 @@ MonoBehaviour:
   probabilidadPasoRapido: 0.2
   multiplicadorPasoRapido: 2
   duracionPasoRapido: 0.5
-  distanciaFrenesi: 3
+  distanciaFrenesi: 2
   multiplicadorFrenesi: 1.5
   obstacleLayer:
     serializedVersion: 2
@@ -212,7 +216,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.011430889}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -222,7 +226,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 1.2514825}
   m_EdgeRadius: 0
 --- !u!95 &8359318080743237977
 Animator:

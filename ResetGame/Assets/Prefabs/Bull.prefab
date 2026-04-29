@@ -78,6 +78,10 @@ MonoBehaviour:
   tiempoParaExplotar: 1
   danoExplosion: 2
   intensidadTemblor: 0.05
+  puntosPatrulla: []
+  tiempoEsperaPatrulla: 1
+  velocidadPatrulla: 1.5
+  rangoPerdida: 6
   danoPorContacto: 1
   esZombie: 1
   amplitudTambaleo: 0.5
