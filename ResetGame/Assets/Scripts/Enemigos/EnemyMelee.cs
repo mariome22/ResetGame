@@ -6,6 +6,8 @@ public class EnemyMelee : MonoBehaviour
     [Header("Movimiento Base (Slime)")]
     public float velocidadNormal = 2f;
     public float rangoDeteccion = 10f;
+    [Tooltip("Capas que bloquean la visión (ej. Muros, pero no Coches)")]
+    public LayerMask capaBloqueoVision;
 
     [Header("Ajustes de Embestida")]
     public bool haceEmbestidas = false;
@@ -111,11 +113,12 @@ public class EnemyMelee : MonoBehaviour
         }
 
         float distancia = Vector2.Distance(transform.position, jugador.position);
+        bool tieneLineaVision = VerificarLineaVision(distancia);
 
         switch (estadoActual)
         {
             case EstadoEnemigo.Patrullando:
-                if (distancia <= rangoDeteccion)
+                if (distancia <= rangoDeteccion && tieneLineaVision)
                 {
                     estadoActual = EstadoEnemigo.Persiguiendo;
                 }
@@ -126,7 +129,7 @@ public class EnemyMelee : MonoBehaviour
                 break;
 
             case EstadoEnemigo.Persiguiendo:
-                if (distancia > rangoPerdida)
+                if (distancia > rangoPerdida || !tieneLineaVision)
                 {
                     estadoActual = EstadoEnemigo.Regresando;
                     tiempoAtascado = 0f;
@@ -139,7 +142,7 @@ public class EnemyMelee : MonoBehaviour
                 break;
 
             case EstadoEnemigo.Regresando:
-                if (distancia <= rangoDeteccion)
+                if (distancia <= rangoDeteccion && tieneLineaVision)
                 {
                     estadoActual = EstadoEnemigo.Persiguiendo;
                 }
@@ -149,6 +152,16 @@ public class EnemyMelee : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    private bool VerificarLineaVision(float distancia)
+    {
+        if (jugador == null) return false;
+        
+        Vector2 direccion = (jugador.position - transform.position).normalized;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direccion, distancia, capaBloqueoVision);
+        
+        return hit.collider == null;
     }
 
     private void EjecutarPersecucion(float distancia)

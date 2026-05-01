@@ -66,9 +66,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMelee
   velocidadNormal: 2
-  rangoDeteccion: 5
+  rangoDeteccion: 3
+  capaBloqueoVision:
+    serializedVersion: 2
+    m_Bits: 64
   haceEmbestidas: 1
-  rangoEmbestida: 4
+  rangoEmbestida: 3
   velocidadEmbestida: 8
   tiempoPreparacion: 0.5
   tiempoRecargaEmbestida: 2
@@ -89,7 +92,7 @@ MonoBehaviour:
   probabilidadPasoRapido: 0.2
   multiplicadorPasoRapido: 2
   duracionPasoRapido: 0.5
-  distanciaFrenesi: 3
+  distanciaFrenesi: 2
   multiplicadorFrenesi: 1.5
   obstacleLayer:
     serializedVersion: 2
