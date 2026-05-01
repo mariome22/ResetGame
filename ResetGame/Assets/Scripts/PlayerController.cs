@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -39,6 +40,9 @@ public class PlayerController : MonoBehaviour
     public float cadenciaDisparo = 0.5f;
     private float tiempoSiguienteDisparo = 0f;
 
+    [Header("Interfaz HUD")]
+    public TextMeshProUGUI textoArmaHUD;
+
     private Camera cam;
 
     private void Awake()
@@ -47,6 +51,11 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         cam = Camera.main;
         anim = GetComponent<Animator>(); // <-- AÃ‘ADIDO: Buscamos el Animator al arrancar
+    }
+
+    private void Start()
+    {
+        ActualizarHUDArma();
     }
 
     private void Update()
@@ -124,6 +133,7 @@ public class PlayerController : MonoBehaviour
                 {
                     balasActualesCargador += recargadas;
                     Debug.Log("Recargado. Balas actuales: " + balasActualesCargador);
+                    ActualizarHUDArma();
                 }
                 else
                 {
@@ -169,6 +179,7 @@ public class PlayerController : MonoBehaviour
         {
             usandoArmaADistancia = !usandoArmaADistancia;
             Debug.Log("Arma cambiada. Arma a distancia equipada: " + usandoArmaADistancia);
+            ActualizarHUDArma();
         }
         else if (value.isPressed && !armaDesbloqueada)
         {
@@ -181,11 +192,13 @@ public class PlayerController : MonoBehaviour
         armaDesbloqueada = true;
         usandoArmaADistancia = true; // El jugador prefiere que se equipe automÃ¡ticamente
         Debug.Log("Arma a distancia desbloqueada y equipada: " + usandoArmaADistancia);
+        ActualizarHUDArma();
     }
 
     private void RealizarDisparo()
     {
         balasActualesCargador--;
+        ActualizarHUDArma();
         if (prefabProyectil != null)
         {
             // Instanciamos el proyectil en la posiciÃ³n actual del jugador
@@ -309,6 +322,21 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    public void ActualizarHUDArma()
+    {
+        if (textoArmaHUD != null)
+        {
+            if (usandoArmaADistancia)
+            {
+                textoArmaHUD.text = "Arma: Pistola (" + balasActualesCargador + "/" + balasMaximasCargador + ")";
+            }
+            else
+            {
+                textoArmaHUD.text = "Arma: Puños";
+            }
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Vector2 direccionVisual = (Application.isPlaying) ? direccionMirada : Vector2.right;

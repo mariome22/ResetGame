@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4de04adf62e973442b1ce24e73b81d82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  vidaMaxima: 3
+  vidaMaxima: 10
   tiempoInvulnerable: 1
   textoVida: {fileID: 0}
 --- !u!114 &684007592919031421
@@ -137,6 +137,7 @@ MonoBehaviour:
   balasMaximasCargador: 10
   balasActualesCargador: 0
   cadenciaDisparo: 0.75
+  textoArmaHUD: {fileID: 0}
 --- !u!50 &3909957077091530005
 Rigidbody2D:
   serializedVersion: 5
