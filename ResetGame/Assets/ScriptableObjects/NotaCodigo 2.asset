@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58dff55e032366d46876b9985e2c8d86, type: 3}
-  m_Name: Pistola
+  m_Name: NotaCodigo 2
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  nombreObjeto: Pistola
-  descripcion: "Arma cl\xE1sica"
-  iconoObjeto: {fileID: 4319395737909131107, guid: 9f2b9030d78909e43a23021f5ded7838, type: 3}
-  prefabMundo: {fileID: 7022747886484862980, guid: d43e254ef8040cd40b503552166135b0, type: 3}
-  tipo: 6
+  nombreObjeto: Nota
+  descripcion: Nota sucia
+  iconoObjeto: {fileID: -5229332913767248205, guid: 297af7a8c7ed6e549a4ca8291f831b23, type: 3}
+  tipo: 5
   esAcumulable: 0
-  cantidadMaxima: 1
+  cantidadMaxima: 99
   valorEfecto: 0
-  contenidoDocumento: 
+  contenidoDocumento: "WASD para moverte\nE para interactuar\nEspacio para dash\nQ
+    para curarte r\xE1pido"

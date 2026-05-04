@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -911476001
-  m_SortingLayer: 4
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -9216701549168034592, guid: 1fa4b6c26815a8541b6e5132e8bb01de, type: 3}
@@ -106,10 +106,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjetoRompible
   golpesParaRomper: 3
-  posiblesDrops:
-  - {fileID: 6692859548691171818, guid: 4a1ca07f821dcd54a87ee42c75355974, type: 3}
-  - {fileID: 2190318893699312829, guid: f5b0df73b2a14414782b2b2977e8d9b2, type: 3}
-  - {fileID: 6290016901910688598, guid: d704f6e8ba52e9c43bae728447edaf21, type: 3}
+  duracionShake: 0.1
+  magnitudShake: 0.1
+  prefabVendas: {fileID: 2190318893699312829, guid: f5b0df73b2a14414782b2b2977e8d9b2, type: 3}
+  prefabBotiquin: {fileID: 6692859548691171818, guid: 4a1ca07f821dcd54a87ee42c75355974, type: 3}
+  prefabBalas: {fileID: 9154580679765953407, guid: 2f9db1bf927c6a045a2d1b424c7a624e, type: 3}
 --- !u!61 &7123485466443818514
 BoxCollider2D:
   m_ObjectHideFlags: 0

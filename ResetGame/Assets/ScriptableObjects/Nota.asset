@@ -15,6 +15,7 @@ MonoBehaviour:
   nombreObjeto: Nota
   descripcion: Nota sucia
   iconoObjeto: {fileID: -5229332913767248205, guid: 297af7a8c7ed6e549a4ca8291f831b23, type: 3}
+  prefabMundo: {fileID: 6290016901910688598, guid: d704f6e8ba52e9c43bae728447edaf21, type: 3}
   tipo: 5
   esAcumulable: 0
   cantidadMaxima: 99

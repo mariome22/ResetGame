@@ -12,10 +12,14 @@ public class ArmaRecogible : MonoBehaviour
     /// </summary>
     public void RecogerArma()
     {
-        // 1. Añadimos el objeto al inventario visual/lógico
         if (datosDelArma != null && InventarioManager.Instance != null)
         {
-            InventarioManager.Instance.AnadirObjeto(datosDelArma);
+            bool recogido = InventarioManager.Instance.AnadirObjeto(datosDelArma);
+            if (!recogido)
+            {
+                if (LectorNotas.Instance != null) LectorNotas.Instance.MostrarMensajeRapido("Inventario lleno.");
+                return;
+            }
         }
 
         // 2. Buscamos al jugador y le indicamos que ya puede disparar

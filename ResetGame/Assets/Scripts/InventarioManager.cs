@@ -22,7 +22,7 @@ public class InventarioManager : MonoBehaviour
     [Header("Almacenamiento")]
     public List<InventarioSlot> objetosGuardados = new List<InventarioSlot>();
     public List<InventarioSlot> coleccionablesGuardados = new List<InventarioSlot>();
-    public int capacidadObjetos = 15;
+    public int capacidadObjetos = 3;
 
     [Header("Interfaz HUD")]
     [Tooltip("Arrastra aqui el texto del Canvas que mostrara el objeto equipado")]
@@ -54,7 +54,7 @@ public class InventarioManager : MonoBehaviour
         ActualizarMenuPausa();
     }
 
-    public void AnadirObjeto(ItemData nuevoObjeto, int cantidad = 1)
+    public bool AnadirObjeto(ItemData nuevoObjeto, int cantidad = 1)
     {
         if (nuevoObjeto.tipo == ItemData.TipoObjeto.Documento)
         {
@@ -62,6 +62,7 @@ public class InventarioManager : MonoBehaviour
             Debug.Log("Coleccionable guardado: " + nuevoObjeto.nombreObjeto);
             ActualizarUI();
             ActualizarMenuPausa();
+            return true;
         }
         else
         {
@@ -79,7 +80,7 @@ public class InventarioManager : MonoBehaviour
                                 slot.cantidad += cantidad;
                                 ActualizarUI();
                                 ActualizarMenuPausa();
-                                return;
+                                return true;
                             }
                             else
                             {
@@ -97,12 +98,15 @@ public class InventarioManager : MonoBehaviour
                 Debug.Log("Guardado en la mochila: " + nuevoObjeto.nombreObjeto);
                 ActualizarUI();
                 ActualizarMenuPausa();
+                return true;
             }
             else if (cantidad > 0)
             {
                 Debug.Log("Equipamiento lleno, no caben mas objetos.");
+                return false;
             }
         }
+        return false;
     }
 
     public void CambiarSeleccion()
@@ -170,6 +174,19 @@ public class InventarioManager : MonoBehaviour
         {
             Debug.Log("No puedes usar " + slot.objeto.nombreObjeto + " de esta forma.");
         }
+    }
+
+    public int ContarMunicionTotal()
+    {
+        int total = 0;
+        foreach (var slot in objetosGuardados)
+        {
+            if (slot.objeto.tipo == ItemData.TipoObjeto.Municion)
+            {
+                total += slot.cantidad;
+            }
+        }
+        return total;
     }
 
     public bool ExtraerMunicion(int cantidadNecesaria, out int cantidadExtraida)
@@ -311,8 +328,11 @@ public class InventarioManager : MonoBehaviour
         }
     }
 
+    private ItemData objetoViendoDetalles;
+
     public void MostrarDetallesObjeto(ItemData objeto)
     {
+        objetoViendoDetalles = objeto;
         if (objeto != null)
         {
             if (textoNombreDetalle != null) textoNombreDetalle.text = objeto.nombreObjeto;
@@ -323,5 +343,91 @@ public class InventarioManager : MonoBehaviour
             if (textoNombreDetalle != null) textoNombreDetalle.text = "";
             if (textoDescripcionDetalle != null) textoDescripcionDetalle.text = "";
         }
+    }
+
+    public void BotonSoltarObjeto()
+    {
+        if (objetoViendoDetalles == null) return;
+        
+        for(int i = 0; i < objetosGuardados.Count; i++)
+        {
+            if (objetosGuardados[i].objeto == objetoViendoDetalles)
+            {
+                if (objetoViendoDetalles.prefabMundo != null)
+                {
+                    GameObject jugador = GameObject.FindGameObjectWithTag("Player");
+                    Vector3 posDrop = jugador != null ? jugador.transform.position : Vector3.zero;
+                    
+                    GameObject dropObj = Instantiate(objetoViendoDetalles.prefabMundo, posDrop, Quaternion.identity);
+                    ItemRecogible rec = dropObj.GetComponent<ItemRecogible>();
+                    if (rec != null) rec.cantidadOtorga = 1;
+                }
+                else
+                {
+                    Debug.LogWarning("Este objeto no tiene prefabMundo asignado, se perderá al soltarlo.");
+                }
+
+                if (objetoViendoDetalles.tipo == ItemData.TipoObjeto.ArmaADistancia)
+                {
+                    GameObject jugador = GameObject.FindGameObjectWithTag("Player");
+                    if (jugador != null)
+                    {
+                        PlayerController pc = jugador.GetComponent<PlayerController>();
+                        if (pc != null) pc.PerderArmaADistancia();
+                    }
+                }
+
+                objetosGuardados[i].cantidad--;
+                if(objetosGuardados[i].cantidad <= 0)
+                {
+                    objetosGuardados.RemoveAt(i);
+                    MostrarDetallesObjeto(null);
+                }
+                
+                ActualizarUI();
+                ActualizarMenuPausa();
+                return;
+            }
+        }
+    }
+
+    public void BotonUsarObjeto()
+    {
+        if (objetoViendoDetalles == null) return;
+
+        if (objetoViendoDetalles.tipo == ItemData.TipoObjeto.Curacion)
+        {
+            GameObject jugador = GameObject.FindGameObjectWithTag("Player");
+            if (jugador != null)
+            {
+                PlayerHealth vidaJugador = jugador.GetComponent<PlayerHealth>();
+                if (vidaJugador != null)
+                {
+                    if (vidaJugador.Curar(objetoViendoDetalles.valorEfecto))
+                    {
+                        GastarObjeto(objetoViendoDetalles);
+                        Debug.Log("Has consumido: " + objetoViendoDetalles.nombreObjeto);
+                    }
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("No se puede usar este objeto desde el inventario.");
+        }
+    }
+
+    public void MostrarPestanaObjetos()
+    {
+        if (panelObjetos != null) panelObjetos.gameObject.SetActive(true);
+        if (panelColeccionables != null) panelColeccionables.gameObject.SetActive(false);
+        MostrarDetallesObjeto(null);
+    }
+
+    public void MostrarPestanaColeccionables()
+    {
+        if (panelObjetos != null) panelObjetos.gameObject.SetActive(false);
+        if (panelColeccionables != null) panelColeccionables.gameObject.SetActive(true);
+        MostrarDetallesObjeto(null);
     }
 }

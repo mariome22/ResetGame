@@ -15,6 +15,7 @@ MonoBehaviour:
   nombreObjeto: "Munici\xF3n de pistola"
   descripcion: 
   iconoObjeto: {fileID: -1654697517976419279, guid: 553e4a555b15f274caa28587a71fab61, type: 3}
+  prefabMundo: {fileID: 9154580679765953407, guid: 2f9db1bf927c6a045a2d1b424c7a624e, type: 3}
   tipo: 2
   esAcumulable: 1
   cantidadMaxima: 20

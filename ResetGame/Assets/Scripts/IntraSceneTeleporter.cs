@@ -39,6 +39,7 @@ public class IntraSceneTeleporter : MonoBehaviour
             imageObj.transform.SetParent(canvasObj.transform, false);
             fadeImage = imageObj.AddComponent<Image>();
             fadeImage.color = new Color(0, 0, 0, 0); // Empieza transparente
+            fadeImage.raycastTarget = false; // <-- CRUCIAL: Que no bloquee clicks
 
             RectTransform rect = fadeImage.GetComponent<RectTransform>();
             rect.anchorMin = Vector2.zero;

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class ItemRecogible : MonoBehaviour
 {
@@ -13,9 +13,20 @@ public class ItemRecogible : MonoBehaviour
     {
         if (datosDelObjeto == null) return;
 
+        bool recogido = true;
+
         if (InventarioManager.Instance != null)
         {
-            InventarioManager.Instance.AnadirObjeto(datosDelObjeto, cantidadOtorga);
+            recogido = InventarioManager.Instance.AnadirObjeto(datosDelObjeto, cantidadOtorga);
+        }
+
+        if (!recogido)
+        {
+            if (LectorNotas.Instance != null)
+            {
+                LectorNotas.Instance.MostrarMensajeRapido("Inventario lleno.");
+            }
+            return; // Abortamos, no destruimos el objeto
         }
 
         if (datosDelObjeto.tipo == ItemData.TipoObjeto.Documento)

@@ -1,11 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [Header("Configuraci�n de Vida")]
+    [Header("Configuración de Vida")]
     public int vidaMaxima = 3;
     private int vidaActual;
 
@@ -35,7 +35,7 @@ public class PlayerHealth : MonoBehaviour
         vidaActual -= cantidadDano;
         ActualizarHUD();
 
-        //Temblor de c�mara al recibir da�o
+        //Temblor de cámara al recibir daño
         if (CameraShake.Instance != null) CameraShake.Instance.Shake(1f);
 
         if (vidaActual <= 0)
@@ -52,7 +52,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (vidaActual >= vidaMaxima)
         {
-            Debug.Log("Vida al m�ximo. No se puede curar m�s.");
+            Debug.Log("Vida al máximo. No se puede curar más.");
             return false;
         }
 
@@ -92,6 +92,11 @@ public class PlayerHealth : MonoBehaviour
     private void ActualizarHUD()
     {
         if (textoVida != null) textoVida.text = "Vidas: " + vidaActual;
+    }
+
+    public float GetPorcentajeVida()
+    {
+        return (float)vidaActual / vidaMaxima;
     }
 
     private void Morir()

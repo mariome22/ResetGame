@@ -49,8 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca54d91bf51cf2d4d9a993306be5f12c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBase
-  vidaMaxima: 3
-  fuerzaKnockback: 8
+  vidaMaxima: 5
+  fuerzaKnockback: 2
   tiempoAturdido: 0.2
   parametroCaminar: isWalking
 --- !u!114 &5739339999262429083

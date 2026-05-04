@@ -16,6 +16,7 @@ MonoBehaviour:
   descripcion: "Kit de primeros auxilios. Restaura toda la vida.\nM\xE1ximo 2 en
     el inventario."
   iconoObjeto: {fileID: 4490814870101440558, guid: bd6d2310f77e1e049b31e2e79579433c, type: 3}
+  prefabMundo: {fileID: 6692859548691171818, guid: 4a1ca07f821dcd54a87ee42c75355974, type: 3}
   tipo: 0
   esAcumulable: 1
   cantidadMaxima: 2

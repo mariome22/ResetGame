@@ -8,6 +8,8 @@ public class ItemData : ScriptableObject
     [TextArea]
     public string descripcion;
     public Sprite iconoObjeto;
+    [Tooltip("El prefab físico que se instanciará al soltar el objeto del inventario")]
+    public GameObject prefabMundo;
 
     [Header("Clasificación")]
     public TipoObjeto tipo;

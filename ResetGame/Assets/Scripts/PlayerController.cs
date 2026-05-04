@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using TMPro;
@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float velocidad = 5f;
 
     private Rigidbody2D rb;
-    private Animator anim; // <-- AÃ‘ADIDO: Referencia al cerebro de las animaciones
+    private Animator anim; // <-- AÃƒâ€˜ADIDO: Referencia al cerebro de las animaciones
     private Vector2 movimientoInput;
 
     private Vector2 direccionMirada = Vector2.right;
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
         balasActualesCargador = balasMaximasCargador;
         rb = GetComponent<Rigidbody2D>();
         cam = Camera.main;
-        anim = GetComponent<Animator>(); // <-- AÃ‘ADIDO: Buscamos el Animator al arrancar
+        anim = GetComponent<Animator>(); // <-- AÃƒâ€˜ADIDO: Buscamos el Animator al arrancar
     }
 
     private void Start()
@@ -60,9 +60,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale == 0f) return;
         CalcularDireccionMirada();
 
-        // <-- AÃ‘ADIDO: Le pasamos al Animator cuÃ¡nto nos estamos moviendo (0 = quieto, >0 = corriendo)
+        // <-- AÃƒâ€˜ADIDO: Le pasamos al Animator cuÃƒÂ¡nto nos estamos moviendo (0 = quieto, >0 = corriendo)
         if (anim != null)
         {
             anim.SetFloat("Velocidad", movimientoInput.sqrMagnitude);
@@ -95,6 +96,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputValue value)
     {
+        if (Time.timeScale == 0f) return;
         if (isDashing) return;
 
         if (value.isPressed)
@@ -114,6 +116,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnDash(InputValue value)
     {
+        if (Time.timeScale == 0f) return;
         if (value.isPressed && canDash && !isDashing)
         {
             StartCoroutine(DashRoutine());
@@ -123,6 +126,7 @@ public class PlayerController : MonoBehaviour
     
     public void OnReload(InputValue value)
     {
+        if (Time.timeScale == 0f) return;
         if (value.isPressed && usandoArmaADistancia)
         {
             if (balasActualesCargador < balasMaximasCargador)
@@ -149,6 +153,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnAttack(InputValue value)
     {
+        if (Time.timeScale == 0f) return;
         if (value.isPressed && !isDashing)
         {
             if (usandoArmaADistancia)
@@ -175,6 +180,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnSwitchWeapon(InputValue value)
     {
+        if (Time.timeScale == 0f) return;
         if (value.isPressed && armaDesbloqueada)
         {
             usandoArmaADistancia = !usandoArmaADistancia;
@@ -183,15 +189,22 @@ public class PlayerController : MonoBehaviour
         }
         else if (value.isPressed && !armaDesbloqueada)
         {
-            Debug.Log("TodavÃ­a no tienes el arma a distancia.");
+            Debug.Log("TodavÃƒÂ­a no tienes el arma a distancia.");
         }
     }
 
     public void DesbloquearArmaADistancia()
     {
         armaDesbloqueada = true;
-        usandoArmaADistancia = true; // El jugador prefiere que se equipe automÃ¡ticamente
+        usandoArmaADistancia = true; // El jugador prefiere que se equipe automÃƒÂ¡ticamente
         Debug.Log("Arma a distancia desbloqueada y equipada: " + usandoArmaADistancia);
+        ActualizarHUDArma();
+    }
+
+    public void PerderArmaADistancia()
+    {
+        armaDesbloqueada = false;
+        usandoArmaADistancia = false;
         ActualizarHUDArma();
     }
 
@@ -201,13 +214,13 @@ public class PlayerController : MonoBehaviour
         ActualizarHUDArma();
         if (prefabProyectil != null)
         {
-            // Instanciamos el proyectil en la posiciÃ³n actual del jugador
+            // Instanciamos el proyectil en la posiciÃƒÂ³n actual del jugador
             GameObject proyectilObj = Instantiate(prefabProyectil, transform.position, Quaternion.identity);
             PlayerProjectile proyectil = proyectilObj.GetComponent<PlayerProjectile>();
             
             if (proyectil != null)
             {
-                // Inicializamos el proyectil para que se mueva en la direcciÃ³n que mira el jugador
+                // Inicializamos el proyectil para que se mueva en la direcciÃƒÂ³n que mira el jugador
                 proyectil.Inicializar(direccionMirada, velocidadProyectil);
             }
         }
@@ -241,10 +254,10 @@ public class PlayerController : MonoBehaviour
             //Instanciamos el sprite del slash
             GameObject efecto = Instantiate(prefabEfectoAtaque, transform.position, Quaternion.identity);
 
-            //Calculamos el Ã¡ngulo hacia el ratÃ³n
+            //Calculamos el ÃƒÂ¡ngulo hacia el ratÃƒÂ³n
             float anguloCentral = Mathf.Atan2(direccionMirada.y, direccionMirada.x) * Mathf.Rad2Deg;
 
-            //Iniciamos la animaciÃ³n
+            //Iniciamos la animaciÃƒÂ³n
             StartCoroutine(AnimarTajoVisual(efecto, anguloCentral));
         }
 
@@ -276,7 +289,7 @@ public class PlayerController : MonoBehaviour
         float tiempo = 0f;
         float duracion = 0.15f;
 
-        //El slash harÃ¡ un recorrido en arco de 60 grados
+        //El slash harÃƒÂ¡ un recorrido en arco de 60 grados
         float anguloInicio = anguloCentral - 30;
         float anguloFin = anguloCentral + 30;
 
@@ -303,6 +316,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnSwitchItem(InputValue value)
     {
+        if (Time.timeScale == 0f) return;
         if (value.isPressed)
         {
             if (InventarioManager.Instance != null)
@@ -314,6 +328,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnHeal(InputValue value)
     {
+        if (Time.timeScale == 0f) return;
         if (value.isPressed)
         {
             if (InventarioManager.Instance != null)
@@ -332,7 +347,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                textoArmaHUD.text = "Arma: Puños";
+                textoArmaHUD.text = "Arma: PuÃ±os";
             }
         }
     }
@@ -346,4 +361,6 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(centroDelAtaque, rangoAtaque);
     }
 }
+
+
 
