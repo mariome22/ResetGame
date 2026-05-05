@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 [System.Serializable]
@@ -31,14 +32,20 @@ public class InventarioManager : MonoBehaviour
     [Header("Interfaz Menu Pausa")]
     [Tooltip("Panel que contiene los 15 huecos de objetos (los huecos deben tener InventarioSlotUI)")]
     public Transform panelObjetos;
-    [Tooltip("Panel que contiene los huecos de coleccionables (los huecos deben tener InventarioSlotUI)")]
+    [Tooltip("Panel completo de la pestaña de coleccionables")]
     public Transform panelColeccionables;
+    [Tooltip("El objeto dentro del panel que tiene el VerticalLayoutGroup para apilar la lista")]
+    public Transform contenedorListaColeccionables;
     [Tooltip("Opcional: Prefab del hueco para Coleccionables (para crear mas si superan la capacidad inicial de la UI)")]
     public GameObject prefabHuecoColeccionable;
 
     [Header("Detalles de Objeto (Menu Pausa)")]
     public TextMeshProUGUI textoNombreDetalle;
     public TextMeshProUGUI textoDescripcionDetalle;
+
+    [Header("Detalles Coleccionables (Menu Pausa)")]
+    public TextMeshProUGUI textoNombreColDetalle;
+    public Image iconoColDetalle;
 
     private int indiceSeleccionado = 0;
 
@@ -278,12 +285,25 @@ public class InventarioManager : MonoBehaviour
 
         if (panelColeccionables != null)
         {
-            InventarioSlotUI[] slotsCol = panelColeccionables.GetComponentsInChildren<InventarioSlotUI>();
+            Transform contenedor = contenedorListaColeccionables != null ? contenedorListaColeccionables : panelColeccionables;
+            InventarioSlotUI[] slotsCol = contenedor.GetComponentsInChildren<InventarioSlotUI>();
             
+            int proteccionBucle = 0;
             while (slotsCol.Length < coleccionablesGuardados.Count && prefabHuecoColeccionable != null)
             {
-                Instantiate(prefabHuecoColeccionable, panelColeccionables);
-                slotsCol = panelColeccionables.GetComponentsInChildren<InventarioSlotUI>(); 
+                GameObject nuevoSlot = Instantiate(prefabHuecoColeccionable, contenedor);
+                
+                // Si el prefab que el usuario arrastró no tiene el script, salimos para no colgar Unity
+                if (nuevoSlot.GetComponentInChildren<InventarioSlotUI>() == null)
+                {
+                    Debug.LogError("¡ERROR CRITICO! El PrefabHuecoColeccionable que has asignado NO tiene el script 'InventarioSlotUI' puesto. ¡Se ha abortado para evitar que Unity explote!");
+                    break;
+                }
+
+                slotsCol = contenedor.GetComponentsInChildren<InventarioSlotUI>(); 
+                
+                proteccionBucle++;
+                if (proteccionBucle > 50) break; // Seguro extra
             }
 
             for (int i = 0; i < slotsCol.Length; i++)
@@ -335,13 +355,34 @@ public class InventarioManager : MonoBehaviour
         objetoViendoDetalles = objeto;
         if (objeto != null)
         {
-            if (textoNombreDetalle != null) textoNombreDetalle.text = objeto.nombreObjeto;
-            if (textoDescripcionDetalle != null) textoDescripcionDetalle.text = objeto.descripcion;
+            if (objeto.tipo == ItemData.TipoObjeto.Documento)
+            {
+                if (textoNombreColDetalle != null) textoNombreColDetalle.text = objeto.nombreObjeto;
+                if (iconoColDetalle != null) iconoColDetalle.sprite = objeto.iconoObjeto;
+            }
+            else
+            {
+                if (textoNombreDetalle != null) textoNombreDetalle.text = objeto.nombreObjeto;
+                if (textoDescripcionDetalle != null) textoDescripcionDetalle.text = objeto.descripcion;
+            }
         }
         else
         {
             if (textoNombreDetalle != null) textoNombreDetalle.text = "";
             if (textoDescripcionDetalle != null) textoDescripcionDetalle.text = "";
+            if (textoNombreColDetalle != null) textoNombreColDetalle.text = "";
+            if (iconoColDetalle != null) iconoColDetalle.sprite = null;
+        }
+    }
+
+    public void BotonLeerColeccionable()
+    {
+        if (objetoViendoDetalles != null && objetoViendoDetalles.tipo == ItemData.TipoObjeto.Documento)
+        {
+            if (LectorNotas.Instance != null)
+            {
+                LectorNotas.Instance.LeerNotaDesdeInventario(objetoViendoDetalles.contenidoDocumento);
+            }
         }
     }
 

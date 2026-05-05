@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using System.Collections;
 using UnityEngine.InputSystem;
@@ -16,6 +16,7 @@ public class LectorNotas : MonoBehaviour
     public TextMeshProUGUI textoNotaGrande;
 
     private bool leyendo = false;
+    public bool EstaLeyendo => leyendo;
     private bool esperandoLectura = false;
     private string notaPendiente = "";
     private float tiempoMantenido = 0f;
@@ -34,7 +35,7 @@ public class LectorNotas : MonoBehaviour
     public void ActivarAviso(string nombreNota, string textoNota)
     {
         notaPendiente = textoNota;
-        textoAviso.text = "Mant�n [E] para leer: " + nombreNota;
+        textoAviso.text = "Mantén [E] para leer: " + nombreNota;
 
         if (rutinaAviso != null) StopCoroutine(rutinaAviso);
         rutinaAviso = StartCoroutine(RutinaAvisoTimer());

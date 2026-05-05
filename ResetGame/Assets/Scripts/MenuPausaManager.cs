@@ -20,9 +20,23 @@ public class MenuPausaManager : MonoBehaviour
 
     private void Update()
     {
-        // Usamos la clase Keyboard directa del nuevo Input System por simplicidad
-        if (Keyboard.current != null && Keyboard.current.iKey.wasPressedThisFrame)
+        if (Keyboard.current == null) return;
+
+        // Abrir/Cerrar con la tecla I
+        if (Keyboard.current.iKey.wasPressedThisFrame)
         {
+            AlternarPausa();
+        }
+        // Cerrar con ESCAPE (solo si está abierto y NO estamos leyendo una nota)
+        else if (estaPausado && Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            if (LectorNotas.Instance != null && LectorNotas.Instance.EstaLeyendo) 
+            {
+                // Si la nota está abierta a pantalla completa, no cerramos el inventario, 
+                // dejamos que el LectorNotas maneje el ESCAPE para cerrarse a sí mismo.
+                return;
+            }
+            
             AlternarPausa();
         }
     }
