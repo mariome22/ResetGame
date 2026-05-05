@@ -15,9 +15,9 @@ MonoBehaviour:
   nombreObjeto: Nota
   descripcion: Nota sucia
   iconoObjeto: {fileID: -5229332913767248205, guid: 297af7a8c7ed6e549a4ca8291f831b23, type: 3}
+  prefabMundo: {fileID: 0}
   tipo: 5
   esAcumulable: 0
-  cantidadMaxima: 99
+  cantidadMaxima: 1
   valorEfecto: 0
-  contenidoDocumento: "WASD para moverte\nE para interactuar\nEspacio para dash\nQ
-    para curarte r\xE1pido"
+  contenidoDocumento: "Mi abuelo fund\xF3 su primera empresa en 1955"
