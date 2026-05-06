@@ -9,11 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7125356803728754620}
+  - component: {fileID: 5914207281069312801}
   - component: {fileID: 3480350639394457189}
   - component: {fileID: 3705469459306955390}
-  - component: {fileID: 5914207281069312801}
   - component: {fileID: 2427601670253867686}
   - component: {fileID: 2457709726428741080}
+  - component: {fileID: 2748031807365011180}
   m_Layer: 0
   m_Name: Shooter
   m_TagString: Enemy
@@ -36,46 +37,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3480350639394457189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5198129065884186475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca54d91bf51cf2d4d9a993306be5f12c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyBase
-  vidaMaxima: 3
-  fuerzaKnockback: 5
-  tiempoAturdido: 0.2
-  parametroCaminar: isWalking
---- !u!114 &3705469459306955390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5198129065884186475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8e2169f33c5f4e4e842e1d545b9a7f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter
-  prefabProyectil: {fileID: 3979685118916425157, guid: 72666a1055edd0c44a96ba7791e758b4, type: 3}
-  ritmoDeDisparo: 2
-  variacionRitmo: 0.3
-  rangoDeVision: 4
-  capaBloqueoVision:
-    serializedVersion: 2
-    m_Bits: 8
-  proyectilesPorAtaque: 1
-  anguloDeDispersion: 0
-  disparoSimultaneo: 0
-  tiempoEntreBalas: 0.5
-  tiempoDeCarga: 0
 --- !u!212 &5914207281069312801
 SpriteRenderer:
   serializedVersion: 2
@@ -125,8 +86,8 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.41208094, b: 0, a: 1}
+  m_Sprite: {fileID: 7188940616404631829, guid: 4dad612548b680a41a4233d42b9b2cf6, type: 3}
+  m_Color: {r: 0.58385855, g: 1, b: 0.47358483, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -135,6 +96,60 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &3480350639394457189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5198129065884186475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca54d91bf51cf2d4d9a993306be5f12c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyBase
+  vidaMaxima: 3
+  fuerzaKnockback: 5
+  tiempoAturdido: 0.2
+  parametroCaminar: isWalking
+--- !u!114 &3705469459306955390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5198129065884186475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e2169f33c5f4e4e842e1d545b9a7f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter
+  prefabProyectil: {fileID: 3979685118916425157, guid: 72666a1055edd0c44a96ba7791e758b4, type: 3}
+  ritmoDeDisparo: 2
+  variacionRitmo: 0.3
+  rangoDeVision: 4
+  capaBloqueoVision:
+    serializedVersion: 2
+    m_Bits: 8
+  velocidad: 2
+  distanciaOptima: 3
+  distanciaHuir: 2
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  distanciaRaycastObstaculos: 1
+  radioObstaculos: 0.4
+  proyectilesPorAtaque: 1
+  anguloDeDispersion: 0
+  disparoSimultaneo: 0
+  tiempoEntreBalas: 0.5
+  tiempoDeCarga: 0
+  rayoLaser: {fileID: 0}
+  tiempoFijacion: 0.5
+  grosorLaserCarga: 0.05
+  grosorLaserFijado: 0.1
+  colorLaserCarga: {r: 1, g: 1, b: 0, a: 0.5}
+  colorLaserFijado: {r: 1, g: 0, b: 0, a: 0.8}
 --- !u!50 &2427601670253867686
 Rigidbody2D:
   serializedVersion: 5
@@ -200,7 +215,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.8125, y: 1.125}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -208,3 +223,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &2748031807365011180
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5198129065884186475}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 06b429d3901e3cc43ab615eed90b16d6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

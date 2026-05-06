@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2488717414612174446}
   - component: {fileID: 8590390296099027496}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PostApoc_Workshop_WithShadow_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2011292027
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8215644507962360706, guid: a250261d4ee0ec34d8eb103e798e660e, type: 3}

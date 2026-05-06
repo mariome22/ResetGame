@@ -12,6 +12,15 @@ public class EnemyShooter : MonoBehaviour
     [Tooltip("Capas que bloquean la visión (ej. Muros)")]
     public LayerMask capaBloqueoVision;
 
+    [Header("Ajustes de Movimiento")]
+    public float velocidad = 2f;
+    public float distanciaOptima = 5f;
+    public float distanciaHuir = 3f;
+    [Tooltip("LayerMask para evitar obstáculos (Muros, etc.) al moverse")]
+    public LayerMask obstacleLayer;
+    public float distanciaRaycastObstaculos = 1f;
+    public float radioObstaculos = 0.4f;
+
     [Header("Ajustes de Ráfaga / Escopeta")]
     public int proyectilesPorAtaque = 1;
     public float anguloDeDispersion = 0f;
@@ -22,11 +31,32 @@ public class EnemyShooter : MonoBehaviour
 
     [Header("Ajustes de Carga (Francotirador)")]
     public float tiempoDeCarga = 0f;
+    [Tooltip("El rayo láser visual que apunta al jugador (opcional)")]
+    public LineRenderer rayoLaser;
+    [Tooltip("Tiempo antes de disparar en el que el enemigo deja de seguir al jugador (para permitir esquivar)")]
+    public float tiempoFijacion = 0.5f;
+    [Tooltip("Grosor del láser mientras está apuntando/siguiendo al jugador")]
+    public float grosorLaserCarga = 0.05f;
+    [Tooltip("Grosor del láser cuando se fija antes de disparar")]
+    public float grosorLaserFijado = 0.1f;
+    [Tooltip("Color del láser mientras está apuntando/siguiendo al jugador")]
+    public Color colorLaserCarga = new Color(1f, 1f, 0f, 0.5f); // Amarillo semitransparente
+    [Tooltip("Color del láser cuando se fija antes de disparar")]
+    public Color colorLaserFijado = new Color(1f, 0f, 0f, 0.8f); // Rojo intenso
 
     private Transform jugador;
     private bool estaAtacando = false;
+    private float temporizadorCooldown = 0f;
     private SpriteRenderer spriteRenderer;
     private Color colorOriginal;
+    private Rigidbody2D rb;
+
+    private Vector2[] direccionesMovimiento = new Vector2[]
+    {
+        Vector2.up, Vector2.down, Vector2.left, Vector2.right,
+        new Vector2(1, 1).normalized, new Vector2(-1, 1).normalized,
+        new Vector2(1, -1).normalized, new Vector2(-1, -1).normalized
+    };
 
     private void Start()
     {
@@ -38,59 +68,234 @@ public class EnemyShooter : MonoBehaviour
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         if (spriteRenderer != null) colorOriginal = spriteRenderer.color;
+
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (jugador == null || estaAtacando) return;
+        if (jugador == null) 
+        {
+            if (rb != null) rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        if (temporizadorCooldown > 0)
+        {
+            temporizadorCooldown -= Time.fixedDeltaTime;
+        }
 
         float distancia = Vector2.Distance(transform.position, jugador.position);
-
+        
         if (distancia <= rangoDeVision)
         {
             Vector2 direccionBase = (jugador.position - transform.position).normalized;
             RaycastHit2D hit = Physics2D.Raycast(transform.position, direccionBase, distancia, capaBloqueoVision);
-            
-            // Solo ataca si no hay muros en medio
-            if (hit.collider == null)
+            bool tieneLineaVision = (hit.collider == null);
+
+            // Logica de ataque (solo si no ataca y tiene el cooldown listo)
+            if (!estaAtacando && tieneLineaVision && temporizadorCooldown <= 0)
             {
                 StartCoroutine(RutinaDeAtaque());
             }
+
+            // Logica de movimiento
+            if (estaAtacando)
+            {
+                // Cuando está atacando/cargando se queda quieto
+                if (rb != null) rb.linearVelocity = Vector2.zero;
+            }
+            else
+            {
+                // Decidir adónde moverse
+                Vector2 objetivoMovimiento = transform.position;
+                bool debeMoverse = false;
+
+                if (!tieneLineaVision)
+                {
+                    // Si no tiene linea de vision, intenta acercarse al jugador para ganar vision
+                    objetivoMovimiento = jugador.position;
+                    debeMoverse = true;
+                }
+                else if (distancia < distanciaHuir)
+                {
+                    // Huir si el jugador está muy cerca
+                    Vector2 dirHuida = (transform.position - jugador.position).normalized;
+                    objetivoMovimiento = (Vector2)transform.position + dirHuida * 2f;
+                    debeMoverse = true;
+                }
+                else if (distancia > distanciaOptima)
+                {
+                    // Acercarse si está más lejos de la distancia óptima
+                    objetivoMovimiento = jugador.position;
+                    debeMoverse = true;
+                }
+
+                if (debeMoverse && rb != null)
+                {
+                    MoverConContextSteering(objetivoMovimiento);
+                }
+                else if (rb != null)
+                {
+                    rb.linearVelocity = Vector2.zero;
+                }
+            }
         }
+        else
+        {
+            // Fuera de rango de visión, se queda quieto (o podría patrullar)
+            if (rb != null) rb.linearVelocity = Vector2.zero;
+        }
+    }
+
+    private void MoverConContextSteering(Vector2 objetivo)
+    {
+        if (rb == null) return;
+
+        Vector2 direccionAlObjetivo = (objetivo - (Vector2)transform.position).normalized;
+        Vector2 mejorDireccion = Vector2.zero;
+        float mejorDot = -Mathf.Infinity;
+
+        for (int i = 0; i < direccionesMovimiento.Length; i++)
+        {
+            Vector2 dir = direccionesMovimiento[i];
+            
+            RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, radioObstaculos, dir, distanciaRaycastObstaculos, obstacleLayer);
+            bool obstaculoEncontrado = false;
+
+            foreach (RaycastHit2D hitObstaculo in hits)
+            {
+                if (hitObstaculo.collider != null && hitObstaculo.collider.gameObject != this.gameObject)
+                {
+                    if (jugador != null && hitObstaculo.collider.transform == jugador)
+                        continue;
+
+                    obstaculoEncontrado = true;
+                    break;
+                }
+            }
+
+            if (!obstaculoEncontrado)
+            {
+                float dot = Vector2.Dot(dir, direccionAlObjetivo);
+                if (dot > mejorDot)
+                {
+                    mejorDot = dot;
+                    mejorDireccion = dir;
+                }
+            }
+        }
+
+        if (mejorDireccion == Vector2.zero)
+        {
+            mejorDireccion = direccionAlObjetivo;
+        }
+
+        rb.linearVelocity = mejorDireccion * velocidad;
     }
 
     private IEnumerator RutinaDeAtaque()
     {
         estaAtacando = true;
+        Vector2 objetivoApuntado = Vector2.zero;
+
+        if (jugador != null)
+        {
+            objetivoApuntado = jugador.position;
+        }
 
         if (tiempoDeCarga > 0)
         {
             float tiempoRestante = tiempoDeCarga;
             float ritmoParpadeo = 0.2f;
+            float temporizadorParpadeo = ritmoParpadeo;
+            bool parpadeoRojo = false;
 
-            // Telegrafiado visual: Parpadea en rojo cada vez más rápido
+            if (rayoLaser != null)
+            {
+                rayoLaser.enabled = true;
+                rayoLaser.startColor = colorLaserCarga;
+                rayoLaser.endColor = colorLaserCarga;
+                rayoLaser.startWidth = grosorLaserCarga;
+                rayoLaser.endWidth = grosorLaserCarga;
+            }
+
+            // Telegrafiado visual: Parpadea en rojo y actualiza el rayo láser
             while (tiempoRestante > 0)
             {
-                if (spriteRenderer != null) spriteRenderer.color = Color.red;
-                yield return new WaitForSeconds(Mathf.Min(ritmoParpadeo / 2f, tiempoRestante));
-                tiempoRestante -= ritmoParpadeo / 2f;
+                tiempoRestante -= Time.deltaTime;
+                temporizadorParpadeo -= Time.deltaTime;
 
-                if (spriteRenderer != null) spriteRenderer.color = colorOriginal;
-                
-                if (tiempoRestante > 0)
+                // Control visual de parpadeo del sprite
+                if (temporizadorParpadeo <= 0)
                 {
-                    yield return new WaitForSeconds(Mathf.Min(ritmoParpadeo / 2f, tiempoRestante));
-                    tiempoRestante -= ritmoParpadeo / 2f;
+                    parpadeoRojo = !parpadeoRojo;
+                    if (spriteRenderer != null) spriteRenderer.color = parpadeoRojo ? Color.red : colorOriginal;
+                    
+                    ritmoParpadeo = Mathf.Max(0.05f, (tiempoRestante / tiempoDeCarga) * 0.2f); // Más rápido cuanto menos tiempo queda
+                    temporizadorParpadeo = ritmoParpadeo;
                 }
-                
-                ritmoParpadeo = Mathf.Max(0.05f, ritmoParpadeo * 0.8f); // Acelera el parpadeo
+
+                if (jugador != null)
+                {
+                    // Si aún no estamos en tiempo de fijación, seguimos al jugador
+                    if (tiempoRestante > tiempoFijacion)
+                    {
+                        objetivoApuntado = jugador.position;
+                        if (rayoLaser != null)
+                        {
+                            rayoLaser.startColor = colorLaserCarga;
+                            rayoLaser.endColor = colorLaserCarga;
+                            rayoLaser.startWidth = grosorLaserCarga;
+                            rayoLaser.endWidth = grosorLaserCarga;
+                        }
+                    }
+                    else
+                    {
+                        // Entramos en fijación, ya no actualizamos objetivoApuntado (el jugador puede esquivar)
+                        if (rayoLaser != null)
+                        {
+                            rayoLaser.startColor = colorLaserFijado;
+                            rayoLaser.endColor = colorLaserFijado;
+                            rayoLaser.startWidth = grosorLaserFijado;
+                            rayoLaser.endWidth = grosorLaserFijado;
+                        }
+                    }
+
+                    // Actualizar posiciones del rayo láser
+                    if (rayoLaser != null)
+                    {
+                        rayoLaser.SetPosition(0, transform.position);
+                        
+                        Vector2 dirLaser = (objetivoApuntado - (Vector2)transform.position).normalized;
+                        // Proyectamos el rayo hacia adelante hasta chocar con una pared, o muy lejos
+                        RaycastHit2D hitMuro = Physics2D.Raycast(transform.position, dirLaser, 50f, capaBloqueoVision);
+                        
+                        if (hitMuro.collider != null)
+                        {
+                            rayoLaser.SetPosition(1, hitMuro.point);
+                        }
+                        else
+                        {
+                            rayoLaser.SetPosition(1, (Vector2)transform.position + dirLaser * 50f);
+                        }
+                    }
+                }
+
+                yield return null;
             }
             if (spriteRenderer != null) spriteRenderer.color = colorOriginal;
+            if (rayoLaser != null) rayoLaser.enabled = false;
+        }
+        else
+        {
+            // Si no hay tiempo de carga, apuntamos directamente al jugador en el instante del disparo
+            if (jugador != null) objetivoApuntado = jugador.position;
         }
 
         if (jugador != null)
         {
-            Vector2 direccionBase = (jugador.position - transform.position).normalized;
+            Vector2 direccionBase = (objetivoApuntado - (Vector2)transform.position).normalized;
 
             if (disparoSimultaneo)
             {
@@ -131,17 +336,23 @@ public class EnemyShooter : MonoBehaviour
             }
         }
 
-        // Variación de ritmo aleatoria
-        float tiempoEspera = ritmoDeDisparo + Random.Range(-variacionRitmo, variacionRitmo);
-        tiempoEspera = Mathf.Max(0.1f, tiempoEspera); // Nunca debe ser negativo
-        
-        yield return new WaitForSeconds(tiempoEspera);
+        // Ya ha disparado, así que el ataque en sí ha terminado. Puede moverse de nuevo.
         estaAtacando = false;
+
+        // Variación de ritmo aleatoria para el tiempo de recarga
+        float tiempoEspera = ritmoDeDisparo + Random.Range(-variacionRitmo, variacionRitmo);
+        temporizadorCooldown = Mathf.Max(0.1f, tiempoEspera); // Nunca debe ser negativo
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, rangoDeVision);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, distanciaOptima);
+
+        Gizmos.color = new Color(1f, 0.5f, 0f); // Naranja
+        Gizmos.DrawWireSphere(transform.position, distanciaHuir);
     }
 }

@@ -5,6 +5,8 @@ public class EnemyProjectile : MonoBehaviour
     public float velocidad = 7f;
     public int dano = 1;
     public float tiempoDeVida = 3f;
+    [Tooltip("Capas con las que el proyectil chocará y se destruirá (Muros, Mesas, etc.)")]
+    public LayerMask capasColision;
 
     private Rigidbody2D rb;
 
@@ -18,6 +20,10 @@ public class EnemyProjectile : MonoBehaviour
     {
         if (rb == null) rb = GetComponent<Rigidbody2D>();
         rb.linearVelocity = direccion.normalized * velocidad;
+        
+        // Orientar el sprite hacia la dirección en la que viaja
+        // (Asume que el sprite de la bala está dibujado mirando hacia la derecha)
+        transform.right = direccion;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -28,8 +34,9 @@ public class EnemyProjectile : MonoBehaviour
             collision.GetComponent<PlayerHealth>().RecibirDano(dano);
             Destroy(gameObject);
         }
-        else if (collision.CompareTag("Wall"))
+        else if (collision.CompareTag("Wall") || ((capasColision.value & (1 << collision.gameObject.layer)) > 0))
         {
+            // Se destruye si tiene la etiqueta Wall O si pertenece a una capa marcada en capasColision
             Destroy(gameObject);
         }
     }
