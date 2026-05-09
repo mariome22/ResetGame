@@ -108,15 +108,13 @@ public class ObjetoRompible : MonoBehaviour
 
     private void CalcularPesos(float porcentajeVida, int totalBalas, out int pesoVendas, out int pesoBotiquin, out int pesoBalas, out int pesoNada)
     {
-        // Reglas de Director IA
-        bool vidaBaja = porcentajeVida <= 0.35f; // <= 33% (1 de 3)
-        bool vidaAlta = porcentajeVida >= 0.9f; // 3 de 3 (100%)
-        bool vidaMediaAlta = porcentajeVida >= 0.5f; // >= 2 de 3 (66%)
+        bool vidaBaja = porcentajeVida <= 0.35f;
+        bool vidaAlta = porcentajeVida >= 0.9f;
+        bool vidaMediaAlta = porcentajeVida >= 0.5f;
 
         bool balasAltas = totalBalas >= 15;
         bool balasMedias = totalBalas > 10;
 
-        // Caso sugerido: A tope de vida y altas balas
         if (vidaAlta && balasAltas)
         {
             pesoVendas = 10;
@@ -124,7 +122,6 @@ public class ObjetoRompible : MonoBehaviour
             pesoBalas = 10;
             pesoNada = 75;
         }
-        // Caso sugerido: A tope de vida, pero sin altas balas
         else if (vidaAlta) 
         {
             pesoVendas = 15;
@@ -132,7 +129,6 @@ public class ObjetoRompible : MonoBehaviour
             pesoBalas = 30;
             pesoNada = 50;
         }
-        // Caso: 15 balas y <= 25% vida
         else if (balasAltas && vidaBaja)
         {
             pesoBalas = 0;
@@ -140,7 +136,6 @@ public class ObjetoRompible : MonoBehaviour
             pesoBotiquin = 35;
             pesoNada = 15;
         }
-        // Caso: 15 balas y >= 50% vida
         else if (balasAltas && vidaMediaAlta)
         {
             pesoBalas = 0;
@@ -148,7 +143,6 @@ public class ObjetoRompible : MonoBehaviour
             pesoVendas = 50;
             pesoBotiquin = 15;
         }
-        // Caso: +25% vida y +10 balas (y no capturado por los de 15 balas)
         else if (porcentajeVida > 0.35f && balasMedias)
         {
             pesoVendas = 50;
@@ -156,7 +150,6 @@ public class ObjetoRompible : MonoBehaviour
             pesoBalas = 10;
             pesoBotiquin = 10;
         }
-        // Caso: <= 25% vida (y no capturado por el de 15 balas)
         else if (vidaBaja)
         {
             pesoVendas = 50;
@@ -166,7 +159,6 @@ public class ObjetoRompible : MonoBehaviour
         }
         else
         {
-            // Default
             pesoVendas = 50;
             pesoBotiquin = 15;
             pesoBalas = 20;
