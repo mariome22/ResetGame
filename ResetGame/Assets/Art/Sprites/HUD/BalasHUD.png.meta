@@ -1,0 +1,899 @@
+fileFormatVersion: 2
+guid: 955e6d48db3c31f4f956a039bd42c5f4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2966014380594234884
+    second: BalasHUD_0
+  - first:
+      213: -467923182488712821
+    second: BalasHUD_1
+  - first:
+      213: 7954829870613041423
+    second: BalasHUD_2
+  - first:
+      213: -4887502221569683135
+    second: BalasHUD_3
+  - first:
+      213: -8497728872228433115
+    second: BalasHUD_4
+  - first:
+      213: 4788936356751630858
+    second: BalasHUD_5
+  - first:
+      213: -4484625692778048055
+    second: BalasHUD_6
+  - first:
+      213: -7627729019386033682
+    second: BalasHUD_7
+  - first:
+      213: -3983169093569657671
+    second: BalasHUD_8
+  - first:
+      213: -4943555814521302769
+    second: BalasHUD_9
+  - first:
+      213: 1107548457897800459
+    second: BalasHUD_10
+  - first:
+      213: 3029349590812172277
+    second: BalasHUD_11
+  - first:
+      213: -3851529696698685043
+    second: BalasHUD_12
+  - first:
+      213: -4364367993361929473
+    second: BalasHUD_13
+  - first:
+      213: 5232515439252722055
+    second: BalasHUD_14
+  - first:
+      213: -1089364892758899507
+    second: BalasHUD_15
+  - first:
+      213: 2062766495324262409
+    second: BalasHUD_16
+  - first:
+      213: 5457542594266508180
+    second: BalasHUD_17
+  - first:
+      213: 7804495519214102641
+    second: BalasHUD_18
+  - first:
+      213: 4913584168714444662
+    second: BalasHUD_19
+  - first:
+      213: 4658206280521662438
+    second: BalasHUD_20
+  - first:
+      213: -394442641487917551
+    second: BalasHUD_21
+  - first:
+      213: -5616128473190644600
+    second: BalasHUD_22
+  - first:
+      213: 242894598019960896
+    second: BalasHUD_23
+  - first:
+      213: -3297851221543569757
+    second: BalasHUD_24
+  - first:
+      213: -3174857273386352149
+    second: BalasHUD_25
+  - first:
+      213: -8592826875557640434
+    second: BalasHUD_26
+  - first:
+      213: 2996590963518023084
+    second: BalasHUD_27
+  - first:
+      213: -1633064760904054906
+    second: BalasHUD_28
+  - first:
+      213: 6931618075450243204
+    second: BalasHUD_29
+  - first:
+      213: 624644905701198829
+    second: BalasHUD_30
+  - first:
+      213: -133706798121543695
+    second: BalasHUD_31
+  - first:
+      213: -8043728595127909338
+    second: BalasHUD_32
+  - first:
+      213: 4276808299208987443
+    second: BalasHUD_33
+  - first:
+      213: -5138051704366377429
+    second: BalasHUD_34
+  - first:
+      213: -3064879965280314677
+    second: BalasHUD_35
+  - first:
+      213: 6151021636775246881
+    second: BalasHUD_36
+  - first:
+      213: -2003000926660422651
+    second: BalasHUD_37
+  - first:
+      213: -5218898796271101851
+    second: BalasHUD_38
+  - first:
+      213: -1855075812797507583
+    second: BalasHUD_39
+  - first:
+      213: -1770450035961135066
+    second: BalasHUD_40
+  - first:
+      213: 5798803545766997247
+    second: BalasHUD_41
+  - first:
+      213: -1595844239379098690
+    second: BalasHUD_42
+  - first:
+      213: 9220778464143177984
+    second: BalasHUD_43
+  - first:
+      213: 588810118146358892
+    second: BalasHUD_44
+  - first:
+      213: -8736761695545690245
+    second: BalasHUD_45
+  - first:
+      213: 4996403390661644045
+    second: BalasHUD_46
+  - first:
+      213: -9218391545140397036
+    second: BalasHUD_47
+  - first:
+      213: 7349794888783391115
+    second: BalasHUD_48
+  - first:
+      213: 5032253361654701707
+    second: BalasHUD_49
+  - first:
+      213: -3672029186717372827
+    second: BalasHUD_50
+  - first:
+      213: -4920266994064619226
+    second: BalasHUD_51
+  - first:
+      213: 4430825566672642969
+    second: BalasHUD_52
+  - first:
+      213: 5100043941765975857
+    second: BalasHUD_53
+  - first:
+      213: 9040572778185740586
+    second: BalasHUD_54
+  - first:
+      213: -7292225820435671707
+    second: BalasHUD_55
+  - first:
+      213: -4043418490008774410
+    second: BalasHUD_56
+  - first:
+      213: 5919092174599582296
+    second: BalasHUD_57
+  - first:
+      213: 2538855818999334535
+    second: BalasHUD_58
+  - first:
+      213: 3482404013575555112
+    second: BalasHUD_59
+  - first:
+      213: -824916602329658280
+    second: BalasHUD_60
+  - first:
+      213: 6571085385914711998
+    second: BalasHUD_61
+  - first:
+      213: -3712028844302223829
+    second: BalasHUD_62
+  - first:
+      213: -5276160689340376485
+    second: BalasHUD_63
+  - first:
+      213: 1055597043657122920
+    second: BalasHUD_64
+  - first:
+      213: 5480281071751049428
+    second: BalasHUD_65
+  - first:
+      213: -800795190398979003
+    second: BalasHUD_66
+  - first:
+      213: 8334124164982173427
+    second: BalasHUD_67
+  - first:
+      213: 8251362301147417491
+    second: BalasHUD_68
+  - first:
+      213: -5540044666636356745
+    second: BalasHUD_69
+  - first:
+      213: -170660863374464471
+    second: BalasHUD_70
+  - first:
+      213: 5752914725053795956
+    second: BalasHUD_71
+  - first:
+      213: 753224974724299495
+    second: BalasHUD_72
+  - first:
+      213: 1789515843469212884
+    second: BalasHUD_73
+  - first:
+      213: 2846286866678262057
+    second: BalasHUD_74
+  - first:
+      213: -7539012948388587357
+    second: BalasHUD_75
+  - first:
+      213: -6210746587392935448
+    second: BalasHUD_76
+  - first:
+      213: -5937785134911727857
+    second: BalasHUD_77
+  - first:
+      213: 398699227322960291
+    second: BalasHUD_78
+  - first:
+      213: -3581081476129962943
+    second: BalasHUD_79
+  - first:
+      213: 1962336285366217649
+    second: BalasHUD_80
+  - first:
+      213: 1273424734832554121
+    second: BalasHUD_81
+  - first:
+      213: 7900503401449258565
+    second: BalasHUD_82
+  - first:
+      213: -1679521504753190244
+    second: BalasHUD_83
+  - first:
+      213: 5968703820831486638
+    second: BalasHUD_84
+  - first:
+      213: -5378853372463495843
+    second: BalasHUD_85
+  - first:
+      213: 5122019288987223632
+    second: BalasHUD_86
+  - first:
+      213: -3382735860511018931
+    second: BalasHUD_87
+  - first:
+      213: -8833337173063703287
+    second: BalasHUD_88
+  - first:
+      213: -8596059839094587187
+    second: BalasHUD_89
+  - first:
+      213: 388219478853710241
+    second: BalasHUD_90
+  - first:
+      213: 8367137359399478082
+    second: BalasHUD_91
+  - first:
+      213: -2054531533067892443
+    second: BalasHUD_92
+  - first:
+      213: -2028192202010763859
+    second: BalasHUD_93
+  - first:
+      213: -1097789645293204111
+    second: BalasHUD_94
+  - first:
+      213: -5148519253891115488
+    second: BalasHUD_95
+  - first:
+      213: 1333935139445649203
+    second: BalasHUD_96
+  - first:
+      213: -3607422131470163885
+    second: BalasHUD_97
+  - first:
+      213: 7015407876345275470
+    second: BalasHUD_98
+  - first:
+      213: -2276554191407900051
+    second: BalasHUD_99
+  - first:
+      213: 6660552388558423610
+    second: BalasHUD_100
+  - first:
+      213: -5885587087393194450
+    second: BalasHUD_101
+  - first:
+      213: 8980268539367509939
+    second: BalasHUD_102
+  - first:
+      213: 714123388447355669
+    second: BalasHUD_103
+  - first:
+      213: -3239963720370925459
+    second: BalasHUD_104
+  - first:
+      213: -6090375514951762885
+    second: BalasHUD_105
+  - first:
+      213: -6604583895818156022
+    second: BalasHUD_106
+  - first:
+      213: 42921409225946277
+    second: BalasHUD_107
+  - first:
+      213: -6226751476863498216
+    second: BalasHUD_108
+  - first:
+      213: -2632460876629760658
+    second: BalasHUD_109
+  - first:
+      213: 8346108159213941049
+    second: BalasHUD_110
+  - first:
+      213: -600688437489761901
+    second: BalasHUD_111
+  - first:
+      213: 5267261431331874256
+    second: BalasHUD_112
+  - first:
+      213: -837666353604977307
+    second: BalasHUD_113
+  - first:
+      213: 4787294156816636892
+    second: BalasHUD_114
+  - first:
+      213: 1944385314579197394
+    second: BalasHUD_115
+  - first:
+      213: 7031670942890561899
+    second: BalasHUD_116
+  - first:
+      213: -2178092517425441827
+    second: BalasHUD_117
+  - first:
+      213: -5643303447875506136
+    second: BalasHUD_118
+  - first:
+      213: 6095166764038583469
+    second: BalasHUD_119
+  - first:
+      213: -3476357296953009926
+    second: BalasHUD_120
+  - first:
+      213: 7461816320760215075
+    second: BalasHUD_121
+  - first:
+      213: -4376262481991051472
+    second: BalasHUD_122
+  - first:
+      213: -3637574694972569848
+    second: BalasHUD_123
+  - first:
+      213: 5166381349601412834
+    second: BalasHUD_124
+  - first:
+      213: -353430155010388372
+    second: BalasHUD_125
+  - first:
+      213: 3964172729896409348
+    second: BalasHUD_126
+  - first:
+      213: 8592811598668231207
+    second: BalasHUD_127
+  - first:
+      213: 5920710049964600275
+    second: BalasHUD_128
+  - first:
+      213: -6682276225693216668
+    second: BalasHUD_129
+  - first:
+      213: 6403046210316420574
+    second: BalasHUD_130
+  - first:
+      213: 6711985147100607870
+    second: BalasHUD_131
+  - first:
+      213: 3470503339961489139
+    second: BalasHUD_132
+  - first:
+      213: 7991198425481429771
+    second: BalasHUD_133
+  - first:
+      213: 6064071713622708605
+    second: BalasHUD_134
+  - first:
+      213: 8428791412482197053
+    second: BalasHUD_135
+  - first:
+      213: 5190474246781802381
+    second: BalasHUD_136
+  - first:
+      213: 333367778189814847
+    second: BalasHUD_137
+  - first:
+      213: -7272119303362023406
+    second: BalasHUD_138
+  - first:
+      213: -1618054044126980622
+    second: BalasHUD_139
+  - first:
+      213: 8593833405461632965
+    second: BalasHUD_140
+  - first:
+      213: 7596095931044545585
+    second: BalasHUD_141
+  - first:
+      213: -2353651140767094573
+    second: BalasHUD_142
+  - first:
+      213: 5054866448539947629
+    second: BalasHUD_143
+  - first:
+      213: -5377469122134986756
+    second: BalasHUD_144
+  - first:
+      213: 3986817710010762083
+    second: BalasHUD_145
+  - first:
+      213: -2438052528481926555
+    second: BalasHUD_146
+  - first:
+      213: 8630331088591270777
+    second: BalasHUD_147
+  - first:
+      213: 3653928179893000344
+    second: BalasHUD_148
+  - first:
+      213: 5591500497827682782
+    second: BalasHUD_149
+  - first:
+      213: 1935180939910565107
+    second: BalasHUD_150
+  - first:
+      213: 1437002932276059562
+    second: BalasHUD_151
+  - first:
+      213: 1536671398317858996
+    second: BalasHUD_152
+  - first:
+      213: 5491654800791414832
+    second: BalasHUD_153
+  - first:
+      213: -8676683907368690319
+    second: BalasHUD_154
+  - first:
+      213: -8229739254549834840
+    second: BalasHUD_155
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BalasHUD_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf9fafda2a996d6d0800000000000000
+      internalID: -2966014380594234884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BalasHUD_1
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 96
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b89079d385a9189f0800000000000000
+      internalID: -467923182488712821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BalasHUD_2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 96
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f019e8eee9b356e60800000000000000
+      internalID: 7954829870613041423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BalasHUD_3
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 96
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1411864ef9a1c2cb0800000000000000
+      internalID: -4887502221569683135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BalasHUD_4
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 96
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5235e351d90021a80800000000000000
+      internalID: -8497728872228433115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BalasHUD_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 48
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a02622c5e38b57240800000000000000
+      internalID: 4788936356751630858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BalasHUD_6
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 48
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c5df5761b863c1c0800000000000000
+      internalID: -4484625692778048055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BalasHUD_7
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 48
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee98e8ccedcd42690800000000000000
+      internalID: -7627729019386033682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BalasHUD_8
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 48
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b4477920d0f8b8c0800000000000000
+      internalID: -3983169093569657671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BalasHUD_9
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 48
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f011424cd26f46bb0800000000000000
+      internalID: -4943555814521302769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BalasHUD_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b03b784547dce5f00800000000000000
+      internalID: 1107548457897800459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BalasHUD_11
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ff95d417696a0a20800000000000000
+      internalID: 3029349590812172277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BalasHUD_12
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d89286aa52e9c8ac0800000000000000
+      internalID: -3851529696698685043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 195a9e4690c58bd448716a7f1c40e4f1
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":48.0,"y":48.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      BalasHUD_0: -2966014380594234884
+      BalasHUD_1: -467923182488712821
+      BalasHUD_10: 1107548457897800459
+      BalasHUD_11: 3029349590812172277
+      BalasHUD_12: -3851529696698685043
+      BalasHUD_2: 7954829870613041423
+      BalasHUD_3: -4887502221569683135
+      BalasHUD_4: -8497728872228433115
+      BalasHUD_5: 4788936356751630858
+      BalasHUD_6: -4484625692778048055
+      BalasHUD_7: -7627729019386033682
+      BalasHUD_8: -3983169093569657671
+      BalasHUD_9: -4943555814521302769
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

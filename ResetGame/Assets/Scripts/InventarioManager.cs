@@ -23,21 +23,27 @@ public class InventarioManager : MonoBehaviour
     [Header("Almacenamiento")]
     public List<InventarioSlot> objetosGuardados = new List<InventarioSlot>();
     public List<InventarioSlot> coleccionablesGuardados = new List<InventarioSlot>();
-    public int capacidadObjetos = 3;
+    public int capacidadObjetos = 4;
 
-    [Header("Interfaz HUD")]
-    [Tooltip("Arrastra aqui el texto del Canvas que mostrara el objeto equipado")]
-    public TextMeshProUGUI textoObjetoEquipado;
-
-    [Header("Interfaz Menu Pausa")]
+    [Header("Interfaz Menu Pausa - Paneles")]
     [Tooltip("Panel que contiene los 15 huecos de objetos (los huecos deben tener InventarioSlotUI)")]
     public Transform panelObjetos;
     [Tooltip("Panel completo de la pestaña de coleccionables")]
     public Transform panelColeccionables;
+    [Tooltip("Panel de las opciones")]
+    public Transform panelOpciones;
     [Tooltip("El objeto dentro del panel que tiene el VerticalLayoutGroup para apilar la lista")]
     public Transform contenedorListaColeccionables;
     [Tooltip("Opcional: Prefab del hueco para Coleccionables (para crear mas si superan la capacidad inicial de la UI)")]
     public GameObject prefabHuecoColeccionable;
+
+    [Header("Interfaz Menu Pausa - Pestañas (Botones)")]
+    public TextMeshProUGUI textoBtnObjetos;
+    public TextMeshProUGUI textoBtnColeccionables;
+    public TextMeshProUGUI textoBtnOpciones;
+    public GameObject lineaObjetos;
+    public GameObject lineaColeccionables;
+    public GameObject lineaOpciones;
 
     [Header("Detalles de Objeto (Menu Pausa)")]
     public TextMeshProUGUI textoNombreDetalle;
@@ -73,6 +79,26 @@ public class InventarioManager : MonoBehaviour
         }
         else
         {
+            if (nuevoObjeto.tipo == ItemData.TipoObjeto.Municion)
+            {
+                PlayerController pc = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerController>();
+                int balasEnCargador = pc != null ? pc.balasActualesCargador : 0;
+                int balasTotales = balasEnCargador + ContarMunicionTotal();
+                int maxBalasTotales = 20;
+
+                if (balasTotales >= maxBalasTotales)
+                {
+                    Debug.Log("Límite de 20 balas alcanzado.");
+                    return false;
+                }
+
+                int espacioDisp = maxBalasTotales - balasTotales;
+                if (cantidad > espacioDisp)
+                {
+                    cantidad = espacioDisp;
+                }
+            }
+
             if (nuevoObjeto.esAcumulable)
             {
                 foreach (InventarioSlot slot in objetosGuardados)
@@ -233,8 +259,6 @@ public class InventarioManager : MonoBehaviour
 
     private void ActualizarUI()
     {
-        if (textoObjetoEquipado == null) return;
-
         bool tenemosCuras = false;
         foreach (var slot in objetosGuardados)
         {
@@ -243,7 +267,7 @@ public class InventarioManager : MonoBehaviour
 
         if (!tenemosCuras)
         {
-            textoObjetoEquipado.text = "Cura: Nada";
+            if (HUDManager.Instance != null) HUDManager.Instance.ActualizarCura(false, null);
             return;
         }
 
@@ -259,7 +283,10 @@ public class InventarioManager : MonoBehaviour
         }
         else
         {
-            textoObjetoEquipado.text = "Cura: " + objetosGuardados[indiceSeleccionado].objeto.nombreObjeto + " (x" + objetosGuardados[indiceSeleccionado].cantidad + ")";
+            if (HUDManager.Instance != null)
+            {
+                HUDManager.Instance.ActualizarCura(true, objetosGuardados[indiceSeleccionado].objeto.iconoObjeto);
+            }
         }
     }
 
@@ -373,6 +400,30 @@ public class InventarioManager : MonoBehaviour
             if (textoNombreColDetalle != null) textoNombreColDetalle.text = "";
             if (iconoColDetalle != null) iconoColDetalle.sprite = null;
         }
+
+        ActualizarSeleccionSlots();
+    }
+
+    private void ActualizarSeleccionSlots()
+    {
+        if (panelObjetos != null)
+        {
+            InventarioSlotUI[] slotsObjetos = panelObjetos.GetComponentsInChildren<InventarioSlotUI>();
+            foreach (var slot in slotsObjetos)
+            {
+                slot.SetSeleccionado(slot.GetCurrentItem() == objetoViendoDetalles && objetoViendoDetalles != null);
+            }
+        }
+
+        if (panelColeccionables != null)
+        {
+            Transform contenedor = contenedorListaColeccionables != null ? contenedorListaColeccionables : panelColeccionables;
+            InventarioSlotUI[] slotsCol = contenedor.GetComponentsInChildren<InventarioSlotUI>();
+            foreach (var slot in slotsCol)
+            {
+                slot.SetSeleccionado(slot.GetCurrentItem() == objetoViendoDetalles && objetoViendoDetalles != null);
+            }
+        }
     }
 
     public void BotonLeerColeccionable()
@@ -462,13 +513,40 @@ public class InventarioManager : MonoBehaviour
     {
         if (panelObjetos != null) panelObjetos.gameObject.SetActive(true);
         if (panelColeccionables != null) panelColeccionables.gameObject.SetActive(false);
+        if (panelOpciones != null) panelOpciones.gameObject.SetActive(false);
         MostrarDetallesObjeto(null);
+        ActualizarEstiloPestanas(0);
     }
 
     public void MostrarPestanaColeccionables()
     {
         if (panelObjetos != null) panelObjetos.gameObject.SetActive(false);
         if (panelColeccionables != null) panelColeccionables.gameObject.SetActive(true);
+        if (panelOpciones != null) panelOpciones.gameObject.SetActive(false);
         MostrarDetallesObjeto(null);
+        ActualizarEstiloPestanas(1);
+    }
+
+    public void MostrarPestanaOpciones()
+    {
+        if (panelObjetos != null) panelObjetos.gameObject.SetActive(false);
+        if (panelColeccionables != null) panelColeccionables.gameObject.SetActive(false);
+        if (panelOpciones != null) panelOpciones.gameObject.SetActive(true);
+        MostrarDetallesObjeto(null);
+        ActualizarEstiloPestanas(2);
+    }
+
+    private void ActualizarEstiloPestanas(int indiceActiva)
+    {
+        Color colorActivo = Color.white;
+        Color colorInactivo = new Color(0.6f, 0.6f, 0.6f, 1f); // Gris oscuro
+
+        if (textoBtnObjetos != null) textoBtnObjetos.color = (indiceActiva == 0) ? colorActivo : colorInactivo;
+        if (textoBtnColeccionables != null) textoBtnColeccionables.color = (indiceActiva == 1) ? colorActivo : colorInactivo;
+        if (textoBtnOpciones != null) textoBtnOpciones.color = (indiceActiva == 2) ? colorActivo : colorInactivo;
+
+        if (lineaObjetos != null) lineaObjetos.SetActive(indiceActiva == 0);
+        if (lineaColeccionables != null) lineaColeccionables.SetActive(indiceActiva == 1);
+        if (lineaOpciones != null) lineaOpciones.SetActive(indiceActiva == 2);
     }
 }

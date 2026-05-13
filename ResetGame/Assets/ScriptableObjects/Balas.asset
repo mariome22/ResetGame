@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58dff55e032366d46876b9985e2c8d86, type: 3}
   m_Name: Balas
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  nombreObjeto: "Munici\xF3n de pistola"
-  descripcion: 
+  nombreObjeto: "Munici\xF3n de Requiem"
+  descripcion: Balas pesadas de gran calibre. Se usan exclusivamente en la Pistola
+    Requiem
   iconoObjeto: {fileID: -1654697517976419279, guid: 553e4a555b15f274caa28587a71fab61, type: 3}
   prefabMundo: {fileID: 9154580679765953407, guid: 2f9db1bf927c6a045a2d1b424c7a624e, type: 3}
   tipo: 2

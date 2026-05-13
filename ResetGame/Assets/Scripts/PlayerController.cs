@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using TMPro;
@@ -35,13 +35,10 @@ public class PlayerController : MonoBehaviour
     private bool armaDesbloqueada = false;
 
         [Header("Ajustes del Cargador")]
-    public int balasMaximasCargador = 10;
+    public int balasMaximasCargador = 12;
     public int balasActualesCargador;
     public float cadenciaDisparo = 0.5f;
     private float tiempoSiguienteDisparo = 0f;
-
-    [Header("Interfaz HUD")]
-    public TextMeshProUGUI textoArmaHUD;
 
     private Camera cam;
 
@@ -339,16 +336,9 @@ public class PlayerController : MonoBehaviour
     }
     public void ActualizarHUDArma()
     {
-        if (textoArmaHUD != null)
+        if (HUDManager.Instance != null)
         {
-            if (usandoArmaADistancia)
-            {
-                textoArmaHUD.text = "Arma: Pistola (" + balasActualesCargador + "/" + balasMaximasCargador + ")";
-            }
-            else
-            {
-                textoArmaHUD.text = "Arma: PuÃ±os";
-            }
+            HUDManager.Instance.ActualizarArma(usandoArmaADistancia, balasActualesCargador, balasMaximasCargador);
         }
     }
 

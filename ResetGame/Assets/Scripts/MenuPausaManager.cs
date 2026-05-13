@@ -57,6 +57,7 @@ public class MenuPausaManager : MonoBehaviour
             if (InventarioManager.Instance != null)
             {
                 InventarioManager.Instance.ActualizarMenuPausa();
+                InventarioManager.Instance.MostrarPestanaObjetos(); // Fuerza el refresco visual de las pestañas
             }
         }
         else
@@ -64,6 +65,14 @@ public class MenuPausaManager : MonoBehaviour
             // Cerrar menú y reanudar tiempo
             canvasPausa.SetActive(false);
             Time.timeScale = 1f;
+        }
+    }
+
+    public void CerrarMenuPausa()
+    {
+        if (estaPausado)
+        {
+            AlternarPausa();
         }
     }
 }

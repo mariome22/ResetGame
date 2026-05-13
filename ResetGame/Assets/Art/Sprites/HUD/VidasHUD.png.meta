@@ -1,0 +1,508 @@
+fileFormatVersion: 2
+guid: 6645e082d29a8a447945fd0a2593999e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7842372800333598625
+    second: VidasHUD_0
+  - first:
+      213: 4257160939255914572
+    second: VidasHUD_1
+  - first:
+      213: 956194603723102074
+    second: VidasHUD_2
+  - first:
+      213: -4860114422088645280
+    second: VidasHUD_3
+  - first:
+      213: -8235239074142397128
+    second: VidasHUD_4
+  - first:
+      213: 5283451818909997726
+    second: VidasHUD_5
+  - first:
+      213: 8614990250138599176
+    second: VidasHUD_6
+  - first:
+      213: 1134185516452308571
+    second: VidasHUD_7
+  - first:
+      213: -7385811709776267780
+    second: VidasHUD_8
+  - first:
+      213: 7803823949196468342
+    second: VidasHUD_9
+  - first:
+      213: 1051931487161460022
+    second: VidasHUD_10
+  - first:
+      213: 5129006857914057148
+    second: VidasHUD_11
+  - first:
+      213: -3492479444674209637
+    second: VidasHUD_12
+  - first:
+      213: -4682086647791259610
+    second: VidasHUD_13
+  - first:
+      213: 4262115956104742606
+    second: VidasHUD_14
+  - first:
+      213: 5457260459538694465
+    second: VidasHUD_15
+  - first:
+      213: 3965703661588083747
+    second: VidasHUD_16
+  - first:
+      213: -8444157340649442254
+    second: VidasHUD_17
+  - first:
+      213: -1322385845848514524
+    second: VidasHUD_18
+  - first:
+      213: -1825106440697944059
+    second: VidasHUD_19
+  - first:
+      213: -7271245646103061562
+    second: VidasHUD_20
+  - first:
+      213: 7411173677152778390
+    second: VidasHUD_21
+  - first:
+      213: -8529509359498126121
+    second: VidasHUD_22
+  - first:
+      213: -3837170440120188969
+    second: VidasHUD_23
+  - first:
+      213: -8203054871810160849
+    second: VidasHUD_24
+  - first:
+      213: -3694842478553851215
+    second: VidasHUD_25
+  - first:
+      213: -293788668779316133
+    second: VidasHUD_26
+  - first:
+      213: -8726044146945863712
+    second: VidasHUD_27
+  - first:
+      213: 1970981475598381948
+    second: VidasHUD_28
+  - first:
+      213: 6074396388650416943
+    second: VidasHUD_29
+  - first:
+      213: 7896247730311537720
+    second: VidasHUD_30
+  - first:
+      213: 2460682161776647375
+    second: VidasHUD_31
+  - first:
+      213: 8177071588990552302
+    second: VidasHUD_32
+  - first:
+      213: -4093314634512007020
+    second: VidasHUD_33
+  - first:
+      213: -349533726119998780
+    second: VidasHUD_34
+  - first:
+      213: 2842613714276794285
+    second: VidasHUD_35
+  - first:
+      213: 6289381357914615571
+    second: VidasHUD_36
+  - first:
+      213: -1221817018589053298
+    second: VidasHUD_37
+  - first:
+      213: 6063038861235202392
+    second: VidasHUD_38
+  - first:
+      213: -9076267148657016235
+    second: VidasHUD_39
+  - first:
+      213: -3638613430500256914
+    second: VidasHUD_40
+  - first:
+      213: 5007075012151542844
+    second: VidasHUD_41
+  - first:
+      213: 6560900033944840857
+    second: VidasHUD_42
+  - first:
+      213: -9135188557979975286
+    second: VidasHUD_43
+  - first:
+      213: 260839059406649697
+    second: VidasHUD_44
+  - first:
+      213: 6367490816984546167
+    second: VidasHUD_45
+  - first:
+      213: 8987730310406872000
+    second: VidasHUD_46
+  - first:
+      213: 5251718062432865120
+    second: VidasHUD_47
+  - first:
+      213: -7660108824653583632
+    second: VidasHUD_48
+  - first:
+      213: 185854287740187000
+    second: VidasHUD_49
+  - first:
+      213: 7272104106711977364
+    second: VidasHUD_50
+  - first:
+      213: -8002957497583661399
+    second: VidasHUD_51
+  - first:
+      213: 7741369596468875634
+    second: VidasHUD_52
+  - first:
+      213: -7456861612966732884
+    second: VidasHUD_53
+  - first:
+      213: 3023268766269058950
+    second: VidasHUD_54
+  - first:
+      213: -1178910947111293160
+    second: VidasHUD_55
+  - first:
+      213: 1448783385457559434
+    second: VidasHUD_56
+  - first:
+      213: 2616652865122852334
+    second: VidasHUD_57
+  - first:
+      213: -3255780915715635385
+    second: VidasHUD_58
+  - first:
+      213: 6267204256879873391
+    second: VidasHUD_59
+  - first:
+      213: -4359212761212358582
+    second: VidasHUD_60
+  - first:
+      213: 2829480915335929048
+    second: VidasHUD_61
+  - first:
+      213: 2732570327502123084
+    second: VidasHUD_62
+  - first:
+      213: 1328436209787201737
+    second: VidasHUD_63
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: VidasHUD_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 50
+        width: 48
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1afc110e284b5dc60800000000000000
+      internalID: 7842372800333598625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VidasHUD_1
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 50
+        width: 48
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c406400a159741b30800000000000000
+      internalID: 4257160939255914572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VidasHUD_2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 50
+        width: 48
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a779f0b0de5154d00800000000000000
+      internalID: 956194603723102074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VidasHUD_3
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 50
+        width: 48
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06547afdea76d8cb0800000000000000
+      internalID: -4860114422088645280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VidasHUD_4
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 50
+        width: 48
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83d5359b1bd86bd80800000000000000
+      internalID: -8235239074142397128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VidasHUD_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 48
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9a9506bf67925940800000000000000
+      internalID: 5283451818909997726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VidasHUD_6
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 48
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80ff6f20df79e8770800000000000000
+      internalID: 8614990250138599176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VidasHUD_7
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 48
+        height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b566881d7bf6dbf00800000000000000
+      internalID: 1134185516452308571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 73236489732511f4ab2e9aee83fbdb82
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":48.0,"y":50.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      VidasHUD_0: 7842372800333598625
+      VidasHUD_1: 4257160939255914572
+      VidasHUD_2: 956194603723102074
+      VidasHUD_3: -4860114422088645280
+      VidasHUD_4: -8235239074142397128
+      VidasHUD_5: 5283451818909997726
+      VidasHUD_6: 8614990250138599176
+      VidasHUD_7: 1134185516452308571
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
