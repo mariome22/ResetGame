@@ -99,14 +99,26 @@ public class PlayerController : MonoBehaviour
         if (value.isPressed)
         {
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 2f);
+            InteractableObject closestInteractable = null;
+            float closestDistance = float.MaxValue;
+
             foreach (var hitCollider in hitColliders)
             {
                 InteractableObject interactable = hitCollider.GetComponent<InteractableObject>();
-                if (interactable != null)
+                if (interactable != null && interactable.IsPlayerClose)
                 {
-                    interactable.Interact();
-                    break;
+                    float dist = Vector2.Distance(transform.position, interactable.transform.position);
+                    if (dist < closestDistance)
+                    {
+                        closestDistance = dist;
+                        closestInteractable = interactable;
+                    }
                 }
+            }
+
+            if (closestInteractable != null)
+            {
+                closestInteractable.Interact();
             }
         }
     }

@@ -344,6 +344,9 @@ public class InventarioManager : MonoBehaviour
                     slotsCol[i].ActualizarSlot(null);
                 }
             }
+
+            // Forzamos a Unity a recalcular el tamaño del contenedor al instante para que la Scrollbar se entere
+            LayoutRebuilder.ForceRebuildLayoutImmediate(contenedor.GetComponent<RectTransform>());
         }
     }
 
@@ -385,12 +388,17 @@ public class InventarioManager : MonoBehaviour
             if (objeto.tipo == ItemData.TipoObjeto.Documento)
             {
                 if (textoNombreColDetalle != null) textoNombreColDetalle.text = objeto.nombreObjeto;
-                if (iconoColDetalle != null) iconoColDetalle.sprite = objeto.iconoObjeto;
+                if (iconoColDetalle != null) 
+                {
+                    iconoColDetalle.sprite = objeto.iconoObjeto;
+                    iconoColDetalle.enabled = objeto.iconoObjeto != null;
+                }
             }
             else
             {
                 if (textoNombreDetalle != null) textoNombreDetalle.text = objeto.nombreObjeto;
                 if (textoDescripcionDetalle != null) textoDescripcionDetalle.text = objeto.descripcion;
+                if (iconoColDetalle != null) iconoColDetalle.enabled = false;
             }
         }
         else
@@ -398,7 +406,11 @@ public class InventarioManager : MonoBehaviour
             if (textoNombreDetalle != null) textoNombreDetalle.text = "";
             if (textoDescripcionDetalle != null) textoDescripcionDetalle.text = "";
             if (textoNombreColDetalle != null) textoNombreColDetalle.text = "";
-            if (iconoColDetalle != null) iconoColDetalle.sprite = null;
+            if (iconoColDetalle != null) 
+            {
+                iconoColDetalle.sprite = null;
+                iconoColDetalle.enabled = false;
+            }
         }
 
         ActualizarSeleccionSlots();

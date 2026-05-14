@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 
@@ -16,6 +16,7 @@ public class InteractableObject : MonoBehaviour
     public UnityEvent onInteract;
 
     private bool isPlayerClose = false;
+    public bool IsPlayerClose => isPlayerClose;
     private SpriteRenderer spriteRenderer;
     private Color defaultColor;
 
