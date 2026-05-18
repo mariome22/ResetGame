@@ -1324,6 +1324,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventarioSlotUI
   iconoObjeto: {fileID: 994866760}
   textoTitulo: {fileID: 0}
+  textoCantidad: {fileID: 0}
+  imagenSeleccion: {fileID: 0}
 --- !u!1001 &201828547
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1773,6 +1775,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 887922500}
     m_Modifications:
+    - target: {fileID: 352489880136924725, guid: 486c6b9ad19ed134a860ee206671c748, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 352489880136924725, guid: 486c6b9ad19ed134a860ee206671c748, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 944689921
+      objectReference: {fileID: 0}
     - target: {fileID: 5850990913822510453, guid: 486c6b9ad19ed134a860ee206671c748, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.933218
@@ -2046,6 +2056,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventarioSlotUI
   iconoObjeto: {fileID: 438919162}
   textoTitulo: {fileID: 1054134764}
+  textoCantidad: {fileID: 0}
+  imagenSeleccion: {fileID: 0}
 --- !u!222 &438919164
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2325,7 +2337,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 951823229
-  m_SortingLayer: 6
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 4723107735738678597, guid: c61df397a61ec7545b7310d7ecc587db, type: 3}
@@ -3074,6 +3086,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventarioSlotUI
   iconoObjeto: {fileID: 118279953}
   textoTitulo: {fileID: 0}
+  textoCantidad: {fileID: 0}
+  imagenSeleccion: {fileID: 0}
 --- !u!1001 &668086485
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3336,6 +3350,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventarioSlotUI
   iconoObjeto: {fileID: 958012900}
   textoTitulo: {fileID: 0}
+  textoCantidad: {fileID: 0}
+  imagenSeleccion: {fileID: 0}
 --- !u!1001 &711223919
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3914,6 +3930,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventarioSlotUI
   iconoObjeto: {fileID: 1574724664}
   textoTitulo: {fileID: 0}
+  textoCantidad: {fileID: 0}
+  imagenSeleccion: {fileID: 0}
 --- !u!1001 &825412512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4878,6 +4896,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventarioSlotUI
   iconoObjeto: {fileID: 938424332}
   textoTitulo: {fileID: 1743355282}
+  textoCantidad: {fileID: 0}
+  imagenSeleccion: {fileID: 0}
 --- !u!222 &938424334
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6667,6 +6687,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventarioSlotUI
   iconoObjeto: {fileID: 1163659104}
   textoTitulo: {fileID: 1872504957}
+  textoCantidad: {fileID: 0}
+  imagenSeleccion: {fileID: 0}
 --- !u!222 &1163659106
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7111,6 +7133,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventarioSlotUI
   iconoObjeto: {fileID: 602085100}
   textoTitulo: {fileID: 0}
+  textoCantidad: {fileID: 0}
+  imagenSeleccion: {fileID: 0}
 --- !u!1 &1225887638
 GameObject:
   m_ObjectHideFlags: 0
@@ -7159,12 +7183,21 @@ MonoBehaviour:
   objetosGuardados: []
   coleccionablesGuardados: []
   capacidadObjetos: 15
-  textoObjetoEquipado: {fileID: 1196522883}
   panelObjetos: {fileID: 2111924961}
   panelColeccionables: {fileID: 1769334681}
+  panelOpciones: {fileID: 0}
+  contenedorListaColeccionables: {fileID: 0}
   prefabHuecoColeccionable: {fileID: 0}
+  textoBtnObjetos: {fileID: 0}
+  textoBtnColeccionables: {fileID: 0}
+  textoBtnOpciones: {fileID: 0}
+  lineaObjetos: {fileID: 0}
+  lineaColeccionables: {fileID: 0}
+  lineaOpciones: {fileID: 0}
   textoNombreDetalle: {fileID: 1349021629}
   textoDescripcionDetalle: {fileID: 1981800680}
+  textoNombreColDetalle: {fileID: 0}
+  iconoColDetalle: {fileID: 0}
 --- !u!114 &1225887641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7376,6 +7409,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventarioSlotUI
   iconoObjeto: {fileID: 1115082014}
   textoTitulo: {fileID: 0}
+  textoCantidad: {fileID: 0}
+  imagenSeleccion: {fileID: 0}
 --- !u!1001 &1248247389
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7609,6 +7644,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventarioSlotUI
   iconoObjeto: {fileID: 1258285691}
   textoTitulo: {fileID: 0}
+  textoCantidad: {fileID: 0}
+  imagenSeleccion: {fileID: 0}
 --- !u!4 &1298457282 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2652114503944625837, guid: c427448bba5f5614e896b9a5db3b9678, type: 3}
@@ -7837,6 +7874,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventarioSlotUI
   iconoObjeto: {fileID: 885939837}
   textoTitulo: {fileID: 0}
+  textoCantidad: {fileID: 0}
+  imagenSeleccion: {fileID: 0}
 --- !u!4 &1312610082 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2652114503944625837, guid: c427448bba5f5614e896b9a5db3b9678, type: 3}
@@ -8588,7 +8627,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 944689921
-  m_SortingLayer: 7
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -16950,6 +16989,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventarioSlotUI
   iconoObjeto: {fileID: 513278474}
   textoTitulo: {fileID: 0}
+  textoCantidad: {fileID: 0}
+  imagenSeleccion: {fileID: 0}
 --- !u!1001 &1446847464
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16958,6 +16999,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 887922500}
     m_Modifications:
+    - target: {fileID: 3236400066721515907, guid: 0fb0b6a35ffd8444a91022ab8cc4752f, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3236400066721515907, guid: 0fb0b6a35ffd8444a91022ab8cc4752f, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 944689921
+      objectReference: {fileID: 0}
     - target: {fileID: 6389427681558317353, guid: 0fb0b6a35ffd8444a91022ab8cc4752f, type: 3}
       propertyPath: m_Name
       value: Refrigerator_0 (3)
@@ -17208,6 +17257,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventarioSlotUI
   iconoObjeto: {fileID: 807212933}
   textoTitulo: {fileID: 0}
+  textoCantidad: {fileID: 0}
+  imagenSeleccion: {fileID: 0}
 --- !u!1001 &1480328265
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17356,6 +17407,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventarioSlotUI
   iconoObjeto: {fileID: 1300331224}
   textoTitulo: {fileID: 0}
+  textoCantidad: {fileID: 0}
+  imagenSeleccion: {fileID: 0}
 --- !u!4 &1501769424 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2876842369739155999, guid: 19f5a2974844708459f7c8c1fbaf27d7, type: 3}
@@ -34684,6 +34737,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventarioSlotUI
   iconoObjeto: {fileID: 1749410264}
   textoTitulo: {fileID: 0}
+  textoCantidad: {fileID: 0}
+  imagenSeleccion: {fileID: 0}
 --- !u!1001 &1574524374
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34931,7 +34986,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -911476001
-  m_SortingLayer: 2
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5488124553726607956, guid: 87be35c5b386da64aabbe09ed68fb4c0, type: 3}
@@ -35445,7 +35500,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2011292027
-  m_SortingLayer: 3
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2090852999765563615, guid: 3027835ec19dd5a439f47170be96a466, type: 3}
@@ -35557,7 +35612,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1964115985
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -40021,6 +40076,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventarioSlotUI
   iconoObjeto: {fileID: 1723038286}
   textoTitulo: {fileID: 0}
+  textoCantidad: {fileID: 0}
+  imagenSeleccion: {fileID: 0}
 --- !u!1001 &1887109840
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40174,6 +40231,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventarioSlotUI
   iconoObjeto: {fileID: 316230440}
   textoTitulo: {fileID: 0}
+  textoCantidad: {fileID: 0}
+  imagenSeleccion: {fileID: 0}
 --- !u!4 &1910004122 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4086884261303266936, guid: 798242008a120f04ca37f0e4919e9134, type: 3}
@@ -41759,6 +41818,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventarioSlotUI
   iconoObjeto: {fileID: 1942116998}
   textoTitulo: {fileID: 0}
+  textoCantidad: {fileID: 0}
+  imagenSeleccion: {fileID: 0}
 --- !u!1001 &2126161412
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41767,6 +41828,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 887922500}
     m_Modifications:
+    - target: {fileID: 3236400066721515907, guid: 0fb0b6a35ffd8444a91022ab8cc4752f, type: 3}
+      propertyPath: m_SortingLayer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3236400066721515907, guid: 0fb0b6a35ffd8444a91022ab8cc4752f, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 944689921
+      objectReference: {fileID: 0}
     - target: {fileID: 6389427681558317353, guid: 0fb0b6a35ffd8444a91022ab8cc4752f, type: 3}
       propertyPath: m_Name
       value: Refrigerator_0 (2)
@@ -41956,6 +42025,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventarioSlotUI
   iconoObjeto: {fileID: 2141890576}
   textoTitulo: {fileID: 1762010531}
+  textoCantidad: {fileID: 0}
+  imagenSeleccion: {fileID: 0}
 --- !u!222 &2141890578
 CanvasRenderer:
   m_ObjectHideFlags: 0
