@@ -17,7 +17,7 @@ TagManager:
   - Water
   - UI
   - Muro
-  - 
+  - Suelo Plataforma
   - 
   - 
   - 
@@ -78,6 +78,21 @@ TagManager:
     locked: 0
   - name: Tejado
     uniqueID: 3453263793
+    locked: 0
+  - name: FondoPlataforma
+    uniqueID: 2709303187
+    locked: 0
+  - name: SueloPlataforma
+    uniqueID: 2261142593
+    locked: 0
+  - name: PlayerPlataforma
+    uniqueID: 172837991
+    locked: 0
+  - name: DetallesPlataforma
+    uniqueID: 2006456201
+    locked: 0
+  - name: EnemyPlataforma
+    uniqueID: 4176619161
     locked: 0
   m_RenderingLayers:
   - Default
