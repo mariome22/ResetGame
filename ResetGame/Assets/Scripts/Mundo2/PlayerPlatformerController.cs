@@ -13,6 +13,8 @@ public class PlayerPlatformerController : MonoBehaviour
     [Range(0, 1)]
     [Tooltip("Cuánto se reduce la fuerza del salto si sueltas el botón Espacio antes de tiempo.")]
     public float jumpHeightMultiplier = 0.5f;
+    [Tooltip("Fuerza del rebote si mantienes pulsado Espacio justo al pisar un enemigo")]
+    public float highBounceForce = 22f;
 
     [Header("Detección de Suelo")]
     public Transform groundCheck;
@@ -41,6 +43,13 @@ public class PlayerPlatformerController : MonoBehaviour
     private float invincibilityTimer;
     private SpriteRenderer spriteRenderer;
 
+    [Header("Límites del Nivel")]
+    [Tooltip("La altura (eje Y) a la que el jugador morirá instantáneamente si cae al vacío.")]
+    public float fallDeathY = -15f;
+
+    [HideInInspector]
+    public Vector2 movingPlatformVelocity = Vector2.zero;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -50,6 +59,14 @@ public class PlayerPlatformerController : MonoBehaviour
 
     void Update()
     {
+        // Si el jugador cae al vacío, muere instantáneamente sin importar si es invulnerable
+        if (transform.position.y < fallDeathY && currentHealth > 0)
+        {
+            currentHealth = 0;
+            Die();
+            return;
+        }
+
         if (invincibilityTimer > 0)
         {
             invincibilityTimer -= Time.deltaTime;
@@ -119,8 +136,9 @@ public class PlayerPlatformerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Aplicar movimiento físico en FixedUpdate para mayor estabilidad
-        rb.linearVelocity = new Vector2(horizontalInput * moveSpeed, rb.linearVelocity.y);
+        // Aplicar movimiento físico en FixedUpdate para mayor estabilidad.
+        // Sumamos movingPlatformVelocity.x para que el jugador sea arrastrado por plataformas móviles.
+        rb.linearVelocity = new Vector2((horizontalInput * moveSpeed) + movingPlatformVelocity.x, rb.linearVelocity.y);
     }
 
     private void Flip()
@@ -143,8 +161,14 @@ public class PlayerPlatformerController : MonoBehaviour
 
     public void Bounce(float bounceForce = 12f)
     {
+        // Revisar si el jugador está manteniendo pulsado el botón de salto (Espacio)
+        bool jumpHeld = Keyboard.current != null && Keyboard.current.spaceKey.isPressed;
+        
+        // Si lo mantiene pulsado, rebotará mucho más alto (Mecánica clásica de Mario)
+        float forceToApply = jumpHeld ? highBounceForce : bounceForce;
+
         // Reseteamos la velocidad vertical y aplicamos un impulso para rebotar
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, bounceForce);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, forceToApply);
     }
 
     public void TakeDamage(int damage)
@@ -179,7 +203,8 @@ public class PlayerPlatformerController : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("¡El jugador ha muerto!");
-        // TODO: Añadir lógica para recargar escena o Game Over
+        Debug.Log("¡El jugador ha muerto! Reiniciando nivel...");
+        // Recargar la escena actual para reiniciar el nivel
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 }
