@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerPlatformerController : MonoBehaviour
 {
@@ -35,14 +36,25 @@ public class PlayerPlatformerController : MonoBehaviour
     public int maxHealth = 2;
     private int currentHealth;
 
+    [Tooltip("Tiempo de invulnerabilidad tras recibir daño")]
+    public float invincibilityTime = 1f;
+    private float invincibilityTimer;
+    private SpriteRenderer spriteRenderer;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         currentHealth = maxHealth;
     }
 
     void Update()
     {
+        if (invincibilityTimer > 0)
+        {
+            invincibilityTimer -= Time.deltaTime;
+        }
+
         // 1. Entrada horizontal usando el Nuevo Input System (Teclado)
         horizontalInput = 0f;
         if (Keyboard.current != null)
@@ -137,13 +149,32 @@ public class PlayerPlatformerController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (invincibilityTimer > 0) return;
+
         currentHealth -= damage;
         Debug.Log("¡El jugador ha recibido daño! Vida restante: " + currentHealth);
 
-        if (currentHealth <= 0)
+        if (currentHealth > 0)
+        {
+            invincibilityTimer = invincibilityTime;
+            if (spriteRenderer != null) StartCoroutine(DamageFlickerRoutine());
+        }
+        else if (currentHealth <= 0)
         {
             Die();
         }
+    }
+
+    private IEnumerator DamageFlickerRoutine()
+    {
+        float elapsed = 0f;
+        while (elapsed < invincibilityTime)
+        {
+            spriteRenderer.enabled = !spriteRenderer.enabled;
+            yield return new WaitForSeconds(0.1f);
+            elapsed += 0.1f;
+        }
+        spriteRenderer.enabled = true;
     }
 
     private void Die()
