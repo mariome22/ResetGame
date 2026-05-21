@@ -15,12 +15,14 @@ public class EnemyPatrolPlatformer : EnemyPlatformerBase
     private float turnTimer;
 
     private Rigidbody2D rb;
+    private Animator anim;
     private bool movingRight = true;
 
     protected override void Start()
     {
         base.Start(); // Llama al Start del padre para inicializar la vida
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         ResetTurnTimer();
     }
 
@@ -47,6 +49,12 @@ public class EnemyPatrolPlatformer : EnemyPlatformerBase
         if (turnTimer <= 0)
         {
             TurnAround();
+        }
+
+        // 5. Animacion de caminar
+        if (anim != null)
+        {
+            anim.SetBool("IsWalking", Mathf.Abs(rb.linearVelocity.x) > 0.1f);
         }
     }
 

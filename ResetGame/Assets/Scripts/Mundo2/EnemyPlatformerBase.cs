@@ -23,8 +23,25 @@ public class EnemyPlatformerBase : MonoBehaviour
 
     protected virtual void Die()
     {
-        // Aquí puedes añadir más adelante partículas o un sonido de "plop" al morir
-        Destroy(gameObject);
+        Animator anim = GetComponent<Animator>();
+        if (anim != null)
+        {
+            anim.SetTrigger("Die"); // Lanza la animación de muerte
+            
+            // Congelamos al enemigo y desactivamos sus colisiones
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            if (rb != null) rb.simulated = false; 
+            
+            // Desactivamos el script para que deje de patrullar o atacar
+            this.enabled = false;
+
+            // Destruimos el objeto después de 0.6 segundos (ajustable)
+            Destroy(gameObject, 0.8f);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     protected virtual void OnCollisionEnter2D(Collision2D collision)

@@ -39,13 +39,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2537801165777725958, guid: e50200f72ddc0a743b95c6bd2b6b08db, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 44f3d07b42f45c74e9ee0f2cd9138a72, type: 2}
+    - target: {fileID: 3372646632983919096, guid: e50200f72ddc0a743b95c6bd2b6b08db, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.0625
+      objectReference: {fileID: 0}
+    - target: {fileID: 3372646632983919096, guid: e50200f72ddc0a743b95c6bd2b6b08db, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.1875
+      objectReference: {fileID: 0}
+    - target: {fileID: 3862597143743873852, guid: e50200f72ddc0a743b95c6bd2b6b08db, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 6691028219476326333, guid: bbf565fdc22d26243848a2aef1d13620, type: 3}
+    - target: {fileID: 3862597143743873852, guid: e50200f72ddc0a743b95c6bd2b6b08db, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3862597143743873852, guid: e50200f72ddc0a743b95c6bd2b6b08db, type: 3}
       propertyPath: m_Color.g
-      value: 0.8836725
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3862597143743873852, guid: e50200f72ddc0a743b95c6bd2b6b08db, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6573189539414696107, guid: e50200f72ddc0a743b95c6bd2b6b08db, type: 3}
       propertyPath: m_Name
-      value: ShooterPlatform Variant
+      value: ShooterPlatform
       objectReference: {fileID: 0}
     - target: {fileID: 7851588936567151496, guid: e50200f72ddc0a743b95c6bd2b6b08db, type: 3}
       propertyPath: m_LocalPosition.x

@@ -30,12 +30,14 @@ public class EnemyGrenadierPlatformer : EnemyPlatformerBase
     public float arcHeight = 3f;
 
     private Rigidbody2D rb;
+    private Animator anim;
     private Transform player;
 
     protected override void Start()
     {
         base.Start();
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
@@ -60,6 +62,12 @@ public class EnemyGrenadierPlatformer : EnemyPlatformerBase
             case State.Attacking:
                 UpdateAttacking(dist);
                 break;
+        }
+
+        if (anim != null)
+        {
+            anim.SetBool("IsWalking", Mathf.Abs(rb.linearVelocity.x) > 0.1f);
+            anim.SetBool("IsAction", currentState == State.Attacking);
         }
     }
 

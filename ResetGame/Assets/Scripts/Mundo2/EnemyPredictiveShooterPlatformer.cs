@@ -23,6 +23,7 @@ public class EnemyPredictiveShooterPlatformer : EnemyPlatformerBase
     public Transform firePoint;
 
     private Rigidbody2D rb;
+    private Animator anim;
     private bool movingRight = true;
     private float fireCooldown;
     private Transform player;
@@ -32,6 +33,7 @@ public class EnemyPredictiveShooterPlatformer : EnemyPlatformerBase
     {
         base.Start(); 
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         ResetTurnTimer();
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -76,6 +78,12 @@ public class EnemyPredictiveShooterPlatformer : EnemyPlatformerBase
                     FireProjectilePredictively();
                     fireCooldown = fireRate;
                 }
+
+                if (anim != null)
+                {
+                    anim.SetBool("IsWalking", false);
+                    anim.SetBool("IsAction", true);
+                }
                 return; // Salir del Update para no ejecutar la logica de patrulla
             }
         }
@@ -95,6 +103,12 @@ public class EnemyPredictiveShooterPlatformer : EnemyPlatformerBase
         if (turnTimer <= 0)
         {
             TurnAround();
+        }
+
+        if (anim != null)
+        {
+            anim.SetBool("IsWalking", Mathf.Abs(rb.linearVelocity.x) > 0.1f);
+            anim.SetBool("IsAction", false);
         }
     }
 

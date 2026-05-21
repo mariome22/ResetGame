@@ -31,6 +31,7 @@ public class EnemyJumperPlatformer : EnemyPlatformerBase
     private float cooldownTimer;
 
     private Rigidbody2D rb;
+    private Animator anim;
     private Transform player;
     private Rigidbody2D playerRb;
 
@@ -38,6 +39,7 @@ public class EnemyJumperPlatformer : EnemyPlatformerBase
     {
         base.Start();
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         ResetTurnTimer();
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -63,6 +65,14 @@ public class EnemyJumperPlatformer : EnemyPlatformerBase
             case State.Recovering:
                 UpdateRecovering();
                 break;
+        }
+
+        if (anim != null)
+        {
+            // Solo muestra animacion de caminar si esta deslizando y en el suelo
+            bool isWalking = currentState == State.Sliding && Mathf.Abs(rb.linearVelocity.x) > 0.1f && IsGrounded();
+            anim.SetBool("IsWalking", isWalking);
+            anim.SetBool("IsAction", currentState == State.Jumping);
         }
     }
 
