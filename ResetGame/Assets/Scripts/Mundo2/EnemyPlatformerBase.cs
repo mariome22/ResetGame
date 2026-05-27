@@ -26,6 +26,24 @@ public class EnemyPlatformerBase : MonoBehaviour
         Animator anim = GetComponent<Animator>();
         if (anim != null)
         {
+            // Evitar que otras transiciones de "Any State" (como caminar o saltar)
+            // interrumpan o cancelen la animación de muerte. Reseteamos todos los parámetros.
+            foreach (AnimatorControllerParameter param in anim.parameters)
+            {
+                if (param.type == AnimatorControllerParameterType.Bool)
+                {
+                    anim.SetBool(param.name, false);
+                }
+                else if (param.type == AnimatorControllerParameterType.Float)
+                {
+                    anim.SetFloat(param.name, 0f);
+                }
+                else if (param.type == AnimatorControllerParameterType.Int)
+                {
+                    anim.SetInteger(param.name, 0);
+                }
+            }
+
             anim.SetTrigger("Die"); // Lanza la animación de muerte
             
             // Congelamos al enemigo y desactivamos sus colisiones

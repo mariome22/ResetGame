@@ -67,6 +67,11 @@ public class PlayerPlatformerController : MonoBehaviour
     public static string lastCheckpointScene = "";
     public static Vector2 lastCheckpointPos;
 
+    [Header("Monedas y Vidas Persistentes")]
+    public static int totalCoins = 0;
+    public static int lives = 3;
+    public static int secretCoinsCollected = 0;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -79,6 +84,32 @@ public class PlayerPlatformerController : MonoBehaviour
         {
             transform.position = lastCheckpointPos;
         }
+
+        // Mostrar estadísticas iniciales por consola
+        Debug.Log($"[Mundo 2] Nivel Iniciado. Vidas: {lives} | Monedas: {totalCoins} | Secretas: {secretCoinsCollected}/3");
+    }
+
+    public void AddCoins(int amount)
+    {
+        totalCoins += amount;
+        Debug.Log($"¡Moneda recolectada! Monedas: {totalCoins}");
+
+        if (totalCoins >= 15)
+        {
+            totalCoins -= 15;
+            lives++;
+            Debug.Log($"¡15 Monedas recolectadas! ¡VIDA EXTRA ganada! Vidas restantes: {lives}");
+        }
+    }
+
+    public void CollectSecretCoin()
+    {
+        secretCoinsCollected++;
+        Debug.Log($"¡¡MONEDA SECRETA ENCONTRADA!! Total secretas: {secretCoinsCollected}/3");
+
+        // Regalo especial por encontrar una moneda secreta: ¡Le damos una vida extra directa!
+        lives++;
+        Debug.Log($"¡Regalo de Moneda Secreta: Vida extra ganada! Vidas restantes: {lives}");
     }
 
     void Update()
@@ -248,8 +279,26 @@ public class PlayerPlatformerController : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("¡El jugador ha muerto! Reiniciando nivel...");
-        // Recargar la escena actual para reiniciar el nivel
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        lives--;
+        Debug.Log($"¡El jugador ha muerto! Vidas restantes: {lives}");
+
+        if (lives > 0)
+        {
+            // Reiniciar nivel desde el checkpoint
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        }
+        else
+        {
+            Debug.Log("¡GAME OVER! Vidas agotadas. Reiniciando nivel completo...");
+            // Reseteamos todas las variables persistentes para empezar de cero
+            lives = 3;
+            totalCoins = 0;
+            secretCoinsCollected = 0;
+            
+            // Opcionalmente reseteamos el checkpoint para volver al principio del nivel
+            lastCheckpointScene = "";
+            
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        }
     }
 }

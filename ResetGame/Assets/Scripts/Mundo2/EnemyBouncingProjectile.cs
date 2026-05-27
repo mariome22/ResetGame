@@ -8,15 +8,46 @@ public class EnemyBouncingProjectile : MonoBehaviour
     [Tooltip("Energía que conserva tras cada rebote. 1 = No pierde fuerza, 0.5 = Pierde la mitad de la altura.")]
     public float bounceRestitution = 0.5f;
 
+    // Lista estática para llevar el registro de todas las granadas activas en la escena
+    private static System.Collections.Generic.List<Collider2D> activeProjectiles = new System.Collections.Generic.List<Collider2D>();
+
     private Rigidbody2D rb;
+    private Collider2D myCollider;
     private int bounceCount = 0;
     private Vector2 lastVelocity;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        myCollider = GetComponent<Collider2D>();
         // Destrucción de seguridad por si se cae al vacío
         Destroy(gameObject, 5f);
+    }
+
+    private void Start()
+    {
+        if (myCollider != null)
+        {
+            // Ignorar colisiones con todas las granadas que ya estén activas en la escena
+            foreach (Collider2D otherCollider in activeProjectiles)
+            {
+                if (otherCollider != null)
+                {
+                    Physics2D.IgnoreCollision(myCollider, otherCollider);
+                }
+            }
+            // Añadirnos a la lista de proyectiles activos
+            activeProjectiles.Add(myCollider);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (myCollider != null)
+        {
+            // Limpieza al destruirse para evitar fugas de memoria
+            activeProjectiles.Remove(myCollider);
+        }
     }
 
     public void Fire(Vector2 initialVelocity)

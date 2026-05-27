@@ -13,8 +13,9 @@ public class MovingPlatformPlatformer : MonoBehaviour
     public float distance = 3f;
     [Tooltip("Velocidad de movimiento de la plataforma")]
     public float speed = 2f;
-    [Tooltip("¿Empieza a moverse hacia el sentido positivo? (Derecha en Horizontal, Arriba en Vertical)")]
-    public bool startMovingRight = true;
+    [Tooltip("¿Empieza a moverse en sentido positivo? (Derecha en Horizontal, Arriba en Vertical)")]
+    [UnityEngine.Serialization.FormerlySerializedAs("startMovingRight")]
+    public bool startMovingRightOrUp = true;
 
     private Vector3 startPosition;
     private Rigidbody2D rb;
@@ -31,7 +32,7 @@ public class MovingPlatformPlatformer : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Kinematic;
         }
         
-        direction = startMovingRight ? 1 : -1;
+        direction = startMovingRightOrUp ? 1 : -1;
     }
 
     private void FixedUpdate()

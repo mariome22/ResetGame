@@ -11,6 +11,8 @@ public class EnemyJumperPlatformer : EnemyPlatformerBase
     public Transform wallCheck;  
     public float checkDistance = 0.5f;
     public LayerMask groundLayer;
+    [Tooltip("¿Empieza moviéndose o mirando hacia la derecha? Si lo desmarcas, empezará mirando y moviéndose a la izquierda.")]
+    public bool startMovingRight = true;
     private bool movingRight = true;
 
     [Header("Comportamiento Aleatorio")]
@@ -40,6 +42,15 @@ public class EnemyJumperPlatformer : EnemyPlatformerBase
         base.Start();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        
+        movingRight = startMovingRight;
+        if (!movingRight)
+        {
+            Vector3 scaler = transform.localScale;
+            scaler.x = -Mathf.Abs(scaler.x);
+            transform.localScale = scaler;
+        }
+        
         ResetTurnTimer();
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
@@ -81,19 +92,22 @@ public class EnemyJumperPlatformer : EnemyPlatformerBase
         // Movimiento fisico constante
         rb.linearVelocity = new Vector2((movingRight ? 1 : -1) * patrolSpeed, rb.linearVelocity.y);
 
-        // Raycasts de detección
-        bool hittingWall = Physics2D.Raycast(wallCheck.position, movingRight ? Vector2.right : Vector2.left, checkDistance, groundLayer);
-        bool hittingLedge = Physics2D.Raycast(ledgeCheck.position, Vector2.down, checkDistance, groundLayer);
-
-        if (hittingWall || !hittingLedge)
+        if (patrolSpeed > 0.01f)
         {
-            TurnAround();
-        }
+            // Raycasts de detección
+            bool hittingWall = Physics2D.Raycast(wallCheck.position, movingRight ? Vector2.right : Vector2.left, checkDistance, groundLayer);
+            bool hittingLedge = Physics2D.Raycast(ledgeCheck.position, Vector2.down, checkDistance, groundLayer);
 
-        turnTimer -= Time.deltaTime;
-        if (turnTimer <= 0)
-        {
-            TurnAround();
+            if (hittingWall || !hittingLedge)
+            {
+                TurnAround();
+            }
+
+            turnTimer -= Time.deltaTime;
+            if (turnTimer <= 0)
+            {
+                TurnAround();
+            }
         }
 
         // Chequear proximidad del jugador

@@ -11,6 +11,8 @@ public class EnemyGrenadierPlatformer : EnemyPlatformerBase
     public Transform wallCheck;
     public float checkDistance = 0.5f;
     public LayerMask groundLayer;
+    [Tooltip("¿Empieza moviéndose o mirando hacia la derecha? Si lo desmarcas, empezará mirando y moviéndose a la izquierda.")]
+    public bool startMovingRight = true;
     private bool movingRight = true;
 
     [Header("Comportamiento Aleatorio")]
@@ -20,14 +22,15 @@ public class EnemyGrenadierPlatformer : EnemyPlatformerBase
 
     [Header("Ataque (Granadas)")]
     public float attackRange = 10f;
-    public float timeBetweenShots = 2.5f;
+    [Tooltip("Tiempo en segundos entre cada lanzamiento de granada.")]
+    public float timeBetweenShots = 1.8f;
     private float shotTimer;
     
     [Header("Balística")]
     public GameObject projectilePrefab;
     public Transform firePoint;
-    [Tooltip("La altura extra (en unidades) que alcanzará el proyectil por encima del punto más alto entre el enemigo y el jugador.")]
-    public float arcHeight = 3f;
+    [Tooltip("La altura extra (en unidades) que alcanzará el proyectil por encima del punto más alto entre el enemigo y el jugador. Valores más bajos hacen que el tiro sea más plano y rápido.")]
+    public float arcHeight = 2f;
 
     private Rigidbody2D rb;
     private Animator anim;
@@ -39,6 +42,14 @@ public class EnemyGrenadierPlatformer : EnemyPlatformerBase
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         
+        movingRight = startMovingRight;
+        if (!movingRight)
+        {
+            Vector3 scaler = transform.localScale;
+            scaler.x = -Mathf.Abs(scaler.x);
+            transform.localScale = scaler;
+        }
+
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj != null)
         {
@@ -76,18 +87,21 @@ public class EnemyGrenadierPlatformer : EnemyPlatformerBase
         // Movimiento de patrulla
         rb.linearVelocity = new Vector2((movingRight ? 1 : -1) * patrolSpeed, rb.linearVelocity.y);
 
-        bool hittingWall = Physics2D.Raycast(wallCheck.position, movingRight ? Vector2.right : Vector2.left, checkDistance, groundLayer);
-        bool hittingLedge = Physics2D.Raycast(ledgeCheck.position, Vector2.down, checkDistance, groundLayer);
-
-        if (hittingWall || !hittingLedge)
+        if (patrolSpeed > 0.01f)
         {
-            TurnAround();
-        }
+            bool hittingWall = Physics2D.Raycast(wallCheck.position, movingRight ? Vector2.right : Vector2.left, checkDistance, groundLayer);
+            bool hittingLedge = Physics2D.Raycast(ledgeCheck.position, Vector2.down, checkDistance, groundLayer);
 
-        turnTimer -= Time.deltaTime;
-        if (turnTimer <= 0)
-        {
-            TurnAround();
+            if (hittingWall || !hittingLedge)
+            {
+                TurnAround();
+            }
+
+            turnTimer -= Time.deltaTime;
+            if (turnTimer <= 0)
+            {
+                TurnAround();
+            }
         }
 
         // Si el jugador está cerca, paramos y atacamos

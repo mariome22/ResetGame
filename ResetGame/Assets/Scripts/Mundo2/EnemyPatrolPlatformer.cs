@@ -14,6 +14,10 @@ public class EnemyPatrolPlatformer : EnemyPlatformerBase
     public float maxTimeBeforeTurn = 6f;
     private float turnTimer;
 
+    [Header("Sentido de Inicio")]
+    [Tooltip("¿Empieza moviéndose o mirando hacia la derecha? Si lo desmarcas, empezará mirando y moviéndose a la izquierda.")]
+    public bool startMovingRight = true;
+
     private Rigidbody2D rb;
     private Animator anim;
     private bool movingRight = true;
@@ -23,11 +27,31 @@ public class EnemyPatrolPlatformer : EnemyPlatformerBase
         base.Start(); // Llama al Start del padre para inicializar la vida
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        
+        movingRight = startMovingRight;
+        if (!movingRight)
+        {
+            Vector3 scaler = transform.localScale;
+            scaler.x = -Mathf.Abs(scaler.x);
+            transform.localScale = scaler;
+        }
+        
         ResetTurnTimer();
     }
 
     void Update()
     {
+        // Si la velocidad es 0, es un enemigo estático: no se mueve ni hace comprobaciones de borde/giros
+        if (patrolSpeed <= 0.01f)
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            if (anim != null)
+            {
+                anim.SetBool("IsWalking", false);
+            }
+            return;
+        }
+
         // 1. Aplicar movimiento constante hacia la dirección actual
         rb.linearVelocity = new Vector2((movingRight ? 1 : -1) * patrolSpeed, rb.linearVelocity.y);
 
