@@ -3,12 +3,17 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class MovingPlatformPlatformer : MonoBehaviour
 {
+    public enum MovementDirection { Horizontal, Vertical }
+
     [Header("Ruta de Movimiento")]
-    [Tooltip("Distancia en casillas (unidades) que recorrerá hacia la izquierda y derecha desde su punto inicial")]
+    [Tooltip("Dirección del movimiento: Horizontal (izquierda/derecha) o Vertical (arriba/abajo)")]
+    public MovementDirection movementDirection = MovementDirection.Horizontal;
+
+    [Tooltip("Distancia en casillas (unidades) que recorrerá la plataforma desde su punto inicial")]
     public float distance = 3f;
     [Tooltip("Velocidad de movimiento de la plataforma")]
     public float speed = 2f;
-    [Tooltip("¿Empieza a moverse hacia la derecha? Si lo desmarcas, empezará hacia la izquierda.")]
+    [Tooltip("¿Empieza a moverse hacia el sentido positivo? (Derecha en Horizontal, Arriba en Vertical)")]
     public bool startMovingRight = true;
 
     private Vector3 startPosition;
@@ -31,22 +36,44 @@ public class MovingPlatformPlatformer : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Calcular cuánto se ha alejado del centro original en el eje X
-        float currentDistX = transform.position.x - startPosition.x;
-
-        // Si ha llegado al límite derecho y se movía a la derecha, invierte
-        if (direction == 1 && currentDistX >= distance)
+        if (movementDirection == MovementDirection.Horizontal)
         {
-            direction = -1;
-        }
-        // Si ha llegado al límite izquierdo y se movía a la izquierda, invierte
-        else if (direction == -1 && currentDistX <= -distance)
-        {
-            direction = 1;
-        }
+            // Calcular cuánto se ha alejado del centro original en el eje X
+            float currentDistX = transform.position.x - startPosition.x;
 
-        // Aplicamos la velocidad al Rigidbody
-        rb.linearVelocity = new Vector2(direction * speed, 0);
+            // Si ha llegado al límite derecho y se movía a la derecha, invierte
+            if (direction == 1 && currentDistX >= distance)
+            {
+                direction = -1;
+            }
+            // Si ha llegado al límite izquierdo y se movía a la izquierda, invierte
+            else if (direction == -1 && currentDistX <= -distance)
+            {
+                direction = 1;
+            }
+
+            // Aplicamos la velocidad horizontal al Rigidbody
+            rb.linearVelocity = new Vector2(direction * speed, 0);
+        }
+        else
+        {
+            // Calcular cuánto se ha alejado del centro original en el eje Y
+            float currentDistY = transform.position.y - startPosition.y;
+
+            // Si ha llegado al límite superior y se movía hacia arriba, invierte
+            if (direction == 1 && currentDistY >= distance)
+            {
+                direction = -1;
+            }
+            // Si ha llegado al límite inferior y se movía hacia abajo, invierte
+            else if (direction == -1 && currentDistY <= -distance)
+            {
+                direction = 1;
+            }
+
+            // Aplicamos la velocidad vertical al Rigidbody
+            rb.linearVelocity = new Vector2(0, direction * speed);
+        }
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -87,13 +114,22 @@ public class MovingPlatformPlatformer : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        // Dibujar una línea en el editor para ver exactamente hasta dónde va a llegar la plataforma
-        Vector3 leftPoint = Application.isPlaying ? startPosition - new Vector3(distance, 0, 0) : transform.position - new Vector3(distance, 0, 0);
-        Vector3 rightPoint = Application.isPlaying ? startPosition + new Vector3(distance, 0, 0) : transform.position + new Vector3(distance, 0, 0);
+        Vector3 point1, point2;
+
+        if (movementDirection == MovementDirection.Horizontal)
+        {
+            point1 = Application.isPlaying ? startPosition - new Vector3(distance, 0, 0) : transform.position - new Vector3(distance, 0, 0);
+            point2 = Application.isPlaying ? startPosition + new Vector3(distance, 0, 0) : transform.position + new Vector3(distance, 0, 0);
+        }
+        else
+        {
+            point1 = Application.isPlaying ? startPosition - new Vector3(0, distance, 0) : transform.position - new Vector3(0, distance, 0);
+            point2 = Application.isPlaying ? startPosition + new Vector3(0, distance, 0) : transform.position + new Vector3(0, distance, 0);
+        }
 
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(leftPoint, rightPoint);
-        Gizmos.DrawWireSphere(leftPoint, 0.2f);
-        Gizmos.DrawWireSphere(rightPoint, 0.2f);
+        Gizmos.DrawLine(point1, point2);
+        Gizmos.DrawWireSphere(point1, 0.2f);
+        Gizmos.DrawWireSphere(point2, 0.2f);
     }
 }

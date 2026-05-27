@@ -121,6 +121,25 @@ public class EnemyPredictiveShooterPlatformer : EnemyPlatformerBase
         Vector2 firePos = firePoint.position;
 
         Vector2 predictedPos = CalculateInterceptionPoint(firePos, playerPos, playerVel, projectileSpeed);
+
+        // --- PREVENCIÓN DE DISPARO TRASERO Y ÁNGULOS EXTREMOS ---
+        // Si el jugador se mueve rápido hacia el enemigo, la predicción matemática puede dar un punto
+        // situado detrás del enemigo o extremadamente cerca de su espalda, haciendo que dispare de espaldas.
+        float margin = 0.5f; // Margen en unidades de Unity para evitar disparos hacia su propio cuerpo o espalda
+        float currentRelativeX = playerPos.x - transform.position.x;
+        float predictedRelativeX = predictedPos.x - transform.position.x;
+
+        // Si el jugador está a la izquierda y la predicción cruza al lado derecho (o se acerca demasiado)
+        if (currentRelativeX < 0 && predictedRelativeX > -margin)
+        {
+            predictedPos = playerPos; // Cancelamos predicción y disparamos a su posición actual
+        }
+        // Si el jugador está a la derecha y la predicción cruza al lado izquierdo (o se acerca demasiado)
+        else if (currentRelativeX > 0 && predictedRelativeX < margin)
+        {
+            predictedPos = playerPos; // Cancelamos predicción y disparamos a su posición actual
+        }
+
         Vector2 fireDir = (predictedPos - firePos).normalized;
 
         GameObject proj = Instantiate(projectilePrefab, firePos, Quaternion.identity);
@@ -175,7 +194,7 @@ public class EnemyPredictiveShooterPlatformer : EnemyPlatformerBase
         return targetPos;
     }
 
-    private void TurnAround()
+    public override void TurnAround()
     {
         movingRight = !movingRight;
         Vector3 scaler = transform.localScale;

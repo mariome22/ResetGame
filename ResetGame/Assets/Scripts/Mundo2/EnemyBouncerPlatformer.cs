@@ -54,7 +54,7 @@ public class EnemyBouncerPlatformer : EnemyPlatformerBase
         }
     }
 
-    private void TurnAround()
+    public override void TurnAround()
     {
         movingRight = !movingRight;
         Vector3 scaler = transform.localScale;

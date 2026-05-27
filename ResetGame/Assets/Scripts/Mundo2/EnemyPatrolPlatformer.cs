@@ -58,7 +58,7 @@ public class EnemyPatrolPlatformer : EnemyPlatformerBase
         }
     }
 
-    private void TurnAround()
+    public override void TurnAround()
     {
         movingRight = !movingRight;
         

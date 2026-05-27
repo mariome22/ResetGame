@@ -166,7 +166,7 @@ public class EnemyJumperPlatformer : EnemyPlatformerBase
         return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
     }
 
-    private void TurnAround()
+    public override void TurnAround()
     {
         movingRight = !movingRight;
         Vector3 scaler = transform.localScale;

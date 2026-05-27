@@ -81,8 +81,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPlatformerController
   moveSpeed: 8
+  acceleration: 45
+  deceleration: 45
+  airAcceleration: 75
+  airDeceleration: 75
   jumpForce: 16
   jumpHeightMultiplier: 0.5
+  highBounceForce: 22
   groundCheck: {fileID: 2972988529456268160}
   groundCheckRadius: 0.2
   groundLayer:
@@ -91,6 +96,9 @@ MonoBehaviour:
   coyoteTime: 0.2
   jumpBufferTime: 0.2
   maxHealth: 2
+  invincibilityTime: 3
+  fallDeathY: -15
+  movingPlatformVelocity: {x: 0, y: 0}
 --- !u!212 &745376607849255311
 SpriteRenderer:
   serializedVersion: 2

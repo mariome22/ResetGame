@@ -189,7 +189,7 @@ public class EnemyGrenadierPlatformer : EnemyPlatformerBase
         proj.Fire(new Vector2(vx, vy));
     }
 
-    private void TurnAround()
+    public override void TurnAround()
     {
         movingRight = !movingRight;
         Vector3 scaler = transform.localScale;

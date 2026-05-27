@@ -8,6 +8,16 @@ public class PlayerPlatformerController : MonoBehaviour
     public float moveSpeed = 8f;
     private float horizontalInput;
 
+    [Header("Aceleración e Inercia")]
+    [Tooltip("Aceleración en el suelo (valores altos = más responsivo)")]
+    public float acceleration = 45f;
+    [Tooltip("Deceleración en el suelo al soltar el botón")]
+    public float deceleration = 45f;
+    [Tooltip("Aceleración en el aire (menor valor = más inercia, no gira tan rápido)")]
+    public float airAcceleration = 20f;
+    [Tooltip("Deceleración en el aire al soltar el botón")]
+    public float airDeceleration = 15f;
+
     [Header("Salto")]
     public float jumpForce = 16f;
     [Range(0, 1)]
@@ -21,6 +31,8 @@ public class PlayerPlatformerController : MonoBehaviour
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
     private bool isGrounded;
+
+    public bool IsGrounded => isGrounded;
 
     [Header("Mejoras (Game Feel)")]
     [Tooltip("Tiempo de gracia para saltar tras caer por un borde.")]
@@ -50,11 +62,23 @@ public class PlayerPlatformerController : MonoBehaviour
     [HideInInspector]
     public Vector2 movingPlatformVelocity = Vector2.zero;
 
+    [Header("Checkpoint System")]
+    // Usamos variables estáticas para que sobrevivan a la recarga de la escena
+    public static string lastCheckpointScene = "";
+    public static Vector2 lastCheckpointPos;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         currentHealth = maxHealth;
+
+        // Si hemos guardado un checkpoint y es de esta misma escena, reaparecemos ahí
+        string currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        if (lastCheckpointScene == currentScene)
+        {
+            transform.position = lastCheckpointPos;
+        }
     }
 
     void Update()
@@ -136,9 +160,30 @@ public class PlayerPlatformerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Aplicar movimiento físico en FixedUpdate para mayor estabilidad.
-        // Sumamos movingPlatformVelocity.x para que el jugador sea arrastrado por plataformas móviles.
-        rb.linearVelocity = new Vector2((horizontalInput * moveSpeed) + movingPlatformVelocity.x, rb.linearVelocity.y);
+        // 1. Calcular la velocidad objetivo a la que queremos ir (input * velocidad máxima)
+        float targetSpeed = horizontalInput * moveSpeed;
+
+        // 2. Elegir qué ritmo de aceleración usar (suelo vs aire, acelerar vs frenar)
+        float accelRate;
+        if (isGrounded)
+        {
+            // En el suelo: si pulsamos algo aceleramos, si soltamos frenamos
+            accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
+        }
+        else
+        {
+            // En el aire: aplicamos los valores de inercia del aire
+            accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? airAcceleration : airDeceleration;
+        }
+
+        // 3. Obtener la velocidad actual del jugador independiente de la plataforma móvil
+        float currentRelativeX = rb.linearVelocity.x - movingPlatformVelocity.x;
+
+        // 4. Mover la velocidad actual hacia la objetivo aplicando el accelRate
+        float newRelativeX = Mathf.MoveTowards(currentRelativeX, targetSpeed, accelRate * Time.fixedDeltaTime);
+
+        // 5. Aplicar la nueva velocidad sumando de nuevo la inercia de la plataforma móvil
+        rb.linearVelocity = new Vector2(newRelativeX + movingPlatformVelocity.x, rb.linearVelocity.y);
     }
 
     private void Flip()

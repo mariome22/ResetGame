@@ -44,8 +44,20 @@ public class EnemyPlatformerBase : MonoBehaviour
         }
     }
 
+    public virtual void TurnAround()
+    {
+        // Para ser sobrescrito por las clases hijas
+    }
+
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
+        // 1. Rebotar si chocamos contra otro enemigo de plataformas
+        if (collision.gameObject.GetComponent<EnemyPlatformerBase>() != null)
+        {
+            TurnAround();
+            return;
+        }
+
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerPlatformerController player = collision.gameObject.GetComponent<PlayerPlatformerController>();
