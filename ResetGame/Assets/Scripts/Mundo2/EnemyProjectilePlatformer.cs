@@ -34,9 +34,5 @@ public class EnemyProjectilePlatformer : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        else if (collision.CompareTag("Wall") || ((collisionLayers.value & (1 << collision.gameObject.layer)) > 0))
-        {
-            Destroy(gameObject);
-        }
     }
 }

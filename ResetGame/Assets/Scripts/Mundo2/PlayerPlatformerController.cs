@@ -55,6 +55,25 @@ public class PlayerPlatformerController : MonoBehaviour
     private float invincibilityTimer;
     private SpriteRenderer spriteRenderer;
 
+    [Header("Animaciones (Nombres de Estados)")]
+    [Tooltip("Nombre de la animación de estar quieto en el Animator")]
+    public string idleAnimName = "idle";
+    [Tooltip("Nombre de la animación de caminar en el Animator")]
+    public string walkAnimName = "walk";
+    [Tooltip("Nombre de la animación de salto en el Animator")]
+    public string jumpAnimName = "jump";
+    [Tooltip("Nombre de la animación de caída en el Animator")]
+    public string fallAnimName = "fall";
+    [Tooltip("Nombre de la animación de recibir daño en el Animator")]
+    public string hitAnimName = "hit";
+    [Tooltip("Nombre de la animación de morir en el Animator")]
+    public string deadAnimName = "dead";
+
+    private Animator animator;
+    private string currentAnimationState;
+    private bool isDead = false;
+    private Coroutine flickerCoroutine;
+
     [Header("Límites del Nivel")]
     [Tooltip("La altura (eje Y) a la que el jugador morirá instantáneamente si cae al vacío.")]
     public float fallDeathY = -15f;
@@ -72,10 +91,21 @@ public class PlayerPlatformerController : MonoBehaviour
     public static int lives = 3;
     public static int secretCoinsCollected = 0;
 
+    // Variables de respaldo para la persistencia en checkpoints
+    public static int checkpointCoins = 0;
+    public static int checkpointSecretCoins = 0;
+    public static System.Collections.Generic.HashSet<string> collectedCoinsActive = new System.Collections.Generic.HashSet<string>();
+    public static System.Collections.Generic.HashSet<string> collectedCoinsAtCheckpoint = new System.Collections.Generic.HashSet<string>();
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+        if (animator == null)
+        {
+            animator = GetComponentInChildren<Animator>();
+        }
         currentHealth = maxHealth;
 
         // Si hemos guardado un checkpoint y es de esta misma escena, reaparecemos ahí
@@ -87,6 +117,12 @@ public class PlayerPlatformerController : MonoBehaviour
 
         // Mostrar estadísticas iniciales por consola
         Debug.Log($"[Mundo 2] Nivel Iniciado. Vidas: {lives} | Monedas: {totalCoins} | Secretas: {secretCoinsCollected}/3");
+
+        // Actualizar el HUD al iniciar la escena
+        if (HUDPlatformerManager.Instance != null)
+        {
+            HUDPlatformerManager.Instance.UpdateHUD();
+        }
     }
 
     public void AddCoins(int amount)
@@ -94,11 +130,17 @@ public class PlayerPlatformerController : MonoBehaviour
         totalCoins += amount;
         Debug.Log($"¡Moneda recolectada! Monedas: {totalCoins}");
 
-        if (totalCoins >= 15)
+        if (totalCoins >= 50)
         {
-            totalCoins -= 15;
+            totalCoins -= 50;
             lives++;
-            Debug.Log($"¡15 Monedas recolectadas! ¡VIDA EXTRA ganada! Vidas restantes: {lives}");
+            Debug.Log($"¡50 Monedas recolectadas! ¡VIDA EXTRA ganada! Vidas restantes: {lives}");
+        }
+
+        // Actualizar el HUD al recolectar monedas
+        if (HUDPlatformerManager.Instance != null)
+        {
+            HUDPlatformerManager.Instance.UpdateHUD();
         }
     }
 
@@ -107,17 +149,29 @@ public class PlayerPlatformerController : MonoBehaviour
         secretCoinsCollected++;
         Debug.Log($"¡¡MONEDA SECRETA ENCONTRADA!! Total secretas: {secretCoinsCollected}/3");
 
-        // Regalo especial por encontrar una moneda secreta: ¡Le damos una vida extra directa!
-        lives++;
-        Debug.Log($"¡Regalo de Moneda Secreta: Vida extra ganada! Vidas restantes: {lives}");
+        // Actualizar el HUD al encontrar galletas secretas
+        if (HUDPlatformerManager.Instance != null)
+        {
+            HUDPlatformerManager.Instance.UpdateHUD();
+        }
     }
 
     void Update()
     {
-        // Si el jugador cae al vacío, muere instantáneamente sin importar si es invulnerable
-        if (transform.position.y < fallDeathY && currentHealth > 0)
+        if (isDead)
         {
-            currentHealth = 0;
+            ChangeAnimationState(deadAnimName);
+            return;
+        }
+
+        // Si el jugador cae al vacío, muere instantáneamente (pierde todas las vidas y respawnea)
+        if (transform.position.y < fallDeathY)
+        {
+            lives = 0;
+            if (HUDPlatformerManager.Instance != null)
+            {
+                HUDPlatformerManager.Instance.UpdateHUD();
+            }
             Die();
             return;
         }
@@ -187,10 +241,19 @@ public class PlayerPlatformerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * jumpHeightMultiplier);
             coyoteTimeCounter = 0f;
         }
+
+        // 8. Control de Animaciones
+        UpdateAnimations();
     }
 
     void FixedUpdate()
     {
+        if (isDead)
+        {
+            if (rb != null) rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         // 1. Calcular la velocidad objetivo a la que queremos ir (input * velocidad máxima)
         float targetSpeed = horizontalInput * moveSpeed;
 
@@ -249,18 +312,31 @@ public class PlayerPlatformerController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (invincibilityTimer > 0) return;
+        if (isDead || invincibilityTimer > 0) return;
 
-        currentHealth -= damage;
-        Debug.Log("¡El jugador ha recibido daño! Vida restante: " + currentHealth);
+        // Cada golpe recibido resta una vida directamente
+        lives--;
+        Debug.Log("¡El jugador ha recibido daño! Vidas restantes: " + lives);
 
-        if (currentHealth > 0)
+        // Actualizar HUD al instante
+        if (HUDPlatformerManager.Instance != null)
         {
-            invincibilityTimer = invincibilityTime;
-            if (spriteRenderer != null) StartCoroutine(DamageFlickerRoutine());
+            HUDPlatformerManager.Instance.UpdateHUD();
         }
-        else if (currentHealth <= 0)
+
+        if (lives > 0)
         {
+            // Si aún le quedan vidas, solo parpadea (invulnerabilidad) en el sitio
+            invincibilityTimer = invincibilityTime;
+            if (spriteRenderer != null)
+            {
+                if (flickerCoroutine != null) StopCoroutine(flickerCoroutine);
+                flickerCoroutine = StartCoroutine(DamageFlickerRoutine());
+            }
+        }
+        else
+        {
+            // Muerte total y respawn al quedarse sin vidas (0 vidas)
             Die();
         }
     }
@@ -275,30 +351,130 @@ public class PlayerPlatformerController : MonoBehaviour
             elapsed += 0.1f;
         }
         spriteRenderer.enabled = true;
+        flickerCoroutine = null;
     }
 
     private void Die()
     {
-        lives--;
-        Debug.Log($"¡El jugador ha muerto! Vidas restantes: {lives}");
+        if (isDead) return;
+        isDead = true;
+        StartCoroutine(DieRoutine());
+    }
 
-        if (lives > 0)
+    private IEnumerator DieRoutine()
+    {
+        // Detener flicker si está ocurriendo y forzar visibilidad del sprite
+        if (flickerCoroutine != null)
         {
-            // Reiniciar nivel desde el checkpoint
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+            StopCoroutine(flickerCoroutine);
+            flickerCoroutine = null;
+        }
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.enabled = true;
+        }
+
+        // Desactivar físicas y colisiones al morir para evitar interacciones raras
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.simulated = false; // Detiene colisiones, gravedad, etc.
+        }
+
+        // Reproducir la animación de muerte
+        ChangeAnimationState(deadAnimName);
+
+        // Esperar 1.5 segundos para que se aprecie el fotograma de muerte antes de recargar
+        yield return new WaitForSeconds(1.5f);
+
+        // Al respawnear (cuando te quitan las 3 vidas), restauramos las vidas a 3
+        lives = 3;
+
+        // Comprobar si hemos pasado el checkpoint en esta escena
+        string currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        if (lastCheckpointScene == currentScene)
+        {
+            // Respawn en el checkpoint: restauramos estadísticas al estado guardado del checkpoint
+            totalCoins = checkpointCoins;
+            secretCoinsCollected = checkpointSecretCoins;
+            collectedCoinsActive = new System.Collections.Generic.HashSet<string>(collectedCoinsAtCheckpoint);
+
+            UnityEngine.SceneManagement.SceneManager.LoadScene(currentScene);
         }
         else
         {
-            Debug.Log("¡GAME OVER! Vidas agotadas. Reiniciando nivel completo...");
-            // Reseteamos todas las variables persistentes para empezar de cero
-            lives = 3;
+            // Respawn al inicio del nivel: borramos todo de cero completo
             totalCoins = 0;
             secretCoinsCollected = 0;
+            checkpointCoins = 0;
+            checkpointSecretCoins = 0;
+            collectedCoinsActive.Clear();
+            collectedCoinsAtCheckpoint.Clear();
             
-            // Opcionalmente reseteamos el checkpoint para volver al principio del nivel
-            lastCheckpointScene = "";
-            
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(currentScene);
         }
+    }
+
+    public static void SaveCheckpointStats()
+    {
+        checkpointCoins = totalCoins;
+        checkpointSecretCoins = secretCoinsCollected;
+        
+        // Guardamos las monedas y galletas recolectadas permanentemente hasta el checkpoint
+        collectedCoinsAtCheckpoint = new System.Collections.Generic.HashSet<string>(collectedCoinsActive);
+        
+        Debug.Log($"[Checkpoint Guardado] Monedas: {checkpointCoins} | Galletas: {checkpointSecretCoins} | Total monedas registradas: {collectedCoinsAtCheckpoint.Count}");
+    }
+
+    public static void RegisterCollectedCoin(string key)
+    {
+        collectedCoinsActive.Add(key);
+    }
+
+    private void UpdateAnimations()
+    {
+        if (isDead)
+        {
+            ChangeAnimationState(deadAnimName);
+            return;
+        }
+
+        if (invincibilityTimer > 0)
+        {
+            ChangeAnimationState(hitAnimName);
+            return;
+        }
+
+        if (isGrounded)
+        {
+            if (Mathf.Abs(horizontalInput) > 0.01f)
+            {
+                ChangeAnimationState(walkAnimName);
+            }
+            else
+            {
+                ChangeAnimationState(idleAnimName);
+            }
+        }
+        else
+        {
+            if (rb.linearVelocity.y > 0.1f)
+            {
+                ChangeAnimationState(jumpAnimName);
+            }
+            else
+            {
+                ChangeAnimationState(fallAnimName);
+            }
+        }
+    }
+
+    private void ChangeAnimationState(string newState)
+    {
+        if (animator == null) return;
+        if (currentAnimationState == newState) return;
+
+        animator.Play(newState);
+        currentAnimationState = newState;
     }
 }

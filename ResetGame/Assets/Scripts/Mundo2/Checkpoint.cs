@@ -28,6 +28,9 @@ public class Checkpoint : MonoBehaviour
             // Guardamos la posición exacta de este checkpoint y en qué escena estamos
             PlayerPlatformerController.lastCheckpointScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
             PlayerPlatformerController.lastCheckpointPos = transform.position;
+
+            // Guardamos el estado de monedas y galletas recolectadas en este checkpoint
+            PlayerPlatformerController.SaveCheckpointStats();
         }
     }
 }

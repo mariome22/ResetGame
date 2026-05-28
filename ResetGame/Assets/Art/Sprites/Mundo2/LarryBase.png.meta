@@ -1,0 +1,1196 @@
+fileFormatVersion: 2
+guid: c4d2bb11d80aee04f96c1c29baa1dc4c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6854946205419666965
+    second: LarryBase_0
+  - first:
+      213: 3639060471821221960
+    second: LarryBase_1
+  - first:
+      213: 6876264715682527949
+    second: LarryBase_2
+  - first:
+      213: -655237382525234351
+    second: LarryBase_3
+  - first:
+      213: -2220982334428348780
+    second: LarryBase_4
+  - first:
+      213: -6406777139909357380
+    second: LarryBase_5
+  - first:
+      213: -8114549144479632484
+    second: LarryBase_6
+  - first:
+      213: -5322194528458603752
+    second: LarryBase_7
+  - first:
+      213: -7926199175697862691
+    second: LarryBase_8
+  - first:
+      213: -5242011063559663074
+    second: LarryBase_9
+  - first:
+      213: 606784663556896252
+    second: LarryBase_10
+  - first:
+      213: 7414936502073508056
+    second: LarryBase_11
+  - first:
+      213: 8246862696011784808
+    second: LarryBase_12
+  - first:
+      213: 4642519022246233140
+    second: LarryBase_13
+  - first:
+      213: 3238174969117465169
+    second: LarryBase_14
+  - first:
+      213: 8157057586885821803
+    second: LarryBase_15
+  - first:
+      213: 2102337773276117909
+    second: LarryBase_16
+  - first:
+      213: 5610089861810288107
+    second: LarryBase_17
+  - first:
+      213: -7716346642118868211
+    second: LarryBase_18
+  - first:
+      213: -3346119883933404618
+    second: LarryBase_19
+  - first:
+      213: -8436461806810081052
+    second: LarryBase_20
+  - first:
+      213: -3520946711463578771
+    second: LarryBase_21
+  - first:
+      213: 353182808489118079
+    second: LarryBase_22
+  - first:
+      213: -703189583926809984
+    second: LarryBase_23
+  - first:
+      213: -6148672661882517412
+    second: LarryBase_24
+  - first:
+      213: 2824618112536705973
+    second: LarryBase_25
+  - first:
+      213: 4754426697928136216
+    second: LarryBase_26
+  - first:
+      213: -6347082209645428318
+    second: LarryBase_27
+  - first:
+      213: -3722030929590043657
+    second: LarryBase_28
+  - first:
+      213: -4085967291265533413
+    second: LarryBase_29
+  - first:
+      213: -6364809333026291647
+    second: LarryBase_30
+  - first:
+      213: 5438262767464086980
+    second: LarryBase_31
+  - first:
+      213: 7515000786453895718
+    second: LarryBase_32
+  - first:
+      213: 6912451898676242995
+    second: LarryBase_33
+  - first:
+      213: 6533607207928972513
+    second: LarryBase_34
+  - first:
+      213: -4602002719293678198
+    second: LarryBase_35
+  - first:
+      213: 1993895868165900253
+    second: LarryBase_36
+  - first:
+      213: -9037709314198650427
+    second: LarryBase_37
+  - first:
+      213: 4230352817122123726
+    second: LarryBase_38
+  - first:
+      213: -5650023664899752253
+    second: LarryBase_39
+  - first:
+      213: 7806495870004744031
+    second: LarryBase_40
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: LarryBase_0
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 356
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51e73783149a12f50800000000000000
+      internalID: 6854946205419666965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_1
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 356
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 840c113f73a808230800000000000000
+      internalID: 3639060471821221960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_2
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 324
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dca3fcfa3566d6f50800000000000000
+      internalID: 6876264715682527949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_3
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 292
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 153d60b721128e6f0800000000000000
+      internalID: -655237382525234351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_4
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 292
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49efaf7855c7d21e0800000000000000
+      internalID: -2220982334428348780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_5
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 260
+        width: 18
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb01c94c22e8617a0800000000000000
+      internalID: -6406777139909357380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_6
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 260
+        width: 19
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9377dabb84536f80800000000000000
+      internalID: -8114549144479632484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_7
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 260
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81382b94644c326b0800000000000000
+      internalID: -5322194528458603752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_8
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 260
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddfe88138db700290800000000000000
+      internalID: -7926199175697862691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_9
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 228
+        width: 18
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e12dbd706b2a047b0800000000000000
+      internalID: -5242011063559663074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_10
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 228
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf5b676cf6bbb6800800000000000000
+      internalID: 606784663556896252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_11
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 228
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d04b2e667527e660800000000000000
+      internalID: 7414936502073508056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_12
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 228
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 862e333adedb27270800000000000000
+      internalID: 8246862696011784808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_13
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 196
+        width: 22
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4340bff147a8d6040800000000000000
+      internalID: 4642519022246233140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_14
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 197
+        width: 22
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15adec25afe40fc20800000000000000
+      internalID: 3238174969117465169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_15
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 164
+        width: 17
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b650cb648a0b33170800000000000000
+      internalID: 8157057586885821803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_16
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 165
+        width: 17
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59b320ee0110d2d10800000000000000
+      internalID: 2102337773276117909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_17
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 132
+        width: 16
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be5f83b710b0bdd40800000000000000
+      internalID: 5610089861810288107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_18
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 132
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d030ab8ac970ae490800000000000000
+      internalID: -7716346642118868211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_19
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 132
+        width: 16
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 632374ea1b13091d0800000000000000
+      internalID: -3346119883933404618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_20
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 132
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e85feb5faaabea80800000000000000
+      internalID: -8436461806810081052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_21
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 100
+        width: 22
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d633226ee95132fc0800000000000000
+      internalID: -3520946711463578771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_22
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 100
+        width: 22
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f79c4c0a4e1c6e400800000000000000
+      internalID: 353182808489118079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_23
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 100
+        width: 20
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08aa9409cc4cd36f0800000000000000
+      internalID: -703189583926809984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_24
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 101
+        width: 22
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5846548ac68baaa0800000000000000
+      internalID: -6148672661882517412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_25
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 100
+        width: 20
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bb72e7353f033720800000000000000
+      internalID: 2824618112536705973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_26
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 101
+        width: 22
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 816d3a844ed1bf140800000000000000
+      internalID: 4754426697928136216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_27
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 68
+        width: 18
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a102edcb52aae7a0800000000000000
+      internalID: -6347082209645428318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_28
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 36
+        width: 16
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fbb4c6f690b85cc0800000000000000
+      internalID: -3722030929590043657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_29
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 36
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1ab040a56abb47c0800000000000000
+      internalID: -4085967291265533413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_30
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 37
+        width: 18
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14080e142a7aba7a0800000000000000
+      internalID: -6364809333026291647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_31
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 37
+        width: 16
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cdfde18c27987b40800000000000000
+      internalID: 5438262767464086980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_32
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 37
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62a9d5b2665aa4860800000000000000
+      internalID: 7515000786453895718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_33
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 5
+        width: 27
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 33a629bc066fdef50800000000000000
+      internalID: 6912451898676242995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_34
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 5
+        width: 20
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e4c98a93290caa50800000000000000
+      internalID: 6533607207928972513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_35
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 5
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8d5e15c8e66220c0800000000000000
+      internalID: -4602002719293678198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_36
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 5
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd7c52d5abdbbab10800000000000000
+      internalID: 1993895868165900253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_37
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 5
+        width: 27
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c143f7334b939280800000000000000
+      internalID: -9037709314198650427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_38
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 5
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecf132b497b35ba30800000000000000
+      internalID: 4230352817122123726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_39
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 5
+        width: 17
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ce791179651791b0800000000000000
+      internalID: -5650023664899752253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LarryBase_40
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 5
+        width: 20
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5fcf2812ae365c60800000000000000
+      internalID: 7806495870004744031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      LarryBase_0: 6854946205419666965
+      LarryBase_1: 3639060471821221960
+      LarryBase_10: 606784663556896252
+      LarryBase_11: 7414936502073508056
+      LarryBase_12: 8246862696011784808
+      LarryBase_13: 4642519022246233140
+      LarryBase_14: 3238174969117465169
+      LarryBase_15: 8157057586885821803
+      LarryBase_16: 2102337773276117909
+      LarryBase_17: 5610089861810288107
+      LarryBase_18: -7716346642118868211
+      LarryBase_19: -3346119883933404618
+      LarryBase_2: 6876264715682527949
+      LarryBase_20: -8436461806810081052
+      LarryBase_21: -3520946711463578771
+      LarryBase_22: 353182808489118079
+      LarryBase_23: -703189583926809984
+      LarryBase_24: -6148672661882517412
+      LarryBase_25: 2824618112536705973
+      LarryBase_26: 4754426697928136216
+      LarryBase_27: -6347082209645428318
+      LarryBase_28: -3722030929590043657
+      LarryBase_29: -4085967291265533413
+      LarryBase_3: -655237382525234351
+      LarryBase_30: -6364809333026291647
+      LarryBase_31: 5438262767464086980
+      LarryBase_32: 7515000786453895718
+      LarryBase_33: 6912451898676242995
+      LarryBase_34: 6533607207928972513
+      LarryBase_35: -4602002719293678198
+      LarryBase_36: 1993895868165900253
+      LarryBase_37: -9037709314198650427
+      LarryBase_38: 4230352817122123726
+      LarryBase_39: -5650023664899752253
+      LarryBase_4: -2220982334428348780
+      LarryBase_40: 7806495870004744031
+      LarryBase_5: -6406777139909357380
+      LarryBase_6: -8114549144479632484
+      LarryBase_7: -5322194528458603752
+      LarryBase_8: -7926199175697862691
+      LarryBase_9: -5242011063559663074
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

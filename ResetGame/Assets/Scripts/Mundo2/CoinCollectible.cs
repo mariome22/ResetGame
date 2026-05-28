@@ -15,6 +15,11 @@ public class CoinCollectible : MonoBehaviour
 
     private bool isCollected = false;
 
+    private string GetUniqueKey()
+    {
+        return UnityEngine.SceneManagement.SceneManager.GetActiveScene().name + "_" + transform.position.ToString("F3");
+    }
+
     private void Awake()
     {
         // Forzamos a que el colisionador sea Trigger para que el jugador pase a través de él al recogerlo
@@ -22,6 +27,16 @@ public class CoinCollectible : MonoBehaviour
         if (col != null)
         {
             col.isTrigger = true;
+        }
+    }
+
+    private void Start()
+    {
+        // Si esta moneda ya se recolectó de forma persistente (guardada en checkpoint), se destruye al cargar la escena
+        string key = GetUniqueKey();
+        if (PlayerPlatformerController.collectedCoinsActive.Contains(key))
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -36,6 +51,9 @@ public class CoinCollectible : MonoBehaviour
             if (player != null)
             {
                 isCollected = true;
+
+                // Registramos esta moneda como recolectada en la sesión activa
+                PlayerPlatformerController.RegisterCollectedCoin(GetUniqueKey());
 
                 // Lógica del sistema de monedas
                 if (isSecretCoin)
