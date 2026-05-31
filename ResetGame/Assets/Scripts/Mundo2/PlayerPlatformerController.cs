@@ -34,6 +34,54 @@ public class PlayerPlatformerController : MonoBehaviour
 
     public bool IsGrounded => isGrounded;
 
+    [Header("Habilidades de Parkour (Nivel 2)")]
+    [Tooltip("Permite deslizarse por las paredes al caer.")]
+    public bool enableWallSlide = false;
+    [Tooltip("Permite saltar apoyándose en las paredes.")]
+    public bool enableWallJump = false;
+    [Tooltip("Permite realizar un Dash horizontal en el aire.")]
+    public bool enableAirDash = false;
+    [Tooltip("Permite realizar un doble salto en el aire.")]
+    public bool enableDoubleJump = false;
+
+    [Header("Configuración de Deslizamiento (Wall Slide)")]
+    public float wallSlideSpeed = 2f;
+    [Tooltip("Offset horizontal desde el centro del jugador para detectar paredes.")]
+    public float wallCheckOffsetX = 0.5f;
+    [Tooltip("Offset vertical desde el centro del jugador para detectar paredes.")]
+    public float wallCheckOffsetY = 0f;
+    [Tooltip("Radio del círculo de detección de pared.")]
+    public float wallCheckRadius = 0.2f;
+    [Tooltip("Nombre de la animación de Wall Slide (dejar vacío si no existe).")]
+    public string wallSlideAnimName = "wallSlide";
+
+    [Header("Configuración de Salto en Pared (Wall Jump)")]
+    [Tooltip("Fuerza aplicada al saltar de la pared: X (empuje lateral), Y (empuje vertical).")]
+    public Vector2 wallJumpForce = new Vector2(10f, 15f);
+    [Tooltip("Tiempo en segundos que se bloquea el control horizontal del jugador tras saltar de la pared.")]
+    public float wallJumpControlLockTime = 0.15f;
+
+    [Header("Configuración de Air Dash")]
+    public float dashSpeed = 20f;
+    public float dashDuration = 0.15f;
+    public float dashCooldown = 1f;
+    [Tooltip("Nombre de la animación de Dash (dejar vacío si no existe).")]
+    public string dashAnimName = "dash";
+
+    [Header("Configuración de Doble Salto")]
+    public float doubleJumpForce = 14f;
+
+    // Variables de estado internas para parkour
+    private bool isTouchingWall;
+    private bool wallOnRight;
+    private bool wallOnLeft;
+    private bool isWallSliding;
+    private bool isControlLocked = false;
+    private bool isDashing = false;
+    private bool canDash = true;
+    private bool doubleJumpAvailable = true;
+    private float dashCooldownTimer;
+
     [Header("Mejoras (Game Feel)")]
     [Tooltip("Tiempo de gracia para saltar tras caer por un borde.")]
     public float coyoteTime = 0.2f;
@@ -54,6 +102,7 @@ public class PlayerPlatformerController : MonoBehaviour
     public float invincibilityTime = 1f;
     private float invincibilityTimer;
     private SpriteRenderer spriteRenderer;
+    private Collider2D playerCollider;
 
     [Header("Animaciones (Nombres de Estados)")]
     [Tooltip("Nombre de la animación de estar quieto en el Animator")]
@@ -100,6 +149,7 @@ public class PlayerPlatformerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerCollider = GetComponent<Collider2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         animator = GetComponent<Animator>();
         if (animator == null)
@@ -183,7 +233,7 @@ public class PlayerPlatformerController : MonoBehaviour
 
         // 1. Entrada horizontal usando el Nuevo Input System (Teclado)
         horizontalInput = 0f;
-        if (Keyboard.current != null)
+        if (!isControlLocked && !isDashing && Keyboard.current != null)
         {
             if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed) horizontalInput += 1f;
             if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed) horizontalInput -= 1f;
@@ -203,6 +253,60 @@ public class PlayerPlatformerController : MonoBehaviour
         if (groundCheck != null)
         {
             isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        }
+
+        // Detección de paredes para parkour
+        if (enableWallSlide || enableWallJump)
+        {
+            if (playerCollider != null)
+            {
+                Bounds bounds = playerCollider.bounds;
+                float castDistance = 0.08f; // Margen exterior de detección fuera del collider del jugador
+
+                // Hacer un boxcast a la derecha
+                RaycastHit2D hitRight = Physics2D.BoxCast(bounds.center, bounds.size, 0f, Vector2.right, castDistance, groundLayer);
+                wallOnRight = hitRight.collider != null;
+
+                // Hacer un boxcast a la izquierda
+                RaycastHit2D hitLeft = Physics2D.BoxCast(bounds.center, bounds.size, 0f, Vector2.left, castDistance, groundLayer);
+                wallOnLeft = hitLeft.collider != null;
+
+                isTouchingWall = wallOnRight || wallOnLeft;
+            }
+            else
+            {
+                // Fallback manual si por alguna razón no hay collider
+                wallOnRight = Physics2D.OverlapCircle(new Vector2(transform.position.x + wallCheckOffsetX, transform.position.y + wallCheckOffsetY), wallCheckRadius, groundLayer);
+                wallOnLeft = Physics2D.OverlapCircle(new Vector2(transform.position.x - wallCheckOffsetX, transform.position.y - wallCheckOffsetY), wallCheckRadius, groundLayer);
+                isTouchingWall = wallOnRight || wallOnLeft;
+            }
+        }
+        else
+        {
+            isTouchingWall = false;
+            wallOnRight = false;
+            wallOnLeft = false;
+        }
+
+        // Recargar habilidades de parkour al tocar el suelo
+        if (isGrounded)
+        {
+            canDash = true;
+            doubleJumpAvailable = true;
+        }
+
+        // Lógica de Wall Slide (Deslizamiento por la pared)
+        isWallSliding = false;
+        if (enableWallSlide && !isGrounded && isTouchingWall && rb.linearVelocity.y < 0.1f)
+        {
+            // Solo desliza si el jugador está empujando activamente en dirección a la pared (D o A).
+            // Esto requiere mayor precisión técnica y añade dificultad al parkour.
+            bool pushingWall = (wallOnRight && horizontalInput > 0.01f) || (wallOnLeft && horizontalInput < -0.01f);
+            if (pushingWall)
+            {
+                isWallSliding = true;
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Max(rb.linearVelocity.y, -wallSlideSpeed));
+            }
         }
 
         // 4. Lógica de Coyote Time
@@ -229,7 +333,36 @@ public class PlayerPlatformerController : MonoBehaviour
         // 6. Ejecutar Salto
         if (coyoteTimeCounter > 0f && jumpBufferCounter > 0f)
         {
+            // Salto normal
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            jumpBufferCounter = 0f;
+            coyoteTimeCounter = 0f;
+        }
+        else if (enableWallJump && !isGrounded && isTouchingWall && jumpBufferCounter > 0f)
+        {
+            // Salto de pared (Wall Jump)
+            isWallSliding = false;
+            jumpBufferCounter = 0f;
+            coyoteTimeCounter = 0f;
+
+            // Saltar en dirección contraria a la pared
+            float jumpDir = wallOnRight ? -1f : 1f;
+            rb.linearVelocity = new Vector2(wallJumpForce.x * jumpDir, wallJumpForce.y);
+
+            // Rotar de inmediato hacia la dirección del salto
+            if ((jumpDir > 0 && !facingRight) || (jumpDir < 0 && facingRight))
+            {
+                Flip();
+            }
+
+            // Iniciar bloqueo temporal de control horizontal
+            StartCoroutine(WallJumpControlLockRoutine());
+        }
+        else if (enableDoubleJump && doubleJumpAvailable && !isGrounded && !isWallSliding && jumpBufferCounter > 0f)
+        {
+            // Doble salto en el aire
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, doubleJumpForce);
+            doubleJumpAvailable = false;
             jumpBufferCounter = 0f;
             coyoteTimeCounter = 0f;
         }
@@ -242,6 +375,18 @@ public class PlayerPlatformerController : MonoBehaviour
             coyoteTimeCounter = 0f;
         }
 
+        // Lógica de Air Dash
+        if (dashCooldownTimer > 0f)
+        {
+            dashCooldownTimer -= Time.deltaTime;
+        }
+
+        bool dashPressed = enableAirDash && Keyboard.current != null && Keyboard.current.shiftKey.wasPressedThisFrame;
+        if (dashPressed && canDash && !isGrounded && !isWallSliding && dashCooldownTimer <= 0f)
+        {
+            StartCoroutine(DashRoutine());
+        }
+
         // 8. Control de Animaciones
         UpdateAnimations();
     }
@@ -251,6 +396,12 @@ public class PlayerPlatformerController : MonoBehaviour
         if (isDead)
         {
             if (rb != null) rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        // Si el control está bloqueado (tras wall jump) o estamos haciendo dash, dejamos que las físicas del impulso actúen
+        if (isControlLocked || isDashing)
+        {
             return;
         }
 
@@ -295,6 +446,25 @@ public class PlayerPlatformerController : MonoBehaviour
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        }
+
+        // Pintar áreas de detección de pared en cian
+        Gizmos.color = Color.cyan;
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null)
+        {
+            Bounds bounds = col.bounds;
+            float castDistance = 0.08f;
+            
+            // Dibujar caja de detección derecha
+            Gizmos.DrawWireCube(new Vector2(bounds.center.x + castDistance / 2f + bounds.extents.x, bounds.center.y), new Vector3(castDistance, bounds.size.y, 0f));
+            // Dibujar caja de detección izquierda
+            Gizmos.DrawWireCube(new Vector2(bounds.center.x - castDistance / 2f - bounds.extents.x, bounds.center.y), new Vector3(castDistance, bounds.size.y, 0f));
+        }
+        else
+        {
+            Gizmos.DrawWireSphere(new Vector2(transform.position.x + wallCheckOffsetX, transform.position.y + wallCheckOffsetY), wallCheckRadius);
+            Gizmos.DrawWireSphere(new Vector2(transform.position.x - wallCheckOffsetX, transform.position.y - wallCheckOffsetY), wallCheckRadius);
         }
     }
 
@@ -352,6 +522,36 @@ public class PlayerPlatformerController : MonoBehaviour
         }
         spriteRenderer.enabled = true;
         flickerCoroutine = null;
+    }
+
+    private IEnumerator WallJumpControlLockRoutine()
+    {
+        isControlLocked = true;
+        yield return new WaitForSeconds(wallJumpControlLockTime);
+        isControlLocked = false;
+    }
+
+    private IEnumerator DashRoutine()
+    {
+        canDash = false;
+        isDashing = true;
+        dashCooldownTimer = dashCooldown;
+
+        // Guardar gravedad original y pausarla
+        float originalGravity = rb.gravityScale;
+        rb.gravityScale = 0f;
+
+        // Aplicar velocidad en la dirección hacia la que mira el jugador
+        float dashDir = facingRight ? 1f : -1f;
+        rb.linearVelocity = new Vector2(dashDir * dashSpeed, 0f);
+
+        // Esperar duración
+        yield return new WaitForSeconds(dashDuration);
+
+        // Restaurar gravedad e inercia lateral leve
+        rb.gravityScale = originalGravity;
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x * 0.5f, rb.linearVelocity.y);
+        isDashing = false;
     }
 
     private void Die()
@@ -445,6 +645,12 @@ public class PlayerPlatformerController : MonoBehaviour
             return;
         }
 
+        if (isDashing)
+        {
+            ChangeAnimationState(string.IsNullOrEmpty(dashAnimName) ? jumpAnimName : dashAnimName);
+            return;
+        }
+
         if (isGrounded)
         {
             if (Mathf.Abs(horizontalInput) > 0.01f)
@@ -458,7 +664,11 @@ public class PlayerPlatformerController : MonoBehaviour
         }
         else
         {
-            if (rb.linearVelocity.y > 0.1f)
+            if (isWallSliding)
+            {
+                ChangeAnimationState(string.IsNullOrEmpty(wallSlideAnimName) ? fallAnimName : wallSlideAnimName);
+            }
+            else if (rb.linearVelocity.y > 0.1f)
             {
                 ChangeAnimationState(jumpAnimName);
             }
