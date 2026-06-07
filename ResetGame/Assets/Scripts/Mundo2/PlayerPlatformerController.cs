@@ -81,6 +81,8 @@ public class PlayerPlatformerController : MonoBehaviour
     private bool canDash = true;
     private bool doubleJumpAvailable = true;
     private float dashCooldownTimer;
+    private float normalGravityScale;
+    private bool isInsideGravityZone = false;
 
     [Header("Mejoras (Game Feel)")]
     [Tooltip("Tiempo de gracia para saltar tras caer por un borde.")]
@@ -149,6 +151,10 @@ public class PlayerPlatformerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            normalGravityScale = rb.gravityScale;
+        }
         playerCollider = GetComponent<Collider2D>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         animator = GetComponent<Animator>();
@@ -381,7 +387,7 @@ public class PlayerPlatformerController : MonoBehaviour
             dashCooldownTimer -= Time.deltaTime;
         }
 
-        bool dashPressed = enableAirDash && Keyboard.current != null && Keyboard.current.shiftKey.wasPressedThisFrame;
+        bool dashPressed = enableAirDash && !isInsideGravityZone && Keyboard.current != null && Keyboard.current.shiftKey.wasPressedThisFrame;
         if (dashPressed && canDash && !isGrounded && !isWallSliding && dashCooldownTimer <= 0f)
         {
             StartCoroutine(DashRoutine());
@@ -686,5 +692,28 @@ public class PlayerPlatformerController : MonoBehaviour
 
         animator.Play(newState);
         currentAnimationState = newState;
+    }
+
+    public bool RechargeDash()
+    {
+        if (!canDash)
+        {
+            canDash = true;
+            return true;
+        }
+        return false;
+    }
+
+    public void SetGravityZoneState(bool inside, float scaleMultiplier)
+    {
+        isInsideGravityZone = inside;
+        if (inside)
+        {
+            rb.gravityScale = normalGravityScale * scaleMultiplier;
+        }
+        else
+        {
+            rb.gravityScale = normalGravityScale;
+        }
     }
 }
