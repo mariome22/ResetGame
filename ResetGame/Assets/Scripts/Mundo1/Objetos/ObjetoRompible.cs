@@ -4,6 +4,7 @@ public class ObjetoRompible : MonoBehaviour
 {
     [Header("Configuracion de la Caja")]
     public int golpesParaRomper = 3;
+    public bool puedeSoltarBalas = true;
 
     [Header("FeedBack Visual")]
     public float duracionShake = 0.1f;
@@ -163,6 +164,11 @@ public class ObjetoRompible : MonoBehaviour
             pesoBotiquin = 15;
             pesoBalas = 20;
             pesoNada = 15;
+        }
+
+        if (!puedeSoltarBalas)
+        {
+            pesoBalas = 0;
         }
     }
 

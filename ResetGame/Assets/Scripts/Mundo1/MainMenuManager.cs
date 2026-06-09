@@ -17,14 +17,10 @@ public class MainMenuManager : MonoBehaviour
     {
         ShowMainPanel();
 
-        /*if (PlayerPrefs.HasKey("SavedLevel"))
+        if (continueButton != null)
         {
-            continueButton.interactable = true;
+            continueButton.interactable = SaveManager.Instance != null && SaveManager.Instance.HasSaveGame();
         }
-        else
-        {
-            continueButton.interactable = false;
-        }*/
     }
 
     public void ShowMainPanel()
@@ -56,17 +52,31 @@ public class MainMenuManager : MonoBehaviour
 
     public void NewGame()
     {
-        //Borramos el progreso anterior para empezar de 0
-        PlayerPrefs.DeleteAll();
+        // Borramos el progreso anterior para empezar de 0
+        if (SaveManager.Instance != null)
+        {
+            SaveManager.Instance.DeleteSaveGame();
+        }
+        else
+        {
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
+        }
 
-        //Cargamos el Hub
+        // Cargamos el Hub
         SceneManager.LoadScene("01_Hub");
     }
 
     public void ContinueGame()
     {
-        int levelToLoad = PlayerPrefs.GetInt("SavedLevel");
-        SceneManager.LoadScene("01_Hub");
+        if (SaveManager.Instance != null && SaveManager.Instance.HasSaveGame())
+        {
+            SaveManager.Instance.LoadGame();
+        }
+        else
+        {
+            SceneManager.LoadScene("01_Hub");
+        }
     }
 
     public void QuitGame()

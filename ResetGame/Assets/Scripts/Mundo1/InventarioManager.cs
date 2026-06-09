@@ -257,7 +257,7 @@ public class InventarioManager : MonoBehaviour
         return cantidadExtraida > 0;
     }
 
-    private void ActualizarUI()
+    public void ActualizarUI()
     {
         bool tenemosCuras = false;
         foreach (var slot in objetosGuardados)

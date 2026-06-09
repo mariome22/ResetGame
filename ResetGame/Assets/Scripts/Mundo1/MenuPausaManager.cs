@@ -27,18 +27,6 @@ public class MenuPausaManager : MonoBehaviour
         {
             AlternarPausa();
         }
-        // Cerrar con ESCAPE (solo si está abierto y NO estamos leyendo una nota)
-        else if (estaPausado && Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
-            if (LectorNotas.Instance != null && LectorNotas.Instance.EstaLeyendo) 
-            {
-                // Si la nota está abierta a pantalla completa, no cerramos el inventario, 
-                // dejamos que el LectorNotas maneje el ESCAPE para cerrarse a sí mismo.
-                return;
-            }
-            
-            AlternarPausa();
-        }
     }
 
     public void AlternarPausa()

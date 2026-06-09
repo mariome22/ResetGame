@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8689588084099723661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3102166698577030572}
+  - component: {fileID: 7069387146498437296}
+  - component: {fileID: 5579952453195512509}
+  - component: {fileID: 179314582076373158}
+  m_Layer: 0
+  m_Name: Global_Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3102166698577030572
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8689588084099723661}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.88021, y: 4.32702, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7069387146498437296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8689588084099723661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21412f87b88c38d4b95268a8288f0a51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  musicSource: {fileID: 0}
+  sfxSource: {fileID: 0}
+  defaultMusicVolume: 0.5
+  defaultSFXVolume: 0.7
+--- !u!114 &5579952453195512509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8689588084099723661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81f34dc27745f41408768803b6c41b47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaveManager
+  baseDatosObjetos:
+  - {fileID: 11400000, guid: 2ce3944e148b05f4ca2d567ecc9df159, type: 2}
+  - {fileID: 11400000, guid: d694ca619e6711845acfbfcb018a17fa, type: 2}
+  - {fileID: 11400000, guid: 61d9db967d747c7499ca6373917f0185, type: 2}
+  - {fileID: 11400000, guid: b6a1ae093acfd834a99fe60e18c53e6b, type: 2}
+  - {fileID: 11400000, guid: f467207c10be7294fa770dddd646bdb7, type: 2}
+  - {fileID: 11400000, guid: 0bfe954df6d91bb418c530228fa3dca4, type: 2}
+  - {fileID: 11400000, guid: 183a799c02369784784406950b4272a6, type: 2}
+  - {fileID: 11400000, guid: da0c80838c058d6458852299184ea569, type: 2}
+  - {fileID: 11400000, guid: e17f48c7689f2ce4da151a099301af86, type: 2}
+--- !u!114 &179314582076373158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8689588084099723661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3fd1fa569478dd4d9046074bfd654d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
+  dialoguePanel: {fileID: 0}
+  nameText: {fileID: 0}
+  dialogueText: {fileID: 0}
+  typingSpeed: 0.02

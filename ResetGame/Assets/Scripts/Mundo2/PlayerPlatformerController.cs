@@ -214,6 +214,8 @@ public class PlayerPlatformerController : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0f) return;
+
         if (isDead)
         {
             ChangeAnimationState(deadAnimName);
@@ -399,6 +401,8 @@ public class PlayerPlatformerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (Time.timeScale == 0f) return;
+
         if (isDead)
         {
             if (rb != null) rb.linearVelocity = Vector2.zero;
