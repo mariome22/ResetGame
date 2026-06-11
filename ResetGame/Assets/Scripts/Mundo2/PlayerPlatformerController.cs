@@ -53,7 +53,7 @@ public class PlayerPlatformerController : MonoBehaviour
     [Tooltip("Radio del círculo de detección de pared.")]
     public float wallCheckRadius = 0.2f;
     [Tooltip("Nombre de la animación de Wall Slide (dejar vacío si no existe).")]
-    public string wallSlideAnimName = "wallSlide";
+    public string wallSlideAnimName = "";
 
     [Header("Configuración de Salto en Pared (Wall Jump)")]
     [Tooltip("Fuerza aplicada al saltar de la pared: X (empuje lateral), Y (empuje vertical).")]
@@ -66,7 +66,7 @@ public class PlayerPlatformerController : MonoBehaviour
     public float dashDuration = 0.15f;
     public float dashCooldown = 1f;
     [Tooltip("Nombre de la animación de Dash (dejar vacío si no existe).")]
-    public string dashAnimName = "dash";
+    public string dashAnimName = "";
 
     [Header("Configuración de Doble Salto")]
     public float doubleJumpForce = 14f;
@@ -700,9 +700,10 @@ public class PlayerPlatformerController : MonoBehaviour
 
     public bool RechargeDash()
     {
-        if (!canDash)
+        if (!canDash || dashCooldownTimer > 0f)
         {
             canDash = true;
+            dashCooldownTimer = 0f;
             return true;
         }
         return false;
