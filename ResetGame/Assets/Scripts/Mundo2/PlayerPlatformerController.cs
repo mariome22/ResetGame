@@ -97,8 +97,11 @@ public class PlayerPlatformerController : MonoBehaviour
     private bool facingRight = true;
 
     [Header("Salud y Combate")]
-    public int maxHealth = 2;
+    public int maxHealth = 3;
     private int currentHealth;
+
+    [Tooltip("Si está activo, al iniciar esta escena las vidas del jugador se forzarán al valor de Max Health, ignorando las acumuladas de niveles anteriores.")]
+    public bool forzarVidaAlIniciar = false;
 
     [Tooltip("Tiempo de invulnerabilidad tras recibir daño")]
     public float invincibilityTime = 1f;
@@ -163,6 +166,12 @@ public class PlayerPlatformerController : MonoBehaviour
             animator = GetComponentInChildren<Animator>();
         }
         currentHealth = maxHealth;
+
+        // Si se activa forzar vida al iniciar, sobreescribimos las vidas estáticas
+        if (forzarVidaAlIniciar)
+        {
+            lives = maxHealth;
+        }
 
         // Si hemos guardado un checkpoint y es de esta misma escena, reaparecemos ahí
         string currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
@@ -597,8 +606,8 @@ public class PlayerPlatformerController : MonoBehaviour
         // Esperar 1.5 segundos para que se aprecie el fotograma de muerte antes de recargar
         yield return new WaitForSeconds(1.5f);
 
-        // Al respawnear (cuando te quitan las 3 vidas), restauramos las vidas a 3
-        lives = 3;
+        // Al respawnear (cuando te quitan las vidas), restauramos las vidas al máximo configurado
+        lives = maxHealth;
 
         // Comprobar si hemos pasado el checkpoint en esta escena
         string currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
