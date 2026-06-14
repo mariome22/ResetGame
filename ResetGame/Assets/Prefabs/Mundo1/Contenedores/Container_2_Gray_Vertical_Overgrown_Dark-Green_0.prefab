@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4762427486706704998}
   - component: {fileID: 1455320025021308367}
   - component: {fileID: 6617222585959262063}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Container_2_Gray_Vertical_Overgrown_Dark-Green_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1964115985
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1972232446475302928, guid: 8f0124544d894c247b3b2522766f8955, type: 3}

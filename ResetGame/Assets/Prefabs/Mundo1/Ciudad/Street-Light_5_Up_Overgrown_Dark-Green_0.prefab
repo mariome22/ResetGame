@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3819661726487377196}
   - component: {fileID: 628325504581028372}
   - component: {fileID: 263590387837613379}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Street-Light_5_Up_Overgrown_Dark-Green_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1964115985
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 6107822832491650464, guid: caadd0e598242bf4893bb1a408fb8eef, type: 3}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 641814254500565969}
   - component: {fileID: 1498874124954722356}
   - component: {fileID: 947888311677296203}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Garbage-Bin_2_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1964115985
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -7315431104167296513, guid: c910faadb04cd18459a6a26346d38f2b, type: 3}

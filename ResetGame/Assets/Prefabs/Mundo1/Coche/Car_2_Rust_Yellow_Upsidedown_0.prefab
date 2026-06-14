@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1805234024801663541}
   - component: {fileID: 8195872916364523104}
   - component: {fileID: 2202086915542196823}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Car_2_Rust_Yellow_Upsidedown_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -911476001
-  m_SortingLayer: 2
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -3098833736814979620, guid: b6b0e79a657cff340b136b65fc31d5aa, type: 3}

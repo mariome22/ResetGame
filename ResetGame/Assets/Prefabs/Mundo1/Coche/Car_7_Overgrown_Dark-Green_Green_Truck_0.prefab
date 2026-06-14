@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3619867593032073764}
   - component: {fileID: 6928950228512752483}
   - component: {fileID: 6693140625873917813}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Car_7_Overgrown_Dark-Green_Green_Truck_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2011292027
-  m_SortingLayer: 4
+  m_SortingLayer: 7
   m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5495091532499671327, guid: 9a0371b83dd73c54780c95b529fae82a, type: 3}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5530354452924801964}
   - component: {fileID: 786155985888698375}
   - component: {fileID: 458432436575233787}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Car_6_Rust_Green_Scrap_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -911476001
-  m_SortingLayer: 2
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7556384557289538538, guid: 96465391343891c45bfbed1453008b45, type: 3}

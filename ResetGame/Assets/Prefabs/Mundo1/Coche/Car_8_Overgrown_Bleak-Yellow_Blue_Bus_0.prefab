@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5811320364479412776}
   - component: {fileID: 2552951259170373565}
   - component: {fileID: 2075661947044989568}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Car_8_Overgrown_Bleak-Yellow_Blue_Bus_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2011292027
-  m_SortingLayer: 4
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5929844757456875427, guid: b6a83a27d3b144f4a8db616405ec55f1, type: 3}

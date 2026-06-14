@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6486348647157752592}
   - component: {fileID: 5399444075020338676}
   - component: {fileID: 2868269838837671730}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Car_2_Overgrown_Dark-Green_Yellow_Upsidedown_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -911476001
-  m_SortingLayer: 2
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 6749229538222801070, guid: fe89aada8bcf0e843b7a116cc3f34a65, type: 3}

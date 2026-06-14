@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7934990205847876451}
   - component: {fileID: 616078352004923208}
   - component: {fileID: 2807587217727028517}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Trash-can_1_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1964115985
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1627231872001444879, guid: 3595cf6c47e286f4cb989817adc9c0ac, type: 3}

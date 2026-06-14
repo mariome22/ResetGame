@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7563120980411331174}
   - component: {fileID: 4773096844875588014}
   - component: {fileID: 6465733388244501649}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Car_4_Rust_Red_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -911476001
-  m_SortingLayer: 2
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5894789803449336455, guid: c5860cfa55b971348abf9edad620e509, type: 3}

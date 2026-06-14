@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 139901652565918878}
   - component: {fileID: 7107556940733722008}
   - component: {fileID: 6344752745180033770}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Stop-sign_Down_2_Overgrown_Dark-Green_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1964115985
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2838265581430356695, guid: 4cabc96e8cff74044872d46d67ee2eae, type: 3}

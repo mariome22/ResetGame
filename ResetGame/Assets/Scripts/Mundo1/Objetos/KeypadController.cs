@@ -10,6 +10,8 @@ public class KeypadController : MonoBehaviour
     public string correctCode = "1234";
     [Tooltip("El número máximo de dígitos permitidos.")]
     public int maxCodeLength = 4;
+    [Tooltip("Escena opcional a la que cambiar cuando el código sea correcto.")]
+    public string sceneToLoadOnCorrect = "";
 
     [Header("Referencias UI")]
     [Tooltip("El panel principal del teclado numérico (Canvas/Panel).")]
@@ -132,7 +134,16 @@ public class KeypadController : MonoBehaviour
         // Esperar 1 segundo en tiempo real (incluso si Time.timeScale es 0)
         yield return new WaitForSecondsRealtime(1f);
 
-        CloseKeypad();
+        if (!string.IsNullOrEmpty(sceneToLoadOnCorrect))
+        {
+            Time.timeScale = 1f; // Asegurar que el juego se reanuda
+            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneToLoadOnCorrect);
+        }
+        else
+        {
+            CloseKeypad();
+        }
+        
         isProcessing = false;
     }
 

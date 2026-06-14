@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1293983576965855836}
   - component: {fileID: 3198691731042531959}
   - component: {fileID: 3328348232872659797}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Stop-sign_Down_1_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1964115985
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -794053000233240468, guid: 3c333cfe64533eb45b9dcbb46a92c719, type: 3}

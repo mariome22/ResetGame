@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5844576419909022598}
   - component: {fileID: 7211861688985943829}
   - component: {fileID: 5491846895887527588}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Coche
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2011292027
-  m_SortingLayer: 4
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8537439569311561856, guid: 15d98070f2f1b2c478265bdb3c8f9351, type: 3}

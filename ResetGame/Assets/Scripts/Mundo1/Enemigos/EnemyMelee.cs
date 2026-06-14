@@ -259,46 +259,57 @@ public class EnemyMelee : MonoBehaviour
 
         Vector2 direccionAlObjetivo = (objetivo - (Vector2)transform.position).normalized;
         Vector2 mejorDireccion = Vector2.zero;
-        float mejorDot = -Mathf.Infinity;
+        
+        float[] intereses = new float[8];
+        float[] peligros = new float[8];
 
+        // 1. Calcular interés basado en el objetivo
+        for (int i = 0; i < 8; i++)
+        {
+            float dot = Vector2.Dot(direcciones[i], direccionAlObjetivo);
+            intereses[i] = Mathf.Max(0f, dot);
+        }
+
+        // 2. Calcular peligro basado en Raycast
         for (int i = 0; i < 8; i++)
         {
             Vector2 dir = direcciones[i];
-            
-            // Usamos CircleCastAll para poder filtrar al propio enemigo y al jugador si están en obstacleLayer por error
-            RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, radioObstaculos, dir, distanciaRaycast, obstacleLayer);
-            bool obstaculoEncontrado = false;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, distanciaRaycast, obstacleLayer);
+            float peligro = 0f;
 
-            foreach (RaycastHit2D hit in hits)
+            if (hit.collider != null && hit.collider.gameObject != this.gameObject)
             {
-                if (hit.collider != null && hit.collider.gameObject != this.gameObject)
-                {
-                    // Si el obstáculo es el jugador, lo ignoramos (queremos perseguirlo, no evitarlo)
-                    if (jugador != null && hit.collider.transform == jugador)
-                        continue;
+                // Ignorar al jugador si está en la capa de obstáculos por error
+                if (jugador != null && hit.collider.transform == jugador)
+                    continue;
 
-                    obstaculoEncontrado = true;
-                    break;
-                }
+                float dist = hit.distance;
+                peligro = 1f - (dist / distanciaRaycast);
             }
 
-            if (obstaculoEncontrado)
+            peligros[i] = peligro;
+
+            // Dibujar rayo rojo según el peligro detectado
+            if (peligro > 0f)
             {
-                Debug.DrawRay(transform.position, dir * distanciaRaycast, Color.red);
-            }
-            else
-            {
-                float dot = Vector2.Dot(dir, direccionAlObjetivo);
-                if (dot > mejorDot)
-                {
-                    mejorDot = dot;
-                    mejorDireccion = dir;
-                }
+                Debug.DrawRay(transform.position, dir * (distanciaRaycast * peligro), Color.red);
             }
         }
 
-        // Si todas las direcciones están bloqueadas, por defecto intentamos ir directo al objetivo
-        // para que no se queden completamente paralizados.
+        // 3. Evaluar la mejor dirección (interés - peligro)
+        float mejorScore = -Mathf.Infinity;
+        for (int i = 0; i < 8; i++)
+        {
+            // Ponderamos el peligro multiplicándolo por un factor de evasión
+            float score = intereses[i] - peligros[i] * 1.5f;
+            if (score > mejorScore)
+            {
+                mejorScore = score;
+                mejorDireccion = direcciones[i];
+            }
+        }
+
+        // Si todas las direcciones están extremadamente penalizadas, por defecto ir al objetivo
         if (mejorDireccion == Vector2.zero)
         {
             mejorDireccion = direccionAlObjetivo;
@@ -335,7 +346,6 @@ public class EnemyMelee : MonoBehaviour
                 }
 
                 // Fase 1: Tambaleo (Se aplica siempre si es zombie, en patrulla o persecución)
-                // Usamos offsetTambaleo para que no bailen todos sincronizados
                 Vector2 perpendicular = new Vector2(-mejorDireccion.y, mejorDireccion.x);
                 float factorTambaleo = Mathf.Sin((Time.time + offsetTambaleo) * velocidadTambaleo) * amplitudTambaleo;
                 

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8504479642767584329}
   - component: {fileID: 3236400066721515907}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Refrigerator_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2011292027
-  m_SortingLayer: 3
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2252083909272842676, guid: 52b3f12aadd45174ca4f18b3c69e2dc2, type: 3}

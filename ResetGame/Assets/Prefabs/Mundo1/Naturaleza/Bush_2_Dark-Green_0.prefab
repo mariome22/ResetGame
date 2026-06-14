@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7319832460918029951}
   - component: {fileID: 6272426903897766517}
   - component: {fileID: 113078807127502168}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Bush_2_Dark-Green_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1964115985
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -3796189103644486771, guid: 89f839342ad3479488e24055fd0652c1, type: 3}

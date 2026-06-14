@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7683276395969682635}
   - component: {fileID: 9048368538711445992}
   - component: {fileID: 803663328191440610}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CocheAbandonado
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2011292027
-  m_SortingLayer: 4
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -5082602565889597745, guid: 06c54c679a94d2c48b0224bf632ce937, type: 3}

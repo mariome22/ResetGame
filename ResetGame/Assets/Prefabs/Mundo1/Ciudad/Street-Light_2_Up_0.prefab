@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2979346316805306678}
   - component: {fileID: 2834718300656211392}
   - component: {fileID: 7765194966216315433}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Street-Light_2_Up_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1964115985
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -8407174216275040604, guid: 4d5e1096ed0085441a2161aad0b21958, type: 3}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 935518835220692074}
   - component: {fileID: 3919699614391662596}
   - component: {fileID: 8623774711683565723}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Caja2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2011292027
-  m_SortingLayer: 4
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8795542894514721605, guid: 1fa4b6c26815a8541b6e5132e8bb01de, type: 3}

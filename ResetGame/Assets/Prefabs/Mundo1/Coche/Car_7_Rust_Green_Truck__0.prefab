@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3147974636546237469}
   - component: {fileID: 5593944828536598913}
   - component: {fileID: 3145212225014048639}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Car_7_Rust_Green_Truck__0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -911476001
-  m_SortingLayer: 2
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2339562006783951434, guid: f92198eb7e8c55b4790507c409e5a038, type: 3}

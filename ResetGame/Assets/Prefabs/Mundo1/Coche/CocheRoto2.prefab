@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 750331161888030703}
   - component: {fileID: 8314211662813468742}
   - component: {fileID: 3096176168370078692}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CocheRoto2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 2011292027
-  m_SortingLayer: 4
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2031901122012400703, guid: 095d8421a7ab2a645a8645e2f75d349a, type: 3}

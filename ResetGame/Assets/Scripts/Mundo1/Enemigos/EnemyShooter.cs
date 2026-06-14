@@ -154,38 +154,56 @@ public class EnemyShooter : MonoBehaviour
 
         Vector2 direccionAlObjetivo = (objetivo - (Vector2)transform.position).normalized;
         Vector2 mejorDireccion = Vector2.zero;
-        float mejorDot = -Mathf.Infinity;
+        
+        float[] intereses = new float[direccionesMovimiento.Length];
+        float[] peligros = new float[direccionesMovimiento.Length];
 
+        // 1. Calcular interés basado en el objetivo
+        for (int i = 0; i < direccionesMovimiento.Length; i++)
+        {
+            float dot = Vector2.Dot(direccionesMovimiento[i], direccionAlObjetivo);
+            intereses[i] = Mathf.Max(0f, dot);
+        }
+
+        // 2. Calcular peligro basado en Raycast
         for (int i = 0; i < direccionesMovimiento.Length; i++)
         {
             Vector2 dir = direccionesMovimiento[i];
-            
-            RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position, radioObstaculos, dir, distanciaRaycastObstaculos, obstacleLayer);
-            bool obstaculoEncontrado = false;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, distanciaRaycastObstaculos, obstacleLayer);
+            float peligro = 0f;
 
-            foreach (RaycastHit2D hitObstaculo in hits)
+            if (hit.collider != null && hit.collider.gameObject != this.gameObject)
             {
-                if (hitObstaculo.collider != null && hitObstaculo.collider.gameObject != this.gameObject)
-                {
-                    if (jugador != null && hitObstaculo.collider.transform == jugador)
-                        continue;
+                if (jugador != null && hit.collider.transform == jugador)
+                    continue;
 
-                    obstaculoEncontrado = true;
-                    break;
-                }
+                float dist = hit.distance;
+                peligro = 1f - (dist / distanciaRaycastObstaculos);
             }
 
-            if (!obstaculoEncontrado)
+            peligros[i] = peligro;
+
+            // Dibujar rayo rojo según el peligro detectado
+            if (peligro > 0f)
             {
-                float dot = Vector2.Dot(dir, direccionAlObjetivo);
-                if (dot > mejorDot)
-                {
-                    mejorDot = dot;
-                    mejorDireccion = dir;
-                }
+                Debug.DrawRay(transform.position, dir * (distanciaRaycastObstaculos * peligro), Color.red);
             }
         }
 
+        // 3. Evaluar la mejor dirección (interés - peligro)
+        float mejorScore = -Mathf.Infinity;
+        for (int i = 0; i < direccionesMovimiento.Length; i++)
+        {
+            // Ponderamos el peligro multiplicándolo por un factor de evasión
+            float score = intereses[i] - peligros[i] * 1.5f;
+            if (score > mejorScore)
+            {
+                mejorScore = score;
+                mejorDireccion = direccionesMovimiento[i];
+            }
+        }
+
+        // Si todas las direcciones están extremadamente penalizadas, por defecto ir al objetivo
         if (mejorDireccion == Vector2.zero)
         {
             mejorDireccion = direccionAlObjetivo;

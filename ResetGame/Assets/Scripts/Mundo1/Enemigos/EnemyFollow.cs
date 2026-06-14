@@ -69,30 +69,56 @@ public class EnemyFollow : MonoBehaviour
 
         Vector2 direccionAlObjetivo = (jugador.position - transform.position).normalized;
         Vector2 mejorDireccion = Vector2.zero;
-        float mejorDot = -Mathf.Infinity;
+        
+        float[] intereses = new float[8];
+        float[] peligros = new float[8];
 
+        // 1. Calcular interés basado en el objetivo
+        for (int i = 0; i < 8; i++)
+        {
+            float dot = Vector2.Dot(direcciones[i], direccionAlObjetivo);
+            intereses[i] = Mathf.Max(0f, dot);
+        }
+
+        // 2. Calcular peligro basado en Raycast
         for (int i = 0; i < 8; i++)
         {
             Vector2 dir = direcciones[i];
-            
-            // CircleCast simula el grosor del enemigo
-            RaycastHit2D hit = Physics2D.CircleCast(transform.position, radioObstaculos, dir, distanciaRaycast, obstacleLayer);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, distanciaRaycast, obstacleLayer);
+            float peligro = 0f;
 
-            if (hit.collider != null)
+            if (hit.collider != null && hit.collider.gameObject != this.gameObject)
             {
-                // Direccion bloqueada
-                Debug.DrawRay(transform.position, dir * distanciaRaycast, Color.red);
-            }
-            else
-            {
-                // Direccion libre
-                float dot = Vector2.Dot(dir, direccionAlObjetivo);
-                if (dot > mejorDot)
+                float dist = hit.distance;
+                peligro = 1f - (dist / distanciaRaycast);
+
+                // Dibujar rayo rojo según el peligro detectado
+                if (peligro > 0f)
                 {
-                    mejorDot = dot;
-                    mejorDireccion = dir;
+                    Debug.DrawRay(transform.position, dir * (distanciaRaycast * peligro), Color.red);
                 }
             }
+
+            peligros[i] = peligro;
+        }
+
+        // 3. Evaluar la mejor dirección (interés - peligro)
+        float mejorScore = -Mathf.Infinity;
+        for (int i = 0; i < 8; i++)
+        {
+            // Ponderamos el peligro multiplicándolo por un factor de evasión
+            float score = intereses[i] - peligros[i] * 1.5f;
+            if (score > mejorScore)
+            {
+                mejorScore = score;
+                mejorDireccion = direcciones[i];
+            }
+        }
+
+        // Si todas las direcciones están extremadamente penalizadas, por defecto ir al objetivo
+        if (mejorDireccion == Vector2.zero)
+        {
+            mejorDireccion = direccionAlObjetivo;
         }
 
         if (mejorDireccion != Vector2.zero)

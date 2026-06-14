@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2779935885069898738}
   - component: {fileID: 6407600786315360346}
   - component: {fileID: 6791665789223955572}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Container_3_Gray_Horizontal_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1964115985
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1738036201694991001, guid: 5e7e777d69c47b24b8f9fe8aeb7622e3, type: 3}

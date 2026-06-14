@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7989790439360273344}
   - component: {fileID: 2130065892302325634}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Spot Light 2D (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5977044353879951709}
   - component: {fileID: 5742262357942364069}
   - component: {fileID: 1415402260007168467}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Street-Light_1_Side_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1964115985
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5088082934491275742, guid: 9504dc42b44828949ad2a3c2f56c4890, type: 3}
@@ -234,7 +234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6153654437990813470}
   - component: {fileID: 7962509143195269041}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Spot Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}

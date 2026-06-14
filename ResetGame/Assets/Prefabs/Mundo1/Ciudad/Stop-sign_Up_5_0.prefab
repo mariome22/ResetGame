@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5250838781441498502}
   - component: {fileID: 5881728160380398482}
   - component: {fileID: 6724291309608192784}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Stop-sign_Up_5_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -1964115985
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 4803857348471823834, guid: 57ea5472ca2bc4a42a4d3b8ec8cd4725, type: 3}
