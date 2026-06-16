@@ -145,6 +145,24 @@ public class PlayerPlatformerController : MonoBehaviour
     public static int lives = 3;
     public static int secretCoinsCollected = 0;
 
+    [Header("Configuración de Tiempo")]
+    [Tooltip("Tiempo inicial para pasar el nivel en segundos.")]
+    public float startingTime = 500f;
+
+    [Tooltip("Cantidad de monedas necesarias para añadir 10 segundos.")]
+    public int coinsForTimeBonus = 50;
+
+    public static float remainingTime = 500f;
+    public static float checkpointTime = 500f;
+    public static int consecutiveCheckpointDeaths = 0;
+    public static bool isReloadingFromDeath = false;
+
+    [Header("Sistema de Intentos")]
+    [Tooltip("Si está activo, el jugador tendrá un número limitado de intentos (3) antes del Game Over.")]
+    public bool enableAttempts = true;
+
+    public static bool attemptsEnabled = true;
+
     // Variables de respaldo para la persistencia en checkpoints
     public static int checkpointCoins = 0;
     public static int checkpointSecretCoins = 0;
@@ -153,6 +171,7 @@ public class PlayerPlatformerController : MonoBehaviour
 
     void Start()
     {
+        attemptsEnabled = enableAttempts;
         rb = GetComponent<Rigidbody2D>();
         if (rb != null)
         {
@@ -178,10 +197,26 @@ public class PlayerPlatformerController : MonoBehaviour
         if (lastCheckpointScene == currentScene)
         {
             transform.position = lastCheckpointPos;
+            remainingTime = checkpointTime;
+        }
+        else
+        {
+            remainingTime = startingTime;
+            checkpointTime = startingTime;
+        }
+
+        // Si recargamos la escena debido a una muerte, evitamos reiniciar el contador de intentos
+        if (isReloadingFromDeath)
+        {
+            isReloadingFromDeath = false;
+        }
+        else if (lastCheckpointScene != currentScene)
+        {
+            consecutiveCheckpointDeaths = 0;
         }
 
         // Mostrar estadísticas iniciales por consola
-        Debug.Log($"[Mundo 2] Nivel Iniciado. Vidas: {lives} | Monedas: {totalCoins} | Secretas: {secretCoinsCollected}/3");
+        Debug.Log($"[Mundo 2] Nivel Iniciado. Vidas: {lives} | Monedas: {totalCoins} | Secretas: {secretCoinsCollected}/3 | Tiempo: {remainingTime}s");
 
         // Actualizar el HUD al iniciar la escena
         if (HUDPlatformerManager.Instance != null)
@@ -195,11 +230,11 @@ public class PlayerPlatformerController : MonoBehaviour
         totalCoins += amount;
         Debug.Log($"¡Moneda recolectada! Monedas: {totalCoins}");
 
-        if (totalCoins >= 50)
+        if (totalCoins >= coinsForTimeBonus)
         {
-            totalCoins -= 50;
-            lives++;
-            Debug.Log($"¡50 Monedas recolectadas! ¡VIDA EXTRA ganada! Vidas restantes: {lives}");
+            totalCoins -= coinsForTimeBonus;
+            remainingTime += 10f;
+            Debug.Log($"¡{coinsForTimeBonus} Monedas recolectadas! ¡+10s TIEMPO ganados! Tiempo restante: {remainingTime}");
         }
 
         // Actualizar el HUD al recolectar monedas
@@ -212,7 +247,8 @@ public class PlayerPlatformerController : MonoBehaviour
     public void CollectSecretCoin()
     {
         secretCoinsCollected++;
-        Debug.Log($"¡¡MONEDA SECRETA ENCONTRADA!! Total secretas: {secretCoinsCollected}/3");
+        remainingTime += 10f;
+        Debug.Log($"¡¡MONEDA SECRETA ENCONTRADA!! Total secretas: {secretCoinsCollected}/3. +10s tiempo. Tiempo restante: {remainingTime}");
 
         // Actualizar el HUD al encontrar galletas secretas
         if (HUDPlatformerManager.Instance != null)
@@ -229,6 +265,18 @@ public class PlayerPlatformerController : MonoBehaviour
         {
             ChangeAnimationState(deadAnimName);
             return;
+        }
+
+        // Decrementar el tiempo del nivel
+        if (remainingTime > 0f)
+        {
+            remainingTime -= Time.deltaTime;
+            if (remainingTime <= 0f)
+            {
+                remainingTime = 0f;
+                Die();
+                return;
+            }
         }
 
         // Si el jugador cae al vacío, muere instantáneamente (pierde todas las vidas y respawnea)
@@ -606,11 +654,48 @@ public class PlayerPlatformerController : MonoBehaviour
         // Esperar 1.5 segundos para que se aprecie el fotograma de muerte antes de recargar
         yield return new WaitForSeconds(1.5f);
 
-        // Al respawnear (cuando te quitan las vidas), restauramos las vidas al máximo configurado
+        // Al respawnear, restauramos las vidas al máximo configurado
         lives = maxHealth;
 
-        // Comprobar si hemos pasado el checkpoint en esta escena
         string currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+
+        if (attemptsEnabled)
+        {
+            // Incrementar el contador de muertes consecutivas
+            consecutiveCheckpointDeaths++;
+            Debug.Log($"[Muerte] Intento perdido. Intentos usados: {consecutiveCheckpointDeaths}/3");
+
+            if (consecutiveCheckpointDeaths >= 3)
+            {
+                Debug.Log("¡GAME OVER! Se han agotado los 3 intentos. Reiniciando nivel completo.");
+                consecutiveCheckpointDeaths = 0;
+                isReloadingFromDeath = false;
+
+                // Limpiar checkpoint para forzar reinicio completo
+                lastCheckpointScene = "";
+                lastCheckpointPos = Vector2.zero;
+                
+                totalCoins = 0;
+                secretCoinsCollected = 0;
+                checkpointCoins = 0;
+                checkpointSecretCoins = 0;
+                collectedCoinsActive.Clear();
+                collectedCoinsAtCheckpoint.Clear();
+
+                UnityEngine.SceneManagement.SceneManager.LoadScene(currentScene);
+                yield break;
+            }
+            else
+            {
+                isReloadingFromDeath = true;
+            }
+        }
+        else
+        {
+            isReloadingFromDeath = true;
+        }
+
+        // Comprobar si hemos pasado el checkpoint en esta escena
         if (lastCheckpointScene == currentScene)
         {
             // Respawn en el checkpoint: restauramos estadísticas al estado guardado del checkpoint
@@ -638,11 +723,15 @@ public class PlayerPlatformerController : MonoBehaviour
     {
         checkpointCoins = totalCoins;
         checkpointSecretCoins = secretCoinsCollected;
+        checkpointTime = remainingTime;
+        
+        // Al alcanzar un checkpoint con éxito, se reinicia el contador de muertes consecutivas
+        consecutiveCheckpointDeaths = 0;
         
         // Guardamos las monedas y galletas recolectadas permanentemente hasta el checkpoint
         collectedCoinsAtCheckpoint = new System.Collections.Generic.HashSet<string>(collectedCoinsActive);
         
-        Debug.Log($"[Checkpoint Guardado] Monedas: {checkpointCoins} | Galletas: {checkpointSecretCoins} | Total monedas registradas: {collectedCoinsAtCheckpoint.Count}");
+        Debug.Log($"[Checkpoint Guardado] Monedas: {checkpointCoins} | Galletas: {checkpointSecretCoins} | Tiempo: {checkpointTime} | Muertes reseteadas a: {consecutiveCheckpointDeaths} | Total monedas registradas: {collectedCoinsAtCheckpoint.Count}");
     }
 
     public static void RegisterCollectedCoin(string key)

@@ -28,6 +28,9 @@ public class SaveData
     public string lastCheckpointSceneMundo2 = "";
     public float lastCheckpointPosXMundo2 = 0f;
     public float lastCheckpointPosYMundo2 = 0f;
+    public float remainingTimeMundo2 = 500f;
+    public float checkpointTimeMundo2 = 500f;
+    public int consecutiveCheckpointDeathsMundo2 = 0;
 }
 
 public class SaveManager : MonoBehaviour
@@ -133,6 +136,9 @@ public class SaveManager : MonoBehaviour
         data.lastCheckpointSceneMundo2 = PlayerPlatformerController.lastCheckpointScene;
         data.lastCheckpointPosXMundo2 = PlayerPlatformerController.lastCheckpointPos.x;
         data.lastCheckpointPosYMundo2 = PlayerPlatformerController.lastCheckpointPos.y;
+        data.remainingTimeMundo2 = PlayerPlatformerController.remainingTime;
+        data.checkpointTimeMundo2 = PlayerPlatformerController.checkpointTime;
+        data.consecutiveCheckpointDeathsMundo2 = PlayerPlatformerController.consecutiveCheckpointDeaths;
 
         // Guardamos también a PlayerPrefs los valores de compatibilidad
         PlayerPrefs.SetInt("SavedLevel", 1); // Indica que hay una partida cargable
@@ -175,6 +181,9 @@ public class SaveManager : MonoBehaviour
         PlayerPlatformerController.secretCoinsCollected = pendingLoadData.secretCoinsCollectedMundo2;
         PlayerPlatformerController.lastCheckpointScene = pendingLoadData.lastCheckpointSceneMundo2;
         PlayerPlatformerController.lastCheckpointPos = new Vector2(pendingLoadData.lastCheckpointPosXMundo2, pendingLoadData.lastCheckpointPosYMundo2);
+        PlayerPlatformerController.remainingTime = pendingLoadData.remainingTimeMundo2;
+        PlayerPlatformerController.checkpointTime = pendingLoadData.checkpointTimeMundo2;
+        PlayerPlatformerController.consecutiveCheckpointDeaths = pendingLoadData.consecutiveCheckpointDeathsMundo2;
 
         if (HUDPlatformerManager.Instance != null)
         {

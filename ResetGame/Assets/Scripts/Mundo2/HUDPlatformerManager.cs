@@ -6,8 +6,20 @@ public class HUDPlatformerManager : MonoBehaviour
 {
     public static HUDPlatformerManager Instance;
 
-    [Header("UI Vidas")]
-    [Tooltip("Texto para mostrar las vidas del jugador (ej. 'x3')")]
+    [Header("UI Tiempo")]
+    [Tooltip("Texto dedicado para mostrar el tiempo restante (ej. '500s')")]
+    public TextMeshProUGUI timerText;
+
+    [Header("UI Vidas (Corazones/Salud)")]
+    [Tooltip("Imágenes que representan los corazones o salud del jugador")]
+    public Image[] heartImages;
+
+    [Header("UI Intentos (Oportunidades)")]
+    [Tooltip("Imágenes que representan los intentos restantes del jugador (max 3)")]
+    public Image[] attemptImages;
+
+    [Header("Compatibilidad Retroactiva (Opcional)")]
+    [Tooltip("Texto antiguo para vidas/tiempo")]
     public TextMeshProUGUI livesText;
 
     [Header("UI Monedas")]
@@ -46,15 +58,112 @@ public class HUDPlatformerManager : MonoBehaviour
         UpdateHUD();
     }
 
+    private void Update()
+    {
+        // Actualizar el texto del temporizador en tiempo real (segundos restantes)
+        int timeToShow = Mathf.CeilToInt(PlayerPlatformerController.remainingTime);
+        string timeStr = timeToShow.ToString() + "s";
+        if (timerText != null)
+        {
+            timerText.text = timeStr;
+        }
+        else if (livesText != null)
+        {
+            livesText.text = timeStr;
+        }
+
+        // Actualizar imágenes de vidas (corazones/salud)
+        if (heartImages != null)
+        {
+            for (int i = 0; i < heartImages.Length; i++)
+            {
+                if (heartImages[i] != null)
+                {
+                    heartImages[i].gameObject.SetActive(i < PlayerPlatformerController.lives);
+                }
+            }
+        }
+
+        // Actualizar imágenes de intentos restantes (máximo 3)
+        if (attemptImages != null)
+        {
+            if (PlayerPlatformerController.attemptsEnabled)
+            {
+                int attemptsLeft = Mathf.Max(0, 3 - PlayerPlatformerController.consecutiveCheckpointDeaths);
+                for (int i = 0; i < attemptImages.Length; i++)
+                {
+                    if (attemptImages[i] != null)
+                    {
+                        attemptImages[i].gameObject.SetActive(i < attemptsLeft);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < attemptImages.Length; i++)
+                {
+                    if (attemptImages[i] != null)
+                    {
+                        attemptImages[i].gameObject.SetActive(false);
+                    }
+                }
+            }
+        }
+    }
+
     /// <summary>
     /// Actualiza todos los elementos del HUD usando las variables estáticas de PlayerPlatformerController.
     /// </summary>
     public void UpdateHUD()
     {
-        // 1. Actualizar texto de vidas
-        if (livesText != null)
+        // 1. Actualizar texto de tiempo
+        int timeToShow = Mathf.CeilToInt(PlayerPlatformerController.remainingTime);
+        string timeStr = timeToShow.ToString() + "s";
+        if (timerText != null)
         {
-            livesText.text = "x" + PlayerPlatformerController.lives.ToString();
+            timerText.text = timeStr;
+        }
+        else if (livesText != null)
+        {
+            livesText.text = timeStr;
+        }
+
+        // 1b. Actualizar imágenes de vidas
+        if (heartImages != null)
+        {
+            for (int i = 0; i < heartImages.Length; i++)
+            {
+                if (heartImages[i] != null)
+                {
+                    heartImages[i].gameObject.SetActive(i < PlayerPlatformerController.lives);
+                }
+            }
+        }
+
+        // 1c. Actualizar imágenes de intentos (máximo 3)
+        if (attemptImages != null)
+        {
+            if (PlayerPlatformerController.attemptsEnabled)
+            {
+                int attemptsLeft = Mathf.Max(0, 3 - PlayerPlatformerController.consecutiveCheckpointDeaths);
+                for (int i = 0; i < attemptImages.Length; i++)
+                {
+                    if (attemptImages[i] != null)
+                    {
+                        attemptImages[i].gameObject.SetActive(i < attemptsLeft);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < attemptImages.Length; i++)
+                {
+                    if (attemptImages[i] != null)
+                    {
+                        attemptImages[i].gameObject.SetActive(false);
+                    }
+                }
+            }
         }
 
         // 2. Actualizar texto de monedas
