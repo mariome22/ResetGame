@@ -134,7 +134,7 @@ MonoBehaviour:
   distanciaVisualTajo: 1
   prefabProyectil: {fileID: 3979685118916425157, guid: 72666a1055edd0c44a96ba7791e758b4, type: 3}
   velocidadProyectil: 10
-  balasMaximasCargador: 10
+  balasMaximasCargador: 12
   balasActualesCargador: 0
   cadenciaDisparo: 0.75
   textoArmaHUD: {fileID: 0}
