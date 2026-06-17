@@ -8,7 +8,6 @@ public class MainMenuManager : MonoBehaviour
     public GameObject mainPanel;
     public GameObject optionsPanel;
     public GameObject creditsPanel;
-    public GameObject collectionsPanel;
 
     [Header("Botones Especiales")]
     public Button continueButton;
@@ -19,7 +18,8 @@ public class MainMenuManager : MonoBehaviour
 
         if (continueButton != null)
         {
-            continueButton.interactable = SaveManager.Instance != null && SaveManager.Instance.HasSaveGame();
+            // Por ahora, dejamos el botón siempre activo para que se pueda ir directamente al Hub
+            continueButton.interactable = true;
         }
     }
 
@@ -28,7 +28,6 @@ public class MainMenuManager : MonoBehaviour
         mainPanel.SetActive(true);
         optionsPanel.SetActive(false);
         creditsPanel.SetActive(false);
-        collectionsPanel.SetActive(false);
     }
 
     public void ShowOptions()
@@ -41,12 +40,6 @@ public class MainMenuManager : MonoBehaviour
     {
         mainPanel.SetActive(false);
         creditsPanel.SetActive(true);
-    }
-
-    public void ShowCollections()
-    {
-        mainPanel.SetActive(false);
-        collectionsPanel.SetActive(true);
     }
 
 

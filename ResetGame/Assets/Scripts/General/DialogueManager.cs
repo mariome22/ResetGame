@@ -28,6 +28,7 @@ public class DialogueManager : MonoBehaviour
     private bool isTyping = false;
     private string currentSentence = "";
     private Coroutine typingCoroutine;
+    private System.Action onDialogueEndCallback;
 
     public bool IsDialogueActive => dialoguePanel != null && dialoguePanel.activeSelf;
 
@@ -62,7 +63,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void StartDialogue(Dialogue dialogue)
+    public void StartDialogue(Dialogue dialogue, System.Action onEnd = null)
     {
         if (dialoguePanel == null || nameText == null || dialogueText == null)
         {
@@ -75,6 +76,8 @@ public class DialogueManager : MonoBehaviour
 
         dialoguePanel.SetActive(true);
         nameText.text = dialogue.npcName;
+
+        onDialogueEndCallback = onEnd;
 
         sentencesQueue.Clear();
         foreach (string sentence in dialogue.sentences)
@@ -130,5 +133,12 @@ public class DialogueManager : MonoBehaviour
 
         Time.timeScale = 1f; // Reanudar tiempo
         Debug.Log("Fin del diálogo.");
+
+        if (onDialogueEndCallback != null)
+        {
+            System.Action callback = onDialogueEndCallback;
+            onDialogueEndCallback = null;
+            callback.Invoke();
+        }
     }
 }
