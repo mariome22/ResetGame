@@ -59,10 +59,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
+  startMovingRight: 1
   minTimeBeforeTurn: 2
   maxTimeBeforeTurn: 6
-  jumpRange: 5
-  jumpAirTime: 0.7
+  jumpRange: 3
+  jumpAirTime: 1
   groundCheck: {fileID: 6722058324719198564}
   groundCheckRadius: 0.2
   minCooldownDuration: 1
