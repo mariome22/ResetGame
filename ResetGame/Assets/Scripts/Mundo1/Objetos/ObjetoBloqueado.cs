@@ -21,6 +21,38 @@ public class ObjetoBloqueado : MonoBehaviour
 
     public Transform puntoDeDrop;
 
+    private void Start()
+    {
+        PersistentObject po = GetComponent<PersistentObject>();
+        if (po != null)
+        {
+            string sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            string uniqueId = string.IsNullOrEmpty(po.uniqueId) ? 
+                $"{sceneName}_{gameObject.name}_{transform.position.x:F2}_{transform.position.y:F2}" : 
+                po.uniqueId;
+
+            if (SaveManager.Instance != null && SaveManager.Instance.IsObjectDestroyed(uniqueId))
+            {
+                DesactivarInteraccionYColision();
+            }
+        }
+    }
+
+    private void DesactivarInteraccionYColision()
+    {
+        InteractableObject interaccion = GetComponent<InteractableObject>();
+        if (interaccion != null)
+        {
+            interaccion.enabled = false;
+        }
+
+        Collider2D miCollider = GetComponent<Collider2D>();
+        if (miCollider != null)
+        {
+            miCollider.enabled = false;
+        }
+    }
+
     public void IntentarAbrir()
     {
         if (InventarioManager.Instance == null) return;
@@ -43,18 +75,10 @@ public class ObjetoBloqueado : MonoBehaviour
                 Instantiate(prefabNucleo, posicionDrop, Quaternion.identity);
             }
 
-            //Apagar interaccion y la cue
-            InteractableObject interaccion = GetComponent<InteractableObject>();
-            if (interaccion != null)
-            {
-                //if (interaccion.visualCue != null) interaccion.visualCue.SetActive(false);
-                interaccion.enabled = false;
-            }
+            PersistentObject po = GetComponent<PersistentObject>();
+            if (po != null) po.RegisterDestruction();
 
-            //Apagamos el Collider
-            Collider2D miCollider = GetComponent<Collider2D>();
-            if (miCollider != null) miCollider.enabled = false;
-
+            DesactivarInteraccionYColision();
         }
         else
         {

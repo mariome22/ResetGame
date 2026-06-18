@@ -49,6 +49,7 @@ public class MainMenuManager : MonoBehaviour
         if (SaveManager.Instance != null)
         {
             SaveManager.Instance.DeleteSaveGame();
+            SaveManager.Instance.destroyedObjects.Clear();
         }
         else
         {

@@ -725,13 +725,10 @@ public class PlayerPlatformerController : MonoBehaviour
         checkpointSecretCoins = secretCoinsCollected;
         checkpointTime = remainingTime;
         
-        // Al alcanzar un checkpoint con éxito, se reinicia el contador de muertes consecutivas
-        consecutiveCheckpointDeaths = 0;
-        
         // Guardamos las monedas y galletas recolectadas permanentemente hasta el checkpoint
         collectedCoinsAtCheckpoint = new System.Collections.Generic.HashSet<string>(collectedCoinsActive);
         
-        Debug.Log($"[Checkpoint Guardado] Monedas: {checkpointCoins} | Galletas: {checkpointSecretCoins} | Tiempo: {checkpointTime} | Muertes reseteadas a: {consecutiveCheckpointDeaths} | Total monedas registradas: {collectedCoinsAtCheckpoint.Count}");
+        Debug.Log($"[Checkpoint Guardado] Monedas: {checkpointCoins} | Galletas: {checkpointSecretCoins} | Tiempo: {checkpointTime} | Muertes acumuladas: {consecutiveCheckpointDeaths}/3 | Total monedas registradas: {collectedCoinsAtCheckpoint.Count}");
     }
 
     public static void RegisterCollectedCoin(string key)

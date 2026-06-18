@@ -26,9 +26,22 @@ public class MenuPausaPlatformer : MonoBehaviour
         if (panelConfirmacionSalir != null) panelConfirmacionSalir.SetActive(false);
 
         // Configurar botones de confirmación
-        if (botonGuardarYSalir != null) botonGuardarYSalir.onClick.AddListener(ConfirmarGuardarYSalir);
-        if (botonSalirSinGuardar != null) botonSalirSinGuardar.onClick.AddListener(ConfirmarSalirSinGuardar);
-        if (botonCancelarSalir != null) botonCancelarSalir.onClick.AddListener(CancelarSalir);
+        Debug.Log($"[MenuPausaPlatformer] Inicializando menú de pausa en '{gameObject.name}'...");
+        if (botonGuardarYSalir != null)
+        {
+            botonGuardarYSalir.onClick.RemoveAllListeners();
+            botonGuardarYSalir.onClick.AddListener(ConfirmarGuardarYSalir);
+        }
+        if (botonSalirSinGuardar != null)
+        {
+            botonSalirSinGuardar.onClick.RemoveAllListeners();
+            botonSalirSinGuardar.onClick.AddListener(ConfirmarSalirSinGuardar);
+        }
+        if (botonCancelarSalir != null)
+        {
+            botonCancelarSalir.onClick.RemoveAllListeners();
+            botonCancelarSalir.onClick.AddListener(CancelarSalir);
+        }
     }
 
     private void Update()
@@ -90,14 +103,16 @@ public class MenuPausaPlatformer : MonoBehaviour
     /// </summary>
     private void PrepararSalida(string escenaDestino)
     {
+        Debug.Log($"[MenuPausaPlatformer] PrepararSalida hacia '{escenaDestino}'. panelConfirmacionSalir: {panelConfirmacionSalir != null}");
         if (panelConfirmacionSalir != null)
         {
             escenaDestinoPending = escenaDestino;
             panelConfirmacionSalir.SetActive(true);
+            Debug.Log("[MenuPausaPlatformer] Panel de confirmación activado.");
         }
         else
         {
-            // Salida directa si no se configuró el panel
+            Debug.Log("[MenuPausaPlatformer] Saliendo directamente sin confirmación.");
             Time.timeScale = 1f;
             SceneManager.LoadScene(escenaDestino);
         }

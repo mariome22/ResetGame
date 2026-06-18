@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3834159653369222914}
+  - component: {fileID: 5906172806723870963}
   - component: {fileID: 1203980125722991512}
   - component: {fileID: 444608433954032579}
   - component: {fileID: 7123485466443818514}
@@ -34,6 +35,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5906172806723870963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449281771499980379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a451a57ccf7074587c4fc0944ff265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PersistentObject
+  uniqueId: 
+  destroyOnLoad: 1
+  onAlreadyTriggered:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!212 &1203980125722991512
 SpriteRenderer:
   serializedVersion: 2

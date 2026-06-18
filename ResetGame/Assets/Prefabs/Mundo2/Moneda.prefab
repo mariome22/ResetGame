@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7516337908596738040}
   - component: {fileID: 8630914592815021521}
+  - component: {fileID: 5984521430855321288}
   - component: {fileID: 7244442228500541308}
   - component: {fileID: 4020655410102360086}
   - component: {fileID: 2643405539519327859}
@@ -50,6 +51,23 @@ MonoBehaviour:
   isSecretCoin: 0
   collectEffectPrefab: {fileID: 0}
   collectSound: {fileID: 0}
+--- !u!114 &5984521430855321288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3494048783711909576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a451a57ccf7074587c4fc0944ff265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PersistentObject
+  uniqueId: 
+  destroyOnLoad: 1
+  onAlreadyTriggered:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!212 &7244442228500541308
 SpriteRenderer:
   serializedVersion: 2

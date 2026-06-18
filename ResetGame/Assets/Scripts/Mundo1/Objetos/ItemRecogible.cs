@@ -37,6 +37,9 @@ public class ItemRecogible : MonoBehaviour
             }
         }
 
+        PersistentObject po = GetComponent<PersistentObject>();
+        if (po != null) po.RegisterDestruction();
+
         Destroy(gameObject);
     }
 }

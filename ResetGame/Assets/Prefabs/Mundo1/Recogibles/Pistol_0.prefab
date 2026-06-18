@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4024629340933995399}
   - component: {fileID: 2718224850163847602}
+  - component: {fileID: 7395294973890125936}
   - component: {fileID: 1171215362065944486}
   - component: {fileID: 8513815443839275838}
   - component: {fileID: 3053540684246267655}
@@ -81,7 +82,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -911476001
-  m_SortingLayer: 2
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 4319395737909131107, guid: 9f2b9030d78909e43a23021f5ded7838, type: 3}
@@ -94,6 +95,23 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &7395294973890125936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7022747886484862980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a451a57ccf7074587c4fc0944ff265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PersistentObject
+  uniqueId: 
+  destroyOnLoad: 1
+  onAlreadyTriggered:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1171215362065944486
 MonoBehaviour:
   m_ObjectHideFlags: 0

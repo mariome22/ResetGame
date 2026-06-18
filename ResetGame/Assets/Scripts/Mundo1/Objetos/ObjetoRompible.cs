@@ -104,6 +104,9 @@ public class ObjetoRompible : MonoBehaviour
             Debug.LogWarning("No se encontro al jugador. La caja no suelta nada.");
         }
 
+        PersistentObject po = GetComponent<PersistentObject>();
+        if (po != null) po.RegisterDestruction();
+
         Destroy(gameObject);
     }
 

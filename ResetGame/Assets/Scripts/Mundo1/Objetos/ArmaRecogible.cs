@@ -34,6 +34,9 @@ public class ArmaRecogible : MonoBehaviour
         }
 
         // 3. Destruimos el objeto del suelo (desaparece)
+        PersistentObject po = GetComponent<PersistentObject>();
+        if (po != null) po.RegisterDestruction();
+
         Destroy(gameObject);
     }
 }

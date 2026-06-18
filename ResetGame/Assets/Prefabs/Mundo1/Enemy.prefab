@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4801930277888273684}
   - component: {fileID: 8062616196193701542}
   - component: {fileID: 5525596752182374451}
+  - component: {fileID: 2509339227531416172}
   - component: {fileID: 2605239985748832218}
   - component: {fileID: 2857489640235530763}
   - component: {fileID: 1504563456246817309}
@@ -158,6 +159,23 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2509339227531416172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4085844878680559385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a451a57ccf7074587c4fc0944ff265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PersistentObject
+  uniqueId: 
+  destroyOnLoad: 1
+  onAlreadyTriggered:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!61 &2605239985748832218
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -26,11 +26,21 @@ public class Checkpoint : MonoBehaviour
             Debug.Log("¡Checkpoint alcanzado!");
 
             // Guardamos la posición exacta de este checkpoint y en qué escena estamos
-            PlayerPlatformerController.lastCheckpointScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            string currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            PlayerPlatformerController.lastCheckpointScene = currentSceneName;
             PlayerPlatformerController.lastCheckpointPos = transform.position;
 
             // Guardamos el estado de monedas y galletas recolectadas en este checkpoint
             PlayerPlatformerController.SaveCheckpointStats();
+
+            // Auto-guardado en el disco si es el Nivel 1 del Mundo 2
+            if (currentSceneName == "2_Level1")
+            {
+                if (SaveManager.Instance != null)
+                {
+                    SaveManager.Instance.SaveGame();
+                }
+            }
         }
     }
 }

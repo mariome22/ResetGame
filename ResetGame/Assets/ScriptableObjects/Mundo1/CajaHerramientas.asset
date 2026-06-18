@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58dff55e032366d46876b9985e2c8d86, type: 3}
-  m_Name: TarjetaRoja
+  m_Name: CajaHerramientas
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   nombreObjeto: Caja de herramientas
-  descripcion: Caja que abre una puerta
-  iconoObjeto: {fileID: 907706807732038226, guid: 707e2a1e1da653c49abfb79c168fe0cd, type: 3}
+  descripcion: Una caja de herramientas sucia
+  iconoObjeto: {fileID: 6540714580814476617, guid: a250261d4ee0ec34d8eb103e798e660e, type: 3}
   prefabMundo: {fileID: 6290016901910688598, guid: d704f6e8ba52e9c43bae728447edaf21, type: 3}
   tipo: 4
-  esAcumulable: 0
-  cantidadMaxima: 1
+  esAcumulable: 1
+  cantidadMaxima: 3
   valorEfecto: 0
-  contenidoDocumento: 
+  contenidoDocumento: "Caja de herramientas completa con kit de supervivencia b\xE1sico
+    para reforzar estrucutras o abrirse paso f\xE1cilmente"

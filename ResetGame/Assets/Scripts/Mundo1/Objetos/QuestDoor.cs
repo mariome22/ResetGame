@@ -32,6 +32,49 @@ public class QuestDoor : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        // Re-contamos cuántos objetos ya han sido recogidos
+        itemsCollected = 0;
+        if (questItems != null)
+        {
+            foreach (GameObject item in questItems)
+            {
+                if (item != null)
+                {
+                    PersistentObject po = item.GetComponent<PersistentObject>();
+                    if (po != null)
+                    {
+                        string sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+                        string uniqueId = string.IsNullOrEmpty(po.uniqueId) ? 
+                            $"{sceneName}_{item.name}_{item.transform.position.x:F2}_{item.transform.position.y:F2}" : 
+                            po.uniqueId;
+                        
+                        if (SaveManager.Instance != null && SaveManager.Instance.IsObjectDestroyed(uniqueId))
+                        {
+                            itemsCollected++;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Comprobamos si la propia puerta ya fue abierta
+        PersistentObject doorPo = GetComponent<PersistentObject>();
+        if (doorPo != null)
+        {
+            string sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            string uniqueId = string.IsNullOrEmpty(doorPo.uniqueId) ? 
+                $"{sceneName}_{gameObject.name}_{transform.position.x:F2}_{transform.position.y:F2}" : 
+                doorPo.uniqueId;
+
+            if (SaveManager.Instance != null && SaveManager.Instance.IsObjectDestroyed(uniqueId))
+            {
+                AbrirPuertaInstant();
+            }
+        }
+    }
+
     // Este método se llamará desde el OnInteract del InteractableObject
     public void OnDoorInteract()
     {
@@ -91,30 +134,34 @@ public class QuestDoor : MonoBehaviour
 
     private void AbrirPuerta()
     {
-        isOpen = true;
-        // AQUÍ IRÁ EL CÓDIGO DEL DIÁLOGO EN EL FUTURO
-        Debug.Log("NPC: '¡Gracias! Te abro las puertas.'");
+        PersistentObject po = GetComponent<PersistentObject>();
+        if (po != null) po.RegisterDestruction();
 
+        AbrirPuertaInstant();
+
+        // NPC dialogue logging
+        Debug.Log("NPC: '¡Gracias! Te abro las puertas.'");
+    }
+
+    private void AbrirPuertaInstant()
+    {
+        isOpen = true;
         if (spriteRenderer != null && openSprite != null)
         {
             spriteRenderer.sprite = openSprite;
         }
 
-        // Si la puerta tiene un collider (para bloquear el paso), lo desactivamos
         Collider2D doorCollider = GetComponent<Collider2D>();
         if (doorCollider != null)
         {
             doorCollider.enabled = false;
         }
 
-        // NO re-delcaramos bloqueo para usar el público
-
         if (bloqueo != null)
         {
             bloqueo.SetActive(false);
         }
 
-        // También desactivamos el InteractableObject para que no pueda volver a interactuar si se quiere
         InteractableObject interactable = GetComponent<InteractableObject>();
         if (interactable != null)
         {

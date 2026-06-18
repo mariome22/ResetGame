@@ -103,6 +103,8 @@ public class EnemyBase : MonoBehaviour
 
     private void Morir()
     {
+        PersistentObject po = GetComponent<PersistentObject>();
+        if (po != null) po.RegisterDestruction();
         Destroy(gameObject);
     }
 }
