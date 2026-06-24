@@ -1,20 +1,53 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelGoal : MonoBehaviour
 {
-    [Header("Configuración")]
+    [Header("Configuracion")]
     public string nombreEscenaHub = "01_Hub";
+    public GameObject panelVictoria;
+
+    private bool isTransitioning = false;
 
     public void CollectCore()
     {
-        Debug.Log("¡Núcleo recogido!");
+        if (isTransitioning) return;
+
+        Debug.Log("Core collected!");
 
         int currentCores = PlayerPrefs.GetInt("PlayerCores", 0);
         PlayerPrefs.SetInt("PlayerCores", currentCores + 1);
         PlayerPrefs.Save();
 
+        if (panelVictoria != null)
+        {
+            panelVictoria.SetActive(true);
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            isTransitioning = true;
+            CargarHub();
+        }
+    }
 
-        SceneManager.LoadScene(nombreEscenaHub);
+    public void ConfirmarCargaHub()
+    {
+        Time.timeScale = 1f;
+        if (isTransitioning) return;
+        isTransitioning = true;
+        CargarHub();
+    }
+
+    private void CargarHub()
+    {
+        if (SceneTransitionManager.Instance != null)
+        {
+            SceneTransitionManager.Instance.LoadSceneWithFade(nombreEscenaHub);
+        }
+        else
+        {
+            SceneManager.LoadScene(nombreEscenaHub);
+        }
     }
 }

@@ -1,8 +1,8 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Hazard : MonoBehaviour
 {
-    [Header("Configuración de Daño")]
+    [Header("Configuracion de Dano")]
     public int cantidadDano = 1;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -13,7 +13,7 @@ public class Hazard : MonoBehaviour
 
             if (saludJugador != null)
             {
-                saludJugador.RecibirDano(cantidadDano);
+                saludJugador.RecibirDano(cantidadDano, transform.position);
             }
         }
     }

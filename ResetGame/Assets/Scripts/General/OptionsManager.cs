@@ -202,7 +202,14 @@ public class OptionsManager : MonoBehaviour
         {
             Debug.Log($"[OptionsManager] Saliendo directamente sin confirmación desde '{gameObject.name}'.");
             Time.timeScale = 1f;
-            SceneManager.LoadScene(escenaDestino);
+            if (SceneTransitionManager.Instance != null)
+            {
+                SceneTransitionManager.Instance.LoadSceneWithFade(escenaDestino);
+            }
+            else
+            {
+                SceneManager.LoadScene(escenaDestino);
+            }
         }
     }
 
@@ -223,13 +230,27 @@ public class OptionsManager : MonoBehaviour
             SaveManager.Instance.SaveGame();
         }
         Time.timeScale = 1f; // Reanudar tiempo
-        SceneManager.LoadScene(escenaDestinoPending);
+        if (SceneTransitionManager.Instance != null)
+        {
+            SceneTransitionManager.Instance.LoadSceneWithFade(escenaDestinoPending);
+        }
+        else
+        {
+            SceneManager.LoadScene(escenaDestinoPending);
+        }
     }
 
     private void ConfirmarSalirSinGuardar()
     {
         Time.timeScale = 1f; // Reanudar tiempo
-        SceneManager.LoadScene(escenaDestinoPending);
+        if (SceneTransitionManager.Instance != null)
+        {
+            SceneTransitionManager.Instance.LoadSceneWithFade(escenaDestinoPending);
+        }
+        else
+        {
+            SceneManager.LoadScene(escenaDestinoPending);
+        }
     }
 
     private void CancelarSalir()

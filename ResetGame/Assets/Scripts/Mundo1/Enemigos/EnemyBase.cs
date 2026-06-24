@@ -22,6 +22,7 @@ public class EnemyBase : MonoBehaviour
     private MonoBehaviour scriptMovimiento;
     private Animator animator;
     private Vector3 ultimaPosicion;
+    private bool tieneParametroCaminar = false;
 
     private void Start()
     {
@@ -29,16 +30,34 @@ public class EnemyBase : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+        if (animator != null)
+        {
+            foreach (AnimatorControllerParameter param in animator.parameters)
+            {
+                if (param.name == parametroCaminar)
+                {
+                    tieneParametroCaminar = true;
+                    break;
+                }
+            }
+        }
+
         ultimaPosicion = transform.position;
 
-        if (GetComponent<EnemyMelee>() != null) scriptMovimiento = GetComponent<EnemyMelee>();
+        if (GetComponent<EnemyMelee>() != null) 
+            scriptMovimiento = GetComponent<EnemyMelee>();
+        else if (GetComponent<EnemyFollow>() != null) 
+            scriptMovimiento = GetComponent<EnemyFollow>();
+        else if (GetComponent<EnemyShooter>() != null) 
+            scriptMovimiento = GetComponent<EnemyShooter>();
 
         if (spriteRenderer != null) colorOriginal = spriteRenderer.color;
     }
 
     private void LateUpdate()
     {
-        if (animator != null && rb != null)
+        if (animator != null && rb != null && tieneParametroCaminar)
         {
             // Usamos la velocidad del RigidBody en lugar de la posición para evitar problemas de sincronía con las físicas
             bool seEstaMoviendo = rb.linearVelocity.sqrMagnitude > 0.01f;
@@ -103,8 +122,40 @@ public class EnemyBase : MonoBehaviour
 
     private void Morir()
     {
+        StartCoroutine(MorirRoutine());
+    }
+
+    private IEnumerator MorirRoutine()
+    {
         PersistentObject po = GetComponent<PersistentObject>();
         if (po != null) po.RegisterDestruction();
+
+        // Desactivar colisionador para evitar estorbar al jugador
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null) col.enabled = false;
+
+        // Detener movimiento y físicas
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.simulated = false; // Detiene colisiones, gravedad, etc.
+        }
+
+        // Desactivar script de IA/movimiento
+        if (scriptMovimiento != null)
+        {
+            scriptMovimiento.enabled = false;
+        }
+
+        // Lanzar animación de muerte si existe
+        if (animator != null)
+        {
+            animator.SetTrigger("Muerte");
+        }
+
+        // Esperar 1.2 segundos para que termine la animación antes de destruir el objeto
+        yield return new WaitForSeconds(1.2f);
+
         Destroy(gameObject);
     }
 }

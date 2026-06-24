@@ -87,6 +87,8 @@ MonoBehaviour:
   velocidadPatrulla: 0.75
   rangoPerdida: 4
   danoPorContacto: 1
+  rangoAtaqueZombie: 1.5
+  tiempoEntreAtaquesZombie: 1.5
   esZombie: 1
   amplitudTambaleo: 0.5
   velocidadTambaleo: 6
@@ -259,7 +261,7 @@ Animator:
   m_GameObject: {fileID: 4085844878680559385}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 06b429d3901e3cc43ab615eed90b16d6, type: 2}
+  m_Controller: {fileID: 9100000, guid: 88e80987832f5bf4296e96038fc5c9f4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

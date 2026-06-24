@@ -99,7 +99,8 @@ public class SaveManager : MonoBehaviour
         {
             File.Delete(saveFilePath);
         }
-        PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteKey("SavedLevel");
+        PlayerPrefs.DeleteKey("PlayerCores");
         PlayerPrefs.Save();
 
         // Limpiamos también el estado en memoria para el Mundo 2 y Mundo 1
@@ -271,7 +272,14 @@ public class SaveManager : MonoBehaviour
 
         // Cargamos la escena guardada
         Debug.Log("Cargando escena guardada: " + pendingLoadData.escenaGuardada);
-        SceneManager.LoadScene(pendingLoadData.escenaGuardada);
+        if (SceneTransitionManager.Instance != null)
+        {
+            SceneTransitionManager.Instance.LoadSceneWithFade(pendingLoadData.escenaGuardada);
+        }
+        else
+        {
+            SceneManager.LoadScene(pendingLoadData.escenaGuardada);
+        }
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

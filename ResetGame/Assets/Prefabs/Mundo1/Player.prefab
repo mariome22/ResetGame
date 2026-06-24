@@ -84,7 +84,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 332852017
-  m_SortingLayer: 6
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7366803887970489002, guid: e99d9b4eb28710c42857f867c3c0b99c, type: 3}
@@ -110,8 +110,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   vidaMaxima: 10
-  tiempoInvulnerable: 1
-  textoVida: {fileID: 0}
+  tiempoInvulnerable: 0.5
+  fuerzaKnockback: 4
+  duracionKnockback: 0.2
+  panelMuerte: {fileID: 0}
 --- !u!114 &684007592919031421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,7 +139,6 @@ MonoBehaviour:
   balasMaximasCargador: 12
   balasActualesCargador: 0
   cadenciaDisparo: 0.75
-  textoArmaHUD: {fileID: 0}
 --- !u!50 &3909957077091530005
 Rigidbody2D:
   serializedVersion: 5

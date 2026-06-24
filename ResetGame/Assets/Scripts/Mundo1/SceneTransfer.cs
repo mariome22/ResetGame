@@ -104,7 +104,14 @@ public class SceneTransfer : MonoBehaviour
 
             if (currentCores >= requiredCores)
             {
-                SceneManager.LoadScene(sceneName);
+                if (SceneTransitionManager.Instance != null)
+                {
+                    SceneTransitionManager.Instance.LoadSceneWithFade(sceneName);
+                }
+                else
+                {
+                    SceneManager.LoadScene(sceneName);
+                }
             }
             else
             {

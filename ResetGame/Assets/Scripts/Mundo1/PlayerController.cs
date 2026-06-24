@@ -67,9 +67,31 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private bool isKnockedBack = false;
+
+    public void AplicarKnockback(Vector2 direccion, float fuerza, float duracion)
+    {
+        StartCoroutine(KnockbackRoutine(direccion, fuerza, duracion));
+    }
+
+    private IEnumerator KnockbackRoutine(Vector2 direccion, float fuerza, float duracion)
+    {
+        isKnockedBack = true;
+        
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.AddForce(direccion * fuerza, ForceMode2D.Impulse);
+        }
+
+        yield return new WaitForSeconds(duracion);
+
+        isKnockedBack = false;
+    }
+
     private void FixedUpdate()
     {
-        if (isDashing) return;
+        if (isDashing || isKnockedBack) return;
         rb.linearVelocity = movimientoInput * velocidad;
     }
 

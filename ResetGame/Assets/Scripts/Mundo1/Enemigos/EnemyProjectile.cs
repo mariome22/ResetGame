@@ -31,7 +31,7 @@ public class EnemyProjectile : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             Debug.Log("Impacto contra el jugador. Pierde " + dano + " vida.");
-            collision.GetComponent<PlayerHealth>().RecibirDano(dano);
+            collision.GetComponent<PlayerHealth>().RecibirDano(dano, transform.position);
             Destroy(gameObject);
         }
         else if (collision.CompareTag("Wall") || ((capasColision.value & (1 << collision.gameObject.layer)) > 0))

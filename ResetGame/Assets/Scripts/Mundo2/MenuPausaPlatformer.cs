@@ -25,6 +25,14 @@ public class MenuPausaPlatformer : MonoBehaviour
         if (canvasPausa != null) canvasPausa.SetActive(false);
         if (panelConfirmacionSalir != null) panelConfirmacionSalir.SetActive(false);
 
+        // Auto-buscar botones si no están asignados en el inspector
+        if (panelConfirmacionSalir != null)
+        {
+            if (botonGuardarYSalir == null) botonGuardarYSalir = BuscarBotonEnObjeto(panelConfirmacionSalir, "Guardar");
+            if (botonSalirSinGuardar == null) botonSalirSinGuardar = BuscarBotonEnObjeto(panelConfirmacionSalir, "No_Guardar");
+            if (botonCancelarSalir == null) botonCancelarSalir = BuscarBotonEnObjeto(panelConfirmacionSalir, "Cerrar");
+        }
+
         // Configurar botones de confirmación
         Debug.Log($"[MenuPausaPlatformer] Inicializando menú de pausa en '{gameObject.name}'...");
         if (botonGuardarYSalir != null)
@@ -44,14 +52,26 @@ public class MenuPausaPlatformer : MonoBehaviour
         }
     }
 
+    private Button BuscarBotonEnObjeto(GameObject parent, string nombreBoton)
+    {
+        foreach (Button b in parent.GetComponentsInChildren<Button>(true))
+        {
+            if (b.name == nombreBoton)
+            {
+                return b;
+            }
+        }
+        return null;
+    }
+
     private void Update()
     {
         if (Keyboard.current == null) return;
 
-        // Abrir/Cerrar menú al presionar la tecla I
-        if (Keyboard.current.iKey.wasPressedThisFrame)
+        // Abrir/Cerrar menú al presionar la tecla I o ESC
+        if (Keyboard.current.iKey.wasPressedThisFrame || Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            // Si el panel de confirmación está abierto, al presionar I lo cancelamos en lugar de cerrar toda la pausa
+            // Si el panel de confirmación está abierto, lo cancelamos en lugar de cerrar toda la pausa
             if (estaPausado && panelConfirmacionSalir != null && panelConfirmacionSalir.activeSelf)
             {
                 CancelarSalir();
@@ -114,7 +134,14 @@ public class MenuPausaPlatformer : MonoBehaviour
         {
             Debug.Log("[MenuPausaPlatformer] Saliendo directamente sin confirmación.");
             Time.timeScale = 1f;
-            SceneManager.LoadScene(escenaDestino);
+            if (SceneTransitionManager.Instance != null)
+            {
+                SceneTransitionManager.Instance.LoadSceneWithFade(escenaDestino);
+            }
+            else
+            {
+                SceneManager.LoadScene(escenaDestino);
+            }
         }
     }
 
@@ -135,13 +162,27 @@ public class MenuPausaPlatformer : MonoBehaviour
             SaveManager.Instance.SaveGame();
         }
         Time.timeScale = 1f;
-        SceneManager.LoadScene(escenaDestinoPending);
+        if (SceneTransitionManager.Instance != null)
+        {
+            SceneTransitionManager.Instance.LoadSceneWithFade(escenaDestinoPending);
+        }
+        else
+        {
+            SceneManager.LoadScene(escenaDestinoPending);
+        }
     }
 
     private void ConfirmarSalirSinGuardar()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(escenaDestinoPending);
+        if (SceneTransitionManager.Instance != null)
+        {
+            SceneTransitionManager.Instance.LoadSceneWithFade(escenaDestinoPending);
+        }
+        else
+        {
+            SceneManager.LoadScene(escenaDestinoPending);
+        }
     }
 
     private void CancelarSalir()

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem; // Importamos el nuevo Input System
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class HubPlayerController : MonoBehaviour
@@ -23,6 +24,14 @@ public class HubPlayerController : MonoBehaviour
 
     private void Update()
     {
+        // Si el juego está pausado, congelar movimiento y animaciones
+        if (Time.timeScale == 0f)
+        {
+            movimientoInput = Vector2.zero;
+            ActualizarAnimaciones(0f, 0f);
+            return;
+        }
+
         float horizontal = 0f;
         float vertical = 0f;
 

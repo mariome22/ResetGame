@@ -87,6 +87,8 @@ MonoBehaviour:
   velocidadPatrulla: 0.5
   rangoPerdida: 4
   danoPorContacto: 0
+  rangoAtaqueZombie: 1.5
+  tiempoEntreAtaquesZombie: 1.5
   esZombie: 1
   amplitudTambaleo: 0.5
   velocidadTambaleo: 2

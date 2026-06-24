@@ -27,6 +27,29 @@ public class MenuPausaManager : MonoBehaviour
         {
             AlternarPausa();
         }
+
+        // Abrir Opciones o Cerrar con la tecla ESC
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            // Evitar conflicto si el jugador está leyendo una nota
+            if (LectorNotas.Instance != null && LectorNotas.Instance.EstaLeyendo)
+            {
+                return;
+            }
+
+            if (estaPausado)
+            {
+                AlternarPausa();
+            }
+            else
+            {
+                AlternarPausa();
+                if (InventarioManager.Instance != null)
+                {
+                    InventarioManager.Instance.MostrarPestanaOpciones();
+                }
+            }
+        }
     }
 
     public void AlternarPausa()

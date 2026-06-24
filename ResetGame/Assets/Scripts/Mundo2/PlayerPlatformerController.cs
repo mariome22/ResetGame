@@ -163,6 +163,10 @@ public class PlayerPlatformerController : MonoBehaviour
 
     public static bool attemptsEnabled = true;
 
+    [Header("UI Game Over")]
+    [Tooltip("Panel UI que se muestra al perder todos los intentos")]
+    public GameObject panelGameOver;
+
     // Variables de respaldo para la persistencia en checkpoints
     public static int checkpointCoins = 0;
     public static int checkpointSecretCoins = 0;
@@ -667,7 +671,7 @@ public class PlayerPlatformerController : MonoBehaviour
 
             if (consecutiveCheckpointDeaths >= 3)
             {
-                Debug.Log("¡GAME OVER! Se han agotado los 3 intentos. Reiniciando nivel completo.");
+                Debug.Log("¡GAME OVER! Se han agotado los 3 intentos. Mostrando pantalla de Game Over.");
                 consecutiveCheckpointDeaths = 0;
                 isReloadingFromDeath = false;
 
@@ -682,7 +686,39 @@ public class PlayerPlatformerController : MonoBehaviour
                 collectedCoinsActive.Clear();
                 collectedCoinsAtCheckpoint.Clear();
 
-                UnityEngine.SceneManagement.SceneManager.LoadScene(currentScene);
+                if (panelGameOver != null)
+                {
+                    // Hacer fundido a negro antes de mostrar la pantalla de Game Over
+                    if (SceneTransitionManager.Instance != null)
+                    {
+                        bool fadeDone = false;
+                        SceneTransitionManager.Instance.FadeOut(0.5f, () => {
+                            fadeDone = true;
+                        });
+                        yield return new WaitUntil(() => fadeDone);
+                    }
+
+                    panelGameOver.SetActive(true);
+                    Time.timeScale = 0f; // Pausar juego al perder todos los intentos
+
+                    // Fundido de vuelta a transparente revelando el panel
+                    if (SceneTransitionManager.Instance != null)
+                    {
+                        SceneTransitionManager.Instance.FadeIn(0.5f, null);
+                    }
+                }
+                else
+                {
+                    // Fallback
+                    if (SceneTransitionManager.Instance != null)
+                    {
+                        SceneTransitionManager.Instance.LoadSceneWithFade(currentScene);
+                    }
+                    else
+                    {
+                        UnityEngine.SceneManagement.SceneManager.LoadScene(currentScene);
+                    }
+                }
                 yield break;
             }
             else
@@ -703,7 +739,14 @@ public class PlayerPlatformerController : MonoBehaviour
             secretCoinsCollected = checkpointSecretCoins;
             collectedCoinsActive = new System.Collections.Generic.HashSet<string>(collectedCoinsAtCheckpoint);
 
-            UnityEngine.SceneManagement.SceneManager.LoadScene(currentScene);
+            if (SceneTransitionManager.Instance != null)
+            {
+                SceneTransitionManager.Instance.LoadSceneWithFade(currentScene);
+            }
+            else
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene(currentScene);
+            }
         }
         else
         {
@@ -715,7 +758,14 @@ public class PlayerPlatformerController : MonoBehaviour
             collectedCoinsActive.Clear();
             collectedCoinsAtCheckpoint.Clear();
             
-            UnityEngine.SceneManagement.SceneManager.LoadScene(currentScene);
+            if (SceneTransitionManager.Instance != null)
+            {
+                SceneTransitionManager.Instance.LoadSceneWithFade(currentScene);
+            }
+            else
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene(currentScene);
+            }
         }
     }
 
@@ -814,6 +864,33 @@ public class PlayerPlatformerController : MonoBehaviour
         else
         {
             rb.gravityScale = normalGravityScale;
+        }
+    }
+
+    public void ReiniciarNivelCompleto()
+    {
+        Time.timeScale = 1f;
+        string currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        if (SceneTransitionManager.Instance != null)
+        {
+            SceneTransitionManager.Instance.LoadSceneWithFade(currentScene);
+        }
+        else
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(currentScene);
+        }
+    }
+
+    public void SalirAlMenuPrincipal()
+    {
+        Time.timeScale = 1f;
+        if (SceneTransitionManager.Instance != null)
+        {
+            SceneTransitionManager.Instance.LoadSceneWithFade("MainMenu");
+        }
+        else
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
         }
     }
 }

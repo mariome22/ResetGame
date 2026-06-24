@@ -46,6 +46,16 @@ public class EnemyMelee : MonoBehaviour
     [Header("Dano de Contacto")]
     public int danoPorContacto = 1;
 
+    [Header("Ajustes de Ataque Zombie")]
+    public float rangoAtaqueZombie = 1.5f;
+    public float tiempoEntreAtaquesZombie = 1.5f;
+
+    private bool puedeAtacarZombie = true;
+    private Animator anim;
+    private bool tieneParametroAtacar = false;
+    private bool tieneParametroCharging = false;
+    private bool tieneParametroMuerte = false;
+
     [Header("Comportamiento Zombie")]
     public bool esZombie = false;
     
@@ -99,6 +109,18 @@ public class EnemyMelee : MonoBehaviour
         if (spriteRenderer != null) colorOriginal = spriteRenderer.color;
 
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+
+        if (anim != null)
+        {
+            foreach (AnimatorControllerParameter param in anim.parameters)
+            {
+                if (param.name == "Atacar") tieneParametroAtacar = true;
+                if (param.name == "isCharging") tieneParametroCharging = true;
+                if (param.name == "Muerte") tieneParametroMuerte = true;
+            }
+        }
+
         posicionInicial = transform.position;
         ultimaPosicionAtasco = transform.position;
         offsetTambaleo = Random.Range(0f, 1000f);
@@ -170,12 +192,21 @@ public class EnemyMelee : MonoBehaviour
         {
             explosionIniciada = true;
             StartCoroutine(RutinaExplosion());
+            return;
         }
         
         if (haceEmbestidas && distancia <= rangoEmbestida && puedeEmbestir && !explosionIniciada)
         {
             if (rb != null) rb.linearVelocity = Vector2.zero;
             StartCoroutine(RutinaEmbestida());
+            return;
+        }
+
+        if (esZombie && distancia <= rangoAtaqueZombie && puedeAtacarZombie && !estaOcupado && !explosionIniciada)
+        {
+            if (rb != null) rb.linearVelocity = Vector2.zero;
+            StartCoroutine(RutinaAtaqueZombie());
+            return;
         }
         
         if (!estaOcupado || explosionIniciada) 
@@ -374,11 +405,43 @@ public class EnemyMelee : MonoBehaviour
         Vector2 posicionObjetivo = jugador.position;
         estaEmbistiendo = true;
 
-        while (Vector2.Distance(transform.position, posicionObjetivo) > 0.1f)
+        if (anim != null && tieneParametroCharging)
+        {
+            anim.SetBool("isCharging", true);
+        }
+
+        // Añadimos control contra atascos y límite de tiempo de embestida
+        float maxChargeTime = 2.0f; 
+        float elapsed = 0f;
+        Vector2 lastPos = transform.position;
+        float stuckTimer = 0f;
+
+        while (Vector2.Distance(transform.position, posicionObjetivo) > 0.1f && elapsed < maxChargeTime)
         {
             transform.position = Vector2.MoveTowards(transform.position, posicionObjetivo, velocidadEmbestida * Time.deltaTime);
+            elapsed += Time.deltaTime;
+
+            if (Vector2.Distance(transform.position, lastPos) < 0.001f)
+            {
+                stuckTimer += Time.deltaTime;
+                if (stuckTimer > 0.15f) // Si choca contra un muro durante 0.15s, cancelamos
+                {
+                    break;
+                }
+            }
+            else
+            {
+                stuckTimer = 0f;
+            }
+            lastPos = transform.position;
             yield return null;
         }
+
+        if (anim != null && tieneParametroCharging)
+        {
+            anim.SetBool("isCharging", false);
+        }
+
         estaEmbistiendo = false;
         estaOcupado = false;
 
@@ -388,8 +451,13 @@ public class EnemyMelee : MonoBehaviour
 
     private IEnumerator RutinaExplosion()
     {
-        // Ya no ponemos estaOcupado = true, para que MoverConContextSteering se siga llamando
         float tiempoPasado = 0f;
+
+        // Disparar animación de aviso/cuenta atrás ("Atacar") si existe
+        if (anim != null && tieneParametroAtacar)
+        {
+            anim.SetTrigger("Atacar");
+        }
 
         // Parpadeo rojo en lugar de temblor físico para no interrumpir el movimiento
         while (tiempoPasado < tiempoParaExplotar)
@@ -401,6 +469,31 @@ public class EnemyMelee : MonoBehaviour
             tiempoPasado += 0.2f;
         }
 
+        // --- INICIO DE LA EXPLOSIÓN / MUERTE ---
+        
+        // 1. Desactivar colisiones y físicas inmediatamente para detener al zombie
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null) col.enabled = false;
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.simulated = false;
+        }
+
+        // 2. Desactivar script de IA
+        this.enabled = false;
+
+        // 3. Disparar animación de "Muerte" (caída/explosión)
+        if (anim != null && tieneParametroMuerte)
+        {
+            anim.SetTrigger("Muerte");
+        }
+
+        // 4. Esperamos un instante (ej. 0.4s) mientras "cae" antes de hacer el daño real
+        yield return new WaitForSeconds(0.4f);
+
+        // 5. Aplicar daño y temblor de cámara
         if (jugador != null)
         {
             if (CameraShake.Instance != null) CameraShake.Instance.Shake(2.5f);
@@ -408,10 +501,49 @@ public class EnemyMelee : MonoBehaviour
             // Ampliamos un poco el rango real de explosión para ser justos si el enemigo sigue andando
             if (distanciaFinal <= rangoActivacionExplosion * 1.5f)
             {
-                jugador.GetComponent<PlayerHealth>().RecibirDano(danoExplosion);
+                jugador.GetComponent<PlayerHealth>().RecibirDano(danoExplosion, transform.position);
             }
         }
+
+        // 6. Esperamos a que termine el resto de la animación de explosión (0.8s) antes de destruirlo
+        yield return new WaitForSeconds(0.8f);
         Destroy(gameObject);
+    }
+
+    private IEnumerator RutinaAtaqueZombie()
+    {
+        estaOcupado = true;
+        puedeAtacarZombie = false;
+
+        if (rb != null) rb.linearVelocity = Vector2.zero;
+
+        // Disparar animación de ataque "Atacar" si existe
+        if (anim != null && tieneParametroAtacar)
+        {
+            anim.SetTrigger("Atacar");
+        }
+
+        // Breve anticipación del ataque (ej: 0.3 segundos) antes del golpe real
+        yield return new WaitForSeconds(0.3f);
+
+        // Comprobamos si el jugador sigue estando a nuestro alcance
+        if (jugador != null)
+        {
+            float dist = Vector2.Distance(transform.position, jugador.position);
+            if (dist <= rangoAtaqueZombie * 1.3f)
+            {
+                PlayerHealth ph = jugador.GetComponent<PlayerHealth>();
+                if (ph != null) ph.RecibirDano(danoPorContacto, transform.position);
+            }
+        }
+
+        // Recuperación del ataque
+        yield return new WaitForSeconds(0.4f);
+        estaOcupado = false;
+
+        // Tiempo de recarga entre ataques individuales
+        yield return new WaitForSeconds(Mathf.Max(0.1f, tiempoEntreAtaquesZombie - 0.7f));
+        puedeAtacarZombie = true;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -419,8 +551,23 @@ public class EnemyMelee : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             if (explota) return;
-            if (haceEmbestidas && !estaEmbistiendo) return;
-            collision.gameObject.GetComponent<PlayerHealth>().RecibirDano(danoPorContacto);
+            
+            // Si es el Toro y hace embestidas, solo hace daño si está embistiendo activamente
+            if (haceEmbestidas)
+            {
+                if (!estaEmbistiendo) return;
+            }
+            // Si es un zombie melee común, ignora el daño por simple contacto (solo daña con su animación/rutina de ataque)
+            else if (esZombie)
+            {
+                return;
+            }
+            
+            PlayerHealth ph = collision.gameObject.GetComponent<PlayerHealth>();
+            if (ph != null)
+            {
+                ph.RecibirDano(danoPorContacto, transform.position);
+            }
         }
     }
 
@@ -477,5 +624,10 @@ public class EnemyMelee : MonoBehaviour
         explosionIniciada = false;
 
         if (spriteRenderer != null) spriteRenderer.color = colorOriginal;
+
+        if (anim != null)
+        {
+            if (tieneParametroCharging) anim.SetBool("isCharging", false);
+        }
     }
 }
