@@ -8,6 +8,8 @@ public class QuestDoor : MonoBehaviour
 
     [Tooltip("Sprite que se mostrará cuando la puerta esté abierta")]
     public Sprite openSprite;
+    [Tooltip("Sprite que se mostrará cuando la puerta esté desbloqueada pero todavía cerrada")]
+    public Sprite unlockedSprite;
     public GameObject bloqueo;
 
     private SpriteRenderer spriteRenderer;
@@ -146,9 +148,16 @@ public class QuestDoor : MonoBehaviour
     private void AbrirPuertaInstant()
     {
         isOpen = true;
-        if (spriteRenderer != null && openSprite != null)
+        if (spriteRenderer != null)
         {
-            spriteRenderer.sprite = openSprite;
+            if (unlockedSprite != null)
+            {
+                spriteRenderer.sprite = unlockedSprite;
+            }
+            else if (openSprite != null)
+            {
+                spriteRenderer.sprite = openSprite;
+            }
         }
 
         Collider2D doorCollider = GetComponent<Collider2D>();

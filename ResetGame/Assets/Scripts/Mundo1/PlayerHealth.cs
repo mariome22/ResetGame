@@ -27,12 +27,25 @@ public class PlayerHealth : MonoBehaviour
     [Tooltip("Panel UI que se muestra al morir")]
     public GameObject panelMuerte;
 
+    private bool tieneParametroMuerte = false;
+    private bool tieneParametroVelocidad = false;
+
     private void Start()
     {
         vidaActual = vidaMaxima;
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (spriteRenderer != null) colorOriginal = spriteRenderer.color;
+
+        Animator animator = GetComponent<Animator>();
+        if (animator != null)
+        {
+            foreach (AnimatorControllerParameter param in animator.parameters)
+            {
+                if (param.name == "Muerte") tieneParametroMuerte = true;
+                if (param.name == "Velocidad") tieneParametroVelocidad = true;
+            }
+        }
 
         ActualizarHUD();
     }
@@ -139,12 +152,20 @@ public class PlayerHealth : MonoBehaviour
             pc.enabled = false;
         }
 
+        // Detener físicas y velocidad para que el cuerpo no se deslice
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.simulated = false;
+        }
+
         // Intentar activar trigger de muerte en el Animator si existe
         Animator animator = GetComponent<Animator>();
         if (animator != null)
         {
-            animator.SetTrigger("Muerte");
-            animator.SetFloat("Velocidad", 0f);
+            if (tieneParametroMuerte) animator.SetTrigger("Muerte");
+            if (tieneParametroVelocidad) animator.SetFloat("Velocidad", 0f);
         }
 
         yield return new WaitForSeconds(1.0f);

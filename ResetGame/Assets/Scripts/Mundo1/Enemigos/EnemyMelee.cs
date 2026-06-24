@@ -202,7 +202,7 @@ public class EnemyMelee : MonoBehaviour
             return;
         }
 
-        if (esZombie && distancia <= rangoAtaqueZombie && puedeAtacarZombie && !estaOcupado && !explosionIniciada)
+        if (esZombie && !haceEmbestidas && !explota && distancia <= rangoAtaqueZombie && puedeAtacarZombie && !estaOcupado && !explosionIniciada)
         {
             if (rb != null) rb.linearVelocity = Vector2.zero;
             StartCoroutine(RutinaAtaqueZombie());

@@ -42,12 +42,26 @@ public class PlayerController : MonoBehaviour
 
     private Camera cam;
 
+    private bool tieneParametroAtacar = false;
+
     private void Awake()
     {
         balasActualesCargador = balasMaximasCargador;
         rb = GetComponent<Rigidbody2D>();
         cam = Camera.main;
-        anim = GetComponent<Animator>(); // <-- AÃƒâ€˜ADIDO: Buscamos el Animator al arrancar
+        anim = GetComponent<Animator>(); // <-- AÑADIDO: Buscamos el Animator al arrancar
+
+        if (anim != null)
+        {
+            foreach (AnimatorControllerParameter param in anim.parameters)
+            {
+                if (param.name == "Atacar")
+                {
+                    tieneParametroAtacar = true;
+                    break;
+                }
+            }
+        }
     }
 
     private void Start()
@@ -241,6 +255,11 @@ public class PlayerController : MonoBehaviour
 
     private void RealizarDisparo()
     {
+        if (anim != null && tieneParametroAtacar)
+        {
+            anim.SetTrigger("Atacar");
+        }
+
         balasActualesCargador--;
         ActualizarHUDArma();
         if (prefabProyectil != null)
@@ -278,6 +297,11 @@ public class PlayerController : MonoBehaviour
 
     private void RealizarAtaque()
     {
+        if (anim != null && tieneParametroAtacar)
+        {
+            anim.SetTrigger("Atacar");
+        }
+
         Vector2 centroDelAtaque = (Vector2)transform.position + (direccionMirada * distanciaAtaque);
 
         if (prefabEfectoAtaque != null)

@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8e2169f33c5f4e4e842e1d545b9a7f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter
-  prefabProyectil: {fileID: 3979685118916425157, guid: 72666a1055edd0c44a96ba7791e758b4, type: 3}
+  prefabProyectil: {fileID: 3979685118916425157, guid: 72f6d209637adb7409d9967d20934ebc, type: 3}
   ritmoDeDisparo: 3
   variacionRitmo: 0.5
   rangoDeVision: 3
@@ -251,7 +251,7 @@ Animator:
   m_GameObject: {fileID: 903789728561125720}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 06b429d3901e3cc43ab615eed90b16d6, type: 2}
+  m_Controller: {fileID: 9100000, guid: 88e80987832f5bf4296e96038fc5c9f4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

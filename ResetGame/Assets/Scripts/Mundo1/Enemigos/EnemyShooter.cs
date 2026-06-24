@@ -58,6 +58,9 @@ public class EnemyShooter : MonoBehaviour
         new Vector2(1, -1).normalized, new Vector2(-1, -1).normalized
     };
 
+    private Animator anim;
+    private bool tieneParametroAtacar = false;
+
     private void Start()
     {
         GameObject objJugador = GameObject.FindGameObjectWithTag("Player");
@@ -70,6 +73,19 @@ public class EnemyShooter : MonoBehaviour
         if (spriteRenderer != null) colorOriginal = spriteRenderer.color;
 
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+
+        if (anim != null)
+        {
+            foreach (AnimatorControllerParameter param in anim.parameters)
+            {
+                if (param.name == "Atacar")
+                {
+                    tieneParametroAtacar = true;
+                    break;
+                }
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -313,42 +329,62 @@ public class EnemyShooter : MonoBehaviour
 
         if (jugador != null)
         {
-            Vector2 direccionBase = (objetivoApuntado - (Vector2)transform.position).normalized;
-
-            if (disparoSimultaneo)
+            // --- DISPARO / ANIMACIÓN ---
+            // 1. Lanzamos la animación de ataque
+            if (anim != null && tieneParametroAtacar)
             {
-                //ESCOPETA
-                float anguloInicial = -anguloDeDispersion;
-                float pasoAngulo = 0f;
-
-                if (proyectilesPorAtaque > 1)
-                {
-                    pasoAngulo = (anguloDeDispersion * 2f) / (proyectilesPorAtaque - 1);
-                }
-
-                for (int i = 0; i < proyectilesPorAtaque; i++)
-                {
-                    float anguloActual = anguloInicial + (pasoAngulo * i);
-                    Vector3 direccionFinal = Quaternion.Euler(0, 0, anguloActual) * direccionBase;
-
-                    GameObject bala = Instantiate(prefabProyectil, transform.position, Quaternion.identity);
-                    bala.GetComponent<EnemyProjectile>().Disparar(direccionFinal);
-                }
+                anim.SetTrigger("Atacar");
             }
-            else
+
+            // 2. Esperamos un instante muy breve de anticipación (0.15 segundos) para que la animación empiece y sea coherente con el proyectil
+            yield return new WaitForSeconds(0.15f);
+
+            // Re-verificar si el jugador sigue vivo/existe tras la espera
+            if (jugador != null)
             {
-                //FUSIL / FRANCOTIRADOR
-                for (int i = 0; i < proyectilesPorAtaque; i++)
+                // Si no hay tiempo de carga, recalculamos la dirección al instante del disparo tras la breve espera de animación
+                if (tiempoDeCarga <= 0)
                 {
-                    float anguloRandom = Random.Range(-anguloDeDispersion, anguloDeDispersion);
-                    Vector3 direccionFinal = Quaternion.Euler(0, 0, anguloRandom) * direccionBase;
+                    objetivoApuntado = jugador.position;
+                }
 
-                    GameObject bala = Instantiate(prefabProyectil, transform.position, Quaternion.identity);
-                    bala.GetComponent<EnemyProjectile>().Disparar(direccionFinal);
+                Vector2 direccionBase = (objetivoApuntado - (Vector2)transform.position).normalized;
 
-                    if (tiempoEntreBalas > 0)
+                if (disparoSimultaneo)
+                {
+                    //ESCOPETA
+                    float anguloInicial = -anguloDeDispersion;
+                    float pasoAngulo = 0f;
+
+                    if (proyectilesPorAtaque > 1)
                     {
-                        yield return new WaitForSeconds(tiempoEntreBalas);
+                        pasoAngulo = (anguloDeDispersion * 2f) / (proyectilesPorAtaque - 1);
+                    }
+
+                    for (int i = 0; i < proyectilesPorAtaque; i++)
+                    {
+                        float anguloActual = anguloInicial + (pasoAngulo * i);
+                        Vector3 direccionFinal = Quaternion.Euler(0, 0, anguloActual) * direccionBase;
+
+                        GameObject bala = Instantiate(prefabProyectil, transform.position, Quaternion.identity);
+                        bala.GetComponent<EnemyProjectile>().Disparar(direccionFinal);
+                    }
+                }
+                else
+                {
+                    //FUSIL / FRANCOTIRADOR
+                    for (int i = 0; i < proyectilesPorAtaque; i++)
+                    {
+                        float anguloRandom = Random.Range(-anguloDeDispersion, anguloDeDispersion);
+                        Vector3 direccionFinal = Quaternion.Euler(0, 0, anguloRandom) * direccionBase;
+
+                        GameObject bala = Instantiate(prefabProyectil, transform.position, Quaternion.identity);
+                        bala.GetComponent<EnemyProjectile>().Disparar(direccionFinal);
+
+                        if (tiempoEntreBalas > 0)
+                        {
+                            yield return new WaitForSeconds(tiempoEntreBalas);
+                        }
                     }
                 }
             }
