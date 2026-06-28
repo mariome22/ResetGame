@@ -20,6 +20,8 @@ public class EnemyShooter : MonoBehaviour
     public LayerMask obstacleLayer;
     public float distanciaRaycastObstaculos = 1f;
     public float radioObstaculos = 0.4f;
+    [Tooltip("Ponderación del peligro para esquivar obstáculos. Valores más altos esquivan con más fuerza.")]
+    public float factorEvasion = 1.5f;
 
     [Header("Ajustes de Ráfaga / Escopeta")]
     public int proyectilesPorAtaque = 1;
@@ -181,11 +183,11 @@ public class EnemyShooter : MonoBehaviour
             intereses[i] = Mathf.Max(0f, dot);
         }
 
-        // 2. Calcular peligro basado en Raycast
+        // 2. Calcular peligro basado en CircleCast (con grosor)
         for (int i = 0; i < direccionesMovimiento.Length; i++)
         {
             Vector2 dir = direccionesMovimiento[i];
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, distanciaRaycastObstaculos, obstacleLayer);
+            RaycastHit2D hit = Physics2D.CircleCast(transform.position, radioObstaculos, dir, distanciaRaycastObstaculos, obstacleLayer);
             float peligro = 0f;
 
             if (hit.collider != null && hit.collider.gameObject != this.gameObject)
@@ -206,26 +208,25 @@ public class EnemyShooter : MonoBehaviour
             }
         }
 
-        // 3. Evaluar la mejor dirección (interés - peligro)
-        float mejorScore = -Mathf.Infinity;
+        // 3. Evaluar dirección mediante la suma ponderada (Vector Blend)
+        Vector2 direccionFinal = Vector2.zero;
         for (int i = 0; i < direccionesMovimiento.Length; i++)
         {
-            // Ponderamos el peligro multiplicándolo por un factor de evasión
-            float score = intereses[i] - peligros[i] * 1.5f;
-            if (score > mejorScore)
-            {
-                mejorScore = score;
-                mejorDireccion = direccionesMovimiento[i];
-            }
+            float score = intereses[i] - peligros[i] * factorEvasion;
+            score = Mathf.Max(0f, score);
+            direccionFinal += direccionesMovimiento[i] * score;
         }
 
-        // Si todas las direcciones están extremadamente penalizadas, por defecto ir al objetivo
-        if (mejorDireccion == Vector2.zero)
+        if (direccionFinal == Vector2.zero)
         {
-            mejorDireccion = direccionAlObjetivo;
+            direccionFinal = direccionAlObjetivo;
+        }
+        else
+        {
+            direccionFinal = direccionFinal.normalized;
         }
 
-        rb.linearVelocity = mejorDireccion * velocidad;
+        rb.linearVelocity = direccionFinal * velocidad;
     }
 
     private IEnumerator RutinaDeAtaque()

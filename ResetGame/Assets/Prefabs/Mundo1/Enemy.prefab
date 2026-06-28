@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMelee
   velocidadNormal: 2
-  rangoDeteccion: 2
+  rangoDeteccion: 3
   capaBloqueoVision:
     serializedVersion: 2
     m_Bits: 72
@@ -85,7 +85,7 @@ MonoBehaviour:
   puntosPatrulla: []
   tiempoEsperaPatrulla: 1
   velocidadPatrulla: 0.75
-  rangoPerdida: 4
+  rangoPerdida: 5
   danoPorContacto: 1
   rangoAtaqueZombie: 1.5
   tiempoEntreAtaquesZombie: 1.5
@@ -100,8 +100,9 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 8
-  distanciaRaycast: 1
-  radioObstaculos: 0.2
+  distanciaRaycast: 1.5
+  radioObstaculos: 0.5
+  factorEvasion: 3
 --- !u!212 &5525596752182374451
 SpriteRenderer:
   serializedVersion: 2

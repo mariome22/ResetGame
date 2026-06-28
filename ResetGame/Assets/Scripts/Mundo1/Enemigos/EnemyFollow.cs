@@ -7,6 +7,8 @@ public class EnemyFollow : MonoBehaviour
     public float distanciaRaycast = 1f;
     [Tooltip("El radio del grosor del enemigo para no atascarse en las esquinas")]
     public float radioObstaculos = 0.4f;
+    [Tooltip("Ponderación del peligro para esquivar obstáculos. Valores más altos esquivan con más fuerza.")]
+    public float factorEvasion = 1.5f;
 
     [Header("Movimiento")]
     public float velocidad = 2f;
@@ -80,11 +82,11 @@ public class EnemyFollow : MonoBehaviour
             intereses[i] = Mathf.Max(0f, dot);
         }
 
-        // 2. Calcular peligro basado en Raycast
+        // 2. Calcular peligro basado en CircleCast (con grosor)
         for (int i = 0; i < 8; i++)
         {
             Vector2 dir = direcciones[i];
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, dir, distanciaRaycast, obstacleLayer);
+            RaycastHit2D hit = Physics2D.CircleCast(transform.position, radioObstaculos, dir, distanciaRaycast, obstacleLayer);
             float peligro = 0f;
 
             if (hit.collider != null && hit.collider.gameObject != this.gameObject)
@@ -102,65 +104,56 @@ public class EnemyFollow : MonoBehaviour
             peligros[i] = peligro;
         }
 
-        // 3. Evaluar la mejor dirección (interés - peligro)
-        float mejorScore = -Mathf.Infinity;
+        // 3. Evaluar dirección mediante la suma ponderada (Vector Blend)
+        Vector2 direccionFinal = Vector2.zero;
         for (int i = 0; i < 8; i++)
         {
-            // Ponderamos el peligro multiplicándolo por un factor de evasión
-            float score = intereses[i] - peligros[i] * 1.5f;
-            if (score > mejorScore)
-            {
-                mejorScore = score;
-                mejorDireccion = direcciones[i];
-            }
+            float score = intereses[i] - peligros[i] * factorEvasion;
+            score = Mathf.Max(0f, score);
+            direccionFinal += direcciones[i] * score;
         }
 
-        // Si todas las direcciones están extremadamente penalizadas, por defecto ir al objetivo
-        if (mejorDireccion == Vector2.zero)
+        if (direccionFinal == Vector2.zero)
         {
-            mejorDireccion = direccionAlObjetivo;
-        }
-
-        if (mejorDireccion != Vector2.zero)
-        {
-            float velocidadActual = velocidad;
-            Vector2 direccionFinal = mejorDireccion;
-
-            if (esZombie)
-            {
-                // Fase 3: Frenesí
-                float distanciaAlJugador = Vector2.Distance(transform.position, jugador.position);
-                if (distanciaAlJugador <= distanciaFrenesi)
-                {
-                    velocidadActual *= multiplicadorFrenesi;
-                }
-                else
-                {
-                    // Fase 2: Pasos Rápidos
-                    if (tiempoPasoRapidoRestante > 0)
-                    {
-                        tiempoPasoRapidoRestante -= Time.fixedDeltaTime;
-                        velocidadActual *= multiplicadorPasoRapido;
-                    }
-                    else if (Random.value < probabilidadPasoRapido * Time.fixedDeltaTime)
-                    {
-                        tiempoPasoRapidoRestante = duracionPasoRapido;
-                    }
-                }
-
-                // Fase 1: Tambaleo
-                Vector2 perpendicular = new Vector2(-mejorDireccion.y, mejorDireccion.x);
-                float factorTambaleo = Mathf.Sin(Time.time * velocidadTambaleo) * amplitudTambaleo;
-                
-                direccionFinal = (mejorDireccion + perpendicular * factorTambaleo).normalized;
-            }
-
-            Debug.DrawRay(transform.position, direccionFinal * distanciaRaycast, Color.green);
-            rb.linearVelocity = direccionFinal * velocidadActual;
+            direccionFinal = direccionAlObjetivo;
         }
         else
         {
-            rb.linearVelocity = Vector2.zero;
+            direccionFinal = direccionFinal.normalized;
         }
+
+        float velocidadActual = velocidad;
+
+        if (esZombie)
+        {
+            // Fase 3: Frenesí
+            float distanciaAlJugador = Vector2.Distance(transform.position, jugador.position);
+            if (distanciaAlJugador <= distanciaFrenesi)
+            {
+                velocidadActual *= multiplicadorFrenesi;
+            }
+            else
+            {
+                // Fase 2: Pasos Rápidos
+                if (tiempoPasoRapidoRestante > 0)
+                {
+                    tiempoPasoRapidoRestante -= Time.fixedDeltaTime;
+                    velocidadActual *= multiplicadorPasoRapido;
+                }
+                else if (Random.value < probabilidadPasoRapido * Time.fixedDeltaTime)
+                {
+                    tiempoPasoRapidoRestante = duracionPasoRapido;
+                }
+            }
+
+            // Fase 1: Tambaleo
+            Vector2 perpendicular = new Vector2(-direccionFinal.y, direccionFinal.x);
+            float factorTambaleo = Mathf.Sin(Time.time * velocidadTambaleo) * amplitudTambaleo;
+            
+            direccionFinal = (direccionFinal + perpendicular * factorTambaleo).normalized;
+        }
+
+        Debug.DrawRay(transform.position, direccionFinal * distanciaRaycast, Color.green);
+        rb.linearVelocity = direccionFinal * velocidadActual;
     }
 }
