@@ -615,6 +615,7 @@ public class EnemyMelee : MonoBehaviour
         estaEmbistiendo = false;
         puedeEmbestir = true;
         explosionIniciada = false;
+        puedeAtacarZombie = true; // <-- CORREGIDO: reactivar la capacidad de atacar si se interrumpió por knockback
 
         if (spriteRenderer != null) spriteRenderer.color = colorOriginal;
 

@@ -2616,7 +2616,7 @@ MonoBehaviour:
   m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bef1df5a9a0b2724aa4cf640946148fb, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 658094059460496852, guid: bef1df5a9a0b2724aa4cf640946148fb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5218,7 +5218,7 @@ Transform:
   m_GameObject: {fileID: 741452941}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -22.76215, y: 23.6134, z: 0}
+  m_LocalPosition: {x: -18.862629, y: 6.194669, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8431,7 +8431,7 @@ Transform:
   m_GameObject: {fileID: 1110696655}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -24.39215, y: 23.6134, z: 0}
+  m_LocalPosition: {x: -20.49263, y: 6.194669, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -42525,7 +42525,7 @@ Transform:
   m_GameObject: {fileID: 1994510072}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -27.49215, y: 23.6134, z: 0}
+  m_LocalPosition: {x: -23.592628, y: 6.194669, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -43868,11 +43868,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6439962568429221387, guid: 3326c47a30b6fd040b95110d3594ccf7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.7695198
+      value: 0.13
       objectReference: {fileID: 0}
     - target: {fileID: 6439962568429221387, guid: 3326c47a30b6fd040b95110d3594ccf7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 16.19873
+      value: -1.22
       objectReference: {fileID: 0}
     - target: {fileID: 6439962568429221387, guid: 3326c47a30b6fd040b95110d3594ccf7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -44703,10 +44703,6 @@ PrefabInstance:
     - target: {fileID: 684007592919031421, guid: 5a4791bca046c6248a5c264a7bae2323, type: 3}
       propertyPath: dashVelocidad
       value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 684007592919031421, guid: 5a4791bca046c6248a5c264a7bae2323, type: 3}
-      propertyPath: distanciaVisualTajo
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2321535561617637065, guid: 5a4791bca046c6248a5c264a7bae2323, type: 3}
       propertyPath: m_Name

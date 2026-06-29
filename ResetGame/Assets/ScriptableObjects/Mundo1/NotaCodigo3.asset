@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58dff55e032366d46876b9985e2c8d86, type: 3}
+  m_Name: NotaCodigo3
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  nombreObjeto: Diario de L.S.K. - El final
+  descripcion: Nota sucia
+  iconoObjeto: {fileID: -5229332913767248205, guid: 297af7a8c7ed6e549a4ca8291f831b23, type: 3}
+  prefabMundo: {fileID: 0}
+  tipo: 5
+  esAcumulable: 0
+  cantidadMaxima: 1
+  valorEfecto: 0
+  contenidoDocumento: "22/10/2065: Hoy es mi cumplea\xF1os, una fecha tan importante
+    para m\xED que el destino ha decidido que quiz\xE1s hoy sea este mi \xFAltimo
+    d\xEDa.\nLlevo 3 d\xEDas aqu\xED, la herida del brazo ha resultado ser infecci\xF3n
+    y calculo que de aqu\xED a la media noche ya ser\xE9 uno de ellos, he perdido
+    mi pistola fuera, asi que ni siquiera tendr\xE9 una muerte digna. Si alguien,
+    o t\xFA, Joel, encuentras esto, acaba conmigo en cuanto me veas y sal de aqu\xED,
+    nos veremos en la otra vida amigo.\nFdo: L.S.K."

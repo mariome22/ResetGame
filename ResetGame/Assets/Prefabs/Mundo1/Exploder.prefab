@@ -101,7 +101,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   distanciaRaycast: 1
-  radioObstaculos: 0.4
+  radioObstaculos: 0.9
+  factorEvasion: 10
 --- !u!212 &2878084706116038341
 SpriteRenderer:
   serializedVersion: 2

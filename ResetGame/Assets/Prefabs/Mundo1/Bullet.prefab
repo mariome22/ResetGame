@@ -49,10 +49,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyProjectile
   velocidad: 7
   dano: 1
-  tiempoDeVida: 3
+  tiempoDeVida: 1.5
   capasColision:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 72
 --- !u!212 &933022799992618515
 SpriteRenderer:
   serializedVersion: 2

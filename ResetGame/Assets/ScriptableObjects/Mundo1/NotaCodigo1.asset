@@ -10,14 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58dff55e032366d46876b9985e2c8d86, type: 3}
-  m_Name: NotaCodigo 2
+  m_Name: NotaCodigo1
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  nombreObjeto: 'Nota: 2010'
-  descripcion: Nota sucia
+  nombreObjeto: Diario de L.S.K. - El infierno
+  descripcion: 
   iconoObjeto: {fileID: -5229332913767248205, guid: 297af7a8c7ed6e549a4ca8291f831b23, type: 3}
   prefabMundo: {fileID: 0}
   tipo: 5
   esAcumulable: 0
   cantidadMaxima: 1
   valorEfecto: 0
-  contenidoDocumento: "Trabajando aqu\xED desde 2010"
+  contenidoDocumento: "19/10/2065: Estoy en la calle en la que hasta hace poco hac\xEDa
+    mi vida normal, trabajaba en esas oficinas y llevaba a mis hijos al parque de
+    al lado, todo parec\xEDa id\xEDlico... Ahora esta misma calle es la c\xE1rcel
+    que me tiene encerrado hasta que muera seguramente, no hay forma de salir de
+    aqu\xED y mucho menos de hacerlo con vida. Me han herido en el brazo, creo que
+    no es grave pero all menos tengo mi pistola para defenderme...\nFdo: L.S.K."

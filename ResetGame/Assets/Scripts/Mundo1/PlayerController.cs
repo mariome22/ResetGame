@@ -26,7 +26,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float distanciaAtaque = 1f;
     [SerializeField] private float rangoAtaque = 0.8f;
     public GameObject prefabEfectoAtaque;
-    public float distanciaVisualTajo = 1.2f;
+    public float distanciaVisualTajo = 0.8f;
+    [SerializeField] private float cooldownMelee = 0.4f;
+    private float tiempoSiguienteAtaqueMelee = 0f;
+    [Tooltip("Retraso en segundos para aplicar el daño tras iniciar el ataque visual (sincronía)")]
+    [SerializeField] private float retrasoDanoMelee = 0.08f;
 
     [Header("Ajustes de Ataque a Distancia")]
     public GameObject prefabProyectil;
@@ -218,7 +222,11 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                RealizarAtaque();
+                if (Time.time >= tiempoSiguienteAtaqueMelee)
+                {
+                    tiempoSiguienteAtaqueMelee = Time.time + cooldownMelee;
+                    RealizarAtaque();
+                }
             }
         }
     }
@@ -302,24 +310,33 @@ public class PlayerController : MonoBehaviour
             anim.SetTrigger("Atacar");
         }
 
-        Vector2 centroDelAtaque = (Vector2)transform.position + (direccionMirada * distanciaAtaque);
-
         if (prefabEfectoAtaque != null)
         {
             //Instanciamos el sprite del slash
             GameObject efecto = Instantiate(prefabEfectoAtaque, transform.position, Quaternion.identity);
 
-            //Calculamos el ÃƒÂ¡ngulo hacia el ratÃƒÂ³n
+            //Calculamos el ángulo hacia el ratón
             float anguloCentral = Mathf.Atan2(direccionMirada.y, direccionMirada.x) * Mathf.Rad2Deg;
 
-            //Iniciamos la animaciÃƒÂ³n
+            //Iniciamos la animación
             StartCoroutine(AnimarTajoVisual(efecto, anguloCentral));
         }
 
+        // Iniciamos la corrutina para aplicar el daño con un ligero retraso (sincronía visual)
+        StartCoroutine(RutinaDanoMelee(direccionMirada));
+    }
+
+    private IEnumerator RutinaDanoMelee(Vector2 direccionAlAtacar)
+    {
+        yield return new WaitForSeconds(retrasoDanoMelee);
+
+        Vector2 centroDelAtaque = (Vector2)transform.position + (direccionAlAtacar * distanciaAtaque);
         Collider2D[] objetosGolpeados = Physics2D.OverlapCircleAll(centroDelAtaque, rangoAtaque);
 
         foreach (Collider2D objeto in objetosGolpeados)
         {
+            if (objeto == null) continue;
+
             if (objeto.CompareTag("Enemy"))
             {
                 EnemyBase scriptEnemigo = objeto.GetComponent<EnemyBase>();

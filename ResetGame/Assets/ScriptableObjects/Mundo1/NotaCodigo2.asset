@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58dff55e032366d46876b9985e2c8d86, type: 3}
+  m_Name: NotaCodigo2
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  nombreObjeto: Diario de L.S.K. - El coche
+  descripcion: Nota sucia
+  iconoObjeto: {fileID: -5229332913767248205, guid: 297af7a8c7ed6e549a4ca8291f831b23, type: 3}
+  prefabMundo: {fileID: 0}
+  tipo: 5
+  esAcumulable: 0
+  cantidadMaxima: 1
+  valorEfecto: 0
+  contenidoDocumento: "20/10/2065: La calle es un matadero, llevo 1 d\xEDa entero
+    escondi\xE9ndome de los federales, esos desalmados no paran de rastrear la zona
+    acabando con todo aquel que no sea de los suyos. Por suerte, he visto un coche
+    azul al final de la calle que aun tiene bater\xEDa y las llaves puestas, as\xED
+    que he bloqueado la bater\xEDa mediante un cierre por c\xF3digo para que los
+    federales no se lo lleven, no sin saber la fecha. Tengo que esperar a Joel 2
+    d\xEDas m\xE1s y podremos salir de aqui, ir\xE9 a mi oficina a seguir cur\xE1ndome
+    la herida del brazo y me encerrar\xE9 all\xED mientras tanto.\nFdo: L.S.K. "

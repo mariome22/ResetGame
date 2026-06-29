@@ -340,11 +340,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7125356803728754620, guid: d7d83ec715f0a28428eedd8f9a842a4a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 107.81
+      value: 108.05
       objectReference: {fileID: 0}
     - target: {fileID: 7125356803728754620, guid: d7d83ec715f0a28428eedd8f9a842a4a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6
+      value: -1.34
       objectReference: {fileID: 0}
     - target: {fileID: 7125356803728754620, guid: d7d83ec715f0a28428eedd8f9a842a4a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2135,11 +2135,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5015632764792319317, guid: c8be6e53758cb8545be005ebfceebee1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 50.78
+      value: 46.43
       objectReference: {fileID: 0}
     - target: {fileID: 5015632764792319317, guid: c8be6e53758cb8545be005ebfceebee1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.4
+      value: -6.44
       objectReference: {fileID: 0}
     - target: {fileID: 5015632764792319317, guid: c8be6e53758cb8545be005ebfceebee1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4349,6 +4349,10 @@ PrefabInstance:
     - target: {fileID: 4085844878680559385, guid: 3326c47a30b6fd040b95110d3594ccf7, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4085844878680559385, guid: 3326c47a30b6fd040b95110d3594ccf7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6439962568429221387, guid: 3326c47a30b6fd040b95110d3594ccf7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13011,12 +13015,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5015632764792319317, guid: 59f5e21713db70f4eaa6b1e1fcfa6d9e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7302
+      objectReference: {fileID: 0}
+    - target: {fileID: 5015632764792319317, guid: 59f5e21713db70f4eaa6b1e1fcfa6d9e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7302
+      objectReference: {fileID: 0}
+    - target: {fileID: 5015632764792319317, guid: 59f5e21713db70f4eaa6b1e1fcfa6d9e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7302
+      objectReference: {fileID: 0}
+    - target: {fileID: 5015632764792319317, guid: 59f5e21713db70f4eaa6b1e1fcfa6d9e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 70.91
+      value: 69.71
       objectReference: {fileID: 0}
     - target: {fileID: 5015632764792319317, guid: 59f5e21713db70f4eaa6b1e1fcfa6d9e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -26.11
+      value: -25.82
       objectReference: {fileID: 0}
     - target: {fileID: 5015632764792319317, guid: 59f5e21713db70f4eaa6b1e1fcfa6d9e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -14466,7 +14482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 978e3e9f4f187494a980a0f01d241058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KeypadController
-  correctCode: 1234
+  correctCode: 2210
   maxCodeLength: 4
   sceneToLoadOnCorrect: 
   keypadPanel: {fileID: 919324506}
@@ -17841,11 +17857,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2876842369739155999, guid: 19f5a2974844708459f7c8c1fbaf27d7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 73.98
+      value: 79.53
       objectReference: {fileID: 0}
     - target: {fileID: 2876842369739155999, guid: 19f5a2974844708459f7c8c1fbaf27d7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.19
+      value: 5.15
       objectReference: {fileID: 0}
     - target: {fileID: 2876842369739155999, guid: 19f5a2974844708459f7c8c1fbaf27d7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -71451,11 +71467,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4024629340933995399, guid: d43e254ef8040cd40b503552166135b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 42.48
+      value: 54.75
       objectReference: {fileID: 0}
     - target: {fileID: 4024629340933995399, guid: d43e254ef8040cd40b503552166135b0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.5
+      value: -6.83
       objectReference: {fileID: 0}
     - target: {fileID: 4024629340933995399, guid: d43e254ef8040cd40b503552166135b0, type: 3}
       propertyPath: m_LocalPosition.z

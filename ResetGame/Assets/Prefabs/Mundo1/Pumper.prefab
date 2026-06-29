@@ -72,15 +72,16 @@ MonoBehaviour:
   rangoDeVision: 3
   capaBloqueoVision:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 72
   velocidad: 1.5
   distanciaOptima: 4
   distanciaHuir: 3
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 72
   distanciaRaycastObstaculos: 1
   radioObstaculos: 0.4
+  factorEvasion: 1.5
   proyectilesPorAtaque: 3
   anguloDeDispersion: 5
   disparoSimultaneo: 1
