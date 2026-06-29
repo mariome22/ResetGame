@@ -22,7 +22,14 @@ public class MenuPausaPlatformer : MonoBehaviour
     private void Start()
     {
         // Asegurarnos de que los paneles empiecen cerrados al iniciar el nivel
-        if (canvasPausa != null) canvasPausa.SetActive(false);
+        if (canvasPausa != null)
+        {
+            if (canvasPausa == gameObject)
+            {
+                Debug.LogError($"[MenuPausaPlatformer] ERROR CRÍTICO en '{gameObject.name}': El script 'MenuPausaPlatformer' está en el mismo GameObject que 'canvasPausa'. Al desactivarlo en Start, el script se desactiva a sí mismo y nunca más detectará las teclas de pausa. Coloca el script en un GameObject padre que siempre esté activo y asigna el panel hijo a 'canvasPausa'.");
+            }
+            canvasPausa.SetActive(false);
+        }
         if (panelConfirmacionSalir != null) panelConfirmacionSalir.SetActive(false);
 
         // Auto-buscar botones si no están asignados en el inspector

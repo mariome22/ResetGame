@@ -570639,7 +570639,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1405772060892939165, guid: d3c1408410b76e04787620bbafb01973, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2899876237174233012, guid: d3c1408410b76e04787620bbafb01973, type: 3}
       propertyPath: sliderMusica
@@ -570727,11 +570727,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4987946550836422644, guid: d3c1408410b76e04787620bbafb01973, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5159237608787839198, guid: d3c1408410b76e04787620bbafb01973, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8562171244978082351, guid: d3c1408410b76e04787620bbafb01973, type: 3}
       propertyPath: m_Name
@@ -570739,11 +570739,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8562171244978082351, guid: d3c1408410b76e04787620bbafb01973, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9075539113254442601, guid: d3c1408410b76e04787620bbafb01973, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

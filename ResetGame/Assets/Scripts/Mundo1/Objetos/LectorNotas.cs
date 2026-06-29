@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using TMPro;
 using System.Collections;
 using UnityEngine.InputSystem;
@@ -17,6 +17,7 @@ public class LectorNotas : MonoBehaviour
 
     private bool leyendo = false;
     public bool EstaLeyendo => leyendo;
+    public bool CerradoEsteFrame { get; private set; } // Indica si la nota se ha cerrado en este frame exacto
     private bool esperandoLectura = false;
     private string notaPendiente = "";
     private float tiempoMantenido = 0f;
@@ -99,6 +100,7 @@ public class LectorNotas : MonoBehaviour
     {
         panelNotaGrande.SetActive(false);
         leyendo = false;
+        CerradoEsteFrame = true;
 
         if (juegoPausado)
         {
@@ -108,6 +110,11 @@ public class LectorNotas : MonoBehaviour
         {
             Time.timeScale = 1f;
         }
+    }
+
+    private void LateUpdate()
+    {
+        CerradoEsteFrame = false;
     }
     public void LeerNotaDesdeInventario(string textoDeLaNota)
     {

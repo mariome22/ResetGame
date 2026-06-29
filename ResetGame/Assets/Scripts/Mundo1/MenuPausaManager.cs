@@ -31,8 +31,8 @@ public class MenuPausaManager : MonoBehaviour
         // Abrir Opciones o Cerrar con la tecla ESC
         if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            // Evitar conflicto si el jugador está leyendo una nota
-            if (LectorNotas.Instance != null && LectorNotas.Instance.EstaLeyendo)
+            // Evitar conflicto si el jugador está leyendo una nota o la acaba de cerrar en este frame
+            if (LectorNotas.Instance != null && (LectorNotas.Instance.EstaLeyendo || LectorNotas.Instance.CerradoEsteFrame))
             {
                 return;
             }
