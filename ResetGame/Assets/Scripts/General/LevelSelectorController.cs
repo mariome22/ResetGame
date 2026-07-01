@@ -27,6 +27,10 @@ public class LevelSelectorController : MonoBehaviour
     [Tooltip("Consejos específicos de este mundo que se mostrarán en la pantalla de carga (opcional)")]
     [SerializeField] private List<string> consejosDeEsteMundo = new List<string>();
 
+    [Header("Elementos de Escena Adicionales")]
+    [Tooltip("Objetos adicionales en la escena (como fondos o luces) que se activarán al abrir el selector y se desactivarán al cerrarlo")]
+    [SerializeField] private List<GameObject> elementosAdicionalesEscena = new List<GameObject>();
+
     // Estados públicos para que otros scripts (como la Pausa) los consulten
     public static bool IsSelectorOpen { get; private set; } = false;
     public static bool CerradoEsteFrame { get; private set; } = false;
@@ -50,6 +54,12 @@ public class LevelSelectorController : MonoBehaviour
             Time.timeScale = 0f;
             IsSelectorOpen = true;
             CerradoEsteFrame = false;
+
+            // Activar fondos y luces adicionales
+            foreach (var elem in elementosAdicionalesEscena)
+            {
+                if (elem != null) elem.SetActive(true);
+            }
             
             ActualizarBotones();
         }
@@ -65,6 +75,12 @@ public class LevelSelectorController : MonoBehaviour
             Time.timeScale = 1f;
             IsSelectorOpen = false;
             CerradoEsteFrame = true;
+
+            // Desactivar fondos y luces adicionales
+            foreach (var elem in elementosAdicionalesEscena)
+            {
+                if (elem != null) elem.SetActive(false);
+            }
         }
     }
 
@@ -129,17 +145,18 @@ public class LevelSelectorController : MonoBehaviour
     {
         // Reanudar tiempo antes de cargar para que el juego continúe con normalidad
         Time.timeScale = 1f;
+        IsSelectorOpen = false; // Resetear la bandera estática para evitar bloqueos en la nueva escena
 
         if (SceneTransitionManager.Instance != null)
         {
             // Cargar usando el fundido a negro simple (original)
+            // No llamamos a CerrarMenu() aquí para que el menú de niveles y el fondo permanezcan visibles mientras la pantalla se funde a negro.
             SceneTransitionManager.Instance.LoadSceneWithFade(nombreEscena);
         }
         else
         {
+            CerrarMenu();
             UnityEngine.SceneManagement.SceneManager.LoadScene(nombreEscena);
         }
-
-        CerrarMenu();
     }
 }

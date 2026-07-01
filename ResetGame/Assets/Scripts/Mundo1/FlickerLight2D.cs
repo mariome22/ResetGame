@@ -12,13 +12,17 @@ public class FlickerLight2D : MonoBehaviour
     public float intensidadMinima = 0.4f;
     public float intensidadMaxima = 1.6f;
 
-    [Header("Ajustes del Parpadeo")]
-    [Tooltip("Frecuencia con la que cambia la intensidad (segundos)")]
+    [Header("Ajustes del Parpadeo / Variación")]
+    [Tooltip("Frecuencia o velocidad con la que cambia la intensidad")]
     public float velocidadParpadeo = 0.08f;
 
-    [Tooltip("Probabilidad de que ocurra un micro-apagón (glitch) por cambio")]
+    [Tooltip("Probabilidad de que ocurra un micro-apagón (glitch) por cambio (solo modo parpadeo errático)")]
     [Range(0f, 1f)]
     public float probabilidadGlitch = 0.1f;
+
+    [Header("Variación Suave (Nubes/Ambiente)")]
+    [Tooltip("Si está activo, la intensidad cambiará de forma suave y continua usando ruido de Perlin en lugar de parpadeos bruscos")]
+    public bool variacionSuave = false;
 
     public bool IsGlitching { get; private set; }
 
@@ -38,22 +42,37 @@ public class FlickerLight2D : MonoBehaviour
 
     private void Update()
     {
-        if (Time.time < siguienteCambio) return;
-
-        siguienteCambio = Time.time + velocidadParpadeo;
-
         float nuevaIntensidad;
 
-        // Decidir si hay un mini "apagón" (glitch errático)
-        if (Random.value < probabilidadGlitch)
+        if (variacionSuave)
         {
-            nuevaIntensidad = Random.Range(0.05f, intensidadMinima);
-            IsGlitching = true;
+            // Variación suave usando ruido de Perlin (se ejecuta cada frame para máxima fluidez)
+            // Se usa la posición del objeto como desfase (offset) para que las luces no pulsen idénticamente al mismo tiempo
+            float offset = (transform.position.x * 12.3f) + (transform.position.y * 7.7f);
+            float t = (Time.unscaledTime * velocidadParpadeo) + offset;
+            float ruido = Mathf.PerlinNoise(t, 0f);
+            
+            nuevaIntensidad = Mathf.Lerp(intensidadMinima, intensidadMaxima, ruido);
+            IsGlitching = false;
         }
         else
         {
-            nuevaIntensidad = Random.Range(intensidadMinima, intensidadMaxima);
-            IsGlitching = false;
+            // Parpadeo errático clásico (neon, pantallas, glitches)
+            // IMPORTANTE: Se usa Time.unscaledTime para que funcione incluso si el juego está pausado (Time.timeScale = 0)
+            if (Time.unscaledTime < siguienteCambio) return;
+
+            siguienteCambio = Time.unscaledTime + velocidadParpadeo;
+
+            if (Random.value < probabilidadGlitch)
+            {
+                nuevaIntensidad = Random.Range(0.05f, intensidadMinima);
+                IsGlitching = true;
+            }
+            else
+            {
+                nuevaIntensidad = Random.Range(intensidadMinima, intensidadMaxima);
+                IsGlitching = false;
+            }
         }
 
         // Aplicar al componente que esté presente

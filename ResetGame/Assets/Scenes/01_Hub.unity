@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 47903955}
   - component: {fileID: 47903954}
+  - component: {fileID: 47903956}
   m_Layer: 0
   m_Name: Marco3
   m_TagString: Untagged
@@ -152,11 +153,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 3
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 21300000, guid: 119f93d0bcbf1e743bf5fcf237507d39, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -234,6 +235,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &47903956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47903953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &76684010
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,6 +353,8 @@ MonoBehaviour:
   coresRequeridos: 0000000001000000
   textoCoresActuales: {fileID: 0}
   consejosDeEsteMundo: []
+  elementosAdicionalesEscena:
+  - {fileID: 1547797310}
 --- !u!1 &178089104
 GameObject:
   m_ObjectHideFlags: 0
@@ -2680,6 +2700,7 @@ GameObject:
   m_Component:
   - component: {fileID: 287586698}
   - component: {fileID: 287586697}
+  - component: {fileID: 287586699}
   m_Layer: 0
   m_Name: Apertura
   m_TagString: Untagged
@@ -2703,11 +2724,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 3
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 21300000, guid: 119f93d0bcbf1e743bf5fcf237507d39, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -2774,6 +2795,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &287586699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287586696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &306743340
 GameObject:
   m_ObjectHideFlags: 0
@@ -4311,8 +4349,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -118348135
+  m_SortingLayer: 16
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 4707410541490527644, guid: 18106587de1c56943b4d03c13ea5e529, type: 3}
@@ -4333,12 +4371,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 446030049}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 981.4387, y: 537.3833, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -122.85474, y: -2.6566772, z: 0}
   m_LocalScale: {x: 12.089613, y: 12.089613, z: 12.089613}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &455681316 stripped
 MonoBehaviour:
@@ -4498,6 +4536,7 @@ GameObject:
   m_Component:
   - component: {fileID: 538256342}
   - component: {fileID: 538256341}
+  - component: {fileID: 538256343}
   m_Layer: 0
   m_Name: Ventana
   m_TagString: Untagged
@@ -4521,11 +4560,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.766947, b: 0.3915094, a: 1}
   m_Intensity: 5
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -4572,6 +4611,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &538256343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538256340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &543268672
 GameObject:
   m_ObjectHideFlags: 0
@@ -26196,6 +26252,7 @@ MonoBehaviour:
   coresRequeridos: 0200000003000000
   textoCoresActuales: {fileID: 0}
   consejosDeEsteMundo: []
+  elementosAdicionalesEscena: []
 --- !u!114 &648028391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26244,6 +26301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 669417010}
   - component: {fileID: 669417009}
+  - component: {fileID: 669417011}
   m_Layer: 0
   m_Name: Marco2
   m_TagString: Untagged
@@ -26267,11 +26325,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 3
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 21300000, guid: 119f93d0bcbf1e743bf5fcf237507d39, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -26352,6 +26410,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &669417011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 669417008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &710422015
 GameObject:
   m_ObjectHideFlags: 0
@@ -28062,6 +28137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 885694791}
   - component: {fileID: 885694790}
+  - component: {fileID: 885694792}
   m_Layer: 0
   m_Name: Cortina4
   m_TagString: Untagged
@@ -28085,11 +28161,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 21300000, guid: 119f93d0bcbf1e743bf5fcf237507d39, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -28162,6 +28238,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &885694792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885694789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &886218480
 GameObject:
   m_ObjectHideFlags: 0
@@ -28172,6 +28265,7 @@ GameObject:
   m_Component:
   - component: {fileID: 886218482}
   - component: {fileID: 886218481}
+  - component: {fileID: 886218483}
   m_Layer: 0
   m_Name: Ventana (9)
   m_TagString: Untagged
@@ -28195,11 +28289,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 5
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -28246,6 +28340,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &886218483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886218480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &905464745
 GameObject:
   m_ObjectHideFlags: 0
@@ -28328,6 +28439,7 @@ GameObject:
   m_Component:
   - component: {fileID: 939329666}
   - component: {fileID: 939329665}
+  - component: {fileID: 939329667}
   m_Layer: 0
   m_Name: Ventana (4)
   m_TagString: Untagged
@@ -28351,11 +28463,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 5
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -28402,6 +28514,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &939329667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939329664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &979963160
 GameObject:
   m_ObjectHideFlags: 0
@@ -28569,7 +28698,8 @@ Transform:
   m_LocalPosition: {x: -9, y: 2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1547797311}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1068683861
@@ -28696,6 +28826,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1074653023}
   - component: {fileID: 1074653022}
+  - component: {fileID: 1074653024}
   m_Layer: 0
   m_Name: Ventana (3)
   m_TagString: Untagged
@@ -28719,11 +28850,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 5
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -28770,6 +28901,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1074653024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074653021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &1077829920
 GameObject:
   m_ObjectHideFlags: 0
@@ -28827,6 +28975,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1096407879}
   - component: {fileID: 1096407878}
+  - component: {fileID: 1096407880}
   m_Layer: 0
   m_Name: Cortina2
   m_TagString: Untagged
@@ -28850,11 +28999,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 21300000, guid: 119f93d0bcbf1e743bf5fcf237507d39, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -29019,6 +29168,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1096407880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096407877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &1115007643
 GameObject:
   m_ObjectHideFlags: 0
@@ -29506,6 +29672,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1202508061}
   - component: {fileID: 1202508060}
+  - component: {fileID: 1202508062}
   m_Layer: 0
   m_Name: Ventana (5)
   m_TagString: Untagged
@@ -29529,11 +29696,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 5
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -29580,6 +29747,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1202508062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202508059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &1236906175
 GameObject:
   m_ObjectHideFlags: 0
@@ -29590,6 +29774,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1236906177}
   - component: {fileID: 1236906176}
+  - component: {fileID: 1236906178}
   m_Layer: 0
   m_Name: Ventana (1)
   m_TagString: Untagged
@@ -29613,11 +29798,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 5
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -29664,6 +29849,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1236906178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1236906175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &1241849735
 GameObject:
   m_ObjectHideFlags: 0
@@ -29811,6 +30013,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1273713869}
   - component: {fileID: 1273713868}
+  - component: {fileID: 1273713870}
   m_Layer: 0
   m_Name: Repisa
   m_TagString: Untagged
@@ -29834,11 +30037,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 3
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 21300000, guid: 119f93d0bcbf1e743bf5fcf237507d39, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -29919,6 +30122,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1273713870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273713867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &1338081087
 GameObject:
   m_ObjectHideFlags: 0
@@ -29929,6 +30149,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1338081089}
   - component: {fileID: 1338081088}
+  - component: {fileID: 1338081090}
   m_Layer: 0
   m_Name: Marco4
   m_TagString: Untagged
@@ -29952,11 +30173,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 3
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 21300000, guid: 119f93d0bcbf1e743bf5fcf237507d39, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -30030,6 +30251,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1338081090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338081087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &1513492223
 GameObject:
   m_ObjectHideFlags: 0
@@ -30274,12 +30512,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1547797311}
   m_Layer: 0
-  m_Name: Ventanas
+  m_Name: VisualesMenuSelector1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1547797311
 Transform:
   m_ObjectHideFlags: 0
@@ -30288,11 +30526,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1547797310}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1104.2935, y: 540.04, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.01, y: 0, z: 10}
+  m_LocalScale: {x: 0.018, y: 0.018, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 446030051}
   - {fileID: 538256342}
   - {fileID: 1236906177}
   - {fileID: 1757188284}
@@ -30314,7 +30553,7 @@ Transform:
   - {fileID: 47903955}
   - {fileID: 1338081089}
   - {fileID: 1644676605}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 979963165}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1644676604
 GameObject:
@@ -30326,8 +30565,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1644676605}
   - component: {fileID: 1644676606}
+  - component: {fileID: 1644676607}
   m_Layer: 0
-  m_Name: VentanCompleta
+  m_Name: VentanaCompleta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30364,11 +30604,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 2
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -30402,6 +30642,23 @@ MonoBehaviour:
   - {x: -175.77551, y: 520.85187, z: 0}
   - {x: -157.18811, y: -444.85004, z: 0}
   - {x: -196.9347, y: -488.5713, z: 0}
+--- !u!114 &1644676607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644676604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &1654475988
 GameObject:
   m_ObjectHideFlags: 0
@@ -30549,6 +30806,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1665854416}
   - component: {fileID: 1665854415}
+  - component: {fileID: 1665854417}
   m_Layer: 0
   m_Name: Cortina3
   m_TagString: Untagged
@@ -30572,11 +30830,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 21300000, guid: 119f93d0bcbf1e743bf5fcf237507d39, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -30637,6 +30895,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1665854417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665854414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &1669362579
 GameObject:
   m_ObjectHideFlags: 0
@@ -31027,6 +31302,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1739187714}
   - component: {fileID: 1739187713}
+  - component: {fileID: 1739187715}
   m_Layer: 0
   m_Name: Ventana (6)
   m_TagString: Untagged
@@ -31050,11 +31326,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 5
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -31101,6 +31377,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1739187715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739187712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &1757188282
 GameObject:
   m_ObjectHideFlags: 0
@@ -31111,6 +31404,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1757188284}
   - component: {fileID: 1757188283}
+  - component: {fileID: 1757188285}
   m_Layer: 0
   m_Name: Ventana (2)
   m_TagString: Untagged
@@ -31134,11 +31428,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 5
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -31185,6 +31479,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1757188285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757188282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &1795906653
 GameObject:
   m_ObjectHideFlags: 0
@@ -31195,6 +31506,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1795906655}
   - component: {fileID: 1795906654}
+  - component: {fileID: 1795906656}
   m_Layer: 0
   m_Name: Cortina
   m_TagString: Untagged
@@ -31218,11 +31530,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 21300000, guid: 119f93d0bcbf1e743bf5fcf237507d39, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -31357,6 +31669,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1795906656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795906653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &1797445409
 GameObject:
   m_ObjectHideFlags: 0
@@ -31367,6 +31696,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1797445411}
   - component: {fileID: 1797445410}
+  - component: {fileID: 1797445412}
   m_Layer: 0
   m_Name: Marco
   m_TagString: Untagged
@@ -31390,11 +31720,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 3
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 21300000, guid: 119f93d0bcbf1e743bf5fcf237507d39, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -31460,6 +31790,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1797445412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797445409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &1831803600
 GameObject:
   m_ObjectHideFlags: 0
@@ -33845,6 +34192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2090958880}
   - component: {fileID: 2090958879}
+  - component: {fileID: 2090958881}
   m_Layer: 0
   m_Name: Ventana (8)
   m_TagString: Untagged
@@ -33868,11 +34216,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 5
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -33919,6 +34267,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2090958881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2090958878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1 &2146508508
 GameObject:
   m_ObjectHideFlags: 0
@@ -33929,6 +34294,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2146508510}
   - component: {fileID: 2146508509}
+  - component: {fileID: 2146508511}
   m_Layer: 0
   m_Name: Ventana (7)
   m_TagString: Untagged
@@ -33952,11 +34318,11 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.76862746, b: 0.39215687, a: 1}
   m_Intensity: 5
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 0000000083898880c7b7bf3833d84bee31ebd61301d34e38dffaabc97be1e1777dabbb38dbc3ad29eff7ed8ab19fd4cd93af7ca1414cc686674c4d0a891798779926f2f8
+  m_ApplyToSortingLayers: 9926f2f8
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -34003,6 +34369,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1547797311}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2146508511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146508508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd4d5df02d96e5e4690907ca9422cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FlickerLight2D
+  intensidadMinima: 0.2
+  intensidadMaxima: 4
+  velocidadParpadeo: 0.8
+  probabilidadGlitch: 0.5
+  variacionSuave: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -34019,5 +34402,3 @@ SceneRoots:
   - {fileID: 2032076409}
   - {fileID: 311273281}
   - {fileID: 774621230}
-  - {fileID: 446030051}
-  - {fileID: 1547797311}

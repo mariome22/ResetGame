@@ -114,8 +114,24 @@ public class SceneTransfer : MonoBehaviour
                     Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
                     if (rb != null) rb.linearVelocity = Vector2.zero;
 
-                    // Abrir selector de nivel
-                    selectorDeNivel.AbrirMenu();
+                    // Desactivar temporalmente el script de movimiento para que no se mueva durante el fundido
+                    var playerController = other.GetComponent<PlayerController>();
+                    if (playerController != null) playerController.enabled = false;
+
+                    if (SceneTransitionManager.Instance != null)
+                    {
+                        // Fundido a negro -> Activar menú -> Fundido a transparente
+                        SceneTransitionManager.Instance.FadeOut(0.3f, () => {
+                            selectorDeNivel.AbrirMenu();
+                            if (playerController != null) playerController.enabled = true;
+                            SceneTransitionManager.Instance.FadeIn(0.3f, null);
+                        });
+                    }
+                    else
+                    {
+                        selectorDeNivel.AbrirMenu();
+                        if (playerController != null) playerController.enabled = true;
+                    }
                 }
                 else
                 {
