@@ -1,0 +1,442 @@
+fileFormatVersion: 2
+guid: b2d457eed728ecd4ea778399fd73e902
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5918035891449274124
+    second: TheLastResetLogoFinal_0
+  - first:
+      213: -703109922721929182
+    second: TheLastResetLogoFinal_1
+  - first:
+      213: 5722917604284655851
+    second: TheLastResetLogoFinal_2
+  - first:
+      213: -1679851064864796322
+    second: TheLastResetLogoFinal_3
+  - first:
+      213: 8943115612919331520
+    second: TheLastResetLogoFinal_4
+  - first:
+      213: -7066007606377693092
+    second: TheLastResetLogoFinal_5
+  - first:
+      213: 5336431122879526967
+    second: TheLastResetLogoFinal_6
+  - first:
+      213: 7724666603328216714
+    second: TheLastResetLogoFinal_7
+  - first:
+      213: 2710057854675231724
+    second: TheLastResetLogoFinal_8
+  - first:
+      213: 4297624233276215125
+    second: TheLastResetLogoFinal_9
+  - first:
+      213: -8128899982474259475
+    second: TheLastResetLogoFinal_10
+  - first:
+      213: 279171823635591538
+    second: TheLastResetLogoFinal_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TheLastResetLogoFinal_0
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 712
+        width: 128
+        height: 227
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0f98d5c946112250800000000000000
+      internalID: 5918035891449274124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TheLastResetLogoFinal_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 712
+        width: 137
+        height: 227
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2286b12204d0e36f0800000000000000
+      internalID: -703109922721929182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TheLastResetLogoFinal_2
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 712
+        width: 106
+        height: 227
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be867326d33eb6f40800000000000000
+      internalID: 5722917604284655851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TheLastResetLogoFinal_3
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 428
+        width: 98
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e511c235b58ffa8e0800000000000000
+      internalID: -1679851064864796322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TheLastResetLogoFinal_4
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 428
+        width: 154
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ca7e4d64445c1c70800000000000000
+      internalID: 8943115612919331520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TheLastResetLogoFinal_5
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 423
+        width: 136
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5046a1f48f70fd90800000000000000
+      internalID: -7066007606377693092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TheLastResetLogoFinal_6
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 428
+        width: 132
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 738b29725dfce0a40800000000000000
+      internalID: 5336431122879526967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TheLastResetLogoFinal_7
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 143
+        width: 132
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8e93b34957833b60800000000000000
+      internalID: 7724666603328216714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TheLastResetLogoFinal_8
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 143
+        width: 106
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce3aca4a24f0c9520800000000000000
+      internalID: 2710057854675231724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TheLastResetLogoFinal_9
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 139
+        width: 137
+        height: 240
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55f0a8a687a34ab30800000000000000
+      internalID: 4297624233276215125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TheLastResetLogoFinal_10
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 143
+        width: 106
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de351f1e888503f80800000000000000
+      internalID: -8128899982474259475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TheLastResetLogoFinal_11
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 143
+        width: 132
+        height: 231
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 271f8136b41dfd300800000000000000
+      internalID: 279171823635591538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      TheLastResetLogoFinal_0: 5918035891449274124
+      TheLastResetLogoFinal_1: -703109922721929182
+      TheLastResetLogoFinal_10: -8128899982474259475
+      TheLastResetLogoFinal_11: 279171823635591538
+      TheLastResetLogoFinal_2: 5722917604284655851
+      TheLastResetLogoFinal_3: -1679851064864796322
+      TheLastResetLogoFinal_4: 8943115612919331520
+      TheLastResetLogoFinal_5: -7066007606377693092
+      TheLastResetLogoFinal_6: 5336431122879526967
+      TheLastResetLogoFinal_7: 7724666603328216714
+      TheLastResetLogoFinal_8: 2710057854675231724
+      TheLastResetLogoFinal_9: 4297624233276215125
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
