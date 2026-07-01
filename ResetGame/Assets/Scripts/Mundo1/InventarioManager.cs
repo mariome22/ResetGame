@@ -32,6 +32,8 @@ public class InventarioManager : MonoBehaviour
     public Transform panelColeccionables;
     [Tooltip("Panel de las opciones")]
     public Transform panelOpciones;
+    [Tooltip("Panel de los controles")]
+    public Transform panelControles;
     [Tooltip("El objeto dentro del panel que tiene el VerticalLayoutGroup para apilar la lista")]
     public Transform contenedorListaColeccionables;
     [Tooltip("Opcional: Prefab del hueco para Coleccionables (para crear mas si superan la capacidad inicial de la UI)")]
@@ -41,9 +43,11 @@ public class InventarioManager : MonoBehaviour
     public TextMeshProUGUI textoBtnObjetos;
     public TextMeshProUGUI textoBtnColeccionables;
     public TextMeshProUGUI textoBtnOpciones;
+    public TextMeshProUGUI textoBtnControles;
     public GameObject lineaObjetos;
     public GameObject lineaColeccionables;
     public GameObject lineaOpciones;
+    public GameObject lineaControles;
 
     [Header("Detalles de Objeto (Menu Pausa)")]
     public TextMeshProUGUI textoNombreDetalle;
@@ -526,6 +530,7 @@ public class InventarioManager : MonoBehaviour
         if (panelObjetos != null) panelObjetos.gameObject.SetActive(true);
         if (panelColeccionables != null) panelColeccionables.gameObject.SetActive(false);
         if (panelOpciones != null) panelOpciones.gameObject.SetActive(false);
+        if (panelControles != null) panelControles.gameObject.SetActive(false);
         MostrarDetallesObjeto(null);
         ActualizarEstiloPestanas(0);
     }
@@ -535,6 +540,7 @@ public class InventarioManager : MonoBehaviour
         if (panelObjetos != null) panelObjetos.gameObject.SetActive(false);
         if (panelColeccionables != null) panelColeccionables.gameObject.SetActive(true);
         if (panelOpciones != null) panelOpciones.gameObject.SetActive(false);
+        if (panelControles != null) panelControles.gameObject.SetActive(false);
         MostrarDetallesObjeto(null);
         ActualizarEstiloPestanas(1);
     }
@@ -544,8 +550,19 @@ public class InventarioManager : MonoBehaviour
         if (panelObjetos != null) panelObjetos.gameObject.SetActive(false);
         if (panelColeccionables != null) panelColeccionables.gameObject.SetActive(false);
         if (panelOpciones != null) panelOpciones.gameObject.SetActive(true);
+        if (panelControles != null) panelControles.gameObject.SetActive(false);
         MostrarDetallesObjeto(null);
         ActualizarEstiloPestanas(2);
+    }
+
+    public void MostrarPestanaControles()
+    {
+        if (panelObjetos != null) panelObjetos.gameObject.SetActive(false);
+        if (panelColeccionables != null) panelColeccionables.gameObject.SetActive(false);
+        if (panelOpciones != null) panelOpciones.gameObject.SetActive(false);
+        if (panelControles != null) panelControles.gameObject.SetActive(true);
+        MostrarDetallesObjeto(null);
+        ActualizarEstiloPestanas(3);
     }
 
     private void ActualizarEstiloPestanas(int indiceActiva)
@@ -556,9 +573,11 @@ public class InventarioManager : MonoBehaviour
         if (textoBtnObjetos != null) textoBtnObjetos.color = (indiceActiva == 0) ? colorActivo : colorInactivo;
         if (textoBtnColeccionables != null) textoBtnColeccionables.color = (indiceActiva == 1) ? colorActivo : colorInactivo;
         if (textoBtnOpciones != null) textoBtnOpciones.color = (indiceActiva == 2) ? colorActivo : colorInactivo;
+        if (textoBtnControles != null) textoBtnControles.color = (indiceActiva == 3) ? colorActivo : colorInactivo;
 
         if (lineaObjetos != null) lineaObjetos.SetActive(indiceActiva == 0);
         if (lineaColeccionables != null) lineaColeccionables.SetActive(indiceActiva == 1);
         if (lineaOpciones != null) lineaOpciones.SetActive(indiceActiva == 2);
+        if (lineaControles != null) lineaControles.SetActive(indiceActiva == 3);
     }
 }

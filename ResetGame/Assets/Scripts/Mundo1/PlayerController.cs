@@ -78,7 +78,13 @@ public class PlayerController : MonoBehaviour
         if (Time.timeScale == 0f) return;
         CalcularDireccionMirada();
 
-        // <-- AÃƒâ€˜ADIDO: Le pasamos al Animator cuÃƒÂ¡nto nos estamos moviendo (0 = quieto, >0 = corriendo)
+        // Cambiar de arma con click derecho
+        if (UnityEngine.InputSystem.Mouse.current != null && UnityEngine.InputSystem.Mouse.current.rightButton.wasPressedThisFrame)
+        {
+            CambiarArma();
+        }
+
+        // <-- AÑADIDO: Le pasamos al Animator cuánto nos estamos moviendo (0 = quieto, >0 = corriendo)
         if (anim != null)
         {
             anim.SetFloat("Velocidad", movimientoInput.sqrMagnitude);
@@ -231,8 +237,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void CambiarArma()
+    {
+        if (armaDesbloqueada)
+        {
+            usandoArmaADistancia = !usandoArmaADistancia;
+            Debug.Log("Arma cambiada. Arma a distancia equipada: " + usandoArmaADistancia);
+            ActualizarHUDArma();
+        }
+        else
+        {
+            Debug.Log("Todavía no tienes el arma a distancia.");
+        }
+    }
+
     public void OnSwitchWeapon(InputValue value)
     {
+        // Comentado para desactivar el cambio de arma mediante la rueda del ratón
+        /*
         if (Time.timeScale == 0f) return;
         if (value.isPressed && armaDesbloqueada)
         {
@@ -244,6 +266,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("TodavÃƒÂ­a no tienes el arma a distancia.");
         }
+        */
     }
 
     public void DesbloquearArmaADistancia()
