@@ -49,6 +49,8 @@ public class EnemyMelee : MonoBehaviour
     [Header("Ajustes de Ataque Zombie")]
     public float rangoAtaqueZombie = 1.5f;
     public float tiempoEntreAtaquesZombie = 1.5f;
+    [Tooltip("Retraso en segundos antes de aplicar el daño del mordisco (sincronía con la animación)")]
+    public float retrasoDanoZombie = 0.3f;
 
     private bool puedeAtacarZombie = true;
     private Animator anim;
@@ -516,8 +518,8 @@ public class EnemyMelee : MonoBehaviour
             anim.SetTrigger("Atacar");
         }
 
-        // Breve anticipación del ataque (ej: 0.3 segundos) antes del golpe real
-        yield return new WaitForSeconds(0.3f);
+        // Breve anticipación del ataque antes del golpe real
+        yield return new WaitForSeconds(retrasoDanoZombie);
 
         // Comprobamos si el jugador sigue estando a nuestro alcance
         if (jugador != null)

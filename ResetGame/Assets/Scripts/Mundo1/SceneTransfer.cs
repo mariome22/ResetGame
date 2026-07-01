@@ -21,6 +21,10 @@ public class SceneTransfer : MonoBehaviour
     [Tooltip("El GameObject del efecto de partículas que se activará cuando el portal esté desbloqueado.")]
     [SerializeField] private GameObject particlesEffect;
 
+    [Header("Selección de Niveles (Opcional)")]
+    [Tooltip("Si se asigna, abrirá este menú de selección de niveles en lugar de cargar directamente la escena.")]
+    [SerializeField] private LevelSelectorController selectorDeNivel;
+
     private CoreManager coreManager;
     private int lastCheckedCores = -1;
 
@@ -104,13 +108,26 @@ public class SceneTransfer : MonoBehaviour
 
             if (currentCores >= requiredCores)
             {
-                if (SceneTransitionManager.Instance != null)
+                if (selectorDeNivel != null)
                 {
-                    SceneTransitionManager.Instance.LoadSceneWithFade(sceneName);
+                    // Detener al jugador
+                    Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
+                    if (rb != null) rb.linearVelocity = Vector2.zero;
+
+                    // Abrir selector de nivel
+                    selectorDeNivel.AbrirMenu();
                 }
                 else
                 {
-                    SceneManager.LoadScene(sceneName);
+                    // Carga directa clásica si no hay selector asignado
+                    if (SceneTransitionManager.Instance != null)
+                    {
+                        SceneTransitionManager.Instance.LoadSceneWithFade(sceneName);
+                    }
+                    else
+                    {
+                        SceneManager.LoadScene(sceneName);
+                    }
                 }
             }
             else

@@ -21,6 +21,7 @@ public class MenuPausaManager : MonoBehaviour
     private void Update()
     {
         if (Keyboard.current == null) return;
+        if (LevelSelectorController.IsSelectorOpen || LevelSelectorController.CerradoEsteFrame) return;
 
         // Abrir/Cerrar con la tecla I
         if (Keyboard.current.iKey.wasPressedThisFrame)

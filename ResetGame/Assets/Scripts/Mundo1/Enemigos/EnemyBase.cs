@@ -141,9 +141,13 @@ public class EnemyBase : MonoBehaviour
             rb.simulated = false; // Detiene colisiones, gravedad, etc.
         }
 
-        // Desactivar script de IA/movimiento
+        // Desactivar script de IA/movimiento y cancelar corrutinas activas (evita que sigan deslizándose al morir)
         if (scriptMovimiento != null)
         {
+            EnemyMelee melee = scriptMovimiento as EnemyMelee;
+            if (melee != null) melee.ResetearAtaque();
+
+            scriptMovimiento.StopAllCoroutines();
             scriptMovimiento.enabled = false;
         }
 

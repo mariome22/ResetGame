@@ -130,10 +130,10 @@ MonoBehaviour:
   dashVelocidad: 4
   dashDuracion: 0.25
   dashCooldown: 0.5
-  distanciaAtaque: 0.2
-  rangoAtaque: 0.6
+  distanciaAtaque: 0.4
+  rangoAtaque: 0.5
   prefabEfectoAtaque: {fileID: 2413080805686541986, guid: f4d4d534e146c4f47a59b2e96fda740a, type: 3}
-  distanciaVisualTajo: 0.5
+  distanciaVisualTajo: 0.3
   cooldownMelee: 0.5
   retrasoDanoMelee: 0.08
   prefabProyectil: {fileID: 3979685118916425157, guid: 72666a1055edd0c44a96ba7791e758b4, type: 3}

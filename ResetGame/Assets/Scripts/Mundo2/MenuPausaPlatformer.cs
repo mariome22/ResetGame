@@ -74,6 +74,7 @@ public class MenuPausaPlatformer : MonoBehaviour
     private void Update()
     {
         if (Keyboard.current == null) return;
+        if (LevelSelectorController.IsSelectorOpen || LevelSelectorController.CerradoEsteFrame) return;
 
         // Abrir/Cerrar menú al presionar la tecla I o ESC
         if (Keyboard.current.iKey.wasPressedThisFrame || Keyboard.current.escapeKey.wasPressedThisFrame)

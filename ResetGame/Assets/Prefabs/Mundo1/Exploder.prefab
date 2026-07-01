@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBase
   vidaMaxima: 5
-  fuerzaKnockback: 2
+  fuerzaKnockback: 4
   tiempoAturdido: 0.2
   parametroCaminar: isWalking
 --- !u!114 &5739339999262429083
