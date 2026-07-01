@@ -16,6 +16,10 @@ public class MenuPausaPlatformer : MonoBehaviour
     [SerializeField] private Button botonSalirSinGuardar;
     [SerializeField] private Button botonCancelarSalir;
 
+    [Header("Panel de Controles")]
+    [Tooltip("Panel de controles del Mundo 2 que se puede abrir desde la pausa")]
+    [SerializeField] private GameObject panelControles;
+
     private bool estaPausado = false;
     private string escenaDestinoPending = "";
 
@@ -31,6 +35,7 @@ public class MenuPausaPlatformer : MonoBehaviour
             canvasPausa.SetActive(false);
         }
         if (panelConfirmacionSalir != null) panelConfirmacionSalir.SetActive(false);
+        if (panelControles != null) panelControles.SetActive(false);
 
         // Auto-buscar botones si no están asignados en el inspector
         if (panelConfirmacionSalir != null)
@@ -79,8 +84,13 @@ public class MenuPausaPlatformer : MonoBehaviour
         // Abrir/Cerrar menú al presionar la tecla I o ESC
         if (Keyboard.current.iKey.wasPressedThisFrame || Keyboard.current.escapeKey.wasPressedThisFrame)
         {
+            // Si el panel de controles está abierto, lo cerramos
+            if (estaPausado && panelControles != null && panelControles.activeSelf)
+            {
+                CerrarControles();
+            }
             // Si el panel de confirmación está abierto, lo cancelamos en lugar de cerrar toda la pausa
-            if (estaPausado && panelConfirmacionSalir != null && panelConfirmacionSalir.activeSelf)
+            else if (estaPausado && panelConfirmacionSalir != null && panelConfirmacionSalir.activeSelf)
             {
                 CancelarSalir();
             }
@@ -111,6 +121,7 @@ public class MenuPausaPlatformer : MonoBehaviour
             // Reanudar tiempo y desactivar la UI
             canvasPausa.SetActive(false);
             if (panelConfirmacionSalir != null) panelConfirmacionSalir.SetActive(false);
+            if (panelControles != null) panelControles.SetActive(false);
             Time.timeScale = 1f;
         }
     }
@@ -200,5 +211,21 @@ public class MenuPausaPlatformer : MonoBehaviour
             panelConfirmacionSalir.SetActive(false);
         }
         escenaDestinoPending = "";
+    }
+
+    public void AbrirControles()
+    {
+        if (panelControles != null)
+        {
+            panelControles.SetActive(true);
+        }
+    }
+
+    public void CerrarControles()
+    {
+        if (panelControles != null)
+        {
+            panelControles.SetActive(false);
+        }
     }
 }
