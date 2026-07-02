@@ -120,8 +120,14 @@ public class EnemyBase : MonoBehaviour
         }
     }
 
+    public bool EstaMuerto()
+    {
+        return vidaActual <= 0;
+    }
+
     private void Morir()
     {
+        StopAllCoroutines(); // Detiene AplicarKnockback y otros efectos activos del base
         StartCoroutine(MorirRoutine());
     }
 

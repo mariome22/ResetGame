@@ -521,8 +521,9 @@ public class EnemyMelee : MonoBehaviour
         // Breve anticipación del ataque antes del golpe real
         yield return new WaitForSeconds(retrasoDanoZombie);
 
-        // Comprobamos si el jugador sigue estando a nuestro alcance
-        if (jugador != null)
+        // Comprobamos si el jugador sigue estando a nuestro alcance y no nos hemos muerto en el proceso
+        EnemyBase baseEnemy = GetComponent<EnemyBase>();
+        if (jugador != null && (baseEnemy == null || !baseEnemy.EstaMuerto()))
         {
             float dist = Vector2.Distance(transform.position, jugador.position);
             if (dist <= rangoAtaqueZombie * 1.3f)
@@ -543,6 +544,9 @@ public class EnemyMelee : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        EnemyBase baseEnemy = GetComponent<EnemyBase>();
+        if (baseEnemy != null && baseEnemy.EstaMuerto()) return; // Si está muerto, no hace daño por contacto
+
         if (collision.gameObject.CompareTag("Player"))
         {
             if (explota) return;

@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &26546526
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27155,6 +27155,10 @@ PrefabInstance:
     - target: {fileID: 8562171244978082351, guid: d3c1408410b76e04787620bbafb01973, type: 3}
       propertyPath: m_Name
       value: Menu_Pausa
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562171244978082351, guid: d3c1408410b76e04787620bbafb01973, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8699431989631891978, guid: d3c1408410b76e04787620bbafb01973, type: 3}
       propertyPath: botonCancelarSalir
