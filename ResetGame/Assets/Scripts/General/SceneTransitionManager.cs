@@ -5,7 +5,36 @@ using System.Collections;
 
 public class SceneTransitionManager : MonoBehaviour
 {
-    public static SceneTransitionManager Instance { get; private set; }
+    private static SceneTransitionManager _instance;
+    public static SceneTransitionManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindFirstObjectByType<SceneTransitionManager>(FindObjectsInactive.Include);
+                if (_instance == null)
+                {
+                    GameObject prefab = Resources.Load<GameObject>("Global_Managers");
+                    if (prefab != null)
+                    {
+                        GameObject instantiated = Instantiate(prefab);
+                        _instance = instantiated.GetComponentInChildren<SceneTransitionManager>(true);
+                        if (!instantiated.activeSelf) instantiated.SetActive(true);
+                        DontDestroyOnLoad(instantiated);
+                    }
+                    else
+                    {
+                        GameObject obj = new GameObject("SceneTransitionManager");
+                        _instance = obj.AddComponent<SceneTransitionManager>();
+                        DontDestroyOnLoad(obj);
+                    }
+                }
+            }
+            return _instance;
+        }
+        private set { _instance = value; }
+    }
 
     [Header("Visuales de Transición")]
     [SerializeField] private Canvas canvasTransition;
@@ -14,25 +43,16 @@ public class SceneTransitionManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
+        if (_instance == null)
         {
-            Instance = this;
+            _instance = this;
             DontDestroyOnLoad(gameObject);
             InitializeCanvas();
         }
-        else
+        else if (_instance != this)
         {
-            Destroy(gameObject);
-        }
-    }
-
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    private static void Initialize()
-    {
-        if (Instance == null)
-        {
-            GameObject obj = new GameObject("SceneTransitionManager");
-            obj.AddComponent<SceneTransitionManager>();
+            // Destruimos solo este componente para no romper el GameObject padre (ej. Global_Managers)
+            Destroy(this);
         }
     }
 

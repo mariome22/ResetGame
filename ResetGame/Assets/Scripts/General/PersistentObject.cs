@@ -14,10 +14,13 @@ public class PersistentObject : MonoBehaviour
     [Tooltip("Evento ejecutado si el objeto ya fue completado/activado anteriormente (solo si destroyOnLoad está inactivo).")]
     public UnityEvent onAlreadyTriggered;
 
-    private void Start()
+    private void Awake()
     {
         InitializeId();
+    }
 
+    private void Start()
+    {
         // Comprobamos si el objeto ya está marcado como destruido/completado en SaveManager
         if (SaveManager.Instance != null && SaveManager.Instance.IsObjectDestroyed(uniqueId))
         {

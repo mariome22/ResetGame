@@ -24,7 +24,36 @@ public class Dialogue
 
 public class DialogueManager : MonoBehaviour
 {
-    public static DialogueManager Instance { get; private set; }
+    private static DialogueManager _instance;
+    public static DialogueManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindFirstObjectByType<DialogueManager>(FindObjectsInactive.Include);
+                if (_instance == null)
+                {
+                    GameObject prefab = Resources.Load<GameObject>("Global_Managers");
+                    if (prefab != null)
+                    {
+                        GameObject instantiated = Instantiate(prefab);
+                        _instance = instantiated.GetComponentInChildren<DialogueManager>(true);
+                        if (!instantiated.activeSelf) instantiated.SetActive(true);
+                        DontDestroyOnLoad(instantiated);
+                    }
+                    else
+                    {
+                        GameObject obj = new GameObject("DialogueManager");
+                        _instance = obj.AddComponent<DialogueManager>();
+                        DontDestroyOnLoad(obj);
+                    }
+                }
+            }
+            return _instance;
+        }
+        private set { _instance = value; }
+    }
 
     [Header("UI Componentes")]
     [SerializeField] private GameObject dialoguePanel;
@@ -42,27 +71,17 @@ public class DialogueManager : MonoBehaviour
 
     public bool IsDialogueActive => dialoguePanel != null && dialoguePanel.activeSelf;
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    private static void Initialize()
-    {
-        if (Instance == null)
-        {
-            GameObject obj = new GameObject("DialogueManager");
-            obj.AddComponent<DialogueManager>();
-        }
-    }
-
     private void Awake()
     {
-        if (Instance == null)
+        if (_instance == null)
         {
-            Instance = this;
+            _instance = this;
             DontDestroyOnLoad(gameObject);
             sentencesQueue = new Queue<DialogueLine>();
         }
-        else
+        else if (_instance != this)
         {
-            Destroy(gameObject);
+            Destroy(this);
         }
     }
 

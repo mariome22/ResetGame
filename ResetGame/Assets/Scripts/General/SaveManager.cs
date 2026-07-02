@@ -117,7 +117,8 @@ public class SaveManager : MonoBehaviour
         }
         else if (_instance != this)
         {
-            Destroy(gameObject);
+            // Destruimos solo este componente para no romper el GameObject padre (ej. Global_Managers)
+            Destroy(this);
         }
     }
 
