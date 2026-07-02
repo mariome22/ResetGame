@@ -38,6 +38,8 @@ public class SaveData
     public float checkpointTimeMundo2 = 500f;
     public int consecutiveCheckpointDeathsMundo2 = 0;
     public List<string> collectedCoinsMundo2 = new List<string>();
+    // Diálogos ya vistos/reproducidos por el jugador
+    public List<string> dialogosReproducidos = new List<string>();
 }
 
 public class SaveManager : MonoBehaviour
@@ -50,6 +52,9 @@ public class SaveManager : MonoBehaviour
 
     [HideInInspector]
     public List<string> destroyedObjects = new List<string>();
+
+    [HideInInspector]
+    public List<string> dialogosReproducidos = new List<string>();
 
     private string saveFilePath;
     private SaveData pendingLoadData = null;
@@ -114,6 +119,7 @@ public class SaveManager : MonoBehaviour
         PlayerPlatformerController.collectedCoinsAtCheckpoint.Clear();
 
         destroyedObjects.Clear();
+        dialogosReproducidos.Clear();
         previousSceneName = "";
 
         Debug.Log("Partida guardada borrada y estado en memoria reseteado.");
@@ -183,6 +189,9 @@ public class SaveManager : MonoBehaviour
 
         // Guardar lista de objetos destruidos de Mundo 1
         data.objetosDestruidosMundo1 = new List<string>(destroyedObjects);
+
+        // Guardar lista de diálogos reproducidos de la partida
+        data.dialogosReproducidos = new List<string>(dialogosReproducidos);
 
         // 5. Estado Mundo 2
         // Si estamos guardando desde el Hub o Mundo 1, limpiamos el checkpoint de Mundo 2
@@ -400,6 +409,16 @@ public class SaveManager : MonoBehaviour
 
         // Cargar lista de objetos destruidos en Mundo 1
         destroyedObjects = new List<string>(pendingLoadData.objetosDestruidosMundo1);
+
+        // Cargar lista de diálogos reproducidos
+        if (pendingLoadData.dialogosReproducidos != null)
+        {
+            dialogosReproducidos = new List<string>(pendingLoadData.dialogosReproducidos);
+        }
+        else
+        {
+            dialogosReproducidos.Clear();
+        }
 
         // Aplicar datos de Mundo 1 (Instancia de inventario y personaje si existen en la escena cargada)
         if (InventarioManager.Instance != null)

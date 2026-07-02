@@ -5,11 +5,21 @@ using UnityEngine.InputSystem;
 using TMPro;
 
 [System.Serializable]
+public class DialogueLine
+{
+    [Tooltip("Nombre del personaje que habla en esta frase")]
+    public string npcName;
+    
+    [TextArea(3, 10)]
+    [Tooltip("Texto de la frase")]
+    public string sentence;
+}
+
+[System.Serializable]
 public class Dialogue
 {
-    public string npcName;
-    [TextArea(3, 10)]
-    public string[] sentences;
+    [Tooltip("Lista de frases de la conversación en orden secuencial")]
+    public List<DialogueLine> lines = new List<DialogueLine>();
 }
 
 public class DialogueManager : MonoBehaviour
@@ -24,7 +34,7 @@ public class DialogueManager : MonoBehaviour
     [Header("Configuración")]
     [SerializeField] private float typingSpeed = 0.02f;
 
-    private Queue<string> sentencesQueue;
+    private Queue<DialogueLine> sentencesQueue;
     private bool isTyping = false;
     private string currentSentence = "";
     private Coroutine typingCoroutine;
@@ -32,13 +42,23 @@ public class DialogueManager : MonoBehaviour
 
     public bool IsDialogueActive => dialoguePanel != null && dialoguePanel.activeSelf;
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void Initialize()
+    {
+        if (Instance == null)
+        {
+            GameObject obj = new GameObject("DialogueManager");
+            obj.AddComponent<DialogueManager>();
+        }
+    }
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            sentencesQueue = new Queue<string>();
+            sentencesQueue = new Queue<DialogueLine>();
         }
         else
         {
@@ -48,6 +68,18 @@ public class DialogueManager : MonoBehaviour
 
     private void Start()
     {
+        if (dialoguePanel != null)
+        {
+            dialoguePanel.SetActive(false);
+        }
+    }
+
+    public void RegisterUI(GameObject panel, TextMeshProUGUI nameTxt, TextMeshProUGUI dialogueTxt)
+    {
+        dialoguePanel = panel;
+        nameText = nameTxt;
+        dialogueText = dialogueTxt;
+
         if (dialoguePanel != null)
         {
             dialoguePanel.SetActive(false);
@@ -71,18 +103,16 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        // Pausar el movimiento del jugador si es necesario (se puede reanudar al final)
-        Time.timeScale = 0f; // Pausar juego durante diálogo para evitar ataques de enemigos
+        // Pausar el juego durante el diálogo para evitar ataques de enemigos
+        Time.timeScale = 0f;
 
         dialoguePanel.SetActive(true);
-        nameText.text = dialogue.npcName;
-
         onDialogueEndCallback = onEnd;
 
         sentencesQueue.Clear();
-        foreach (string sentence in dialogue.sentences)
+        foreach (DialogueLine line in dialogue.lines)
         {
-            sentencesQueue.Enqueue(sentence);
+            sentencesQueue.Enqueue(line);
         }
 
         DisplayNextSentence();
@@ -105,7 +135,12 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        currentSentence = sentencesQueue.Dequeue();
+        DialogueLine nextLine = sentencesQueue.Dequeue();
+        
+        // Asignamos el nombre del personaje que habla en esta línea específica
+        nameText.text = nextLine.npcName;
+        currentSentence = nextLine.sentence;
+        
         typingCoroutine = StartCoroutine(TypeSentence(currentSentence));
     }
 

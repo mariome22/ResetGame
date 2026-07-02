@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CajaHerramientas
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   nombreObjeto: Caja de herramientas
-  descripcion: Una caja de herramientas sucia
+  descripcion: Caja de herramientas de los federales
   iconoObjeto: {fileID: 6540714580814476617, guid: a250261d4ee0ec34d8eb103e798e660e, type: 3}
   prefabMundo: {fileID: 6290016901910688598, guid: d704f6e8ba52e9c43bae728447edaf21, type: 3}
   tipo: 4
@@ -21,4 +21,4 @@ MonoBehaviour:
   cantidadMaxima: 3
   valorEfecto: 0
   contenidoDocumento: "Caja de herramientas completa con kit de supervivencia b\xE1sico
-    para reforzar estrucutras o abrirse paso f\xE1cilmente"
+    para reforzar estrucutras o abrirse paso f\xE1cilmente Usado por los federales."

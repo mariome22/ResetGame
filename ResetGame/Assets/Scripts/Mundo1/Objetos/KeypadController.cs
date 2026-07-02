@@ -56,8 +56,11 @@ public class KeypadController : MonoBehaviour
         {
             keypadPanel.SetActive(false);
             
-            // Si pausaste el juego al abrir, descomenta esto para reanudarlo
-            Time.timeScale = 1f;
+            // Si pausaste el juego al abrir, reanudarlo (pero solo si no hay un diálogo activo en curso)
+            if (DialogueManager.Instance == null || !DialogueManager.Instance.IsDialogueActive)
+            {
+                Time.timeScale = 1f;
+            }
         }
     }
 

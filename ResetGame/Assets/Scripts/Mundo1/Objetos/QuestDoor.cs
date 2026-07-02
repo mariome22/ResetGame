@@ -12,6 +12,14 @@ public class QuestDoor : MonoBehaviour
     public Sprite unlockedSprite;
     public GameObject bloqueo;
 
+    [Header("Diálogos de la Misión")]
+    [Tooltip("Diálogo al iniciar la misión por primera vez")]
+    [SerializeField] private Dialogue dialogoInicio;
+    [Tooltip("Diálogo cuando aún faltan objetos por recoger")]
+    [SerializeField] private Dialogue dialogoProgreso;
+    [Tooltip("Diálogo al completar la misión y abrir la puerta")]
+    [SerializeField] private Dialogue dialogoCompletado;
+
     private SpriteRenderer spriteRenderer;
     private bool questActive = false;
     private bool isOpen = false;
@@ -102,9 +110,22 @@ public class QuestDoor : MonoBehaviour
     {
         questActive = true;
 
-        // AQUÍ IRÁ EL CÓDIGO DEL DIÁLOGO EN EL FUTURO
-        Debug.Log("NPC (Detrás de la puerta): '¡Hola! Para abrir esta puerta necesito que encuentres " + questItems.Length + " objetos que he perdido por este escenario.'");
+        if (DialogueManager.Instance != null && dialogoInicio != null && dialogoInicio.lines.Count > 0)
+        {
+            DialogueManager.Instance.StartDialogue(dialogoInicio, () =>
+            {
+                ActivarObjetosMision();
+            });
+        }
+        else
+        {
+            Debug.Log("NPC (Detrás de la puerta): '¡Hola! Para abrir esta puerta necesito que encuentres " + questItems.Length + " objetos.'");
+            ActivarObjetosMision();
+        }
+    }
 
+    private void ActivarObjetosMision()
+    {
         // Activamos los objetos escondidos
         if (questItems != null)
         {
@@ -128,9 +149,15 @@ public class QuestDoor : MonoBehaviour
         else
         {
             // No completada
-            int restantes = questItems.Length - itemsCollected;
-            // AQUÍ IRÁ EL CÓDIGO DEL DIÁLOGO EN EL FUTURO
-            Debug.Log("NPC: 'Todavía te faltan " + restantes + " objetos para que te abra la puerta.'");
+            if (DialogueManager.Instance != null && dialogoProgreso != null && dialogoProgreso.lines.Count > 0)
+            {
+                DialogueManager.Instance.StartDialogue(dialogoProgreso);
+            }
+            else
+            {
+                int restantes = questItems.Length - itemsCollected;
+                Debug.Log("NPC: 'Todavía te faltan " + restantes + " objetos para que te abra la puerta.'");
+            }
         }
     }
 
@@ -139,10 +166,18 @@ public class QuestDoor : MonoBehaviour
         PersistentObject po = GetComponent<PersistentObject>();
         if (po != null) po.RegisterDestruction();
 
-        AbrirPuertaInstant();
-
-        // NPC dialogue logging
-        Debug.Log("NPC: '¡Gracias! Te abro las puertas.'");
+        if (DialogueManager.Instance != null && dialogoCompletado != null && dialogoCompletado.lines.Count > 0)
+        {
+            DialogueManager.Instance.StartDialogue(dialogoCompletado, () =>
+            {
+                AbrirPuertaInstant();
+            });
+        }
+        else
+        {
+            AbrirPuertaInstant();
+            Debug.Log("NPC: '¡Gracias! Te abro las puertas.'");
+        }
     }
 
     private void AbrirPuertaInstant()

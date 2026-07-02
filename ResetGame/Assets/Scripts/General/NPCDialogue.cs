@@ -1,9 +1,14 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class NPCDialogue : MonoBehaviour
 {
     [Header("Configuración del Diálogo")]
     [SerializeField] private Dialogue dialogue;
+
+    [Header("Eventos al Terminar (Opcional)")]
+    [Tooltip("Acciones que ocurrirán en la escena cuando este diálogo finalice por completo")]
+    [SerializeField] private UnityEvent alTerminarDialogo;
 
     /// <summary>
     /// Inicia el diálogo a través del DialogueManager.
@@ -13,7 +18,11 @@ public class NPCDialogue : MonoBehaviour
     {
         if (DialogueManager.Instance != null)
         {
-            DialogueManager.Instance.StartDialogue(dialogue);
+            // Pasamos un callback para disparar el UnityEvent local al finalizar las frases
+            DialogueManager.Instance.StartDialogue(dialogue, () =>
+            {
+                alTerminarDialogo?.Invoke();
+            });
         }
         else
         {
