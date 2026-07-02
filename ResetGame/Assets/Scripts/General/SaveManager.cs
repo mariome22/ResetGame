@@ -44,7 +44,47 @@ public class SaveData
 
 public class SaveManager : MonoBehaviour
 {
-    public static SaveManager Instance { get; private set; }
+    private static SaveManager _instance;
+    public static SaveManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindFirstObjectByType<SaveManager>(FindObjectsInactive.Include);
+                if (_instance == null)
+                {
+                    GameObject prefab = Resources.Load<GameObject>("Global_Managers");
+                    if (prefab != null)
+                    {
+                        GameObject instantiated = Instantiate(prefab);
+                        _instance = instantiated.GetComponentInChildren<SaveManager>(true);
+
+                        // Si el prefab estaba desactivado en Resources, forzar activación para que corra Awake/Start
+                        if (!instantiated.activeSelf)
+                        {
+                            instantiated.SetActive(true);
+                        }
+
+                        DontDestroyOnLoad(instantiated);
+                        Debug.Log("[SaveManager] Instanciado Global_Managers desde Resources dinámicamente al acceder a Instance.");
+                    }
+                    else
+                    {
+                        GameObject obj = new GameObject("SaveManager");
+                        _instance = obj.AddComponent<SaveManager>();
+                        DontDestroyOnLoad(obj);
+                        Debug.LogWarning("[SaveManager] No se encontró el prefab Global_Managers en Resources. Se creó una instancia vacía dinámica.");
+                    }
+                }
+            }
+            return _instance;
+        }
+        private set
+        {
+            _instance = value;
+        }
+    }
 
     [Header("Base de Datos de Objetos")]
     [Tooltip("Arrastra aquí todos los assets ItemData del proyecto para poder reconstruir el inventario al cargar")]
@@ -60,8 +100,30 @@ public class SaveManager : MonoBehaviour
     private SaveData pendingLoadData = null;
     private static string previousSceneName = "";
 
+
+
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+            saveFilePath = Path.Combine(Application.persistentDataPath, "savegame.json");
+            SceneManager.sceneLoaded += OnSceneLoaded;
+
+            // Asegurar que las listas nunca sean nulas debido a la inicialización de prefabs de Unity
+            if (destroyedObjects == null) destroyedObjects = new List<string>();
+            if (dialogosReproducidos == null) dialogosReproducidos = new List<string>();
+        }
+        else if (_instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public void RegisterDestroyedObject(string id)
     {
+        if (destroyedObjects == null) destroyedObjects = new List<string>();
         if (!destroyedObjects.Contains(id))
         {
             destroyedObjects.Add(id);
@@ -70,22 +132,8 @@ public class SaveManager : MonoBehaviour
 
     public bool IsObjectDestroyed(string id)
     {
+        if (destroyedObjects == null) destroyedObjects = new List<string>();
         return destroyedObjects.Contains(id);
-    }
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            saveFilePath = Path.Combine(Application.persistentDataPath, "savegame.json");
-            SceneManager.sceneLoaded += OnSceneLoaded;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 
     private void OnDestroy()
@@ -127,92 +175,82 @@ public class SaveManager : MonoBehaviour
 
     public void SaveGame()
     {
-        SaveData data = new SaveData();
-
-        // 1. Escena actual
-        string currentScene = SceneManager.GetActiveScene().name;
-        data.escenaGuardada = currentScene;
-
-        // 2. Núcleos completados (usando PlayerPrefs para mantener compatibilidad)
-        data.playerCores = PlayerPrefs.GetInt("PlayerCores", 0);
-
-        // 3. Inventario Mundo 1 (si existe en la escena actual)
-        if (InventarioManager.Instance != null)
+        try
         {
-            foreach (var slot in InventarioManager.Instance.objetosGuardados)
+            SaveData data = new SaveData();
+
+            // 1. Escena actual
+            string currentScene = SceneManager.GetActiveScene().name;
+            data.escenaGuardada = currentScene;
+
+            // 2. Núcleos completados (usando PlayerPrefs para mantener compatibilidad)
+            data.playerCores = PlayerPrefs.GetInt("PlayerCores", 0);
+
+            // 3. Inventario Mundo 1 (si existe en la escena actual)
+            if (InventarioManager.Instance != null)
             {
-                if (slot.objeto != null)
+                foreach (var slot in InventarioManager.Instance.objetosGuardados)
                 {
-                    data.objetosNombres.Add(slot.objeto.nombreObjeto);
-                    data.objetosCantidades.Add(slot.cantidad);
+                    if (slot.objeto != null)
+                    {
+                        data.objetosNombres.Add(slot.objeto.nombreObjeto);
+                        data.objetosCantidades.Add(slot.cantidad);
+                    }
+                }
+
+                foreach (var slot in InventarioManager.Instance.coleccionablesGuardados)
+                {
+                    if (slot.objeto != null)
+                    {
+                        data.coleccionablesNombres.Add(slot.objeto.nombreObjeto);
+                        data.coleccionablesCantidades.Add(slot.cantidad);
+                    }
                 }
             }
 
-            foreach (var slot in InventarioManager.Instance.coleccionablesGuardados)
+            // 4. Estado de jugador Mundo 1 (si existe en la escena)
+            PlayerController pc = FindFirstObjectByType<PlayerController>();
+            if (pc != null)
             {
-                if (slot.objeto != null)
+                var propArma = pc.GetType().GetField("armaDesbloqueada", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                if (propArma != null) data.armaDesbloqueadaMundo1 = (bool)propArma.GetValue(pc);
+
+                data.balasActualesCargadorMundo1 = pc.balasActualesCargador;
+            }
+
+            PlayerHealth ph = FindFirstObjectByType<PlayerHealth>();
+            if (ph != null)
+            {
+                var propVida = ph.GetType().GetField("vidaActual", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                if (propVida != null) data.vidaActualMundo1 = (int)propVida.GetValue(ph);
+            }
+
+            // Guardar posición del jugador si estamos en Mundo 1 o Hub
+            if (currentScene == "01_Hub" || currentScene == "1_Level1" || currentScene == "1_Level2")
+            {
+                GameObject playerObj = GameObject.FindWithTag("Player");
+                if (playerObj != null)
                 {
-                    data.coleccionablesNombres.Add(slot.objeto.nombreObjeto);
-                    data.coleccionablesCantidades.Add(slot.cantidad);
+                    data.playerPosXMundo1 = playerObj.transform.position.x;
+                    data.playerPosYMundo1 = playerObj.transform.position.y;
+                    data.tienePosicionGuardadaMundo1 = true;
                 }
             }
-        }
 
-        // 4. Estado de jugador Mundo 1 (si existe en la escena)
-        PlayerController pc = FindFirstObjectByType<PlayerController>();
-        if (pc != null)
-        {
-            var propArma = pc.GetType().GetField("armaDesbloqueada", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            if (propArma != null) data.armaDesbloqueadaMundo1 = (bool)propArma.GetValue(pc);
+            // Garantizar inicialización de listas antes de clonarlas
+            if (destroyedObjects == null) destroyedObjects = new List<string>();
+            if (dialogosReproducidos == null) dialogosReproducidos = new List<string>();
 
-            data.balasActualesCargadorMundo1 = pc.balasActualesCargador;
-        }
+            // Guardar lista de objetos destruidos de Mundo 1
+            data.objetosDestruidosMundo1 = new List<string>(destroyedObjects);
 
-        PlayerHealth ph = FindFirstObjectByType<PlayerHealth>();
-        if (ph != null)
-        {
-            var propVida = ph.GetType().GetField("vidaActual", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            if (propVida != null) data.vidaActualMundo1 = (int)propVida.GetValue(ph);
-        }
+            // Guardar lista de diálogos reproducidos de la partida
+            data.dialogosReproducidos = new List<string>(dialogosReproducidos);
 
-        // Guardar posición del jugador si estamos en Mundo 1 o Hub
-        if (currentScene == "01_Hub" || currentScene == "1_Level1" || currentScene == "1_Level2")
-        {
-            GameObject playerObj = GameObject.FindWithTag("Player");
-            if (playerObj != null)
+            // 5. Estado Mundo 2
+            // Si estamos guardando desde el Hub o Mundo 1, limpiamos el checkpoint de Mundo 2
+            if (currentScene == "01_Hub" || currentScene == "1_Level1" || currentScene == "1_Level2")
             {
-                data.playerPosXMundo1 = playerObj.transform.position.x;
-                data.playerPosYMundo1 = playerObj.transform.position.y;
-                data.tienePosicionGuardadaMundo1 = true;
-            }
-        }
-
-        // Guardar lista de objetos destruidos de Mundo 1
-        data.objetosDestruidosMundo1 = new List<string>(destroyedObjects);
-
-        // Guardar lista de diálogos reproducidos de la partida
-        data.dialogosReproducidos = new List<string>(dialogosReproducidos);
-
-        // 5. Estado Mundo 2
-        // Si estamos guardando desde el Hub o Mundo 1, limpiamos el checkpoint de Mundo 2
-        if (currentScene == "01_Hub" || currentScene == "1_Level1" || currentScene == "1_Level2")
-        {
-            data.livesMundo2 = 3;
-            data.totalCoinsMundo2 = 0;
-            data.secretCoinsCollectedMundo2 = 0;
-            data.lastCheckpointSceneMundo2 = "";
-            data.lastCheckpointPosXMundo2 = 0f;
-            data.lastCheckpointPosYMundo2 = 0f;
-            data.remainingTimeMundo2 = 500f;
-            data.checkpointTimeMundo2 = 500f;
-            data.consecutiveCheckpointDeathsMundo2 = 0;
-            data.collectedCoinsMundo2 = new List<string>();
-        }
-        else // Mundo 2
-        {
-            if (currentScene == "2_Level1" && PlayerPlatformerController.lastCheckpointScene != "2_Level1")
-            {
-                // No ha pasado el checkpoint en Nivel 1: todo empieza desde 0/valores iniciales
                 data.livesMundo2 = 3;
                 data.totalCoinsMundo2 = 0;
                 data.secretCoinsCollectedMundo2 = 0;
@@ -224,48 +262,77 @@ public class SaveManager : MonoBehaviour
                 data.consecutiveCheckpointDeathsMundo2 = 0;
                 data.collectedCoinsMundo2 = new List<string>();
             }
-            else
+            else // Mundo 2
             {
-                data.livesMundo2 = PlayerPlatformerController.lives;
-                data.remainingTimeMundo2 = PlayerPlatformerController.remainingTime;
-                data.consecutiveCheckpointDeathsMundo2 = PlayerPlatformerController.consecutiveCheckpointDeaths;
-
-                // Si estamos en 2_Level2, borramos el checkpoint para que empiece desde el inicio de 2_Level2
-                if (currentScene == "2_Level2")
+                if (currentScene == "2_Level1" && PlayerPlatformerController.lastCheckpointScene != "2_Level1")
                 {
+                    // No ha pasado el checkpoint en Nivel 1: todo empieza desde 0/valores iniciales
+                    data.livesMundo2 = 3;
+                    data.totalCoinsMundo2 = 0;
+                    data.secretCoinsCollectedMundo2 = 0;
                     data.lastCheckpointSceneMundo2 = "";
                     data.lastCheckpointPosXMundo2 = 0f;
                     data.lastCheckpointPosYMundo2 = 0f;
-                    data.checkpointTimeMundo2 = PlayerPlatformerController.remainingTime;
-
-                    // Las monedas y galletas del Nivel 2 no se guardan en disco bajo ningún concepto
-                    data.totalCoinsMundo2 = 0;
-                    data.secretCoinsCollectedMundo2 = 0;
+                    data.remainingTimeMundo2 = 500f;
+                    data.checkpointTimeMundo2 = 500f;
+                    data.consecutiveCheckpointDeathsMundo2 = 0;
                     data.collectedCoinsMundo2 = new List<string>();
                 }
                 else
                 {
-                    data.totalCoinsMundo2 = PlayerPlatformerController.totalCoins;
-                    data.secretCoinsCollectedMundo2 = PlayerPlatformerController.secretCoinsCollected;
-                    data.collectedCoinsMundo2 = new List<string>(PlayerPlatformerController.collectedCoinsActive);
+                    data.livesMundo2 = PlayerPlatformerController.lives;
+                    data.remainingTimeMundo2 = PlayerPlatformerController.remainingTime;
+                    data.consecutiveCheckpointDeathsMundo2 = PlayerPlatformerController.consecutiveCheckpointDeaths;
 
-                    data.lastCheckpointSceneMundo2 = PlayerPlatformerController.lastCheckpointScene;
-                    data.lastCheckpointPosXMundo2 = PlayerPlatformerController.lastCheckpointPos.x;
-                    data.lastCheckpointPosYMundo2 = PlayerPlatformerController.lastCheckpointPos.y;
-                    data.checkpointTimeMundo2 = PlayerPlatformerController.checkpointTime;
+                    // Si estamos en 2_Level2, borramos el checkpoint para que empiece desde el inicio de 2_Level2
+                    if (currentScene == "2_Level2")
+                    {
+                        data.lastCheckpointSceneMundo2 = "";
+                        data.lastCheckpointPosXMundo2 = 0f;
+                        data.lastCheckpointPosYMundo2 = 0f;
+                        data.checkpointTimeMundo2 = PlayerPlatformerController.remainingTime;
+
+                        // Las monedas y galletas del Nivel 2 no se guardan en disco bajo ningún concepto
+                        data.totalCoinsMundo2 = 0;
+                        data.secretCoinsCollectedMundo2 = 0;
+                        data.collectedCoinsMundo2 = new List<string>();
+                    }
+                    else
+                    {
+                        data.totalCoinsMundo2 = PlayerPlatformerController.totalCoins;
+                        data.secretCoinsCollectedMundo2 = PlayerPlatformerController.secretCoinsCollected;
+                        
+                        if (PlayerPlatformerController.collectedCoinsActive != null)
+                        {
+                            data.collectedCoinsMundo2 = new List<string>(PlayerPlatformerController.collectedCoinsActive);
+                        }
+                        else
+                        {
+                            data.collectedCoinsMundo2 = new List<string>();
+                        }
+
+                        data.lastCheckpointSceneMundo2 = PlayerPlatformerController.lastCheckpointScene;
+                        data.lastCheckpointPosXMundo2 = PlayerPlatformerController.lastCheckpointPos.x;
+                        data.lastCheckpointPosYMundo2 = PlayerPlatformerController.lastCheckpointPos.y;
+                        data.checkpointTimeMundo2 = PlayerPlatformerController.checkpointTime;
+                    }
                 }
             }
+
+            // Guardamos también a PlayerPrefs los valores de compatibilidad
+            PlayerPrefs.SetInt("SavedLevel", 1); // Indica que hay una partida cargable
+            PlayerPrefs.SetInt("PlayerCores", data.playerCores);
+            PlayerPrefs.Save();
+
+            // Convertir a JSON y guardar
+            string json = JsonUtility.ToJson(data, true);
+            File.WriteAllText(saveFilePath, json);
+            Debug.Log("Juego guardado en: " + saveFilePath);
         }
-
-        // Guardamos también a PlayerPrefs los valores de compatibilidad
-        PlayerPrefs.SetInt("SavedLevel", 1); // Indica que hay una partida cargable
-        PlayerPrefs.SetInt("PlayerCores", data.playerCores);
-        PlayerPrefs.Save();
-
-        // Convertir a JSON y guardar
-        string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(saveFilePath, json);
-        Debug.Log("Juego guardado en: " + saveFilePath);
+        catch (System.Exception e)
+        {
+            Debug.LogError("[SaveManager] ERROR CRÍTICO al guardar partida: " + e.ToString());
+        }
     }
 
     public void LoadGame()
@@ -293,6 +360,8 @@ public class SaveManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        LevelSelectorController.ResetFlags();
+
         // Si venimos del Hub y entramos al Mundo 2 (caminando por el portal, sin cargar partida desde el menú),
         // restauramos el estado del punto de control y las estadísticas del Mundo 2 guardadas en disco
         if (pendingLoadData == null && previousSceneName == "01_Hub" && (scene.name == "2_Level1" || scene.name == "2_Level2") && HasSaveGame())
@@ -311,8 +380,16 @@ public class SaveManager : MonoBehaviour
                     PlayerPlatformerController.remainingTime = diskData.remainingTimeMundo2;
                     PlayerPlatformerController.checkpointTime = diskData.checkpointTimeMundo2;
 
-                    PlayerPlatformerController.collectedCoinsActive = new System.Collections.Generic.HashSet<string>(diskData.collectedCoinsMundo2);
-                    PlayerPlatformerController.collectedCoinsAtCheckpoint = new System.Collections.Generic.HashSet<string>(diskData.collectedCoinsMundo2);
+                    if (diskData.collectedCoinsMundo2 != null)
+                    {
+                        PlayerPlatformerController.collectedCoinsActive = new System.Collections.Generic.HashSet<string>(diskData.collectedCoinsMundo2);
+                        PlayerPlatformerController.collectedCoinsAtCheckpoint = new System.Collections.Generic.HashSet<string>(diskData.collectedCoinsMundo2);
+                    }
+                    else
+                    {
+                        PlayerPlatformerController.collectedCoinsActive = new System.Collections.Generic.HashSet<string>();
+                        PlayerPlatformerController.collectedCoinsAtCheckpoint = new System.Collections.Generic.HashSet<string>();
+                    }
 
                     PlayerPlatformerController.lastCheckpointScene = diskData.lastCheckpointSceneMundo2;
                     PlayerPlatformerController.lastCheckpointPos = new Vector2(diskData.lastCheckpointPosXMundo2, diskData.lastCheckpointPosYMundo2);
@@ -399,8 +476,17 @@ public class SaveManager : MonoBehaviour
         PlayerPlatformerController.remainingTime = pendingLoadData.remainingTimeMundo2;
         PlayerPlatformerController.checkpointTime = pendingLoadData.checkpointTimeMundo2;
         PlayerPlatformerController.consecutiveCheckpointDeaths = pendingLoadData.consecutiveCheckpointDeathsMundo2;
-        PlayerPlatformerController.collectedCoinsActive = new System.Collections.Generic.HashSet<string>(pendingLoadData.collectedCoinsMundo2);
-        PlayerPlatformerController.collectedCoinsAtCheckpoint = new System.Collections.Generic.HashSet<string>(pendingLoadData.collectedCoinsMundo2);
+        
+        if (pendingLoadData.collectedCoinsMundo2 != null)
+        {
+            PlayerPlatformerController.collectedCoinsActive = new System.Collections.Generic.HashSet<string>(pendingLoadData.collectedCoinsMundo2);
+            PlayerPlatformerController.collectedCoinsAtCheckpoint = new System.Collections.Generic.HashSet<string>(pendingLoadData.collectedCoinsMundo2);
+        }
+        else
+        {
+            PlayerPlatformerController.collectedCoinsActive = new System.Collections.Generic.HashSet<string>();
+            PlayerPlatformerController.collectedCoinsAtCheckpoint = new System.Collections.Generic.HashSet<string>();
+        }
 
         if (HUDPlatformerManager.Instance != null)
         {
@@ -408,7 +494,14 @@ public class SaveManager : MonoBehaviour
         }
 
         // Cargar lista de objetos destruidos en Mundo 1
-        destroyedObjects = new List<string>(pendingLoadData.objetosDestruidosMundo1);
+        if (pendingLoadData.objetosDestruidosMundo1 != null)
+        {
+            destroyedObjects = new List<string>(pendingLoadData.objetosDestruidosMundo1);
+        }
+        else
+        {
+            destroyedObjects.Clear();
+        }
 
         // Cargar lista de diálogos reproducidos
         if (pendingLoadData.dialogosReproducidos != null)
@@ -424,22 +517,30 @@ public class SaveManager : MonoBehaviour
         if (InventarioManager.Instance != null)
         {
             InventarioManager.Instance.objetosGuardados.Clear();
-            for (int i = 0; i < pendingLoadData.objetosNombres.Count; i++)
+            if (pendingLoadData.objetosNombres != null && pendingLoadData.objetosCantidades != null)
             {
-                ItemData item = BuscarItemPorNombre(pendingLoadData.objetosNombres[i]);
-                if (item != null)
+                int count = Mathf.Min(pendingLoadData.objetosNombres.Count, pendingLoadData.objetosCantidades.Count);
+                for (int i = 0; i < count; i++)
                 {
-                    InventarioManager.Instance.objetosGuardados.Add(new InventarioSlot(item, pendingLoadData.objetosCantidades[i]));
+                    ItemData item = BuscarItemPorNombre(pendingLoadData.objetosNombres[i]);
+                    if (item != null)
+                    {
+                        InventarioManager.Instance.objetosGuardados.Add(new InventarioSlot(item, pendingLoadData.objetosCantidades[i]));
+                    }
                 }
             }
 
             InventarioManager.Instance.coleccionablesGuardados.Clear();
-            for (int i = 0; i < pendingLoadData.coleccionablesNombres.Count; i++)
+            if (pendingLoadData.coleccionablesNombres != null && pendingLoadData.coleccionablesCantidades != null)
             {
-                ItemData item = BuscarItemPorNombre(pendingLoadData.coleccionablesNombres[i]);
-                if (item != null)
+                int count = Mathf.Min(pendingLoadData.coleccionablesNombres.Count, pendingLoadData.coleccionablesCantidades.Count);
+                for (int i = 0; i < count; i++)
                 {
-                    InventarioManager.Instance.coleccionablesGuardados.Add(new InventarioSlot(item, pendingLoadData.coleccionablesCantidades[i]));
+                    ItemData item = BuscarItemPorNombre(pendingLoadData.coleccionablesNombres[i]);
+                    if (item != null)
+                    {
+                        InventarioManager.Instance.coleccionablesGuardados.Add(new InventarioSlot(item, pendingLoadData.coleccionablesCantidades[i]));
+                    }
                 }
             }
 

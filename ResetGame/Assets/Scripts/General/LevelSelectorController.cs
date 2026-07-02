@@ -33,7 +33,28 @@ public class LevelSelectorController : MonoBehaviour
 
     // Estados públicos para que otros scripts (como la Pausa) los consulten
     public static bool IsSelectorOpen { get; private set; } = false;
-    public static bool CerradoEsteFrame { get; private set; } = false;
+    
+    private static int lastClosedFrame = -1;
+    public static bool CerradoEsteFrame
+    {
+        get { return lastClosedFrame == Time.frameCount; }
+    }
+
+    public static void ResetFlags()
+    {
+        IsSelectorOpen = false;
+        lastClosedFrame = -1;
+    }
+
+    private void Awake()
+    {
+        ResetFlags();
+    }
+
+    private void OnDisable()
+    {
+        ResetFlags();
+    }
 
     private void Start()
     {
@@ -53,7 +74,7 @@ public class LevelSelectorController : MonoBehaviour
             // Pausar juego mientras se elige nivel
             Time.timeScale = 0f;
             IsSelectorOpen = true;
-            CerradoEsteFrame = false;
+            lastClosedFrame = -1;
 
             // Activar fondos y luces adicionales
             foreach (var elem in elementosAdicionalesEscena)
@@ -74,7 +95,7 @@ public class LevelSelectorController : MonoBehaviour
             // Reanudar juego
             Time.timeScale = 1f;
             IsSelectorOpen = false;
-            CerradoEsteFrame = true;
+            lastClosedFrame = Time.frameCount;
 
             // Desactivar fondos y luces adicionales
             foreach (var elem in elementosAdicionalesEscena)
@@ -96,10 +117,7 @@ public class LevelSelectorController : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
-    {
-        CerradoEsteFrame = false;
-    }
+
 
     private void ActualizarBotones()
     {

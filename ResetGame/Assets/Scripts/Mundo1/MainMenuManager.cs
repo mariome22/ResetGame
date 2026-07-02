@@ -120,6 +120,12 @@ public class MainMenuManager : MonoBehaviour
 
     public void ContinueGame()
     {
+        Debug.Log($"[MainMenuManager] Click en Continuar. SaveManager.Instance es nulo?: {SaveManager.Instance == null}");
+        if (SaveManager.Instance != null)
+        {
+            Debug.Log($"[MainMenuManager] ¿Tiene partida guardada (HasSaveGame)?: {SaveManager.Instance.HasSaveGame()}");
+        }
+
         if (SaveManager.Instance != null && SaveManager.Instance.HasSaveGame())
         {
             SaveManager.Instance.LoadGame();

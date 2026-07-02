@@ -225,9 +225,14 @@ public class OptionsManager : MonoBehaviour
 
     private void ConfirmarGuardarYSalir()
     {
+        Debug.Log($"[OptionsManager] ConfirmarGuardarYSalir llamada. SaveManager.Instance es nulo?: {SaveManager.Instance == null}");
         if (SaveManager.Instance != null)
         {
             SaveManager.Instance.SaveGame();
+        }
+        else
+        {
+            Debug.LogError("[OptionsManager] ¡No se pudo guardar la partida porque SaveManager.Instance es NULL!");
         }
         Time.timeScale = 1f; // Reanudar tiempo
         if (SceneTransitionManager.Instance != null)
@@ -242,6 +247,7 @@ public class OptionsManager : MonoBehaviour
 
     private void ConfirmarSalirSinGuardar()
     {
+        Debug.Log("[OptionsManager] ConfirmarSalirSinGuardar llamada.");
         Time.timeScale = 1f; // Reanudar tiempo
         if (SceneTransitionManager.Instance != null)
         {

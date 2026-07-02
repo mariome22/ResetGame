@@ -8,29 +8,59 @@ public class MenuPausaManager : MonoBehaviour
     public GameObject canvasPausa;
 
     private bool estaPausado = false;
+    private bool canvasEsElMismoObjeto = false;
 
     private void Start()
     {
+        canvasEsElMismoObjeto = (canvasPausa == gameObject);
+
         // Asegurarnos de que empiece cerrado
         if (canvasPausa != null)
         {
-            canvasPausa.SetActive(false);
+            if (canvasEsElMismoObjeto)
+            {
+                SetChildrenActive(canvasPausa, false);
+            }
+            else
+            {
+                canvasPausa.SetActive(false);
+            }
         }
     }
 
     private void Update()
     {
-        if (Keyboard.current == null) return;
+        bool iPressed = false;
+        bool escPressed = false;
+
+        if (Keyboard.current != null)
+        {
+            iPressed = Keyboard.current.iKey.wasPressedThisFrame;
+            escPressed = Keyboard.current.escapeKey.wasPressedThisFrame;
+        }
+        else
+        {
+            // Fallback al Input System antiguo si Keyboard.current es nulo
+            iPressed = Input.GetKeyDown(KeyCode.I);
+            escPressed = Input.GetKeyDown(KeyCode.Escape);
+        }
+
+        // Log temporal de depuración para la tecla ESC/I
+        if (iPressed || escPressed)
+        {
+            Debug.Log($"[MenuPausaManager] Se pulsó ESC o I. estaPausado: {estaPausado}, IsSelectorOpen: {LevelSelectorController.IsSelectorOpen}, CerradoEsteFrame: {LevelSelectorController.CerradoEsteFrame}");
+        }
+
         if (LevelSelectorController.IsSelectorOpen || LevelSelectorController.CerradoEsteFrame) return;
 
         // Abrir/Cerrar con la tecla I
-        if (Keyboard.current.iKey.wasPressedThisFrame)
+        if (iPressed)
         {
             AlternarPausa();
         }
 
         // Abrir Opciones o Cerrar con la tecla ESC
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (escPressed)
         {
             // Evitar conflicto si el jugador está leyendo una nota o la acaba de cerrar en este frame
             if (LectorNotas.Instance != null && (LectorNotas.Instance.EstaLeyendo || LectorNotas.Instance.CerradoEsteFrame))
@@ -53,6 +83,15 @@ public class MenuPausaManager : MonoBehaviour
         }
     }
 
+    private void SetChildrenActive(GameObject parent, bool active)
+    {
+        if (parent == null) return;
+        foreach (Transform child in parent.transform)
+        {
+            child.gameObject.SetActive(active);
+        }
+    }
+
     public void AlternarPausa()
     {
         if (canvasPausa == null) return;
@@ -62,7 +101,14 @@ public class MenuPausaManager : MonoBehaviour
         if (estaPausado)
         {
             // Abrir menú y pausar tiempo
-            canvasPausa.SetActive(true);
+            if (canvasEsElMismoObjeto)
+            {
+                SetChildrenActive(canvasPausa, true);
+            }
+            else
+            {
+                canvasPausa.SetActive(true);
+            }
             Time.timeScale = 0f;
             
             // Actualizar inventario visualmente justo al abrir
@@ -75,7 +121,14 @@ public class MenuPausaManager : MonoBehaviour
         else
         {
             // Cerrar menú y reanudar tiempo
-            canvasPausa.SetActive(false);
+            if (canvasEsElMismoObjeto)
+            {
+                SetChildrenActive(canvasPausa, false);
+            }
+            else
+            {
+                canvasPausa.SetActive(false);
+            }
             Time.timeScale = 1f;
         }
     }

@@ -15,6 +15,18 @@ public class TriggerDialogue : MonoBehaviour
 
     private bool activado = false;
 
+    private void Start()
+    {
+        // Si tiene ID de persistencia, comprobar al iniciar si ya se reprodujo
+        if (!string.IsNullOrEmpty(dialogoID) && SaveManager.Instance != null)
+        {
+            if (SaveManager.Instance.dialogosReproducidos.Contains(dialogoID))
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (activado) return;

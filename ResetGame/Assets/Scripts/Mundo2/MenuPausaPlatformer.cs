@@ -22,17 +22,24 @@ public class MenuPausaPlatformer : MonoBehaviour
 
     private bool estaPausado = false;
     private string escenaDestinoPending = "";
+    private bool canvasEsElMismoObjeto = false;
 
     private void Start()
     {
+        canvasEsElMismoObjeto = (canvasPausa == gameObject);
+
         // Asegurarnos de que los paneles empiecen cerrados al iniciar el nivel
         if (canvasPausa != null)
         {
-            if (canvasPausa == gameObject)
+            if (canvasEsElMismoObjeto)
             {
-                Debug.LogError($"[MenuPausaPlatformer] ERROR CRÍTICO en '{gameObject.name}': El script 'MenuPausaPlatformer' está en el mismo GameObject que 'canvasPausa'. Al desactivarlo en Start, el script se desactiva a sí mismo y nunca más detectará las teclas de pausa. Coloca el script en un GameObject padre que siempre esté activo y asigna el panel hijo a 'canvasPausa'.");
+                Debug.LogWarning($"[MenuPausaPlatformer] Advertencia en '{gameObject.name}': El script 'MenuPausaPlatformer' está en el mismo GameObject que 'canvasPausa'. Se gestionará desactivando sus elementos hijos para mantener el script activo.");
+                SetChildrenActive(canvasPausa, false);
             }
-            canvasPausa.SetActive(false);
+            else
+            {
+                canvasPausa.SetActive(false);
+            }
         }
         if (panelConfirmacionSalir != null) panelConfirmacionSalir.SetActive(false);
         if (panelControles != null) panelControles.SetActive(false);
@@ -78,11 +85,31 @@ public class MenuPausaPlatformer : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current == null) return;
+        bool iPressed = false;
+        bool escPressed = false;
+
+        if (Keyboard.current != null)
+        {
+            iPressed = Keyboard.current.iKey.wasPressedThisFrame;
+            escPressed = Keyboard.current.escapeKey.wasPressedThisFrame;
+        }
+        else
+        {
+            // Fallback al Input System antiguo si Keyboard.current es nulo
+            iPressed = Input.GetKeyDown(KeyCode.I);
+            escPressed = Input.GetKeyDown(KeyCode.Escape);
+        }
+
+        // Log temporal de depuración para la tecla ESC/I
+        if (iPressed || escPressed)
+        {
+            Debug.Log($"[MenuPausaPlatformer] Se pulsó ESC o I. estaPausado: {estaPausado}, IsSelectorOpen: {LevelSelectorController.IsSelectorOpen}, CerradoEsteFrame: {LevelSelectorController.CerradoEsteFrame}");
+        }
+
         if (LevelSelectorController.IsSelectorOpen || LevelSelectorController.CerradoEsteFrame) return;
 
         // Abrir/Cerrar menú al presionar la tecla I o ESC
-        if (Keyboard.current.iKey.wasPressedThisFrame || Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (iPressed || escPressed)
         {
             // Si el panel de controles está abierto, lo cerramos
             if (estaPausado && panelControles != null && panelControles.activeSelf)
@@ -104,6 +131,20 @@ public class MenuPausaPlatformer : MonoBehaviour
     /// <summary>
     /// Activa o desactiva la pausa del juego.
     /// </summary>
+    private void SetChildrenActive(GameObject parent, bool active)
+    {
+        if (parent == null) return;
+        foreach (Transform child in parent.transform)
+        {
+            if (!active && (child.gameObject == panelConfirmacionSalir || child.gameObject == panelControles))
+            {
+                child.gameObject.SetActive(false);
+                continue;
+            }
+            child.gameObject.SetActive(active);
+        }
+    }
+
     public void AlternarPausa()
     {
         if (canvasPausa == null) return;
@@ -112,14 +153,26 @@ public class MenuPausaPlatformer : MonoBehaviour
 
         if (estaPausado)
         {
-            // Pausar tiempo y activar la UI
-            canvasPausa.SetActive(true);
+            if (canvasEsElMismoObjeto)
+            {
+                SetChildrenActive(canvasPausa, true);
+            }
+            else
+            {
+                canvasPausa.SetActive(true);
+            }
             Time.timeScale = 0f;
         }
         else
         {
-            // Reanudar tiempo y desactivar la UI
-            canvasPausa.SetActive(false);
+            if (canvasEsElMismoObjeto)
+            {
+                SetChildrenActive(canvasPausa, false);
+            }
+            else
+            {
+                canvasPausa.SetActive(false);
+            }
             if (panelConfirmacionSalir != null) panelConfirmacionSalir.SetActive(false);
             if (panelControles != null) panelControles.SetActive(false);
             Time.timeScale = 1f;
@@ -176,9 +229,14 @@ public class MenuPausaPlatformer : MonoBehaviour
 
     private void ConfirmarGuardarYSalir()
     {
+        Debug.Log($"[MenuPausaPlatformer] ConfirmarGuardarYSalir llamada. SaveManager.Instance es nulo?: {SaveManager.Instance == null}");
         if (SaveManager.Instance != null)
         {
             SaveManager.Instance.SaveGame();
+        }
+        else
+        {
+            Debug.LogError("[MenuPausaPlatformer] ¡No se pudo guardar la partida porque SaveManager.Instance es NULL!");
         }
         Time.timeScale = 1f;
         if (SceneTransitionManager.Instance != null)
@@ -193,6 +251,7 @@ public class MenuPausaPlatformer : MonoBehaviour
 
     private void ConfirmarSalirSinGuardar()
     {
+        Debug.Log("[MenuPausaPlatformer] ConfirmarSalirSinGuardar llamada.");
         Time.timeScale = 1f;
         if (SceneTransitionManager.Instance != null)
         {
