@@ -130,7 +130,7 @@ public class LevelSelectorController : MonoBehaviour
         // Permitir cerrar el menú de niveles al presionar ESC si está abierto
         if (IsSelectorOpen && panelUI != null && panelUI.activeSelf)
         {
-            if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+            if (Keyboard.current != null && (Keyboard.current.escapeKey.wasPressedThisFrame || Keyboard.current.pKey.wasPressedThisFrame))
             {
                 CerrarMenu();
             }

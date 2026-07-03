@@ -91,13 +91,13 @@ public class MenuPausaPlatformer : MonoBehaviour
         if (Keyboard.current != null)
         {
             iPressed = Keyboard.current.iKey.wasPressedThisFrame;
-            escPressed = Keyboard.current.escapeKey.wasPressedThisFrame;
+            escPressed = Keyboard.current.escapeKey.wasPressedThisFrame || Keyboard.current.pKey.wasPressedThisFrame;
         }
         else
         {
             // Fallback al Input System antiguo si Keyboard.current es nulo
             iPressed = Input.GetKeyDown(KeyCode.I);
-            escPressed = Input.GetKeyDown(KeyCode.Escape);
+            escPressed = Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P);
         }
 
         // Log temporal de depuración para la tecla ESC/I
