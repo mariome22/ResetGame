@@ -117,6 +117,13 @@ public class SaveManager : MonoBehaviour
         }
         else if (_instance != this)
         {
+            // Si la instancia persistente tiene la base de datos vacía, pero esta instancia de escena la tiene llena, las copiamos
+            if ((_instance.baseDatosObjetos == null || _instance.baseDatosObjetos.Count == 0) && (this.baseDatosObjetos != null && this.baseDatosObjetos.Count > 0))
+            {
+                _instance.baseDatosObjetos = new List<ItemData>(this.baseDatosObjetos);
+                Debug.Log("[SaveManager] Copiada baseDatosObjetos desde la instancia de la escena cargada a la instancia persistente.");
+            }
+
             // Destruimos solo este componente para no romper el GameObject padre (ej. Global_Managers)
             Destroy(this);
         }
@@ -436,27 +443,100 @@ public class SaveManager : MonoBehaviour
             PlayerPlatformerController.collectedCoinsAtCheckpoint.Clear();
         }
 
-        // Si entramos a una escena de Mundo 1 o Hub normalmente (caminando, sin cargar partida desde el menú)
-        // y coincide con la última escena donde se guardó, restauramos la posición del jugador
+        // Si entramos a una escena de Mundo 1 o Hub normalmente (caminando, sin cargar partida desde el menú),
+        // restauramos todo el estado de persistencia (inventario, vida, armas y munición) para evitar perderlos al cambiar de escena
         if (pendingLoadData == null && HasSaveGame() && (scene.name == "01_Hub" || scene.name == "1_Level1" || scene.name == "1_Level2"))
         {
             try
             {
                 string json = File.ReadAllText(saveFilePath);
                 SaveData diskData = JsonUtility.FromJson<SaveData>(json);
-                if (diskData != null && diskData.tienePosicionGuardadaMundo1 && diskData.escenaGuardada == scene.name)
+                if (diskData != null)
                 {
-                    GameObject playerObj = GameObject.FindWithTag("Player");
-                    if (playerObj != null)
+                    // 1. Restaurar posición del jugador SOLO si coincide con la escena guardada
+                    if (diskData.tienePosicionGuardadaMundo1 && diskData.escenaGuardada == scene.name)
                     {
-                        playerObj.transform.position = new Vector3(diskData.playerPosXMundo1, diskData.playerPosYMundo1, playerObj.transform.position.z);
-                        Debug.Log("Posición del jugador en Mundo 1 restaurada al transicionar: " + scene.name);
+                        GameObject playerObj = GameObject.FindWithTag("Player");
+                        if (playerObj != null)
+                        {
+                            playerObj.transform.position = new Vector3(diskData.playerPosXMundo1, diskData.playerPosYMundo1, playerObj.transform.position.z);
+                            Debug.Log("[SaveManager] Posición del jugador en Mundo 1 restaurada al transicionar: " + scene.name);
+                        }
+                    }
+
+                    // 2. Restaurar inventario al transicionar
+                    if (InventarioManager.Instance != null)
+                    {
+                        InventarioManager.Instance.objetosGuardados.Clear();
+                        if (diskData.objetosNombres != null && diskData.objetosCantidades != null)
+                        {
+                            int count = Mathf.Min(diskData.objetosNombres.Count, diskData.objetosCantidades.Count);
+                            for (int i = 0; i < count; i++)
+                            {
+                                ItemData item = BuscarItemPorNombre(diskData.objetosNombres[i]);
+                                if (item != null)
+                                {
+                                    InventarioManager.Instance.objetosGuardados.Add(new InventarioSlot(item, diskData.objetosCantidades[i]));
+                                }
+                            }
+                        }
+
+                        InventarioManager.Instance.coleccionablesGuardados.Clear();
+                        if (diskData.coleccionablesNombres != null && diskData.coleccionablesCantidades != null)
+                        {
+                            int count = Mathf.Min(diskData.coleccionablesNombres.Count, diskData.coleccionablesCantidades.Count);
+                            for (int i = 0; i < count; i++)
+                            {
+                                ItemData item = BuscarItemPorNombre(diskData.coleccionablesNombres[i]);
+                                if (item != null)
+                                {
+                                    InventarioManager.Instance.coleccionablesGuardados.Add(new InventarioSlot(item, diskData.coleccionablesCantidades[i]));
+                                }
+                            }
+                        }
+
+                        InventarioManager.Instance.ActualizarUI();
+                        InventarioManager.Instance.ActualizarMenuPausa();
+                        Debug.Log("[SaveManager] Inventario restaurado al transicionar a la escena: " + scene.name);
+                    }
+
+                    // 3. Restaurar estado de salud y armas del jugador
+                    PlayerController transPc = FindFirstObjectByType<PlayerController>();
+                    if (transPc != null)
+                    {
+                        var propArma = transPc.GetType().GetField("armaDesbloqueada", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                        if (propArma != null) propArma.SetValue(transPc, diskData.armaDesbloqueadaMundo1);
+
+                        var propUsando = transPc.GetType().GetField("usandoArmaADistancia", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                        if (propUsando != null) propUsando.SetValue(transPc, diskData.armaDesbloqueadaMundo1);
+
+                        transPc.balasActualesCargador = diskData.balasActualesCargadorMundo1;
+                        transPc.ActualizarHUDArma();
+                    }
+
+                    PlayerHealth transPh = FindFirstObjectByType<PlayerHealth>();
+                    if (transPh != null)
+                    {
+                        var propVida = transPh.GetType().GetField("vidaActual", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                        if (propVida != null) propVida.SetValue(transPh, diskData.vidaActualMundo1);
+                        transPh.SendMessage("ActualizarHUD", SendMessageOptions.DontRequireReceiver);
+                        Debug.Log("[SaveManager] Salud y armas del jugador restauradas al transicionar: " + diskData.vidaActualMundo1);
+                    }
+
+                    // Sincronizar listas en memoria
+                    if (diskData.objetosDestruidosMundo1 != null)
+                    {
+                        destroyedObjects = new List<string>(diskData.objetosDestruidosMundo1);
+                    }
+                    if (diskData.dialogosReproducidos != null)
+                    {
+                        dialogosReproducidos = new List<string>(diskData.dialogosReproducidos);
                     }
                 }
             }
             catch (System.Exception e)
             {
-                Debug.LogWarning("Error al restaurar posición desde archivo al transicionar: " + e.Message);
+                Debug.LogWarning("[SaveManager] Error al restaurar estado de Mundo 1 al transicionar: " + e.Message);
             }
         }
 
@@ -588,7 +668,11 @@ public class SaveManager : MonoBehaviour
 
     private ItemData BuscarItemPorNombre(string nombre)
     {
-        if (baseDatosObjetos == null) return null;
+        if (baseDatosObjetos == null || baseDatosObjetos.Count == 0)
+        {
+            Debug.LogWarning($"[SaveManager] baseDatosObjetos está vacía. No se puede buscar '{nombre}'.");
+            return null;
+        }
         foreach (var item in baseDatosObjetos)
         {
             if (item != null && item.nombreObjeto == nombre)
@@ -596,6 +680,7 @@ public class SaveManager : MonoBehaviour
                 return item;
             }
         }
+        Debug.LogWarning($"[SaveManager] No se encontró '{nombre}' en baseDatosObjetos.");
         return null;
     }
 }

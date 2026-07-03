@@ -30,9 +30,13 @@ public class PlayerHealth : MonoBehaviour
     private bool tieneParametroMuerte = false;
     private bool tieneParametroVelocidad = false;
 
-    private void Start()
+    private void Awake()
     {
         vidaActual = vidaMaxima;
+    }
+
+    private void Start()
+    {
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (spriteRenderer != null) colorOriginal = spriteRenderer.color;
