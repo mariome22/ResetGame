@@ -1,37 +1,37 @@
 fileFormatVersion: 2
-guid: d0e74a619fd3bfb4580c3ee36fe8d5ea
+guid: 1188b52af4f033f45ab055111813198e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5668795105989534970
-    second: Teclas_0
+      213: -6970822280393891923
+    second: Teclas 1_0
   - first:
-      213: -9156802782555630004
-    second: Teclas_1
+      213: -6023191086357315796
+    second: Teclas 1_1
   - first:
-      213: 4975070973683788868
-    second: Teclas_2
+      213: 5972122641650379417
+    second: Teclas 1_2
   - first:
-      213: -5921809524246091223
-    second: Teclas_3
+      213: -6588589778025480510
+    second: Teclas 1_3
   - first:
-      213: 153165470818770510
-    second: Teclas_4
+      213: -8797797385423802847
+    second: Teclas 1_4
   - first:
-      213: 3236423583088787542
-    second: Teclas_5
+      213: -5022118422130598430
+    second: Teclas 1_5
   - first:
-      213: -4895027881518296050
-    second: Teclas_6
+      213: -7873910034794898635
+    second: Teclas 1_6
   - first:
-      213: 7705344965767026004
-    second: Teclas_7
+      213: 771150932619636821
+    second: Teclas 1_7
   - first:
-      213: -8434838267804680746
-    second: Teclas_8
+      213: 5754291744605702474
+    second: Teclas 1_8
   - first:
-      213: -7001507697923933825
-    second: Teclas_9
+      213: 4297477202393486604
+    second: Teclas 1_9
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -140,7 +140,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Teclas_0
+      name: Teclas 1_0
       rect:
         serializedVersion: 2
         x: 48
@@ -155,14 +155,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 60b550bb2e46451b0800000000000000
-      internalID: -5668795105989534970
+      spriteID: daf5eb8a11aa24f90800000000000000
+      internalID: -6970822280393891923
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Teclas_1
+      name: Teclas 1_1
       rect:
         serializedVersion: 2
         x: 49
@@ -177,14 +177,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c46967352608ce080800000000000000
-      internalID: -9156802782555630004
+      spriteID: c2f7f538e93596ca0800000000000000
+      internalID: -6023191086357315796
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Teclas_2
+      name: Teclas 1_2
       rect:
         serializedVersion: 2
         x: 49
@@ -199,14 +199,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 44c67c601b00b0540800000000000000
-      internalID: 4975070973683788868
+      spriteID: 99a63a2a6ed31e250800000000000000
+      internalID: 5972122641650379417
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Teclas_3
+      name: Teclas 1_3
       rect:
         serializedVersion: 2
         x: 49
@@ -221,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 92a69cfdc9181dda0800000000000000
-      internalID: -5921809524246091223
+      spriteID: 2ce75063180a094a0800000000000000
+      internalID: -6588589778025480510
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Teclas_4
+      name: Teclas 1_4
       rect:
         serializedVersion: 2
         x: 50
@@ -243,14 +243,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e4e12082f27202200800000000000000
-      internalID: 153165470818770510
+      spriteID: 12e24f304e1f7e580800000000000000
+      internalID: -8797797385423802847
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Teclas_5
+      name: Teclas 1_5
       rect:
         serializedVersion: 2
         x: 50
@@ -265,14 +265,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 65044bcf9161aec20800000000000000
-      internalID: 3236423583088787542
+      spriteID: 2edd5f447e9dd4ab0800000000000000
+      internalID: -5022118422130598430
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Teclas_6
+      name: Teclas 1_6
       rect:
         serializedVersion: 2
         x: 50
@@ -287,19 +287,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e041874a31e511cb0800000000000000
-      internalID: -4895027881518296050
+      spriteID: 53b9aa68a804ab290800000000000000
+      internalID: -7873910034794898635
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Teclas_7
+      name: Teclas 1_7
       rect:
         serializedVersion: 2
-        x: 30
+        x: 32
         y: 77
-        width: 46
+        width: 44
         height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -309,14 +309,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4555364fb62eeea60800000000000000
-      internalID: 7705344965767026004
+      spriteID: 550310fffada3ba00800000000000000
+      internalID: 771150932619636821
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Teclas_8
+      name: Teclas 1_8
       rect:
         serializedVersion: 2
         x: 8
@@ -331,14 +331,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6dd71adf84f61fa80800000000000000
-      internalID: -8434838267804680746
+      spriteID: a498f2baad95bdf40800000000000000
+      internalID: 5754291744605702474
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Teclas_9
+      name: Teclas 1_9
       rect:
         serializedVersion: 2
         x: 30
@@ -353,8 +353,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f79b41528d5a5de90800000000000000
-      internalID: -7001507697923933825
+      spriteID: c05d00f1fb4b3ab30800000000000000
+      internalID: 4297477202393486604
       vertices: []
       indices: 
       edges: []
@@ -373,16 +373,16 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Teclas_0: -5668795105989534970
-      Teclas_1: -9156802782555630004
-      Teclas_2: 4975070973683788868
-      Teclas_3: -5921809524246091223
-      Teclas_4: 153165470818770510
-      Teclas_5: 3236423583088787542
-      Teclas_6: -4895027881518296050
-      Teclas_7: 7705344965767026004
-      Teclas_8: -8434838267804680746
-      Teclas_9: -7001507697923933825
+      Teclas 1_0: -6970822280393891923
+      Teclas 1_1: -6023191086357315796
+      Teclas 1_2: 5972122641650379417
+      Teclas 1_3: -6588589778025480510
+      Teclas 1_4: -8797797385423802847
+      Teclas 1_5: -5022118422130598430
+      Teclas 1_6: -7873910034794898635
+      Teclas 1_7: 771150932619636821
+      Teclas 1_8: 5754291744605702474
+      Teclas 1_9: 4297477202393486604
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

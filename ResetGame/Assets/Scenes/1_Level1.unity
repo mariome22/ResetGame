@@ -2110,7 +2110,7 @@ MonoBehaviour:
     Disparar'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0051b0c675e0fb845a0fe31491f331ae, type: 2}
-  m_sharedMaterial: {fileID: 1626753348547536795, guid: cbd68f56773e51947b4d6b478dcfa011, type: 2}
+  m_sharedMaterial: {fileID: 878493323317687313, guid: 0051b0c675e0fb845a0fe31491f331ae, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4534,7 +4534,7 @@ MonoBehaviour:
     - npcName: Jugador
       sentence: 'Esto es demasiado... '
     - npcName: Consola
-      sentence: "Recoge recursos (Tecla E), gu\xE1rdalos en tu mochila (Tecla Esc)
+      sentence: "Recoge recursos (Tecla E), gu\xE1rdalos en tu mochila (Tecla P)
         \xFAsalos para curarte (Tecla Q para usar y Tab para cambiar la cura), tendr\xE1s
         que gestionarlos bien para completar el nivel."
     - npcName: Consola
@@ -7368,7 +7368,7 @@ MonoBehaviour:
     Cambiar cura'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0051b0c675e0fb845a0fe31491f331ae, type: 2}
-  m_sharedMaterial: {fileID: 1626753348547536795, guid: cbd68f56773e51947b4d6b478dcfa011, type: 2}
+  m_sharedMaterial: {fileID: 878493323317687313, guid: 0051b0c675e0fb845a0fe31491f331ae, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11977,7 +11977,7 @@ MonoBehaviour:
   m_text: Cambiar arma
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0051b0c675e0fb845a0fe31491f331ae, type: 2}
-  m_sharedMaterial: {fileID: 1626753348547536795, guid: cbd68f56773e51947b4d6b478dcfa011, type: 2}
+  m_sharedMaterial: {fileID: 878493323317687313, guid: 0051b0c675e0fb845a0fe31491f331ae, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -39388,7 +39388,8 @@ MonoBehaviour:
       sentence: "\xBFDonde est\xE1n?"
     - npcName: ???
       sentence: "No lo s\xE9, es lo que vengo a buscar pero no puedo cruzar al otro
-        lado. Busca por edificios y calles, solo s\xE9 que son cajas rojas."
+        lado. Busca por edificios y calles, solo s\xE9 que son cajas rojas. Habr\xE1
+        infectados custodiando sus entradas seguro."
     - npcName: ???
       sentence: "Est\xE1 bien, vuelvo enseguida."
   dialogoProgreso:
@@ -43554,7 +43555,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d0e74a619fd3bfb4580c3ee36fe8d5ea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1188b52af4f033f45ab055111813198e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
