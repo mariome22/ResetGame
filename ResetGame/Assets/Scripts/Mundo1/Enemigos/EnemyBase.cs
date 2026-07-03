@@ -16,6 +16,9 @@ public class EnemyBase : MonoBehaviour
     [Tooltip("Nombre del parámetro booleano en el Animator que indica si camina")]
     public string parametroCaminar = "isWalking";
 
+    [Header("Sonidos (SFX)")]
+    [SerializeField] private AudioClip sonidoMuerte;
+
     private SpriteRenderer spriteRenderer;
     private Color colorOriginal;
     private Rigidbody2D rb;
@@ -127,6 +130,10 @@ public class EnemyBase : MonoBehaviour
 
     private void Morir()
     {
+        if (sonidoMuerte != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(sonidoMuerte);
+        }
         StopAllCoroutines(); // Detiene AplicarKnockback y otros efectos activos del base
         StartCoroutine(MorirRoutine());
     }

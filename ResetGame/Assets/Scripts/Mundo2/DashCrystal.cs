@@ -10,6 +10,8 @@ public class DashCrystal : MonoBehaviour
     [Header("Efectos Visuales y Sonoros")]
     [Tooltip("Efecto de partículas opcional que se instanciará al romperse el cristal.")]
     public GameObject breakEffectPrefab;
+    [Tooltip("Sonido a reproducir al recolectar el cristal.")]
+    [SerializeField] private AudioClip collectSound;
 
     private Collider2D crystalCollider;
     private SpriteRenderer crystalSprite;
@@ -54,6 +56,12 @@ public class DashCrystal : MonoBehaviour
         {
             GameObject effect = Instantiate(breakEffectPrefab, transform.position, Quaternion.identity);
             Destroy(effect, 2f); // Destruir partículas tras 2 segundos
+        }
+
+        // Reproducir sonido de recolección
+        if (collectSound != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(collectSound);
         }
 
         // Esperar el cooldown de reaparición

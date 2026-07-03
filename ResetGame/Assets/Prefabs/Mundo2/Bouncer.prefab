@@ -82,6 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBouncerPlatformer
   maxHealth: 1
   damageToPlayer: 1
+  sonidoMuerte: {fileID: 8300000, guid: fc255aed10aff384394a7775e3045d52, type: 3}
   bounceSpeed: 12
   wallCheck: {fileID: 6747246444334459393}
   checkDistance: 0.1

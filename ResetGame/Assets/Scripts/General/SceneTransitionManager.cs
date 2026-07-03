@@ -36,6 +36,8 @@ public class SceneTransitionManager : MonoBehaviour
         private set { _instance = value; }
     }
 
+    public bool IsTransitionActive => canvasTransition != null && canvasTransition.enabled;
+
     [Header("Visuales de Transición")]
     [SerializeField] private Canvas canvasTransition;
     [SerializeField] private Image fadeImage;

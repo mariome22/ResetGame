@@ -130,6 +130,7 @@ MonoBehaviour:
   fuerzaKnockback: 8
   tiempoAturdido: 0.2
   parametroCaminar: isWalking
+  sonidoMuerte: {fileID: 8300000, guid: 42cc0594eeba8594e880b94567fc23c1, type: 3}
 --- !u!114 &3705469459306955390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,6 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8e2169f33c5f4e4e842e1d545b9a7f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShooter
+  sonidoAtaque: {fileID: 8300000, guid: 3044d639057d34c4182104dc1d7be90e, type: 3}
   prefabProyectil: {fileID: 3979685118916425157, guid: 72f6d209637adb7409d9967d20934ebc, type: 3}
   ritmoDeDisparo: 2
   variacionRitmo: 0.3

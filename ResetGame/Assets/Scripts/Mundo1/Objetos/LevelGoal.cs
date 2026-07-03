@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelGoal : MonoBehaviour
@@ -6,6 +6,9 @@ public class LevelGoal : MonoBehaviour
     [Header("Configuracion")]
     public string nombreEscenaHub = "01_Hub";
     public GameObject panelVictoria;
+
+    [Header("Sonido (Opcional)")]
+    [SerializeField] private AudioClip sonidoVictoria;
 
     private bool isTransitioning = false;
 
@@ -23,6 +26,11 @@ public class LevelGoal : MonoBehaviour
         {
             panelVictoria.SetActive(true);
             Time.timeScale = 0f;
+
+            if (sonidoVictoria != null && AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(sonidoVictoria);
+            }
         }
         else
         {

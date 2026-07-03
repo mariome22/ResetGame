@@ -26,6 +26,9 @@ public class LevelExit : MonoBehaviour
     [Tooltip("El panel de victoria que se mostrará al completar el nivel (opcional).")]
     public GameObject panelVictoria;
 
+    [Header("Sonido de Victoria")]
+    [SerializeField] private AudioClip sonidoVictoria;
+
     private bool isTransitioning = false;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -48,6 +51,11 @@ public class LevelExit : MonoBehaviour
         {
             panelVictoria.SetActive(true);
             Time.timeScale = 0f;
+
+            if (sonidoVictoria != null && AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(sonidoVictoria);
+            }
         }
         else
         {

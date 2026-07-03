@@ -52,6 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyJumperPlatformer
   maxHealth: 1
   damageToPlayer: 1
+  sonidoMuerte: {fileID: 8300000, guid: fc255aed10aff384394a7775e3045d52, type: 3}
   patrolSpeed: 5
   ledgeCheck: {fileID: 6722058324719198564}
   wallCheck: {fileID: 2941509761379073781}

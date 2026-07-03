@@ -114,6 +114,7 @@ MonoBehaviour:
   fuerzaKnockback: 4
   duracionKnockback: 0.2
   panelMuerte: {fileID: 0}
+  sonidoMuerte: {fileID: 8300000, guid: 031c54952ff5530428bbdb326756510f, type: 3}
 --- !u!114 &684007592919031421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +137,11 @@ MonoBehaviour:
   distanciaVisualTajo: 0.3
   cooldownMelee: 0.5
   retrasoDanoMelee: 0.08
+  sonidoMelee: {fileID: 8300000, guid: eff3225745e3c2d4ea7f94c3365370ba, type: 3}
+  sonidoDisparo: {fileID: 8300000, guid: 3044d639057d34c4182104dc1d7be90e, type: 3}
+  sonidoDash: {fileID: 8300000, guid: c2fd024e3b1dd8846814039e294e280d, type: 3}
+  sonidoPaso: {fileID: 8300000, guid: bd6fe0358168c1246930e84ff951cbaa, type: 3}
+  pasoIntervalo: 0.35
   prefabProyectil: {fileID: 3979685118916425157, guid: 72666a1055edd0c44a96ba7791e758b4, type: 3}
   velocidadProyectil: 8
   balasMaximasCargador: 12

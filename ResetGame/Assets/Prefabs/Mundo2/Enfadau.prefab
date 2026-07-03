@@ -84,6 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPlatformerBase
   maxHealth: 1
   damageToPlayer: 1
+  sonidoMuerte: {fileID: 8300000, guid: fc255aed10aff384394a7775e3045d52, type: 3}
 --- !u!114 &6800202993010673743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPatrolPlatformer
   maxHealth: 1
   damageToPlayer: 1
+  sonidoMuerte: {fileID: 0}
   patrolSpeed: 3
   ledgeCheck: {fileID: 5196660424092855499}
   wallCheck: {fileID: 3556646232455918221}
@@ -107,6 +109,7 @@ MonoBehaviour:
     m_Bits: 128
   minTimeBeforeTurn: 3
   maxTimeBeforeTurn: 6
+  startMovingRight: 1
 --- !u!212 &3862597143743873852
 SpriteRenderer:
   serializedVersion: 2

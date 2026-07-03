@@ -109,12 +109,16 @@ public class PlayerPlatformerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Collider2D playerCollider;
 
-    [Header("Animaciones (Nombres de Estados)")]
-    [Tooltip("Nombre de la animación de estar quieto en el Animator")]
+    [Header("Sonidos (SFX)")]
+    [SerializeField] private AudioClip sonidoSalto;
+    [SerializeField] private AudioClip sonidoDash;
+    [SerializeField] private AudioClip sonidoPaso;
+    [SerializeField] private float pasoIntervalo = 0.35f;
+    private float pasoTimer = 0f;
+
+    [Header("Animaciones")]
     public string idleAnimName = "idle";
-    [Tooltip("Nombre de la animación de caminar en el Animator")]
     public string walkAnimName = "walk";
-    [Tooltip("Nombre de la animación de salto en el Animator")]
     public string jumpAnimName = "jump";
     [Tooltip("Nombre de la animación de caída en el Animator")]
     public string fallAnimName = "fall";
@@ -166,6 +170,9 @@ public class PlayerPlatformerController : MonoBehaviour
     [Header("UI Game Over")]
     [Tooltip("Panel UI que se muestra al perder todos los intentos")]
     public GameObject panelGameOver;
+
+    [Header("Sonido Game Over")]
+    [SerializeField] private AudioClip sonidoGameOver;
 
     // Variables de respaldo para la persistencia en checkpoints
     public static int checkpointCoins = 0;
@@ -406,6 +413,11 @@ public class PlayerPlatformerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             jumpBufferCounter = 0f;
             coyoteTimeCounter = 0f;
+
+            if (sonidoSalto != null && AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(sonidoSalto);
+            }
         }
         else if (enableWallJump && !isGrounded && isTouchingWall && jumpBufferCounter > 0f)
         {
@@ -417,6 +429,11 @@ public class PlayerPlatformerController : MonoBehaviour
             // Saltar en dirección contraria a la pared
             float jumpDir = wallOnRight ? -1f : 1f;
             rb.linearVelocity = new Vector2(wallJumpForce.x * jumpDir, wallJumpForce.y);
+
+            if (sonidoSalto != null && AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(sonidoSalto);
+            }
 
             // Rotar de inmediato hacia la dirección del salto
             if ((jumpDir > 0 && !facingRight) || (jumpDir < 0 && facingRight))
@@ -434,6 +451,11 @@ public class PlayerPlatformerController : MonoBehaviour
             doubleJumpAvailable = false;
             jumpBufferCounter = 0f;
             coyoteTimeCounter = 0f;
+
+            if (sonidoSalto != null && AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(sonidoSalto);
+            }
         }
 
         // 7. Salto Variable (soltar el botón antes)
@@ -454,6 +476,24 @@ public class PlayerPlatformerController : MonoBehaviour
         if (dashPressed && canDash && !isGrounded && !isWallSliding && dashCooldownTimer <= 0f)
         {
             StartCoroutine(DashRoutine());
+        }
+
+        // Lógica de pasos en plataformas
+        if (isGrounded && Mathf.Abs(horizontalInput) > 0.1f && !isDashing && !isDead)
+        {
+            pasoTimer += Time.deltaTime;
+            if (pasoTimer >= pasoIntervalo)
+            {
+                pasoTimer = 0f;
+                if (sonidoPaso != null && AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.PlaySFX(sonidoPaso);
+                }
+            }
+        }
+        else
+        {
+            pasoTimer = pasoIntervalo;
         }
 
         // 8. Control de Animaciones
@@ -608,6 +648,11 @@ public class PlayerPlatformerController : MonoBehaviour
         isDashing = true;
         dashCooldownTimer = dashCooldown;
 
+        if (sonidoDash != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(sonidoDash);
+        }
+
         // Guardar gravedad original y pausarla
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0f;
@@ -700,6 +745,11 @@ public class PlayerPlatformerController : MonoBehaviour
 
                     panelGameOver.SetActive(true);
                     Time.timeScale = 0f; // Pausar juego al perder todos los intentos
+
+                    if (sonidoGameOver != null && AudioManager.Instance != null)
+                    {
+                        AudioManager.Instance.PlaySFX(sonidoGameOver);
+                    }
 
                     // Fundido de vuelta a transparente revelando el panel
                     if (SceneTransitionManager.Instance != null)

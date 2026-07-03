@@ -7,6 +7,9 @@ public class EnemyPlatformerBase : MonoBehaviour
     protected int currentHealth;
     public int damageToPlayer = 1;
 
+    [Header("Sonidos (SFX)")]
+    [SerializeField] private AudioClip sonidoMuerte;
+
     protected virtual void Start()
     {
         currentHealth = maxHealth;
@@ -23,6 +26,11 @@ public class EnemyPlatformerBase : MonoBehaviour
 
     protected virtual void Die()
     {
+        if (sonidoMuerte != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(sonidoMuerte);
+        }
+
         Animator anim = GetComponent<Animator>();
         if (anim != null)
         {

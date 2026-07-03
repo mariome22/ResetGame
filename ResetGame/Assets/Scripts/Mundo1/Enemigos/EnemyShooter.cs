@@ -3,6 +3,9 @@ using System.Collections;
 
 public class EnemyShooter : MonoBehaviour
 {
+    [Header("Sonidos (SFX)")]
+    [SerializeField] private AudioClip sonidoAtaque;
+
     [Header("Ajustes Base")]
     public GameObject prefabProyectil;
     public float ritmoDeDisparo = 2f;
@@ -350,6 +353,11 @@ public class EnemyShooter : MonoBehaviour
                 }
 
                 Vector2 direccionBase = (objetivoApuntado - (Vector2)transform.position).normalized;
+
+                if (sonidoAtaque != null && AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.PlaySFX(sonidoAtaque);
+                }
 
                 if (disparoSimultaneo)
                 {

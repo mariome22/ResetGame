@@ -1044,7 +1044,7 @@ GameObject:
   - component: {fileID: 333038586}
   - component: {fileID: 333038587}
   m_Layer: 5
-  m_Name: MusicSlider
+  m_Name: SFX_Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2972,8 +2972,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4f02b8ca27886c42b3bfb18f8639087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OptionsManager
-  sliderMusica: {fileID: 333038587}
-  sliderSFX: {fileID: 1788269047}
+  sliderMusica: {fileID: 1788269047}
+  sliderSFX: {fileID: 333038587}
   botonSalirAlHub: {fileID: 0}
   botonSalirAlMenu: {fileID: 0}
   panelConfirmacionSalir: {fileID: 0}
@@ -5700,7 +5700,7 @@ GameObject:
   - component: {fileID: 1788269046}
   - component: {fileID: 1788269047}
   m_Layer: 5
-  m_Name: SFX_Slider
+  m_Name: Music_Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6200,6 +6200,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2005563107}
   m_CullTransparentMesh: 1
+--- !u!1 &2088455798
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2088455800}
+  - component: {fileID: 2088455799}
+  m_Layer: 0
+  m_Name: MusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2088455799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088455798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ebb82da784d6154e86a748e3e5a3743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlaySceneMusic
+  musicaEscena: {fileID: 8300000, guid: 31c6cfb0f7914f74c89e04a1f9c72f4f, type: 3}
+--- !u!4 &2088455800
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2088455798}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.88671, y: 3.96306, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2128068508
 GameObject:
   m_ObjectHideFlags: 0
@@ -6484,3 +6529,4 @@ SceneRoots:
   - {fileID: 820856153}
   - {fileID: 1625315538}
   - {fileID: 316555796}
+  - {fileID: 2088455800}

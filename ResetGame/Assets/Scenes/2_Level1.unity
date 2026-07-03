@@ -26696,6 +26696,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   panelVictoria: {fileID: 581180187}
+  sonidoVictoria: {fileID: 8300000, guid: e5a1979bda4a5124ca444e07093d82f0, type: 3}
 --- !u!4 &666382470
 Transform:
   m_ObjectHideFlags: 0
@@ -569390,6 +569391,51 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1673864941
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1673864943}
+  - component: {fileID: 1673864942}
+  m_Layer: 0
+  m_Name: MusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1673864942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673864941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ebb82da784d6154e86a748e3e5a3743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlaySceneMusic
+  musicaEscena: {fileID: 8300000, guid: b2d03ebc487b01645ae4eb90ddcf6d20, type: 3}
+--- !u!4 &1673864943
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673864941}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.88671, y: 3.96306, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1677266013
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -574126,6 +574172,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1148353773}
     - target: {fileID: 6835908293926986688, guid: 19b788f8fa6eb564fb3cbafc0912a8f8, type: 3}
+      propertyPath: sonidoGameOver
+      value: 
+      objectReference: {fileID: 8300000, guid: 356175ea43bc6934fb6b800e482abfdf, type: 3}
+    - target: {fileID: 6835908293926986688, guid: 19b788f8fa6eb564fb3cbafc0912a8f8, type: 3}
       propertyPath: highBounceForce
       value: 20
       objectReference: {fileID: 0}
@@ -574605,3 +574655,4 @@ SceneRoots:
   - {fileID: 721213544}
   - {fileID: 13979708}
   - {fileID: 898166348}
+  - {fileID: 1673864943}

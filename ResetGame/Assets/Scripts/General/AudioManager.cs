@@ -2,7 +2,36 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager Instance { get; private set; }
+    private static AudioManager _instance;
+    public static AudioManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindFirstObjectByType<AudioManager>(FindObjectsInactive.Include);
+                if (_instance == null)
+                {
+                    GameObject prefab = Resources.Load<GameObject>("Global_Managers");
+                    if (prefab != null)
+                    {
+                        GameObject instantiated = Instantiate(prefab);
+                        _instance = instantiated.GetComponentInChildren<AudioManager>(true);
+                        if (!instantiated.activeSelf) instantiated.SetActive(true);
+                        DontDestroyOnLoad(instantiated);
+                    }
+                    else
+                    {
+                        GameObject obj = new GameObject("AudioManager");
+                        _instance = obj.AddComponent<AudioManager>();
+                        DontDestroyOnLoad(obj);
+                    }
+                }
+            }
+            return _instance;
+        }
+        private set { _instance = value; }
+    }
 
     [Header("Audio Sources")]
     [SerializeField] private AudioSource musicSource;
@@ -22,16 +51,27 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
+        if (_instance == null)
         {
-            Instance = this;
+            _instance = this;
             DontDestroyOnLoad(gameObject);
+
+            // Configurar latencia de audio al mínimo para respuestas instantáneas (Best Latency)
+            AudioConfiguration config = AudioSettings.GetConfiguration();
+            if (config.dspBufferSize > 256)
+            {
+                config.dspBufferSize = 256;
+                AudioSettings.Reset(config);
+                Debug.Log("[AudioManager] DSP Buffer ajustado a 256 para reducir la latencia al mínimo.");
+            }
+
             InitializeAudioSources();
             LoadVolumeSettings();
         }
-        else
+        else if (_instance != this)
         {
-            Destroy(gameObject);
+            // Destruimos solo este componente para no romper el GameObject padre (ej. Global_Managers)
+            Destroy(this);
         }
     }
 

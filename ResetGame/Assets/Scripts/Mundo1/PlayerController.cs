@@ -32,6 +32,14 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Retraso en segundos para aplicar el daño tras iniciar el ataque visual (sincronía)")]
     [SerializeField] private float retrasoDanoMelee = 0.08f;
 
+    [Header("Sonidos (SFX)")]
+    [SerializeField] private AudioClip sonidoMelee;
+    [SerializeField] private AudioClip sonidoDisparo;
+    [SerializeField] private AudioClip sonidoDash;
+    [SerializeField] private AudioClip sonidoPaso;
+    [SerializeField] private float pasoIntervalo = 0.35f;
+    private float pasoTimer = 0f;
+
     [Header("Ajustes de Ataque a Distancia")]
     public GameObject prefabProyectil;
     [SerializeField] private float velocidadProyectil = 15f;
@@ -88,6 +96,24 @@ public class PlayerController : MonoBehaviour
         if (anim != null)
         {
             anim.SetFloat("Velocidad", movimientoInput.sqrMagnitude);
+        }
+
+        // Sonidos de pasos
+        if (movimientoInput != Vector2.zero && !isDashing && !isKnockedBack)
+        {
+            pasoTimer += Time.deltaTime;
+            if (pasoTimer >= pasoIntervalo)
+            {
+                pasoTimer = 0f;
+                if (sonidoPaso != null && AudioManager.Instance != null)
+                {
+                    AudioManager.Instance.PlaySFX(sonidoPaso);
+                }
+            }
+        }
+        else
+        {
+            pasoTimer = pasoIntervalo;
         }
     }
 
@@ -291,6 +317,11 @@ public class PlayerController : MonoBehaviour
             anim.SetTrigger("Atacar");
         }
 
+        if (sonidoDisparo != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(sonidoDisparo);
+        }
+
         balasActualesCargador--;
         ActualizarHUDArma();
         if (prefabProyectil != null)
@@ -316,6 +347,11 @@ public class PlayerController : MonoBehaviour
         canDash = false;
         isDashing = true;
 
+        if (sonidoDash != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(sonidoDash);
+        }
+
         Vector2 direccionDash = (movimientoInput != Vector2.zero) ? movimientoInput.normalized : ultimaDireccionTeclado;
         rb.linearVelocity = direccionDash * dashVelocidad;
 
@@ -331,6 +367,11 @@ public class PlayerController : MonoBehaviour
         if (anim != null && tieneParametroAtacar)
         {
             anim.SetTrigger("Atacar");
+        }
+
+        if (sonidoMelee != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(sonidoMelee);
         }
 
         if (prefabEfectoAtaque != null)

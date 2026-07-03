@@ -1503,6 +1503,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7516337908596738040, guid: 559bfcb098ae8d742a0435fb7dbb9a5c, type: 3}
   m_PrefabInstance: {fileID: 204780567}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &209157691
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 209157693}
+  - component: {fileID: 209157692}
+  m_Layer: 0
+  m_Name: MusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &209157692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209157691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ebb82da784d6154e86a748e3e5a3743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlaySceneMusic
+  musicaEscena: {fileID: 8300000, guid: c36220be37d27124ba6f61c0dbdcc89d, type: 3}
+--- !u!4 &209157693
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209157691}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.88671, y: 3.96306, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &227461917
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2580,6 +2625,10 @@ PrefabInstance:
       propertyPath: fallDeathY
       value: -500
       objectReference: {fileID: 0}
+    - target: {fileID: 6835908293926986688, guid: 19b788f8fa6eb564fb3cbafc0912a8f8, type: 3}
+      propertyPath: sonidoSalto
+      value: 
+      objectReference: {fileID: 8300000, guid: 425ed80ef39605e42a1eaa82283300be, type: 3}
     - target: {fileID: 6835908293926986688, guid: 19b788f8fa6eb564fb3cbafc0912a8f8, type: 3}
       propertyPath: dashDuration
       value: 0.3
@@ -310063,6 +310112,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   panelVictoria: {fileID: 301988949}
+  sonidoVictoria: {fileID: 8300000, guid: e5a1979bda4a5124ca444e07093d82f0, type: 3}
 --- !u!1001 &1090554579
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -394558,3 +394608,4 @@ SceneRoots:
   - {fileID: 604429123}
   - {fileID: 87883020}
   - {fileID: 2146105014}
+  - {fileID: 209157693}

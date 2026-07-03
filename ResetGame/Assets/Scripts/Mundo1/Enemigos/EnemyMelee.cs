@@ -3,6 +3,9 @@ using System.Collections;
 
 public class EnemyMelee : MonoBehaviour
 {
+    [Header("Sonidos (SFX)")]
+    [SerializeField] private AudioClip sonidoAtaque;
+
     [Header("Movimiento Base (Slime)")]
     public float velocidadNormal = 2f;
     public float rangoDeteccion = 10f;
@@ -391,6 +394,11 @@ public class EnemyMelee : MonoBehaviour
     {
         estaOcupado = true;
         puedeEmbestir = false;
+
+        if (sonidoAtaque != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(sonidoAtaque);
+        }
         if (rb != null) rb.linearVelocity = Vector2.zero;
 
         if (spriteRenderer != null) spriteRenderer.color = colorAvisoEmbestida;
@@ -447,6 +455,11 @@ public class EnemyMelee : MonoBehaviour
     private IEnumerator RutinaExplosion()
     {
         float tiempoPasado = 0f;
+
+        if (sonidoAtaque != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(sonidoAtaque);
+        }
 
         // Disparar animación de aviso/cuenta atrás ("Atacar") si existe
         if (anim != null && tieneParametroAtacar)
@@ -509,6 +522,11 @@ public class EnemyMelee : MonoBehaviour
     {
         estaOcupado = true;
         puedeAtacarZombie = false;
+
+        if (sonidoAtaque != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(sonidoAtaque);
+        }
 
         if (rb != null) rb.linearVelocity = Vector2.zero;
 

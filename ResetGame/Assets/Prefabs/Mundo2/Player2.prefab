@@ -93,10 +93,31 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
+  enableWallSlide: 0
+  enableWallJump: 0
+  enableAirDash: 0
+  enableDoubleJump: 0
+  wallSlideSpeed: 2
+  wallCheckOffsetX: 0.5
+  wallCheckOffsetY: 0
+  wallCheckRadius: 0.2
+  wallSlideAnimName: 
+  wallJumpForce: {x: 10, y: 15}
+  wallJumpControlLockTime: 0.15
+  dashSpeed: 20
+  dashDuration: 0.15
+  dashCooldown: 1
+  dashAnimName: 
+  doubleJumpForce: 14
   coyoteTime: 0.2
   jumpBufferTime: 0.2
   maxHealth: 3
+  forzarVidaAlIniciar: 0
   invincibilityTime: 2
+  sonidoSalto: {fileID: 8300000, guid: 9c6b796af6dc7424194a4ded4235ff48, type: 3}
+  sonidoDash: {fileID: 8300000, guid: e2bfe974b6d1cda438825f3352540546, type: 3}
+  sonidoPaso: {fileID: 8300000, guid: bd6fe0358168c1246930e84ff951cbaa, type: 3}
+  pasoIntervalo: 0.35
   idleAnimName: LarryIdle
   walkAnimName: LarryWalk
   jumpAnimName: LarryJump
@@ -105,6 +126,11 @@ MonoBehaviour:
   deadAnimName: LarryDead
   fallDeathY: -15
   movingPlatformVelocity: {x: 0, y: 0}
+  startingTime: 500
+  coinsForTimeBonus: 50
+  enableAttempts: 1
+  panelGameOver: {fileID: 0}
+  sonidoGameOver: {fileID: 0}
 --- !u!212 &745376607849255311
 SpriteRenderer:
   serializedVersion: 2

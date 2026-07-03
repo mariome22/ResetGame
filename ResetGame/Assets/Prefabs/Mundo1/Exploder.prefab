@@ -54,6 +54,7 @@ MonoBehaviour:
   fuerzaKnockback: 4
   tiempoAturdido: 0.2
   parametroCaminar: isWalking
+  sonidoMuerte: {fileID: 8300000, guid: 42cc0594eeba8594e880b94567fc23c1, type: 3}
 --- !u!114 &5739339999262429083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,6 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac2a4041771bc84f89b7e43d62e9fe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMelee
+  sonidoAtaque: {fileID: 8300000, guid: a16620a0d3be4bb42b6566b92f7c4a87, type: 3}
   velocidadNormal: 1.5
   rangoDeteccion: 3
   capaBloqueoVision:
@@ -89,6 +91,7 @@ MonoBehaviour:
   danoPorContacto: 0
   rangoAtaqueZombie: 1.5
   tiempoEntreAtaquesZombie: 1.5
+  retrasoDanoZombie: 0.3
   esZombie: 1
   amplitudTambaleo: 0.5
   velocidadTambaleo: 2

@@ -85,8 +85,15 @@ public class CoinCollectible : MonoBehaviour
         // Reproducimos sonido si existe
         if (collectSound != null)
         {
-            // Reproduce el clip de forma segura en la posición 3D
-            AudioSource.PlayClipAtPoint(collectSound, transform.position);
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(collectSound);
+            }
+            else
+            {
+                // Reproduce el clip de forma segura en la posición 3D
+                AudioSource.PlayClipAtPoint(collectSound, transform.position);
+            }
         }
     }
 }

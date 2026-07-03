@@ -31,6 +31,10 @@ public class LevelSelectorController : MonoBehaviour
     [Tooltip("Objetos adicionales en la escena (como fondos o luces) que se activarán al abrir el selector y se desactivarán al cerrarlo")]
     [SerializeField] private List<GameObject> elementosAdicionalesEscena = new List<GameObject>();
 
+    [Header("Sonido (Opcional)")]
+    [Tooltip("Música de fondo que sonará mientras este selector de nivel esté abierto")]
+    [SerializeField] private AudioClip musicaSelector;
+
     // Estados públicos para que otros scripts (como la Pausa) los consulten
     public static bool IsSelectorOpen { get; private set; } = false;
     
@@ -76,6 +80,11 @@ public class LevelSelectorController : MonoBehaviour
             IsSelectorOpen = true;
             lastClosedFrame = -1;
 
+            if (musicaSelector != null && AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayMusic(musicaSelector);
+            }
+
             // Activar fondos y luces adicionales
             foreach (var elem in elementosAdicionalesEscena)
             {
@@ -96,6 +105,17 @@ public class LevelSelectorController : MonoBehaviour
             Time.timeScale = 1f;
             IsSelectorOpen = false;
             lastClosedFrame = Time.frameCount;
+
+            // Restaurar la música de la escena
+            PlaySceneMusic localMusic = FindFirstObjectByType<PlaySceneMusic>();
+            if (localMusic != null)
+            {
+                localMusic.Play();
+            }
+            else if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.StopMusic();
+            }
 
             // Desactivar fondos y luces adicionales
             foreach (var elem in elementosAdicionalesEscena)

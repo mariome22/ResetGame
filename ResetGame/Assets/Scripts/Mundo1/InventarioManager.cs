@@ -20,6 +20,9 @@ public class InventarioManager : MonoBehaviour
 {
     public static InventarioManager Instance;
 
+    [Header("Sonidos (SFX)")]
+    [SerializeField] private AudioClip sonidoRecoger;
+
     [Header("Almacenamiento")]
     public List<InventarioSlot> objetosGuardados = new List<InventarioSlot>();
     public List<InventarioSlot> coleccionablesGuardados = new List<InventarioSlot>();
@@ -65,6 +68,14 @@ public class InventarioManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    private void PlayPickupSound()
+    {
+        if (sonidoRecoger != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(sonidoRecoger);
+        }
+    }
+
     private void Start()
     {
         ActualizarUI();
@@ -79,6 +90,7 @@ public class InventarioManager : MonoBehaviour
             Debug.Log("Coleccionable guardado: " + nuevoObjeto.nombreObjeto);
             ActualizarUI();
             ActualizarMenuPausa();
+            PlayPickupSound();
             return true;
         }
         else
@@ -117,6 +129,7 @@ public class InventarioManager : MonoBehaviour
                                 slot.cantidad += cantidad;
                                 ActualizarUI();
                                 ActualizarMenuPausa();
+                                PlayPickupSound();
                                 return true;
                             }
                             else
@@ -135,6 +148,7 @@ public class InventarioManager : MonoBehaviour
                 Debug.Log("Guardado en la mochila: " + nuevoObjeto.nombreObjeto);
                 ActualizarUI();
                 ActualizarMenuPausa();
+                PlayPickupSound();
                 return true;
             }
             else if (cantidad > 0)

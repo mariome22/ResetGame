@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CoinCollectible
   isSecretCoin: 0
   collectEffectPrefab: {fileID: 0}
-  collectSound: {fileID: 0}
+  collectSound: {fileID: 8300000, guid: 22adce5c46d23cd45a54800194c85602, type: 3}
 --- !u!114 &5984521430855321288
 MonoBehaviour:
   m_ObjectHideFlags: 0

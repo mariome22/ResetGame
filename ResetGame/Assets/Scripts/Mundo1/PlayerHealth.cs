@@ -27,6 +27,9 @@ public class PlayerHealth : MonoBehaviour
     [Tooltip("Panel UI que se muestra al morir")]
     public GameObject panelMuerte;
 
+    [Header("Sonido de Muerte")]
+    [SerializeField] private AudioClip sonidoMuerte;
+
     private bool tieneParametroMuerte = false;
     private bool tieneParametroVelocidad = false;
 
@@ -199,6 +202,11 @@ public class PlayerHealth : MonoBehaviour
 
         panelMuerte.SetActive(true);
         Time.timeScale = 0f; // Pausar el juego al morir
+
+        if (sonidoMuerte != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlaySFX(sonidoMuerte);
+        }
 
         // Fundido de vuelta a transparente revelando el panel
         if (SceneTransitionManager.Instance != null)

@@ -146,6 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyGrenadierPlatformer
   maxHealth: 1
   damageToPlayer: 1
+  sonidoMuerte: {fileID: 8300000, guid: fc255aed10aff384394a7775e3045d52, type: 3}
   patrolSpeed: 3
   ledgeCheck: {fileID: 2096059949297100161}
   wallCheck: {fileID: 6365551797165306353}
@@ -153,6 +154,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
+  startMovingRight: 1
   minTimeBeforeTurn: 2
   maxTimeBeforeTurn: 6
   attackRange: 5

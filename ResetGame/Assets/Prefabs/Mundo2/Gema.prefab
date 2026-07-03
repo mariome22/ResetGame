@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DashCrystal
   respawnTime: 3
   breakEffectPrefab: {fileID: 0}
+  collectSound: {fileID: 8300000, guid: 47001f676b68b4044903c0c33f3bb228, type: 3}
 --- !u!212 &2633056065052596065
 SpriteRenderer:
   serializedVersion: 2
