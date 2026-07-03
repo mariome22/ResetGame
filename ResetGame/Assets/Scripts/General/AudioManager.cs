@@ -141,4 +141,10 @@ public class AudioManager : MonoBehaviour
         if (clip == null) return;
         sfxSource.PlayOneShot(clip, sfxVolume);
     }
+
+    public void PlaySFX(AudioClip clip, float volumeScale)
+    {
+        if (clip == null) return;
+        sfxSource.PlayOneShot(clip, sfxVolume * Mathf.Clamp01(volumeScale));
+    }
 }

@@ -107,7 +107,7 @@ public class PlayerController : MonoBehaviour
                 pasoTimer = 0f;
                 if (sonidoPaso != null && AudioManager.Instance != null)
                 {
-                    AudioManager.Instance.PlaySFX(sonidoPaso);
+                    AudioManager.Instance.PlaySFX(sonidoPaso, 0.35f); // Reducir volumen de pasos al 35%
                 }
             }
         }
