@@ -81,7 +81,7 @@ public class DialogueManager : MonoBehaviour
         }
         else if (_instance != this)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 

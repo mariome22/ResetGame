@@ -56,13 +56,20 @@ public class AudioManager : MonoBehaviour
             _instance = this;
             DontDestroyOnLoad(gameObject);
 
-            // Configurar latencia de audio al mínimo para respuestas instantáneas (Best Latency)
-            AudioConfiguration config = AudioSettings.GetConfiguration();
-            if (config.dspBufferSize > 256)
+            try
             {
-                config.dspBufferSize = 256;
-                AudioSettings.Reset(config);
-                Debug.Log("[AudioManager] DSP Buffer ajustado a 256 para reducir la latencia al mínimo.");
+                // Configurar latencia de audio al mínimo para respuestas instantáneas (Best Latency)
+                AudioConfiguration config = AudioSettings.GetConfiguration();
+                if (config.dspBufferSize > 256)
+                {
+                    config.dspBufferSize = 256;
+                    AudioSettings.Reset(config);
+                    Debug.Log("[AudioManager] DSP Buffer ajustado a 256 para reducir la latencia al mínimo.");
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogWarning("[AudioManager] No se pudo ajustar el DSP Buffer (no soportado en esta plataforma): " + e.Message);
             }
 
             InitializeAudioSources();
@@ -70,8 +77,8 @@ public class AudioManager : MonoBehaviour
         }
         else if (_instance != this)
         {
-            // Destruimos solo este componente para no romper el GameObject padre (ej. Global_Managers)
-            Destroy(this);
+            // Destruimos el GameObject duplicado completo para evitar duplicar Canvases, EventSystems, etc.
+            Destroy(gameObject);
         }
     }
 
@@ -108,6 +115,7 @@ public class AudioManager : MonoBehaviour
 
     public void SetMusicVolume(float volume)
     {
+        if (musicSource == null) InitializeAudioSources(); // Inicialización perezosa de seguridad
         musicVolume = Mathf.Clamp01(volume);
         musicSource.volume = musicVolume;
         PlayerPrefs.SetFloat("MusicVolume", musicVolume);
@@ -116,6 +124,7 @@ public class AudioManager : MonoBehaviour
 
     public void SetSFXVolume(float volume)
     {
+        if (sfxSource == null) InitializeAudioSources(); // Inicialización perezosa de seguridad
         sfxVolume = Mathf.Clamp01(volume);
         sfxSource.volume = sfxVolume;
         PlayerPrefs.SetFloat("SFXVolume", sfxVolume);
@@ -125,6 +134,7 @@ public class AudioManager : MonoBehaviour
     public void PlayMusic(AudioClip clip)
     {
         if (clip == null) return;
+        if (musicSource == null) InitializeAudioSources(); // Inicialización perezosa de seguridad
         if (musicSource.clip == clip && musicSource.isPlaying) return;
 
         musicSource.clip = clip;
@@ -133,18 +143,21 @@ public class AudioManager : MonoBehaviour
 
     public void StopMusic()
     {
+        if (musicSource == null) InitializeAudioSources(); // Inicialización perezosa de seguridad
         musicSource.Stop();
     }
 
     public void PlaySFX(AudioClip clip)
     {
         if (clip == null) return;
+        if (sfxSource == null) InitializeAudioSources(); // Inicialización perezosa de seguridad
         sfxSource.PlayOneShot(clip, sfxVolume);
     }
 
     public void PlaySFX(AudioClip clip, float volumeScale)
     {
         if (clip == null) return;
+        if (sfxSource == null) InitializeAudioSources(); // Inicialización perezosa de seguridad
         sfxSource.PlayOneShot(clip, sfxVolume * Mathf.Clamp01(volumeScale));
     }
 }

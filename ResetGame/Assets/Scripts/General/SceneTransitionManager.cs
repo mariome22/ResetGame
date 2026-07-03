@@ -15,20 +15,10 @@ public class SceneTransitionManager : MonoBehaviour
                 _instance = FindFirstObjectByType<SceneTransitionManager>(FindObjectsInactive.Include);
                 if (_instance == null)
                 {
-                    GameObject prefab = Resources.Load<GameObject>("Global_Managers");
-                    if (prefab != null)
-                    {
-                        GameObject instantiated = Instantiate(prefab);
-                        _instance = instantiated.GetComponentInChildren<SceneTransitionManager>(true);
-                        if (!instantiated.activeSelf) instantiated.SetActive(true);
-                        DontDestroyOnLoad(instantiated);
-                    }
-                    else
-                    {
-                        GameObject obj = new GameObject("SceneTransitionManager");
-                        _instance = obj.AddComponent<SceneTransitionManager>();
-                        DontDestroyOnLoad(obj);
-                    }
+                    // Crear un objeto persistente dedicado en la raíz para asegurar que DontDestroyOnLoad funcione
+                    GameObject obj = new GameObject("SceneTransitionManager_Persistent");
+                    _instance = obj.AddComponent<SceneTransitionManager>();
+                    DontDestroyOnLoad(obj);
                 }
             }
             return _instance;
@@ -53,8 +43,7 @@ public class SceneTransitionManager : MonoBehaviour
         }
         else if (_instance != this)
         {
-            // Destruimos solo este componente para no romper el GameObject padre (ej. Global_Managers)
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 

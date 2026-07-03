@@ -124,8 +124,8 @@ public class SaveManager : MonoBehaviour
                 Debug.Log("[SaveManager] Copiada baseDatosObjetos desde la instancia de la escena cargada a la instancia persistente.");
             }
 
-            // Destruimos solo este componente para no romper el GameObject padre (ej. Global_Managers)
-            Destroy(this);
+            // Destruimos el GameObject duplicado completo para evitar duplicar Canvases, EventSystems, etc.
+            Destroy(gameObject);
         }
     }
 
