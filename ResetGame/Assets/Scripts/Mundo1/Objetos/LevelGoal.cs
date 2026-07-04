@@ -10,6 +10,10 @@ public class LevelGoal : MonoBehaviour
     [Header("Sonido (Opcional)")]
     [SerializeField] private AudioClip sonidoVictoria;
 
+    [Header("Pantalla Continuará (Final de Juego)")]
+    [Tooltip("El panel que dice 'CONTINUARÁ' (opcional).")]
+    public GameObject panelContinuara;
+
     private bool isTransitioning = false;
 
     public void CollectCore()
@@ -47,7 +51,7 @@ public class LevelGoal : MonoBehaviour
         else
         {
             isTransitioning = true;
-            CargarHub();
+            FinalizarNivelOContinuara();
         }
     }
 
@@ -56,7 +60,41 @@ public class LevelGoal : MonoBehaviour
         Time.timeScale = 1f;
         if (isTransitioning) return;
         isTransitioning = true;
+        FinalizarNivelOContinuara();
+    }
+
+    private void FinalizarNivelOContinuara()
+    {
+        if (panelContinuara != null)
+        {
+            panelContinuara.SetActive(true);
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            CargarHub();
+        }
+    }
+
+    public void AceptarContinuara()
+    {
+        Time.timeScale = 1f;
+        if (panelContinuara != null)
+        {
+            panelContinuara.SetActive(false);
+        }
         CargarHub();
+    }
+
+    private void Update()
+    {
+        if (panelContinuara != null && panelContinuara.activeSelf)
+        {
+            if (UnityEngine.InputSystem.Keyboard.current != null && UnityEngine.InputSystem.Keyboard.current.anyKey.wasPressedThisFrame)
+            {
+                AceptarContinuara();
+            }
+        }
     }
 
     private void CargarHub()

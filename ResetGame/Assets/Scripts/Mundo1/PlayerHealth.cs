@@ -218,6 +218,11 @@ public class PlayerHealth : MonoBehaviour
     public void ReiniciarNivel()
     {
         Time.timeScale = 1f;
+        if (SaveManager.Instance != null)
+        {
+            SaveManager.Instance.isReloadingOnDeath = true;
+        }
+
         if (SceneTransitionManager.Instance != null)
         {
             SceneTransitionManager.Instance.LoadSceneWithFade(SceneManager.GetActiveScene().name);

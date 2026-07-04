@@ -100,6 +100,10 @@ public class SaveManager : MonoBehaviour
     private SaveData pendingLoadData = null;
     private static string previousSceneName = "";
 
+    [HideInInspector]
+    public bool isReloadingOnDeath = false;
+    private SaveData runtimeState = null;
+
 
 
     private void Awake()
@@ -254,6 +258,7 @@ public class SaveManager : MonoBehaviour
 
             // Guardar lista de diálogos reproducidos de la partida
             data.dialogosReproducidos = new List<string>(dialogosReproducidos);
+            Debug.Log($"[SaveManager] Guardando partida en disco (SaveGame). Diálogos guardados: {string.Join(", ", data.dialogosReproducidos)}");
 
             // 5. Estado Mundo 2
             // Si estamos guardando desde el Hub o Mundo 1, limpiamos el checkpoint de Mundo 2
@@ -370,8 +375,7 @@ public class SaveManager : MonoBehaviour
     {
         LevelSelectorController.ResetFlags();
 
-        // Si venimos del Hub y entramos al Mundo 2 (caminando por el portal, sin cargar partida desde el menú),
-        // restauramos el estado del punto de control y las estadísticas del Mundo 2 guardadas en disco
+        // 1. Restaurar checkpoint y monedas de Mundo 2 si entramos desde el Hub
         if (pendingLoadData == null && previousSceneName == "01_Hub" && (scene.name == "2_Level1" || scene.name == "2_Level2") && HasSaveGame())
         {
             try
@@ -380,7 +384,6 @@ public class SaveManager : MonoBehaviour
                 SaveData diskData = JsonUtility.FromJson<SaveData>(json);
                 if (diskData != null)
                 {
-                    // Restauramos las estadísticas en PlayerPlatformerController
                     PlayerPlatformerController.lives = diskData.livesMundo2;
                     PlayerPlatformerController.totalCoins = diskData.totalCoinsMundo2;
                     PlayerPlatformerController.secretCoinsCollected = diskData.secretCoinsCollectedMundo2;
@@ -402,7 +405,6 @@ public class SaveManager : MonoBehaviour
                     PlayerPlatformerController.lastCheckpointScene = diskData.lastCheckpointSceneMundo2;
                     PlayerPlatformerController.lastCheckpointPos = new Vector2(diskData.lastCheckpointPosXMundo2, diskData.lastCheckpointPosYMundo2);
 
-                    // Si el checkpoint guardado coincide con esta escena, posicionamos al jugador en el checkpoint
                     if (diskData.lastCheckpointSceneMundo2 == scene.name)
                     {
                         GameObject playerObj = GameObject.FindWithTag("Player");
@@ -429,8 +431,7 @@ public class SaveManager : MonoBehaviour
             }
         }
 
-        // Si entramos al Hub o Mundo 1 normalmente (sin cargar partida) o al cargar,
-        // nos aseguramos de limpiar los checkpoints del Mundo 2 en memoria
+        // Limpiar checkpoints de Mundo 2 si entramos al Hub o Mundo 1
         if (scene.name == "01_Hub" || scene.name == "1_Level1" || scene.name == "1_Level2")
         {
             PlayerPlatformerController.lastCheckpointScene = "";
@@ -443,184 +444,220 @@ public class SaveManager : MonoBehaviour
             PlayerPlatformerController.collectedCoinsAtCheckpoint.Clear();
         }
 
-        // Si entramos a una escena de Mundo 1 o Hub normalmente (caminando, sin cargar partida desde el menú),
-        // restauramos todo el estado de persistencia (inventario, vida, armas y munición) para evitar perderlos al cambiar de escena
-        if (pendingLoadData == null && HasSaveGame() && (scene.name == "01_Hub" || scene.name == "1_Level1" || scene.name == "1_Level2"))
+        // 2. Si estamos recargando la escena debido a la muerte del jugador
+        if (isReloadingOnDeath)
         {
-            try
+            isReloadingOnDeath = false;
+            runtimeState = null; // Descartar estado temporal
+ 
+            if (HasSaveGame())
             {
-                string json = File.ReadAllText(saveFilePath);
-                SaveData diskData = JsonUtility.FromJson<SaveData>(json);
-                if (diskData != null)
+                try
                 {
-                    // 1. Restaurar posición del jugador SOLO si coincide con la escena guardada
-                    if (diskData.tienePosicionGuardadaMundo1 && diskData.escenaGuardada == scene.name)
+                    string json = File.ReadAllText(saveFilePath);
+                    SaveData diskData = JsonUtility.FromJson<SaveData>(json);
+                    if (diskData != null)
                     {
-                        GameObject playerObj = GameObject.FindWithTag("Player");
-                        if (playerObj != null)
-                        {
-                            playerObj.transform.position = new Vector3(diskData.playerPosXMundo1, diskData.playerPosYMundo1, playerObj.transform.position.z);
-                            Debug.Log("[SaveManager] Posición del jugador en Mundo 1 restaurada al transicionar: " + scene.name);
-                        }
-                    }
-
-                    // 2. Restaurar inventario al transicionar
-                    if (InventarioManager.Instance != null)
-                    {
-                        InventarioManager.Instance.objetosGuardados.Clear();
-                        if (diskData.objetosNombres != null && diskData.objetosCantidades != null)
-                        {
-                            int count = Mathf.Min(diskData.objetosNombres.Count, diskData.objetosCantidades.Count);
-                            for (int i = 0; i < count; i++)
-                            {
-                                ItemData item = BuscarItemPorNombre(diskData.objetosNombres[i]);
-                                if (item != null)
-                                {
-                                    InventarioManager.Instance.objetosGuardados.Add(new InventarioSlot(item, diskData.objetosCantidades[i]));
-                                }
-                            }
-                        }
-
-                        InventarioManager.Instance.coleccionablesGuardados.Clear();
-                        if (diskData.coleccionablesNombres != null && diskData.coleccionablesCantidades != null)
-                        {
-                            int count = Mathf.Min(diskData.coleccionablesNombres.Count, diskData.coleccionablesCantidades.Count);
-                            for (int i = 0; i < count; i++)
-                            {
-                                ItemData item = BuscarItemPorNombre(diskData.coleccionablesNombres[i]);
-                                if (item != null)
-                                {
-                                    InventarioManager.Instance.coleccionablesGuardados.Add(new InventarioSlot(item, diskData.coleccionablesCantidades[i]));
-                                }
-                            }
-                        }
-
-                        InventarioManager.Instance.ActualizarUI();
-                        InventarioManager.Instance.ActualizarMenuPausa();
-                        Debug.Log("[SaveManager] Inventario restaurado al transicionar a la escena: " + scene.name);
-                    }
-
-                    // 3. Restaurar estado de salud y armas del jugador
-                    PlayerController transPc = FindFirstObjectByType<PlayerController>();
-                    if (transPc != null)
-                    {
-                        var propArma = transPc.GetType().GetField("armaDesbloqueada", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-                        if (propArma != null) propArma.SetValue(transPc, diskData.armaDesbloqueadaMundo1);
-
-                        var propUsando = transPc.GetType().GetField("usandoArmaADistancia", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-                        if (propUsando != null) propUsando.SetValue(transPc, diskData.armaDesbloqueadaMundo1);
-
-                        transPc.balasActualesCargador = diskData.balasActualesCargadorMundo1;
-                        transPc.ActualizarHUDArma();
-                    }
-
-                    PlayerHealth transPh = FindFirstObjectByType<PlayerHealth>();
-                    if (transPh != null)
-                    {
-                        var propVida = transPh.GetType().GetField("vidaActual", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-                        if (propVida != null) propVida.SetValue(transPh, diskData.vidaActualMundo1);
-                        transPh.SendMessage("ActualizarHUD", SendMessageOptions.DontRequireReceiver);
-                        Debug.Log("[SaveManager] Salud y armas del jugador restauradas al transicionar: " + diskData.vidaActualMundo1);
-                    }
-
-                    // Sincronizar listas en memoria
-                    if (diskData.objetosDestruidosMundo1 != null)
-                    {
-                        destroyedObjects = new List<string>(diskData.objetosDestruidosMundo1);
-                    }
-                    if (diskData.dialogosReproducidos != null)
-                    {
-                        dialogosReproducidos = new List<string>(diskData.dialogosReproducidos);
+                        Debug.Log("[SaveManager] Recarga por muerte detectada. Restaurando datos desde el disco...");
+                        RestaurarDesdeDatos(diskData, scene.name, true);
+                        Debug.Log("[SaveManager] Nivel reiniciado tras muerte. Cargado estado de partida desde el disco.");
                     }
                 }
+                catch (System.Exception e)
+                {
+                    Debug.LogWarning("[SaveManager] Error al restaurar desde el disco tras muerte: " + e.Message);
+                }
             }
-            catch (System.Exception e)
+            else
             {
-                Debug.LogWarning("[SaveManager] Error al restaurar estado de Mundo 1 al transicionar: " + e.Message);
+                RestaurarEstadoPorDefecto();
+                Debug.Log("[SaveManager] Nivel reiniciado tras muerte. No hay partida guardada en disco, se resetea al estado inicial.");
             }
+            previousSceneName = scene.name;
+            return;
+        }
+ 
+        // 3. Si es una transición de escena normal (caminando por portales)
+        if (scene.name == "01_Hub" || scene.name == "1_Level1" || scene.name == "1_Level2")
+        {
+            // Caso A: Si hay un archivo de guardado en el disco Y coincide exactamente con esta escena,
+            // significa que el jugador guardó dentro de este nivel y ahora está reentrando.
+            // En este caso, cargamos su progreso, posición y vida exacta desde el disco.
+            if (HasSaveGame())
+            {
+                try
+                {
+                    string json = File.ReadAllText(saveFilePath);
+                    SaveData diskData = JsonUtility.FromJson<SaveData>(json);
+                    if (diskData != null && diskData.escenaGuardada == scene.name)
+                    {
+                        Debug.Log($"[SaveManager] Reentrando a '{scene.name}' que coincide con el guardado en disco. Restaurando posición, salud e inventario del disco...");
+                        RestaurarDesdeDatos(diskData, scene.name, true);
+                        runtimeState = null; // Descartar el estado temporal
+                        previousSceneName = scene.name;
+                        return;
+                    }
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogWarning("[SaveManager] Error al intentar reanudar escena desde el disco: " + e.Message);
+                }
+            }
+
+            // Caso B: Si no coincide con el archivo en disco, pero tenemos un estado en memoria (runtimeState)
+            // de la escena de la que venimos (ej: cruzando un portal normal), restauramos su inventario y vida
+            // pero sin posicionarlo en un punto de guardado (aparece en la entrada normal del nivel).
+            if (runtimeState != null)
+            {
+                Debug.Log($"[SaveManager] Transición normal de escena a '{scene.name}'. Restaurando estado desde runtimeState en memoria (Diálogos: {string.Join(", ", runtimeState.dialogosReproducidos)})...");
+                RestaurarDesdeDatos(runtimeState, scene.name, false);
+                runtimeState = null; // Limpiar después de aplicar
+                previousSceneName = scene.name;
+                return;
+            }
+        }
+
+        // 4. Si es la carga inicial desde el menú principal (pendingLoadData no es nulo)
+        if (pendingLoadData != null)
+        {
+            RestaurarDesdeDatos(pendingLoadData, scene.name, true);
+
+            // Aplicamos el progreso de núcleos a PlayerPrefs
+            PlayerPrefs.SetInt("PlayerCores", pendingLoadData.playerCores);
+            PlayerPrefs.Save();
+
+            // Aplicar datos de Mundo 2 (Estáticos)
+            PlayerPlatformerController.lives = pendingLoadData.livesMundo2;
+            PlayerPlatformerController.totalCoins = pendingLoadData.totalCoinsMundo2;
+            PlayerPlatformerController.secretCoinsCollected = pendingLoadData.secretCoinsCollectedMundo2;
+            PlayerPlatformerController.lastCheckpointScene = pendingLoadData.lastCheckpointSceneMundo2;
+            PlayerPlatformerController.lastCheckpointPos = new Vector2(pendingLoadData.lastCheckpointPosXMundo2, pendingLoadData.lastCheckpointPosYMundo2);
+            PlayerPlatformerController.remainingTime = pendingLoadData.remainingTimeMundo2;
+            PlayerPlatformerController.checkpointTime = pendingLoadData.checkpointTimeMundo2;
+            PlayerPlatformerController.consecutiveCheckpointDeaths = pendingLoadData.consecutiveCheckpointDeathsMundo2;
+            
+            if (pendingLoadData.collectedCoinsMundo2 != null)
+            {
+                PlayerPlatformerController.collectedCoinsActive = new System.Collections.Generic.HashSet<string>(pendingLoadData.collectedCoinsMundo2);
+                PlayerPlatformerController.collectedCoinsAtCheckpoint = new System.Collections.Generic.HashSet<string>(pendingLoadData.collectedCoinsMundo2);
+            }
+            else
+            {
+                PlayerPlatformerController.collectedCoinsActive = new System.Collections.Generic.HashSet<string>();
+                PlayerPlatformerController.collectedCoinsAtCheckpoint = new System.Collections.Generic.HashSet<string>();
+            }
+
+            if (HUDPlatformerManager.Instance != null)
+            {
+                HUDPlatformerManager.Instance.UpdateHUD();
+            }
+
+            pendingLoadData = null;
+            Debug.Log("[SaveManager] Carga inicial de partida aplicada correctamente.");
         }
 
         previousSceneName = scene.name;
+    }
 
-        if (pendingLoadData == null) return;
+    public void SaveRuntimeState()
+    {
+        try
+        {
+            SaveData data = new SaveData();
+            string currentScene = SceneManager.GetActiveScene().name;
+            data.escenaGuardada = currentScene;
+            data.playerCores = PlayerPrefs.GetInt("PlayerCores", 0);
 
-        // Aplicamos el progreso de núcleos a PlayerPrefs
-        PlayerPrefs.SetInt("PlayerCores", pendingLoadData.playerCores);
-        PlayerPrefs.Save();
+            if (InventarioManager.Instance != null)
+            {
+                foreach (var slot in InventarioManager.Instance.objetosGuardados)
+                {
+                    if (slot.objeto != null)
+                    {
+                        data.objetosNombres.Add(slot.objeto.nombreObjeto);
+                        data.objetosCantidades.Add(slot.cantidad);
+                    }
+                }
+                foreach (var slot in InventarioManager.Instance.coleccionablesGuardados)
+                {
+                    if (slot.objeto != null)
+                    {
+                        data.coleccionablesNombres.Add(slot.objeto.nombreObjeto);
+                        data.coleccionablesCantidades.Add(slot.cantidad);
+                    }
+                }
+            }
 
-        // Aplicar datos de Mundo 2 (Estáticos, se aplican inmediatamente)
-        PlayerPlatformerController.lives = pendingLoadData.livesMundo2;
-        PlayerPlatformerController.totalCoins = pendingLoadData.totalCoinsMundo2;
-        PlayerPlatformerController.secretCoinsCollected = pendingLoadData.secretCoinsCollectedMundo2;
-        PlayerPlatformerController.lastCheckpointScene = pendingLoadData.lastCheckpointSceneMundo2;
-        PlayerPlatformerController.lastCheckpointPos = new Vector2(pendingLoadData.lastCheckpointPosXMundo2, pendingLoadData.lastCheckpointPosYMundo2);
-        PlayerPlatformerController.remainingTime = pendingLoadData.remainingTimeMundo2;
-        PlayerPlatformerController.checkpointTime = pendingLoadData.checkpointTimeMundo2;
-        PlayerPlatformerController.consecutiveCheckpointDeaths = pendingLoadData.consecutiveCheckpointDeathsMundo2;
-        
-        if (pendingLoadData.collectedCoinsMundo2 != null)
-        {
-            PlayerPlatformerController.collectedCoinsActive = new System.Collections.Generic.HashSet<string>(pendingLoadData.collectedCoinsMundo2);
-            PlayerPlatformerController.collectedCoinsAtCheckpoint = new System.Collections.Generic.HashSet<string>(pendingLoadData.collectedCoinsMundo2);
+            PlayerController pc = FindFirstObjectByType<PlayerController>();
+            if (pc != null)
+            {
+                var propArma = pc.GetType().GetField("armaDesbloqueada", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                if (propArma != null) data.armaDesbloqueadaMundo1 = (bool)propArma.GetValue(pc);
+                data.balasActualesCargadorMundo1 = pc.balasActualesCargador;
+            }
+
+            PlayerHealth ph = FindFirstObjectByType<PlayerHealth>();
+            if (ph != null)
+            {
+                var propVida = ph.GetType().GetField("vidaActual", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                if (propVida != null) data.vidaActualMundo1 = (int)propVida.GetValue(ph);
+            }
+
+            if (destroyedObjects == null) destroyedObjects = new List<string>();
+            data.objetosDestruidosMundo1 = new List<string>(destroyedObjects);
+
+            if (dialogosReproducidos == null) dialogosReproducidos = new List<string>();
+            data.dialogosReproducidos = new List<string>(dialogosReproducidos);
+
+            runtimeState = data;
+            Debug.Log($"[SaveManager] Guardado RuntimeState en memoria. Diálogos en runtimeState: {string.Join(", ", runtimeState.dialogosReproducidos)}");
         }
-        else
+        catch (System.Exception e)
         {
-            PlayerPlatformerController.collectedCoinsActive = new System.Collections.Generic.HashSet<string>();
-            PlayerPlatformerController.collectedCoinsAtCheckpoint = new System.Collections.Generic.HashSet<string>();
+            Debug.LogError("[SaveManager] Error al guardar el runtimeState en memoria: " + e.Message);
+        }
+    }
+
+    private void RestaurarDesdeDatos(SaveData data, string escenaNombre, bool restaurarPosicion)
+    {
+        // 1. Restaurar posición del jugador
+        if (restaurarPosicion && data.tienePosicionGuardadaMundo1 && data.escenaGuardada == escenaNombre)
+        {
+            GameObject playerObj = GameObject.FindWithTag("Player");
+            if (playerObj != null)
+            {
+                playerObj.transform.position = new Vector3(data.playerPosXMundo1, data.playerPosYMundo1, playerObj.transform.position.z);
+                Debug.Log("[SaveManager] Posición del jugador en Mundo 1 restaurada: " + escenaNombre);
+            }
         }
 
-        if (HUDPlatformerManager.Instance != null)
-        {
-            HUDPlatformerManager.Instance.UpdateHUD();
-        }
-
-        // Cargar lista de objetos destruidos en Mundo 1
-        if (pendingLoadData.objetosDestruidosMundo1 != null)
-        {
-            destroyedObjects = new List<string>(pendingLoadData.objetosDestruidosMundo1);
-        }
-        else
-        {
-            destroyedObjects.Clear();
-        }
-
-        // Cargar lista de diálogos reproducidos
-        if (pendingLoadData.dialogosReproducidos != null)
-        {
-            dialogosReproducidos = new List<string>(pendingLoadData.dialogosReproducidos);
-        }
-        else
-        {
-            dialogosReproducidos.Clear();
-        }
-
-        // Aplicar datos de Mundo 1 (Instancia de inventario y personaje si existen en la escena cargada)
+        // 2. Restaurar inventario
         if (InventarioManager.Instance != null)
         {
             InventarioManager.Instance.objetosGuardados.Clear();
-            if (pendingLoadData.objetosNombres != null && pendingLoadData.objetosCantidades != null)
+            if (data.objetosNombres != null && data.objetosCantidades != null)
             {
-                int count = Mathf.Min(pendingLoadData.objetosNombres.Count, pendingLoadData.objetosCantidades.Count);
+                int count = Mathf.Min(data.objetosNombres.Count, data.objetosCantidades.Count);
                 for (int i = 0; i < count; i++)
                 {
-                    ItemData item = BuscarItemPorNombre(pendingLoadData.objetosNombres[i]);
+                    ItemData item = BuscarItemPorNombre(data.objetosNombres[i]);
                     if (item != null)
                     {
-                        InventarioManager.Instance.objetosGuardados.Add(new InventarioSlot(item, pendingLoadData.objetosCantidades[i]));
+                        InventarioManager.Instance.objetosGuardados.Add(new InventarioSlot(item, data.objetosCantidades[i]));
                     }
                 }
             }
 
             InventarioManager.Instance.coleccionablesGuardados.Clear();
-            if (pendingLoadData.coleccionablesNombres != null && pendingLoadData.coleccionablesCantidades != null)
+            if (data.coleccionablesNombres != null && data.coleccionablesCantidades != null)
             {
-                int count = Mathf.Min(pendingLoadData.coleccionablesNombres.Count, pendingLoadData.coleccionablesCantidades.Count);
+                int count = Mathf.Min(data.coleccionablesNombres.Count, data.coleccionablesCantidades.Count);
                 for (int i = 0; i < count; i++)
                 {
-                    ItemData item = BuscarItemPorNombre(pendingLoadData.coleccionablesNombres[i]);
+                    ItemData item = BuscarItemPorNombre(data.coleccionablesNombres[i]);
                     if (item != null)
                     {
-                        InventarioManager.Instance.coleccionablesGuardados.Add(new InventarioSlot(item, pendingLoadData.coleccionablesCantidades[i]));
+                        InventarioManager.Instance.coleccionablesGuardados.Add(new InventarioSlot(item, data.coleccionablesCantidades[i]));
                     }
                 }
             }
@@ -629,18 +666,17 @@ public class SaveManager : MonoBehaviour
             InventarioManager.Instance.ActualizarMenuPausa();
         }
 
-        // Restaurar estado de salud y armas del jugador de Mundo 1
+        // 3. Restaurar estado de salud y armas del jugador
         PlayerController pc = FindFirstObjectByType<PlayerController>();
         if (pc != null)
         {
-            // Asignar munición y estado del arma mediante reflexión o métodos seguros
             var propArma = pc.GetType().GetField("armaDesbloqueada", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            if (propArma != null) propArma.SetValue(pc, pendingLoadData.armaDesbloqueadaMundo1);
+            if (propArma != null) propArma.SetValue(pc, data.armaDesbloqueadaMundo1);
 
             var propUsando = pc.GetType().GetField("usandoArmaADistancia", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            if (propUsando != null) propUsando.SetValue(pc, pendingLoadData.armaDesbloqueadaMundo1);
+            if (propUsando != null) propUsando.SetValue(pc, data.armaDesbloqueadaMundo1);
 
-            pc.balasActualesCargador = pendingLoadData.balasActualesCargadorMundo1;
+            pc.balasActualesCargador = data.balasActualesCargadorMundo1;
             pc.ActualizarHUDArma();
         }
 
@@ -648,22 +684,70 @@ public class SaveManager : MonoBehaviour
         if (ph != null)
         {
             var propVida = ph.GetType().GetField("vidaActual", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            if (propVida != null) propVida.SetValue(ph, pendingLoadData.vidaActualMundo1);
+            if (propVida != null) propVida.SetValue(ph, data.vidaActualMundo1);
             ph.SendMessage("ActualizarHUD", SendMessageOptions.DontRequireReceiver);
         }
 
-        // Restaurar posición del jugador si existe posición guardada y es una escena de Mundo 1 o Hub
-        if (pendingLoadData.tienePosicionGuardadaMundo1 && (scene.name == "01_Hub" || scene.name == "1_Level1" || scene.name == "1_Level2"))
+        // 4. Sincronizar listas en memoria
+        if (data.objetosDestruidosMundo1 != null)
         {
-            GameObject playerObj = GameObject.FindWithTag("Player");
-            if (playerObj != null)
-            {
-                playerObj.transform.position = new Vector3(pendingLoadData.playerPosXMundo1, pendingLoadData.playerPosYMundo1, playerObj.transform.position.z);
-            }
+            destroyedObjects = new List<string>(data.objetosDestruidosMundo1);
+        }
+        else
+        {
+            destroyedObjects = new List<string>();
         }
 
-        Debug.Log("Datos de partida aplicados correctamente a la escena: " + scene.name);
-        pendingLoadData = null; // Limpiar después de aplicar
+        if (data.dialogosReproducidos != null)
+        {
+            dialogosReproducidos = new List<string>(data.dialogosReproducidos);
+        }
+        else
+        {
+            dialogosReproducidos = new List<string>();
+        }
+        Debug.Log($"[SaveManager] Restaurado estado desde datos (RestaurarDesdeDatos). Diálogos en memoria: {string.Join(", ", dialogosReproducidos)}");
+    }
+
+    private void RestaurarEstadoPorDefecto()
+    {
+        // Limpiar todas las listas de persistencia en memoria
+        if (destroyedObjects == null) destroyedObjects = new List<string>();
+        else destroyedObjects.Clear();
+
+        if (dialogosReproducidos == null) dialogosReproducidos = new List<string>();
+        else dialogosReproducidos.Clear();
+
+        // Limpiar inventario
+        if (InventarioManager.Instance != null)
+        {
+            InventarioManager.Instance.objetosGuardados.Clear();
+            InventarioManager.Instance.coleccionablesGuardados.Clear();
+            InventarioManager.Instance.ActualizarUI();
+            InventarioManager.Instance.ActualizarMenuPausa();
+        }
+
+        // Resetear salud del jugador y bloquear armas
+        PlayerController pc = FindFirstObjectByType<PlayerController>();
+        if (pc != null)
+        {
+            var propArma = pc.GetType().GetField("armaDesbloqueada", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            if (propArma != null) propArma.SetValue(pc, false);
+
+            var propUsando = pc.GetType().GetField("usandoArmaADistancia", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            if (propUsando != null) propUsando.SetValue(pc, false);
+
+            pc.balasActualesCargador = 0;
+            pc.ActualizarHUDArma();
+        }
+
+        PlayerHealth ph = FindFirstObjectByType<PlayerHealth>();
+        if (ph != null)
+        {
+            var propVida = ph.GetType().GetField("vidaActual", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            if (propVida != null) propVida.SetValue(ph, ph.vidaMaxima);
+            ph.SendMessage("ActualizarHUD", SendMessageOptions.DontRequireReceiver);
+        }
     }
 
     private ItemData BuscarItemPorNombre(string nombre)

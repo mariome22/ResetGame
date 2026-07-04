@@ -137,6 +137,11 @@ public class SceneTransitionManager : MonoBehaviour
 
     private IEnumerator TransitionRoutine(string sceneName)
     {
+        if (SaveManager.Instance != null && !SaveManager.Instance.isReloadingOnDeath)
+        {
+            SaveManager.Instance.SaveRuntimeState();
+        }
+
         if (canvasTransition != null)
         {
             canvasTransition.enabled = true;

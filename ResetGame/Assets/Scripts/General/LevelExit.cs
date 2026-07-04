@@ -29,6 +29,10 @@ public class LevelExit : MonoBehaviour
     [Header("Sonido de Victoria")]
     [SerializeField] private AudioClip sonidoVictoria;
 
+    [Header("Pantalla Continuará (Final de Juego)")]
+    [Tooltip("El panel que dice 'CONTINUARÁ' que se mostrará al completar el nivel/diálogo (opcional).")]
+    public GameObject panelContinuara;
+
     private bool isTransitioning = false;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -88,8 +92,6 @@ public class LevelExit : MonoBehaviour
         if (isTransitioning) return;
         isTransitioning = true;
 
-        // Mantenemos el panel de victoria activo durante la transición para que no se
-        // vea al jugador moverse o al juego descongelado por debajo antes de que la pantalla se ponga negra.
         IniciarTransicionCarga();
     }
 
@@ -97,11 +99,46 @@ public class LevelExit : MonoBehaviour
     {
         if (hasDialogue && DialogueManager.Instance != null)
         {
-            DialogueManager.Instance.StartDialogue(dialogue, () => LoadNextScene());
+            DialogueManager.Instance.StartDialogue(dialogue, () => FinalizarNivelOContinuara());
+        }
+        else
+        {
+            FinalizarNivelOContinuara();
+        }
+    }
+
+    private void FinalizarNivelOContinuara()
+    {
+        if (panelContinuara != null)
+        {
+            panelContinuara.SetActive(true);
+            Time.timeScale = 0f; // Pausar para que lean con calma
         }
         else
         {
             LoadNextScene();
+        }
+    }
+
+    public void AceptarContinuara()
+    {
+        Time.timeScale = 1f;
+        if (panelContinuara != null)
+        {
+            panelContinuara.SetActive(false);
+        }
+        LoadNextScene();
+    }
+
+    private void Update()
+    {
+        // Si el panel de Continuará está activo, permitir avanzar pulsando cualquier tecla
+        if (panelContinuara != null && panelContinuara.activeSelf)
+        {
+            if (UnityEngine.InputSystem.Keyboard.current != null && UnityEngine.InputSystem.Keyboard.current.anyKey.wasPressedThisFrame)
+            {
+                AceptarContinuara();
+            }
         }
     }
 

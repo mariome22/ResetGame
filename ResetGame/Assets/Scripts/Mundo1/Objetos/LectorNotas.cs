@@ -58,7 +58,7 @@ public class LectorNotas : MonoBehaviour
     {
         if (leyendo)
         {
-            if (Keyboard.current.escapeKey.wasPressedThisFrame) CerrarNota();
+            if (Keyboard.current.escapeKey.wasPressedThisFrame || Keyboard.current.pKey.wasPressedThisFrame) CerrarNota();
             return;
         }
 
