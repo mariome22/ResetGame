@@ -18,9 +18,21 @@ public class LevelGoal : MonoBehaviour
 
         Debug.Log("Core collected!");
 
-        int currentCores = PlayerPrefs.GetInt("PlayerCores", 0);
-        PlayerPrefs.SetInt("PlayerCores", currentCores + 1);
-        PlayerPrefs.Save();
+        string sceneName = SceneManager.GetActiveScene().name;
+        string key = "LevelCompleted_" + sceneName;
+
+        if (PlayerPrefs.GetInt(key, 0) == 0)
+        {
+            int currentCores = PlayerPrefs.GetInt("PlayerCores", 0);
+            PlayerPrefs.SetInt("PlayerCores", currentCores + 1);
+            PlayerPrefs.SetInt(key, 1);
+            PlayerPrefs.Save();
+            Debug.Log($"[LevelGoal] Primer completado de {sceneName}. Otorgado 1 núcleo. Total núcleos: {currentCores + 1}");
+        }
+        else
+        {
+            Debug.Log($"[LevelGoal] El nivel {sceneName} ya había sido completado anteriormente. No se otorgan más núcleos.");
+        }
 
         if (panelVictoria != null)
         {

@@ -45,6 +45,24 @@ public class LevelExit : MonoBehaviour
         if (isTransitioning) return;
 
         Debug.Log("Completando nivel. Cargando escena: " + sceneToLoad);
+
+        // Otorgar núcleo al jugador si es la primera vez que se completa este nivel
+        string sceneName = SceneManager.GetActiveScene().name;
+        string key = "LevelCompleted_" + sceneName;
+
+        if (PlayerPrefs.GetInt(key, 0) == 0)
+        {
+            int currentCores = PlayerPrefs.GetInt("PlayerCores", 0);
+            PlayerPrefs.SetInt("PlayerCores", currentCores + 1);
+            PlayerPrefs.SetInt(key, 1);
+            PlayerPrefs.Save();
+            Debug.Log($"[LevelExit] Primer completado de {sceneName}. Otorgado 1 núcleo. Total núcleos: {currentCores + 1}");
+        }
+        else
+        {
+            Debug.Log($"[LevelExit] El nivel {sceneName} ya había sido completado anteriormente. No se otorgan más núcleos.");
+        }
+
         onLevelCompleted.Invoke();
 
         if (panelVictoria != null)
