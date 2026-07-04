@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBouncingProjectile
   damage: 1
-  maxBounces: 2
+  maxBounces: 1
   bounceRestitution: 0.5
 --- !u!50 &4347735149261688165
 Rigidbody2D:

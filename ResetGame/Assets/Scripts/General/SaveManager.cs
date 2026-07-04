@@ -704,7 +704,14 @@ public class SaveManager : MonoBehaviour
             var propUsando = pc.GetType().GetField("usandoArmaADistancia", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
             if (propUsando != null) propUsando.SetValue(pc, data.armaDesbloqueadaMundo1);
 
-            pc.balasActualesCargador = data.balasActualesCargadorMundo1;
+            if (data.armaDesbloqueadaMundo1)
+            {
+                pc.balasActualesCargador = data.balasActualesCargadorMundo1;
+            }
+            else
+            {
+                pc.balasActualesCargador = pc.balasMaximasCargador;
+            }
             pc.ActualizarHUDArma();
         }
 
@@ -765,7 +772,7 @@ public class SaveManager : MonoBehaviour
             var propUsando = pc.GetType().GetField("usandoArmaADistancia", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
             if (propUsando != null) propUsando.SetValue(pc, false);
 
-            pc.balasActualesCargador = 0;
+            pc.balasActualesCargador = pc.balasMaximasCargador;
             pc.ActualizarHUDArma();
         }
 
