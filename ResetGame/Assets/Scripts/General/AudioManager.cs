@@ -111,6 +111,7 @@ public class AudioManager : MonoBehaviour
 
         musicSource.volume = musicVolume;
         sfxSource.volume = sfxVolume;
+        Debug.Log($"[AudioManager] LoadVolumeSettings ejecutado. Música: {musicVolume}, SFX: {sfxVolume}");
     }
 
     public void SetMusicVolume(float volume)
@@ -120,6 +121,7 @@ public class AudioManager : MonoBehaviour
         musicSource.volume = musicVolume;
         PlayerPrefs.SetFloat("MusicVolume", musicVolume);
         PlayerPrefs.Save();
+        Debug.Log($"[AudioManager] SetMusicVolume llamado. Guardado en PlayerPrefs: {musicVolume}");
     }
 
     public void SetSFXVolume(float volume)
@@ -129,6 +131,7 @@ public class AudioManager : MonoBehaviour
         sfxSource.volume = sfxVolume;
         PlayerPrefs.SetFloat("SFXVolume", sfxVolume);
         PlayerPrefs.Save();
+        Debug.Log($"[AudioManager] SetSFXVolume llamado. Guardado en PlayerPrefs: {sfxVolume}");
     }
 
     public void PlayMusic(AudioClip clip)
