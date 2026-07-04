@@ -3072,6 +3072,8 @@ MonoBehaviour:
         resuelve el puzzle y toma las decisiones correctas para salir."'
   dialogoID: dialogo_pistola_1_level2
   coresRequeridos: 1
+  panelContinuara: {fileID: 0}
+  escenaCargarAlAceptar: MainMenu
 --- !u!4 &226350278
 Transform:
   m_ObjectHideFlags: 0
@@ -4417,6 +4419,8 @@ MonoBehaviour:
         salir mal..."
   dialogoID: dialogo_inicial_1_level2
   coresRequeridos: 1
+  panelContinuara: {fileID: 0}
+  escenaCargarAlAceptar: MainMenu
 --- !u!4 &371930284
 Transform:
   m_ObjectHideFlags: 0
@@ -35072,6 +35076,7 @@ MonoBehaviour:
       m_Calls: []
   panelVictoria: {fileID: 568022407}
   sonidoVictoria: {fileID: 8300000, guid: e5a1979bda4a5124ca444e07093d82f0, type: 3}
+  panelContinuara: {fileID: 0}
 --- !u!114 &1018652899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94094,7 +94099,7 @@ PrefabInstance:
       objectReference: {fileID: 3979685118916425157, guid: 247d59b207e751f48b719b434589100d, type: 3}
     - target: {fileID: 684007592919031421, guid: 5a4791bca046c6248a5c264a7bae2323, type: 3}
       propertyPath: distanciaVisualTajo
-      value: 1
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2321535561617637065, guid: 5a4791bca046c6248a5c264a7bae2323, type: 3}
       propertyPath: m_Name
