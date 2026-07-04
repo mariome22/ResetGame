@@ -569115,8 +569115,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5724873981253093607, guid: 17c6781cb7d1e434b941ee5c43f03823, type: 3}
+      propertyPath: attackRange
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724873981253093607, guid: 17c6781cb7d1e434b941ee5c43f03823, type: 3}
       propertyPath: patrolSpeed
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724873981253093607, guid: 17c6781cb7d1e434b941ee5c43f03823, type: 3}
+      propertyPath: timeBetweenShots
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7761125379177517437, guid: 17c6781cb7d1e434b941ee5c43f03823, type: 3}
       propertyPath: m_Name
@@ -570731,7 +570739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovingPlatformPlatformer
   movementDirection: 1
-  distance: 4
+  distance: 6
   speed: 2
   startMovingRightOrUp: 0
 --- !u!4 &1836692737
@@ -572989,7 +572997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovingPlatformPlatformer
   movementDirection: 1
-  distance: 4
+  distance: 6
   speed: 2
   startMovingRightOrUp: 0
 --- !u!4 &2069493266
