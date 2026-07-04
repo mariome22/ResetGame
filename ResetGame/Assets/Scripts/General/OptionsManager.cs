@@ -47,6 +47,10 @@ public class OptionsManager : MonoBehaviour
             sliderMusica.minValue = 0f;
             sliderMusica.maxValue = 1f;
             sliderMusica.onValueChanged.RemoveAllListeners();
+            if (AudioManager.Instance != null)
+            {
+                sliderMusica.value = AudioManager.Instance.MusicVolume;
+            }
             sliderMusica.onValueChanged.AddListener(OnMusicVolumeChanged);
         }
 
@@ -55,6 +59,10 @@ public class OptionsManager : MonoBehaviour
             sliderSFX.minValue = 0f;
             sliderSFX.maxValue = 1f;
             sliderSFX.onValueChanged.RemoveAllListeners();
+            if (AudioManager.Instance != null)
+            {
+                sliderSFX.value = AudioManager.Instance.SFXVolume;
+            }
             sliderSFX.onValueChanged.AddListener(OnSFXVolumeChanged);
         }
 
@@ -136,8 +144,18 @@ public class OptionsManager : MonoBehaviour
     {
         if (AudioManager.Instance != null)
         {
-            if (sliderMusica != null) sliderMusica.value = AudioManager.Instance.MusicVolume;
-            if (sliderSFX != null) sliderSFX.value = AudioManager.Instance.SFXVolume;
+            if (sliderMusica != null)
+            {
+                sliderMusica.onValueChanged.RemoveListener(OnMusicVolumeChanged);
+                sliderMusica.value = AudioManager.Instance.MusicVolume;
+                sliderMusica.onValueChanged.AddListener(OnMusicVolumeChanged);
+            }
+            if (sliderSFX != null)
+            {
+                sliderSFX.onValueChanged.RemoveListener(OnSFXVolumeChanged);
+                sliderSFX.value = AudioManager.Instance.SFXVolume;
+                sliderSFX.onValueChanged.AddListener(OnSFXVolumeChanged);
+            }
         }
     }
 

@@ -166,6 +166,13 @@ public class SaveManager : MonoBehaviour
         }
         PlayerPrefs.DeleteKey("SavedLevel");
         PlayerPrefs.DeleteKey("PlayerCores");
+        
+        // Limpiar el registro de niveles completados para que en la nueva partida se vuelvan a otorgar los núcleos
+        PlayerPrefs.DeleteKey("LevelCompleted_1_Level1");
+        PlayerPrefs.DeleteKey("LevelCompleted_1_Level2");
+        PlayerPrefs.DeleteKey("LevelCompleted_2_Level1");
+        PlayerPrefs.DeleteKey("LevelCompleted_2_Level2");
+        
         PlayerPrefs.Save();
 
         // Limpiamos también el estado en memoria para el Mundo 2 y Mundo 1

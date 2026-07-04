@@ -29,7 +29,9 @@ public class QuestDoor : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
 
-        // Nos aseguramos de que los objetos estén desactivados al inicio
+        // Dejamos que los objetos de misión estén activos por defecto desde el inicio
+        // para que no se pierdan al cargar/guardar la partida y evitar reajustes de guardado.
+        /*
         if (questItems != null)
         {
             foreach (GameObject item in questItems)
@@ -40,6 +42,7 @@ public class QuestDoor : MonoBehaviour
                 }
             }
         }
+        */
     }
 
     private void Start()
