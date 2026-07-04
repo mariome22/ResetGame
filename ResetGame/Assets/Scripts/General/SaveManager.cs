@@ -77,6 +77,24 @@ public class SaveManager : MonoBehaviour
                         Debug.LogWarning("[SaveManager] No se encontró el prefab Global_Managers en Resources. Se creó una instancia vacía dinámica.");
                     }
                 }
+                else
+                {
+                    // ¡Si encontramos una instancia preexistente en la escena pero está inactiva, la forzamos a activarse!
+                    if (!_instance.gameObject.activeInHierarchy)
+                    {
+                        // Buscamos el objeto raíz (que probablemente sea Global_Managers) para activarlo completo
+                        Transform rootParent = _instance.transform.root;
+                        if (rootParent != null)
+                        {
+                            rootParent.gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            _instance.gameObject.SetActive(true);
+                        }
+                        Debug.Log("[SaveManager] Encontrada instancia inactiva de SaveManager en la escena. Forzada activación de su jerarquía.");
+                    }
+                }
             }
             return _instance;
         }
@@ -108,18 +126,21 @@ public class SaveManager : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance == null)
+        if (_instance == null || _instance == this)
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
             saveFilePath = Path.Combine(Application.persistentDataPath, "savegame.json");
+            
+            // Registrar OnSceneLoaded solo si no está ya registrado
+            SceneManager.sceneLoaded -= OnSceneLoaded;
             SceneManager.sceneLoaded += OnSceneLoaded;
 
             // Asegurar que las listas nunca sean nulas debido a la inicialización de prefabs de Unity
             if (destroyedObjects == null) destroyedObjects = new List<string>();
             if (dialogosReproducidos == null) dialogosReproducidos = new List<string>();
         }
-        else if (_instance != this)
+        else
         {
             // Si la instancia persistente tiene la base de datos vacía, pero esta instancia de escena la tiene llena, las copiamos
             if ((_instance.baseDatosObjetos == null || _instance.baseDatosObjetos.Count == 0) && (this.baseDatosObjetos != null && this.baseDatosObjetos.Count > 0))

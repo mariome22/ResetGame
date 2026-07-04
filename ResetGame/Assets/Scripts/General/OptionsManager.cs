@@ -144,18 +144,38 @@ public class OptionsManager : MonoBehaviour
     {
         if (AudioManager.Instance != null)
         {
+            float musicVol = AudioManager.Instance.MusicVolume;
+            float sfxVol = AudioManager.Instance.SFXVolume;
+            
+            Debug.Log($"[OptionsManager] UpdateUIValues iniciado. Volumen de AudioManager -> Música: {musicVol}, SFX: {sfxVol}");
+            
             if (sliderMusica != null)
             {
                 sliderMusica.onValueChanged.RemoveListener(OnMusicVolumeChanged);
-                sliderMusica.value = AudioManager.Instance.MusicVolume;
+                sliderMusica.value = musicVol;
                 sliderMusica.onValueChanged.AddListener(OnMusicVolumeChanged);
+                Debug.Log($"[OptionsManager] sliderMusica establecido a: {sliderMusica.value}");
             }
+            else
+            {
+                Debug.LogWarning("[OptionsManager] sliderMusica es NULO");
+            }
+            
             if (sliderSFX != null)
             {
                 sliderSFX.onValueChanged.RemoveListener(OnSFXVolumeChanged);
-                sliderSFX.value = AudioManager.Instance.SFXVolume;
+                sliderSFX.value = sfxVol;
                 sliderSFX.onValueChanged.AddListener(OnSFXVolumeChanged);
+                Debug.Log($"[OptionsManager] sliderSFX establecido a: {sliderSFX.value}");
             }
+            else
+            {
+                Debug.LogWarning("[OptionsManager] sliderSFX es NULO");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("[OptionsManager] AudioManager.Instance es NULO al actualizar UI.");
         }
     }
 

@@ -27,6 +27,24 @@ public class AudioManager : MonoBehaviour
                         DontDestroyOnLoad(obj);
                     }
                 }
+                else
+                {
+                    // ¡Si encontramos una instancia preexistente en la escena pero está inactiva, la forzamos a activarse!
+                    if (!_instance.gameObject.activeInHierarchy)
+                    {
+                        // Buscamos el objeto raíz (que probablemente sea Global_Managers) para activarlo completo
+                        Transform rootParent = _instance.transform.root;
+                        if (rootParent != null)
+                        {
+                            rootParent.gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            _instance.gameObject.SetActive(true);
+                        }
+                        Debug.Log("[AudioManager] Encontrada instancia inactiva de AudioManager en la escena. Forzada activación de su jerarquía.");
+                    }
+                }
             }
             return _instance;
         }
@@ -51,33 +69,16 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance == null)
+        if (_instance == null || _instance == this)
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
 
-            try
-            {
-                // Configurar latencia de audio al mínimo para respuestas instantáneas (Best Latency)
-                AudioConfiguration config = AudioSettings.GetConfiguration();
-                if (config.dspBufferSize > 256)
-                {
-                    config.dspBufferSize = 256;
-                    AudioSettings.Reset(config);
-                    Debug.Log("[AudioManager] DSP Buffer ajustado a 256 para reducir la latencia al mínimo.");
-                }
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogWarning("[AudioManager] No se pudo ajustar el DSP Buffer (no soportado en esta plataforma): " + e.Message);
-            }
-
             InitializeAudioSources();
             LoadVolumeSettings();
         }
-        else if (_instance != this)
+        else
         {
-            // Destruimos el GameObject duplicado completo para evitar duplicar Canvases, EventSystems, etc.
             Destroy(gameObject);
         }
     }

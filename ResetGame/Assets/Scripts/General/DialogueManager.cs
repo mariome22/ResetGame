@@ -49,6 +49,24 @@ public class DialogueManager : MonoBehaviour
                         DontDestroyOnLoad(obj);
                     }
                 }
+                else
+                {
+                    // ¡Si encontramos una instancia preexistente en la escena pero está inactiva, la forzamos a activarse!
+                    if (!_instance.gameObject.activeInHierarchy)
+                    {
+                        // Buscamos el objeto raíz (que probablemente sea Global_Managers) para activarlo completo
+                        Transform rootParent = _instance.transform.root;
+                        if (rootParent != null)
+                        {
+                            rootParent.gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            _instance.gameObject.SetActive(true);
+                        }
+                        Debug.Log("[DialogueManager] Encontrada instancia inactiva de DialogueManager en la escena. Forzada activación de su jerarquía.");
+                    }
+                }
             }
             return _instance;
         }
@@ -73,13 +91,13 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
-        if (_instance == null)
+        if (_instance == null || _instance == this)
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
             sentencesQueue = new Queue<DialogueLine>();
         }
-        else if (_instance != this)
+        else
         {
             Destroy(gameObject);
         }
