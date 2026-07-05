@@ -4716,13 +4716,14 @@ MonoBehaviour:
     - npcName: Jugador
       sentence: 'Esto es demasiado... '
     - npcName: Consola
-      sentence: "Recoge recursos (Tecla E), gu\xE1rdalos en tu mochila (Tecla P)
-        \xFAsalos para curarte (Tecla Q para usar y Tab para cambiar la cura), tendr\xE1s
-        que gestionarlos bien para completar el nivel."
+      sentence: "Recoge recursos e interact\xFAa con todos los objetos que se iluminan
+        (Tecla E), gu\xE1rdalos en tu mochila (Tecla P para abrirla) \xFAsalos para
+        curarte (Tecla Q para curar y Tab para cambiar la cura), tendr\xE1s que gestionarlos
+        bien para completar el nivel."
     - npcName: Consola
-      sentence: "Creo que alguien m\xE1s necesita tu ayuda as\xED que date prisa
-        y no le reveles la realidad, nadie sabe que esto no es el mundo real. conf\xEDo
-        en ti..."
+      sentence: "Creo que alguien m\xE1s necesita tu ayuda as\xED que date prisa.
+        Busca un contenedor rojo que bloquea la calle e interact\xFAa con \xE9l.
+        Conf\xEDo en ti..."
     - npcName: Jugador
       sentence: "Otra vez no, \xA1espera!"
     - npcName: Jugador
@@ -12679,7 +12680,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 168
-      m_TileSpriteIndex: 53
+      m_TileSpriteIndex: 155
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -13729,7 +13730,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 3
-      m_TileSpriteIndex: 36
+      m_TileSpriteIndex: 53
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -13779,7 +13780,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 2
-      m_TileSpriteIndex: 35
+      m_TileSpriteIndex: 36
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -14589,7 +14590,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 167
-      m_TileSpriteIndex: 31
+      m_TileSpriteIndex: 35
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -19728,8 +19729,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 1
-    m_Data: {fileID: -1425936951, guid: 879d26a800c68444587104abd826ae1b, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 1388741177, guid: ec14da02a1c14cb40ad49d954f88eec5, type: 3}
   - m_RefCount: 1
@@ -19737,9 +19738,9 @@ Tilemap:
   - m_RefCount: 2
     m_Data: {fileID: -1542041629, guid: ec14da02a1c14cb40ad49d954f88eec5, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: -1772373047, guid: ec14da02a1c14cb40ad49d954f88eec5, type: 3}
+    m_Data: {fileID: -1425936951, guid: 879d26a800c68444587104abd826ae1b, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: -1971277464, guid: ec14da02a1c14cb40ad49d954f88eec5, type: 3}
+    m_Data: {fileID: -1772373047, guid: ec14da02a1c14cb40ad49d954f88eec5, type: 3}
   - m_RefCount: 4
     m_Data: {fileID: 1127082601, guid: 879d26a800c68444587104abd826ae1b, type: 3}
   - m_RefCount: 4
@@ -19773,7 +19774,7 @@ Tilemap:
   - m_RefCount: 2
     m_Data: {fileID: -101204146, guid: ec14da02a1c14cb40ad49d954f88eec5, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 1596099056, guid: 62b49316851d9954bbd2b90363313cd4, type: 3}
+    m_Data: {fileID: -1971277464, guid: ec14da02a1c14cb40ad49d954f88eec5, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -1800462798, guid: e0fd628f6a401fc4c8fbee586afc7c19, type: 3}
   - m_RefCount: 1
@@ -19976,8 +19977,8 @@ Tilemap:
     m_Data: {fileID: 281515489, guid: e0fd628f6a401fc4c8fbee586afc7c19, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -104477038, guid: e0fd628f6a401fc4c8fbee586afc7c19, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 1596099056, guid: 62b49316851d9954bbd2b90363313cd4, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: -1061745020, guid: 879d26a800c68444587104abd826ae1b, type: 3}
   - m_RefCount: 6
@@ -39736,8 +39737,9 @@ MonoBehaviour:
       sentence: "Habr\xE1 infectados custodiando sus entradas seguro. As\xED que
         tendr\xE1s que investigar bien todas las posibles entradas, pasillos y callejones."
     - npcName: Jugador
-      sentence: "F\xEDjate bien en las farolas encendidas tambi\xE9n, suelen marcar
-        por donde hayan pasado los federales."
+      sentence: "F\xEDjate bien en las farolas encendidas, suelen marcar por donde
+        hayan pasado los federales. Y aprovecha los atajos de los techos rojos y
+        azules, podr\xE1s pasar por el medio."
     - npcName: Jugador
       sentence: "Est\xE1 bien, vuelvo enseguida."
   dialogoProgreso:
