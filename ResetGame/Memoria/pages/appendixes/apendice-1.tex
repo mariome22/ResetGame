@@ -1,0 +1,609 @@
+\label{ap:codigo_fuente}
+\footnotesize 
+
+En este apéndice se exponen los fragmentos de código C\# más significativos desarrollados para el prototipo de \textit{Reset}, ilustrando la implementación de la persistencia de datos, la navegación táctica de la inteligencia artificial, el desacoplamiento de diálogos y las físicas calibradas de salto.
+
+% =========================================================================
+\section{Persistencia y Guardado de Datos (SaveManager.cs)}
+\label{ap:sec:persistencia}
+El siguiente fragmento detalla la primera parte del método para estructurar y serializar el progreso de la partida en formato JSON:
+
+\begin{verbatim}
+public void SaveGame()
+{
+    try
+    {
+        SaveData data = new SaveData();
+        string currentScene = SceneManager.GetActiveScene().name;
+        data.escenaGuardada = currentScene;
+        data.playerCores = PlayerPrefs.GetInt("PlayerCores", 0);
+
+        // 1. Guardar Inventario Mundo 1
+        if (InventarioManager.Instance != null)
+        {
+            foreach (var slot in InventarioManager.Instance.objetosGuardados)
+            {
+                if (slot.objeto != null)
+                {
+                    data.objetosNombres.Add(slot.objeto.nombreObjeto);
+                    data.objetosCantidades.Add(slot.cantidad);
+                }
+            }
+        }
+
+        // 2. Guardar Estadísticas de Combate y Salud del Jugador
+        PlayerController pc = FindFirstObjectByType<PlayerController>();
+        if (pc != null)
+        {
+            var propArma = pc.GetType().GetField("armaDesbloqueada", 
+                System.Reflection.BindingFlags.NonPublic | 
+                System.Reflection.BindingFlags.Instance);
+            if (propArma != null) 
+                data.armaDesbloqueadaMundo1 = (bool)propArma.GetValue(pc);
+            data.balasActualesCargadorMundo1 = pc.balasActualesCargador;
+        }
+
+        PlayerHealth ph = FindFirstObjectByType<PlayerHealth>();
+        if (ph != null)
+        {
+            var propVida = ph.GetType().GetField("vidaActual", 
+                System.Reflection.BindingFlags.NonPublic | 
+                System.Reflection.BindingFlags.Instance);
+            if (propVida != null) 
+                data.vidaActualMundo1 = (int)propVida.GetValue(ph);
+        }
+
+        if (currentScene == "01_Hub" || 
+            currentScene == "1_Level1" || 
+            currentScene == "1_Level2")
+        {
+            GameObject playerObj = GameObject.FindWithTag("Player");
+            if (playerObj != null)
+            {
+                data.playerPosXMundo1 = playerObj.transform.position.x;
+                data.playerPosYMundo1 = playerObj.transform.position.y;
+                data.tienePosicionGuardadaMundo1 = true;
+            }
+        }
+\end{verbatim}
+
+\clearpage
+El siguiente bloque recopila los identificadores destruidos, las variables estáticas del Mundo 2 y realiza la escritura física del archivo serializado en el disco duro:
+
+\begin{verbatim}
+        data.objetosDestruidosMundo1 = new List<string>(destroyedObjects);
+        data.dialogosReproducidos = new List<string>(dialogosReproducidos);
+
+        // 3. Guardar estado de Checkpoints y Coleccionables de Mundo 2
+        data.livesMundo2 = PlayerPlatformerController.lives;
+        data.remainingTimeMundo2 = PlayerPlatformerController.remainingTime;
+        data.consecutiveCheckpointDeathsMundo2 = 
+            PlayerPlatformerController.consecutiveCheckpointDeaths;
+        data.totalCoinsMundo2 = PlayerPlatformerController.totalCoins;
+        data.secretCoinsCollectedMundo2 = 
+            PlayerPlatformerController.secretCoinsCollected;
+        data.collectedCoinsMundo2 = new List<string>(
+            PlayerPlatformerController.collectedCoinsActive);
+        data.lastCheckpointSceneMundo2 = 
+            PlayerPlatformerController.lastCheckpointScene;
+        data.lastCheckpointPosXMundo2 = 
+            PlayerPlatformerController.lastCheckpointPos.x;
+        data.lastCheckpointPosYMundo2 = 
+            PlayerPlatformerController.lastCheckpointPos.y;
+
+        PlayerPrefs.SetInt("SavedLevel", 1);
+        PlayerPrefs.SetInt("PlayerCores", data.playerCores);
+        PlayerPrefs.Save();
+
+        // 4. Escritura JSON física en disco
+        string json = JsonUtility.ToJson(data, true);
+        File.WriteAllText(saveFilePath, json);
+    }
+    catch (System.Exception e)
+    {
+        Debug.LogError("Error al guardar partida: " + e.ToString());
+    }
+}
+
+public void LoadGame()
+{
+    if (!HasSaveGame()) return;
+
+    string json = File.ReadAllText(saveFilePath);
+    pendingLoadData = JsonUtility.FromJson<SaveData>(json);
+
+    if (SceneTransitionManager.Instance != null)
+    {
+        SceneTransitionManager.Instance.LoadSceneWithFade(pendingLoadData.escenaGuardada);
+    }
+    else
+    {
+        SceneManager.LoadScene(pendingLoadData.escenaGuardada);
+    }
+}
+\end{verbatim}
+
+\clearpage
+% =========================================================================
+\section{Gestión Modular y Navegación de IA en Mundo 1 (EnemyMelee.cs)}
+\label{ap:sec:context_steering}
+El fragmento describe la rutina de planificación de estados de persecución y el cálculo del vector de evitación de obstáculos local por direccionamiento de contexto:
+
+\begin{verbatim}
+private void EjecutarPersecucion(float distancia)
+{
+    if (explota && distancia <= rangoActivacionExplosion && !explosionIniciada)
+    {
+        explosionIniciada = true;
+        StartCoroutine(RutinaExplosion());
+        return;
+    }
+    
+    if (haceEmbestidas && distancia <= rangoEmbestida && puedeEmbestir && 
+        !explosionIniciada)
+    {
+        if (rb != null) rb.linearVelocity = Vector2.zero;
+        StartCoroutine(RutinaEmbestida());
+        return;
+    }
+
+    if (esZombie && !haceEmbestidas && !explota && 
+        distancia <= rangoAtaqueZombie && puedeAtacarZombie && 
+        !estaOcupado && !explosionIniciada)
+    {
+        if (rb != null) rb.linearVelocity = Vector2.zero;
+        StartCoroutine(RutinaAtaqueZombie());
+        return;
+    }
+    
+    if (!estaOcupado || explosionIniciada) 
+    {
+        MoverConContextSteering(jugador.position, velocidadNormal, true);
+    }
+}
+
+private void MoverConContextSteering(Vector2 objetivo, float velocidadBase, bool esPersecucion)
+{
+    if (rb == null) return;
+    Vector2 direccionAlObjetivo = 
+        (objetivo - (Vector2)transform.position).normalized;
+    
+    float[] intereses = new float[8];
+    float[] peligros = new float[8];
+
+    // Fase 1: Proyección de Vectores de Interés (Producto Escalar)
+    for (int i = 0; i < 8; i++)
+    {
+        float dot = Vector2.Dot(direcciones[i], direccionAlObjetivo);
+        intereses[i] = Mathf.Max(0f, dot);
+    }
+
+    // Fase 2: Proyección de Vectores de Peligro (CircleCast)
+    for (int i = 0; i < 8; i++)
+    {
+        Vector2 dir = direcciones[i];
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, radioObstaculos, 
+            dir, distanciaRaycast, obstacleLayer);
+        float peligro = 0f;
+
+        if (hit.collider != null && hit.collider.gameObject != this.gameObject)
+        {
+            if (jugador != null && hit.collider.transform == jugador)
+                continue;
+            peligro = 1f - (hit.distance / distanciaRaycast);
+        }
+        peligros[i] = peligro;
+    }
+\end{verbatim}
+
+\clearpage
+Lógica de mezcla vectorial, frenesí a corta distancia, pasos rápidos probabilísticos y oscilación sinusoidal lateral:
+
+\begin{verbatim}
+    // Fase 3: Fusión Vectorial (Vector Blend)
+    Vector2 direccionFinal = Vector2.zero;
+    for (int i = 0; i < 8; i++)
+    {
+        float score = intereses[i] - peligros[i] * factorEvasion;
+        score = Mathf.Max(0f, score);
+        direccionFinal += direcciones[i] * score;
+    }
+
+    if (direccionFinal == Vector2.zero)
+        direccionFinal = direccionAlObjetivo;
+    else
+        direccionFinal = direccionFinal.normalized;
+        
+    float velocidadActual = velocidadBase;
+
+    if (esZombie)
+    {
+        if (esPersecucion)
+        {
+            float distanciaAlJugador = Vector2.Distance(transform.position, jugador.position);
+            if (distanciaAlJugador <= distanciaFrenesi)
+            {
+                velocidadActual *= multiplicadorFrenesi;
+            }
+            else
+            {
+                if (tiempoPasoRapidoRestante > 0)
+                {
+                    tiempoPasoRapidoRestante -= Time.fixedDeltaTime;
+                    velocidadActual *= multiplicadorPasoRapido;
+                }
+                else if (Random.value < probabilidadPasoRapido * Time.fixedDeltaTime)
+                {
+                    tiempoPasoRapidoRestante = duracionPasoRapido;
+                }
+            }
+        }
+
+        // Modificador errático de balanceo
+        Vector2 perpendicular = new Vector2(-direccionFinal.y, direccionFinal.x);
+        float factorTambaleo = Mathf.Sin((Time.time + offsetTambaleo) * velocidadTambaleo) 
+            * amplitudTambaleo;
+        
+        direccionFinal = (direccionFinal + perpendicular * factorTambaleo).normalized;
+    }
+
+    rb.linearVelocity = direccionFinal * velocidadActual;
+}
+\end{verbatim}
+
+La corrutina que gobierna la embestida física lineal del enemigo Charger:
+
+\begin{verbatim}
+private IEnumerator RutinaEmbestida()
+{
+    estaOcupado = true;
+    puedeEmbestir = false;
+    if (rb != null) rb.linearVelocity = Vector2.zero;
+
+    if (spriteRenderer != null) spriteRenderer.color = colorAvisoEmbestida;
+    yield return new WaitForSeconds(tiempoPreparacion); 
+
+    if (spriteRenderer != null) spriteRenderer.color = colorOriginal;
+    Vector2 posicionObjetivo = jugador.position;
+    estaEmbistiendo = true;
+
+    if (anim != null && tieneParametroCharging) anim.SetBool("isCharging", true);
+
+    float maxChargeTime = 2.0f; 
+    float elapsed = 0f;
+    Vector2 lastPos = transform.position;
+    float stuckTimer = 0f;
+
+    while (Vector2.Distance(transform.position, posicionObjetivo) > 0.1f && 
+           elapsed < maxChargeTime)
+    {
+        transform.position = Vector2.MoveTowards(
+            transform.position, posicionObjetivo, 
+            velocidadEmbestida * Time.deltaTime);
+        elapsed += Time.deltaTime;
+
+        if (Vector2.Distance(transform.position, lastPos) < 0.001f)
+        {
+            stuckTimer += Time.deltaTime;
+            if (stuckTimer > 0.15f) break; 
+        }
+        else
+        {
+            stuckTimer = 0f;
+        }
+        lastPos = transform.position;
+        yield return null;
+    }
+
+    if (anim != null && tieneParametroCharging) anim.SetBool("isCharging", false);
+    estaEmbistiendo = false;
+    estaOcupado = false;
+
+    yield return new WaitForSeconds(tiempoRecargaEmbestida);
+    puedeEmbestir = true;
+}
+\end{verbatim}
+
+\clearpage
+% =========================================================================
+\section{Físicas de Plataformas e Inercia Aérea (PlayerPlatformerController.cs)}
+\label{ap:sec:fisicas}
+El siguiente fragmento detalla la lógica de actualización física de saltos variables y el Coyote Time:
+
+\begin{verbatim}
+private void UpdateJumpAndPhysics()
+{
+    if (isGrounded)
+    {
+        coyoteTimeCounter = coyoteTime;
+        doubleJumpAvailable = true;
+    }
+    else
+    {
+        coyoteTimeCounter -= Time.deltaTime;
+    }
+
+    bool jumpPressed = Keyboard.current != null && 
+        Keyboard.current.spaceKey.wasPressedThisFrame;
+    if (jumpPressed)
+    {
+        jumpBufferCounter = jumpBufferTime;
+    }
+    else
+    {
+        jumpBufferCounter -= Time.deltaTime;
+    }
+
+    if (coyoteTimeCounter > 0f && jumpBufferCounter > 0f)
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        jumpBufferCounter = 0f;
+        coyoteTimeCounter = 0f;
+    }
+\end{verbatim}
+
+\clearpage
+El siguiente fragmento detalla el Wall Jump, Double Jump y el frenado vertical para salto variable:
+
+\begin{verbatim}
+    else if (enableWallJump && !isGrounded && isTouchingWall && 
+             jumpBufferCounter > 0f)
+    {
+        isWallSliding = false;
+        jumpBufferCounter = 0f;
+        coyoteTimeCounter = 0f;
+
+        float jumpDir = wallOnRight ? -1f : 1f;
+        rb.linearVelocity = new Vector2(
+            wallJumpForce.x * jumpDir, wallJumpForce.y);
+
+        if ((jumpDir > 0 && !facingRight) || (jumpDir < 0 && facingRight))
+        {
+            Flip();
+        }
+        StartCoroutine(WallJumpControlLockRoutine());
+    }
+    else if (enableDoubleJump && doubleJumpAvailable && !isGrounded && 
+             !isWallSliding && jumpBufferCounter > 0f)
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, doubleJumpForce);
+        doubleJumpAvailable = false;
+        jumpBufferCounter = 0f;
+        coyoteTimeCounter = 0f;
+    }
+
+    bool jumpReleased = Keyboard.current != null && 
+        Keyboard.current.spaceKey.wasReleasedThisFrame;
+    if (jumpReleased && rb.linearVelocity.y > 0f)
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 
+            rb.linearVelocity.y * jumpHeightMultiplier);
+        coyoteTimeCounter = 0f;
+    }
+}
+\end{verbatim}
+
+\clearpage
+% =========================================================================
+\section{Motor de Diálogos Asíncrono en Tiempo de Pausa (DialogueManager.cs)}
+\label{ap:sec:dialogos}
+Lógica de inicio, avance y encolamiento de frases secuenciales en la interfaz de usuario:
+
+\begin{verbatim}
+public void StartDialogue(Dialogue dialogue, System.Action onEnd = null)
+{
+    if (dialoguePanel == null || nameText == null || 
+        dialogueText == null) return;
+
+    Time.timeScale = 0f; 
+    dialoguePanel.SetActive(true);
+    onDialogueEndCallback = onEnd;
+
+    sentencesQueue.Clear();
+    foreach (DialogueLine line in dialogue.lines)
+    {
+        sentencesQueue.Enqueue(line);
+    }
+    DisplayNextSentence();
+}
+
+public void DisplayNextSentence()
+{
+    if (isTyping)
+    {
+        StopCoroutine(typingCoroutine);
+        dialogueText.text = currentSentence;
+        isTyping = false;
+        return;
+    }
+
+    if (sentencesQueue.Count == 0)
+    {
+        EndDialogue();
+        return;
+    }
+
+    DialogueLine nextLine = sentencesQueue.Dequeue();
+    nameText.text = nextLine.npcName;
+    currentSentence = nextLine.sentence;
+    
+    typingCoroutine = StartCoroutine(TypeSentence(currentSentence));
+}
+\end{verbatim}
+
+\clearpage
+Lógica de corrutina en tiempo real y finalización asíncrona de diálogos con callback:
+
+\begin{verbatim}
+private IEnumerator TypeSentence(string sentence)
+{
+    dialogueText.text = "";
+    isTyping = true;
+    foreach (char letter in sentence.ToCharArray())
+    {
+        dialogueText.text += letter;
+        yield return new WaitForSecondsRealtime(typingSpeed); 
+    }
+    isTyping = false;
+}
+
+public void EndDialogue()
+{
+    if (dialoguePanel != null) dialoguePanel.SetActive(false);
+
+    Time.timeScale = 1f; 
+
+    if (onDialogueEndCallback != null)
+    {
+        System.Action callback = onDialogueEndCallback;
+        onDialogueEndCallback = null;
+        callback.Invoke(); 
+    }
+}
+\end{verbatim}
+
+\clearpage
+% =========================================================================
+\section{Gestión de Enemigos en Mundo 2 mediante Herencia y Polimorfismo (EnemyPlatformerBase.cs y EnemyPatrolPlatformer.cs)}
+\label{ap:sec:enemigos_herencia}
+
+\subsection{Clase Base (EnemyPlatformerBase.cs)}
+Lógica base de recepción de daño, animación de muerte controlada y detección de pisada:
+
+\begin{verbatim}
+using UnityEngine;
+
+public class EnemyPlatformerBase : MonoBehaviour
+{
+    public int maxHealth = 1;
+    protected int currentHealth;
+    public int damageToPlayer = 1;
+    [SerializeField] private AudioClip sonidoMuerte;
+
+    protected virtual void Start()
+    {
+        currentHealth = maxHealth;
+    }
+
+    public virtual void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0) Die();
+    }
+
+    protected virtual void Die()
+    {
+        if (sonidoMuerte != null && AudioManager.Instance != null)
+            AudioManager.Instance.PlaySFX(sonidoMuerte);
+
+        Animator anim = GetComponent<Animator>();
+        if (anim != null)
+        {
+            foreach (AnimatorControllerParameter param in anim.parameters)
+            {
+                if (param.type == AnimatorControllerParameterType.Bool) 
+                    anim.SetBool(param.name, false);
+                else if (param.type == AnimatorControllerParameterType.Float) 
+                    anim.SetFloat(param.name, 0f);
+            }
+            anim.SetTrigger("Die");
+            
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            if (rb != null) rb.simulated = false; 
+            
+            this.enabled = false;
+            Destroy(gameObject, 0.8f);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+\end{verbatim}
+
+\clearpage
+Lógica del trigger de colisiones de la clase base:
+
+\begin{verbatim}
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<EnemyPlatformerBase>() != null)
+        {
+            TurnAround();
+            return;
+        }
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerPlatformerController player = 
+                collision.gameObject.GetComponent<PlayerPlatformerController>();
+            if (player != null)
+            {
+                ContactPoint2D contact = collision.GetContact(0);
+                if (contact.normal.y <= -0.5f) 
+                {
+                    player.Bounce();
+                    TakeDamage(1);
+                }
+                else
+                {
+                    player.TakeDamage(damageToPlayer);
+                }
+            }
+        }
+    }
+
+    public virtual void TurnAround() {}
+}
+\end{verbatim}
+
+\clearpage
+\subsection{Clase Hija (EnemyPatrolPlatformer.cs)}
+Comportamiento heredado de patrulla con raycasting e inversión de escala local:
+
+\begin{verbatim}
+public class EnemyPatrolPlatformer : EnemyPlatformerBase
+{
+    public float patrolSpeed = 3f;
+    public Transform ledgeCheck; 
+    public Transform wallCheck;  
+    public float checkDistance = 0.5f;
+    public LayerMask groundLayer;
+
+    private Rigidbody2D rb;
+    private bool movingRight = true;
+
+    protected override void Start()
+    {
+        base.Start(); 
+        rb = GetComponent<Rigidbody2D>();
+        movingRight = transform.localScale.x > 0;
+    }
+
+    void Update()
+    {
+        if (patrolSpeed <= 0.01f) return;
+
+        rb.linearVelocity = new Vector2(
+            (movingRight ? 1 : -1) * patrolSpeed, rb.linearVelocity.y);
+
+        bool hittingWall = Physics2D.Raycast(wallCheck.position, 
+            movingRight ? Vector2.right : Vector2.left, checkDistance, groundLayer);
+        bool hittingLedge = Physics2D.Raycast(ledgeCheck.position, 
+            Vector2.down, checkDistance, groundLayer);
+
+        if (hittingWall || !hittingLedge)
+        {
+            TurnAround();
+        }
+    }
+
+    public override void TurnAround()
+    {
+        movingRight = !movingRight;
+        Vector3 scaler = transform.localScale;
+        scaler.x *= -1;
+        transform.localScale = scaler;
+    }
+}
+\end{verbatim}

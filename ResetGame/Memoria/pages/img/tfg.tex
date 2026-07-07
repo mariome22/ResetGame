@@ -1,0 +1,287 @@
+% Clase del documento
+\documentclass[12pt,twoside,titlepage]{report}
+
+% Configuración
+\include{config/config.tex}
+
+% A rellenar por el estudiante
+\newcommand{\nombreautor}{Nombre Apellido1 Apellido2}
+\newcommand{\nombretutor}{NombreTutor Apellido1 Apellido2}
+\newcommand{\titulotrabajo}{Título del Trabajo de Fin de Grado}
+\newcommand{\grado}{Grado en XXXXXXXX}
+\newcommand{\curso}{Curso 20XX-20XX}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                           Inicio del documento                       
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\pagestyle{plain}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Portada %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{config/portada}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Estilo de párrafo de los capítulos
+\setlength{\parskip}{0.75em}
+\renewcommand{\baselinestretch}{1.25}
+% Interlineado simple
+\spacing{1}
+
+\pagenumbering{Roman}
+\setcounter{page}{2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Licencia %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{config/licencia}
+
+%%%%%%%%%%%%%%%%%%%%%%%%% Agradecimientos o dedicatoria %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter*{Agradecimientos}
+
+Breves agradecimientos o dedicatoria.
+
+\afterpage{\blankpage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Resumen %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter*{Resumen}
+
+En el panorama actual de la industria de los videojuegos, el mercado se caracteriza por una marcada especialización donde los títulos suelen limitarse a un único bucle de juego básico. Frente a esta fragmentación, surge la oportunidad de diseñar juegos capaces de integrar y dividir géneros lúdicos tradicionalmente discordantes bajo un mismo sistema modular. En este contexto nace \textit{Reset}, un proyecto desarrollado con el propósito de fusionar dinámicamente la perspectiva cenital (\textit{Top-Down}) orientada a la acción y la supervivencia, y la perspectiva lateral (\textit{Side-Scroller}) enfocada en las plataformas y la precisión técnica, conectando ambos mundos mediante un nexo narrativo y espacial central.
+
+El desarrollo de este trabajo se ha abordado desde una metodología de trabajo multidisciplinar para dar vida a una demo jugable (\textit{Vertical Slice}), cubriendo de forma integrada todas las fases de la creación del producto. El proceso comenzó con la conceptualización y redacción del Documento de Diseño de Juego (GDD) y la estructuración del guion narrativo. Posteriormente, en la fase de ingeniería de software, se programaron utilizando el lenguaje C\# bajo el motor de juego Unity los controladores de físicas y de movimiento del personaje, los sistemas de inteligencia artificial para el comportamiento autónomo de los enemigos y una arquitectura modular para la persistencia de datos y guardado. Todo este desarrollo lógico se complementó con un dedicado esfuerzo en la dirección artística, puliendo los gráficos en estilo \textit{pixel art}, las animaciones y el diseño de la interfaz y la experiencia de usuario (UI/UX), consolidando un prototipo jugable sólido que demuestra la viabilidad de unificar el desarrollo informático con el diseño de juego (\textit{Game Design}).
+
+\vspace{1.5em}
+\noindent \textbf{Palabras clave}:
+\begin{multicols}{2}
+\begin{compactitem}
+    \item Videojuegos
+    \item Hibridación de géneros
+    \item Game Design
+    \item Experiencia de usuario (UI/UX)
+    \item Pixel Art
+    \item Vertical Slice
+    \item Inteligencia Artificial
+    \item Persistencia de datos
+    \item C\#
+    \item Unity
+\end{compactitem}
+\end{multicols}
+
+\afterpage{\blankpage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Índices %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Estilo de párrafo de los Índices
+\setlength{\parskip}{1pt}
+\renewcommand{\baselinestretch}{1}
+\renewcommand{\contentsname}{Índice de contenidos}
+
+
+% Índice de contenidos
+\tableofcontents
+\afterpage{\blankpage}
+
+% Índice de tablas (OPCIONAL)
+\listoftables
+\afterpage{\blankpage}
+\addcontentsline{toc}{chapter}{\noindent \listtablename}
+
+% Índice de figuras (OPCIONAL)
+\listoffigures
+\afterpage{\blankpage}
+\addcontentsline{toc}{chapter}{\listfigurename}
+
+
+% En este documento (de momento) no se ha considerado incluir un índice de algoritmos/pseudocódigos, como el que aparece en \ref{AdditionalLouvain}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%% Cabeceras y pies de página (Opcional) %%%%%%%%%%%%%%%%%%%%%%%
+
+%\setlength{\headheight}{15.2pt}
+\pagestyle{fancy}
+
+
+\renewcommand{\chaptermark}[1]{\markboth{Capítulo \thechapter.\ #1}{}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LO]{\leftmark}
+\fancyhead[RO]{}
+\fancyhead[RE]{\nouppercase\rightmark}
+\fancyhead[LE]{}
+\fancyfoot[C]{\thepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Capítulos de la memoria %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+% Capítulo 1
+\chapter{Introducción}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Estilo resto de páginas
+\pagestyle{fancy}
+
+
+% Estilo de párrafo de los capítulos
+\setlength{\parskip}{0.75em}
+\renewcommand{\baselinestretch}{1.25}
+% Interlineado simple
+\spacing{1}
+% Numeración contenido
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{pages/introduccion.tex}
+
+% \afterpage{\blankpage} % puede generar problema en índice de contenidos
+% \newpage
+
+
+% Capítulo 2
+\chapter{Objetivos}
+\label{obj}
+\input{pages/objetivos.tex}
+
+\blankpage
+
+% Capítulo 3
+\chapter{Tecnologías, Herramientas y Metodologías}
+\label{chap:tecnologias}
+
+\input{pages/tecnologias-herramientas-metodologias.tex}
+
+
+
+% Capítulo 4
+\chapter{Diseño Conceptual y del Videojuego}
+\label{sec:descripcionJuegos}
+
+\input{pages/descripcion-juegos.tex}
+
+\blankpage
+
+
+
+
+% Capítulo 5
+\chapter{Descripción Informática}
+\label{sec:descripcionInformatica}
+
+\input{pages/descripcion-informatica.tex}
+
+\blankpage
+
+
+
+
+% Capítulo 6
+\chapter{Validación}
+\label{sec:validacion}
+
+\input{pages/validacion.tex}
+
+\blankpage
+
+% Capítulo Final
+
+\chapter{Conclusiones y trabajos futuros}
+
+\input{pages/conclusiones.tex}
+
+\blankpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Bibliografía %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliografía}
+
+\footnotesize{
+%\bibliographystyle{hispa}
+\bibliographystyle{IEEEtran}
+\nocite{*} 
+\bibliography{bibliografia}
+}
+
+
+
+% No expandir elementos para llenar toda la página
+\raggedbottom
+\afterpage{\blankpage}
+
+\newpage
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Apéndices %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+
+\phantomsection
+\addcontentsline{toc}{chapter}{Apéndices}
+
+\mbox{}
+\vfill
+\begin{center}
+\begin{Huge}
+\textbf{Apéndices}
+\end{Huge}
+\end{center}
+\vfill
+\mbox{}
+\thispagestyle{empty}
+
+\newpage
+\mbox{}
+\thispagestyle{empty}
+\newpage
+
+
+% Primer apéndice
+\chapter{Código fuente relevante}
+\label{sec:apendice}
+\input{pages/appendixes/apendice-1.tex}
+
+% Segundo apéndice
+\chapter{Diseño de Interfaces y Experiencia de Usuario (UI/UX)}
+\label{sec:apendice_uiux}
+\input{pages/appendixes/GaleriaUIUX.tex}
+
+% Tercer apéndice
+\chapter{Respuestas Abiertas del Proceso de Validación}
+\label{sec:apendice_comentarios}
+\input{pages/appendixes/ValidacionAbierta.tex}
+
+% Fin del documento
+\end{document}

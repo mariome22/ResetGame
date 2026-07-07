@@ -1,0 +1,57 @@
+En este capítulo final se realiza un balance crítico del proyecto \textit{Reset}. Se analiza el nivel de cumplimiento de los objetivos establecidos al inicio de la memoria, se proponen futuras líneas de desarrollo para la expansión del prototipo y se exponen las conclusiones personales del autor acerca del proceso de aprendizaje y el desarrollo multidisciplinar llevado a cabo.
+
+% =========================================================================
+\section{Grado de Cumplimiento de los Objetivos}
+\label{sec:cumplimiento_objetivos}
+Como se ha establecido en el Capítulo~\ref{obj}, el propósito fundamental de este Trabajo de Fin de Grado era el diseño y desarrollo de una demo jugable (\textit{Vertical Slice}) de \textit{Reset} que unificase diferentes perspectivas y géneros mecánicos bajo una misma arquitectura lógica. Para evaluar el éxito del proyecto, se desglosa a continuación el nivel de consecución de cada uno de los objetivos específicos planteados:
+
+\begin{itemize}
+    \item \textbf{Analizar y establecer los pilares de un diseño estético coherente:} \textit{Objetivo Cumplido.} Se ha desarrollado una línea visual y una interfaz UI/UX consistentes basadas en el estilo Pixel Art (detalladas en el Capítulo~\ref{sec:descripcionJuegos}). Esta homogeneidad estética ha sido fundamental para justificar de forma orgánica la transición y cohesión del jugador entre mundos y géneros jugables tan dispares como el shooter de supervivencia cenital y las plataformas de precisión, unificando la experiencia bajo una identidad visual reconocible.
+    
+    \item \textbf{Desarrollar una narrativa cohesiva y contextualizada:} \textit{Objetivo Cumplido.} Se ha estructurado una trama meta-referencial sólida que utiliza el Hub central como nexo físico y narrativo entre mundos. A través de diálogos dinámicos interactivos y referencias explícitas a títulos históricos de la industria, se ha logrado justificar orgánicamente la alternancia de perspectivas de cámara y mecánicas, consiguiendo que el jugador experimente el juego como un viaje inmersivo continuo y no como una colección de minijuegos inconexos.
+    
+    \item \textbf{Implementación de un diseño de niveles estructurado en capas:} \textit{Objetivo mejorable.} El diseño de los niveles propone una curva de aprendizaje progresiva. El Mundo 1 plantea un entorno de acción y exploración accesible centrado en el combate y la resolución de puzles, mientras que el Mundo 2 eleva el reto mecánico en su segundo nivel. Aunque este diseño ofrece un desafío de precisión que satisface el interés de los jugadores experimentados, las pruebas de validación demostraron que la curva de dificultad resultó repentina y demasiado pronunciada para los usuarios noveles en sus fases iniciales de plataformas.
+    
+    \item \textbf{Crear un movimiento y control en 2D adaptado al género de plataformas:} \textit{Objetivo casi cumplido.} Se ha diseñado y programado un movimiento físico completo aplicando sistemas específicos de mejora del \textit{game feel} para el control del jugador. La única limitación encontrada ha sido cierta inestabilidad física al interactuar con las plataformas de traspaso unidireccionales nativas de Unity, las cuales generaron colisiones imprecisas en situaciones puntuales.
+    
+    \item \textbf{Desarrollo de una arquitectura escalable de Inteligencia Artificial:} \textit{Objetivo Cumplido.} Los infectados del Mundo 1 se estructuraron bajo una jerarquía orientada a objetos sólida. El comportamiento de los enemigos y la evitación dinámica de obstáculos mediante navegación local por direccionamiento de contexto (\textit{Context Steering}) demostraron que es posible lograr comportamientos orgánicos y eficientes sin depender de mallas de navegación complejas. Aunque el sistema es susceptible de recibir refinamientos algorítmicos en el futuro, el grado de cumplimiento de esta meta es muy alto.
+    
+    \item \textbf{Implementación de un sistema robusto de persistencia de datos y gestión de estado:} \textit{Objetivo Cumplido.} Se diseñó una arquitectura de persistencia modular en tres bloques lógicos (\texttt{PlayerPrefs} para opciones globales de audio, serialización JSON para el progreso del personaje, e identificadores únicos basados en coordenadas físicas para el escenario). Este sistema ha demostrado ser seguro y coherente ante la transición entre escenas y las subrutinas de muerte y reinicio limpio de la partida.
+    
+    \item \textbf{Integración de sistemas mecánicos específicos de cada género:} \textit{Objetivo Cumplido.} Se implementaron lógicas a medida como el Director de Drops probabilístico adaptativo (DDA) en el Mundo 1 o los cristales de recarga y el movimiento inercial sobre plataformas móviles en el Mundo 2, dotando a cada entorno de la robustez mecánica propia de sus géneros de referencia y completando las posibilidades de acción.
+\end{itemize}
+
+% =========================================================================
+\section{Trabajo Futuro y Líneas de Ampliación}
+\label{sec:trabajo_futuro}
+Aunque la versión actual de \textit{Reset} cumple con los requisitos lúdicos y de ingeniería de una demo funcional, el proyecto se ha estructurado de forma modular para permitir una expansión escalable en el futuro, posibilitando completar la visión original de la obra. Las principales líneas de ampliación propuestas son:
+
+\begin{enumerate}
+    \item \textbf{Ampliación de Contenido y Mundos:} Diseñar e implementar nuevos mundos de juego con mecánicas y perspectivas alternativas, tales como una perspectiva en primera persona para exploración tridimensional o una vista isométrica táctica. Esto enriquecerá el concepto original de hibridación de géneros, creando una amplia biblioteca de mundos que eleven la jugabilidad a un nivel donde la narrativa adquiera una escala global.
+    
+    \item \textbf{Pulido Visual y Animación:} Enriquecer el apartado artístico \textit{pixel art} mediante la adición de estéticas visuales más diferenciadas y detalladas. Esto respondería directamente a la mejora de la experiencia de usuario (UX) mediante el pulido de animaciones, \textit{sprites} y, en líneas generales, el pulido artístico completo para alcanzar un estándar de publicación profesional.
+    
+    \item \textbf{Continuación Narrativa y Psicología del Jugador:} Seguir redactando la historia con base en el prototipo para completar el hilo narrativo del Nexo. Se plantea realizar un estudio más profundo de la psicología del jugador durante la navegación para redactar una continuación narrativa que garantice la retención de los usuarios, logrando una diferenciación competitiva en el mercado de juegos independientes.
+    
+    \item \textbf{Refinamiento del Sistema de Colisiones:} Sustituir los colisionadores de plataforma nativos de Unity por un algoritmo de detección por trazado de rayos personalizado (\textit{Raycasting}) en el controlador del personaje, solucionando de forma definitiva los problemas de colisiones que podían provocar pequeños errores de posicionamiento o atascos en los diferentes niveles de plataformas.
+    
+    \item \textbf{Implementación de un Selector de Dificultad Parametrizado:} 
+    Como respuesta directa a la disparidad de destreza física de los jugadores detectada en las pruebas de usuarios, se propone diseñar un sistema de selección de dificultad seleccionable desde el menú principal (ej. Narrativo, Estándar e Infierno). Este selector reconfiguraría dinámicamente varios parámetros lógicos de la simulación en tiempo de ejecución:
+    \begin{itemize}
+        \item \textit{Ajustes del DDA:} Modificar la matriz de probabilidad del Director de Recursos (Tabla~\ref{tab:drop_director}) aumentando el peso del botín médico en dificultades suaves o restringiéndolo en dificultades altas.
+        \item \textit{Densidad de Enemigos (Mundo 1):} Alterar la cantidad total de infectados patrullando activamente los mapas para suavizar la curva de entrada de los usuarios noveles.
+        \item \textit{Sustitución de Enemigos (Mundo 2):} Intercambiar condicionalmente los enemigos con lógicas de ataque complejas o proyectiles predictivos por enemigos básicos de patrulla lineal en los perfiles de juego más sencillos.
+        \item \textit{Densidad de Puntos de Control:} Incrementar de forma escalar la cantidad de checkpoints distribuidos a lo largo del nivel para reducir drásticamente la penalización por muerte en dificultades suaves, o reducirlos al mínimo para perfiles experimentados.
+    \end{itemize}
+    
+    \item \textbf{Comercialización y Lanzamiento:} Completar el desarrollo de la demo jugable hasta consolidar una experiencia de juego pulida y atractiva con el fin de promocionarla, publicar el proyecto en plataformas de distribución digital (como itch.io o Steam) y profesionalizar el trabajo realizado.
+\end{enumerate}
+
+% =========================================================================
+\section{Conclusiones Personales}
+\label{sec:conclusiones_personales}
+La realización de este trabajo ha supuesto el cierre ideal para mi etapa universitaria. Desarrollar una obra de este calibre de forma completamente unipersonal ha constituido una prueba de fuego exigente pero profundamente enriquecedora, permitiéndome poner en práctica, demostrar y consolidar las competencias adquiridas a lo largo de la carrera.
+
+A pesar de haber sido un proceso largo y complejo, las conclusiones que extraigo sobre mi crecimiento profesional son plenamente positivas. Afrontar un desarrollo individual me ha obligado a estructurar un flujo de trabajo autónomo, gestionar tareas de diversa índole y resolver incidencias críticas de manera independiente, lo que me ha aportado valiosas lecciones de organización y paciencia. Me gustaría hacer especial hincapié en esta evolución personal: lo que en un inicio comenzó como un proyecto sumamente ambicioso del cual dudaba si sería capaz de completar, ha culminado en un prototipo robusto y completamente jugable. Ver materializado este resultado me aporta una inmensa satisfacción y demuestra el enorme potencial que ofrecen las herramientas tecnológicas actuales si se emplean de forma correcta como soporte y asistencia en el desarrollo de software.
+
+La conclusión de este proyecto no representa un punto final, sino un fuerte aliciente para continuar expandiendo el universo de \textit{Reset} en el futuro y seguir formándome dentro de la industria. Finalizo este Trabajo de Fin de Grado con una profunda alegría y la motivación reforzada para seguir adquiriendo conocimientos, perfeccionando mi perfil multidisciplinar y demostrando que he sido capaz de plasmar con total fidelidad la visión y motivaciones que definí al comienzo de este camino.

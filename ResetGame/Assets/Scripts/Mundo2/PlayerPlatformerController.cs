@@ -551,7 +551,7 @@ public class PlayerPlatformerController : MonoBehaviour
     }
 
     // Dibujar un círculo rojo en el editor de Unity para poder ajustar el GroundCheck fácilmente
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         if (groundCheck != null)
         {
